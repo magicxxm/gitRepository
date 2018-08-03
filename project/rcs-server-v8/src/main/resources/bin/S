@@ -1,0 +1,91 @@
+#!/bin/bash  
+#  
+### BEGIN INIT INFO  
+# Provides:          rcs 
+# Required-Start:    $remote_fs $syslog  
+# Required-Stop:     $remote_fs $syslog  
+# Should-Start:      $network $time  
+# Should-Stop:       $network $time  
+# Default-Start:     2 3 4 5  
+# Default-Stop:      0 1 6  
+# Short-Description:  
+# Description:        
+#                     
+### END INIT INFO  
+#JDK所在路径
+export JAVA_HOME=/usr/java/jdk1.8
+export CLASSPATH=.:$JAVA_HOME/lib:$CLASSPATH
+export PATH=.:$JAVA_HOME/bin:$PATH
+
+
+#脚本所在的目录
+RCS_HOME=$(cd "$(/home/mushiny/RCS/ "$0")"; pwd)
+
+
+#class名称，编译时替换
+RCS_CLASS=com.mushiny.kivaconfigtool.KivaConfigTool
+
+
+#jar名称，编译时替换
+RCS_LIB=KivaConfigTool-1.0-SNAPSHOT.jar
+
+
+#日志
+RCS_LOG=$APP_HOME/log
+
+
+#java虚拟机启动参数
+JAVA_OPTS="-ms512m -mx512m -Xmn256m -Djava.awt.headless=true -XX:MaxPermSize=128m"
+
+
+
+
+###################################
+#(函数)判断程序是否已启动
+#说明：
+#使用JDK自带的JPS命令及grep命令组合，准确查找pid
+#jps 加 l 参数，表示显示java的完整包路径
+#使用awk，分割出pid ($1部分)，及Java程序名称($2部分)
+###################################
+#初始化psid变量（全局）
+psid=0
+checkpid() {
+javaps=`jps -l|grep $RCS_CLASS`
+if [ -n "$javaps" ]; then
+psid=`echo $javaps | awk '{print $1}'`
+else
+psid=0
+fi
+}
+###################################
+#(函数)启动程序
+#
+#说明：
+#1. 首先调用checkpid函数，刷新$psid全局变量
+#2. 如果程序已经启动（$psid不等于0），则提示程序已启动
+#3. 如果程序没有被启动，则执行启动命令行
+#4. 启动命令执行后，再次调用checkpid函数
+#5. 如果步骤4的结果能够确认程序的pid,则打印[OK]，否则打印[Failed]
+#注意：echo -n 表示打印字符后，不换行
+#注意: "nohup 某命令 &gt;/dev/null 2&gt;&amp;1 &amp;" 的用法
+###################################
+start() {
+echo "****************************"
+checkpid
+if [ $psid -ne 0 ]; then
+echo "================================"
+echo "程序: $RCS_CLASS 已经启动! (进程号=$psid)"
+echo "================================"
+else
+echo "启动 $RCS_CLASS ..."
+nohup java $JAVA_OPTS -Djava.ext.dirs=$RCS_LIB $RCS_CLASS >> nohup.out 2>&1 &
+checkpid
+if [ $psid -ne 0 ]; then
+echo "程序: $RCS_CLASS 启动成功! (进程号=$psid) [OK]"
+else
+echo "程序: $RCS_CLASS 启动失败! [Failed]"
+fi
+fi
+echo "****************************"
+}
+start;

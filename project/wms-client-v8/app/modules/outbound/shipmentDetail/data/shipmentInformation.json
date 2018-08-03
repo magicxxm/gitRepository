@@ -1,0 +1,23 @@
+{
+  "smallShipmentDTO":{
+    "shipmentId":"M123456789",
+    "exSD":"2017/3/7 12:10:00",
+    "createTime":"2017/3/7 6:10:00",
+    "condition":"Sorted",
+    "batchId":"1234567",
+    "batchCreateTime":"2017/3/7 8:15:00"},
+  "MultiItemDTO":[{
+    "skuId":"MS12345678",
+    "skuNo":"345678",
+    "quantity":1,
+    "Location":"CP001",
+    "tittle":"秘密花园:一本探索奇境的手绘涂色书"
+  }],
+  "MultiShipmentStateDTO":[{
+    "time":"2017/3/7 8:00:00",
+    "state":"Raw",
+    "stateNum":0,
+    "station":"Null",
+    "operator":"Null"
+  }]
+}

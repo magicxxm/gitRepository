@@ -1,0 +1,103 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'TOT' | translate }}&nbsp;/&nbsp;{{'PPRSTATISTICS' | translate }}</span>
+  </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <div style="width:1000px;height:20px;border: 0px">
+    </div>
+    <div id="ppr-top" style="display:table;border:1px black solid;margin-left: 15px;margin-top:5px;width: 80%">
+            <table height="140px"  cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width=40% border-right="1px black solid">
+                        <table width=100% border-right="1px black solid">
+                            <tr style="text-align: center">
+                                <td>
+                                    库房
+                                </td>
+                                <td>
+                                    <input id="selectWarehouse" style="width:60%;" />
+                                </td>
+                            </tr>
+                            <tr style="text-align: center">
+                                <td>
+                                    客户
+                                </td>
+                                <td>
+                                    <input id="selectClientInfos" style="width:60%;" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan=2>
+                        <table width=100% height=100%>
+                            <tr style="text-align: left">
+                                <td colspan=2>
+                                    Report Date Range
+                                </td>
+                            </tr>
+                            <tr style="text-align: left">
+                                <td>
+                                    <input id="dayState" type="radio" ng-value=1 ng-init="timeType=1" ng-checked="true" ng-model="timeType" name="dayState" ng-click="setState($event)" > Day
+                                </td>
+                                <td>
+                                    <input style="margin-left: 20px;width:85%" id="dayDatetimepicker"  ng-model="dayTime"  />
+                                </td>
+
+                            </tr>
+                            <tr style="text-align: left">
+                                <td>
+                                    <input id="weekDateState" type="radio" ng-value=2  ng-model="timeType" name="dayState" ng-click="setState($event)"> Week
+                                </td>
+                                <td>
+                                    <input style="margin-left: 20px;width:85%" id="weekDatetimepicker"  ng-model="weekSrcDate"  />
+
+                                </td>
+                            </tr>
+                            <tr style="text-align: left">
+                                <td>
+                                    <input id="monthDateState" type="radio" ng-value=3 ng-model="timeType" name="dayState" ng-click="setState($event)"> Month
+                                </td>
+                                <td>
+                                    <input style="margin-left: 20px;width:85%" id="monthDateTimepicker"  ng-model="monthDate"/>
+                                </td>
+
+                            </tr>
+                            <tr style="text-align: left">
+                                <td>
+                                    <input id="dateTimeState" type="radio" ng-value=4 ng-model="timeType" name="dayState" ng-click="setState($event)">IntraDay
+                                </td>
+                                <td>
+
+                                    <input style="margin-left: 20px;width:85%" id="startDatetimepicker"  ng-model="startDateTime"/>
+                                </td>
+                                <td>
+                                    to<input style="margin-left: 20px;width:85%" id="endDatetimepicker"  ng-model="endDateTime" />
+                                </td>
+                            </tr>
+                            <tr style="text-align: right">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <kendo-button class="k-primary" ng-click="submitStatistics()" style="font-size:18px;margin-left: 20px;">{{'SUBMIT'| translate }}</kendo-button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+    </div>
+        <div>{{flag}}</div>
+  <div style="margin-top:10px;">
+      <div style="padding:1em;">
+        <div style="margin-top:10px;">
+          <kendo-grid id="pprStatisticsDataGrid" class="pprStatisticsGrid" options="pprStatisticsDataGridOptions"></kendo-grid>
+      </div>
+      </div>
+  </div>
+    </div>
+</div>
+<style>
+</style>

@@ -1,0 +1,36 @@
+<div class="inFontPro" style="margin-top:5px;font-size:20px;" >请确认货位中问题商品数量</div>
+<div style="height:{{mainHeight+36}}px;">
+    <div style="width:49%;float:left;text-align:center;">
+        <div class="inFontPro" style="background:#bdd7ee;">{{problemTypeValue}}—{{amount}}—{{toContainer}}
+            <kendo-button class="k-primary" style="float:left;font-size:18px;background:#ffff00;border:1px solid #ffff00;color:black;height:40px;"  ng-click="backProblemInbound()">{{'BACK' | translate }}</kendo-button>
+        </div>
+        <div style="background:#f2f2f2;height:{{mainHeight+6}}px;">
+            <div style="text-align:center;padding-top:10px;"><img  height="250px" width="250px" src="image/20161022134004.png" /></div>
+            <div style="margin-top:10px;">
+                <table align="center" style="width:100%;font-size:16px;font-weight:600;" cellpadding="0" cellspacing="0">
+                    <tr style="background: #00b0f0;"><th class="tdPro1" style="width:150px;color:white;">项目</th><th class="tdPro2" style="color:white;">内容</th></tr>
+                    <tr><td class="tdPro1">{{'NUMBER ID'| translate }}</td><td class="tdPro2">{{itemNo}}</td></tr>
+                    <tr><td class="tdPro1"> {{'SKU ID'| translate }} </td><td class="tdPro2">{{skuNo}}</td></tr>
+                    <tr><td class="tdPro1">{{'GOODS_NAME'| translate }}</td><td class="tdPro2" style="text-align:left;">{{name}}</td></tr>
+                    <tr><td class="tdPro1">长*宽*高</td><td class="tdPro2">{{depth}}*{{width}}*{{height}}mm</td></tr>
+                    <tr><td class="tdPro3">重量</td><td class="tdPro4">{{volume}}g</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div style="width:2%;float:left;">
+        &nbsp;
+    </div>
+    <div style="width:49%;float:left;">
+        <div  class="inFontPro" style="background:#bdd7ee" >上架货位记录</div>
+        <div style="background:#f2f2f2;height:{{mainHeight+6}}px;">
+            <div style="text-align:center;padding-top:10px;">
+                <kendo-button id="adjustmentCargoSpaceId"class="k-primary" style="font-size:18px;" ng-click="adjustmentCargoSpace()">涉及调整货位</kendo-button>
+            </div>
+            <div style="padding:10px;">
+                <kendo-grid  style="height:260px" class="inboundGrid"   id="adjustmentCargoSpaceGRID" options="adjustmentCargoSpaceGridOptions"></kendo-grid>
+            </div>
+        </div>
+    </div>
+</div>
+

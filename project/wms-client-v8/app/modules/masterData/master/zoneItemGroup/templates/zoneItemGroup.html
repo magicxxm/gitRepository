@@ -1,0 +1,68 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;
+        <span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;{{'ZONE_ITEM_GROUP' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <!-- up -->
+        <div translate="ZONE"></div>
+        <hr/>
+        <div class="mushiny_selectBox">
+            <span class="mushiny_selectLabel" style="margin-left:-4px;" translate="CLIENT"></span>
+            <select kendo-combo-box class="mushiny_listInput" k-ng-model="client"
+                    k-options="selectClientOptions"></select>
+            <span class="mushiny_selectLabel" style="margin-left:49px;" translate="ZONE"></span>
+            <input id="selectZoneByClient" kendo-combo-box class="mushiny_listInput" k-options="selectZoneOptions"
+                   k-ng-model="selectZone"/>
+        </div>
+        <!-- up-left -->
+        <div class="mushiny_filterLabel" translate="UNASSIGN_ITEM_GROUP"></div>
+        <div class="mushiny_listBox">
+            <input class="k-textbox mushiny_listInput" type="text" ng-model="unAssignItemGroup"
+                   ng-keyup="filterInput($event, 'listUnassignItemGroups', unAssignItemGroup)"/>
+            <div id="listUnassignItemGroups" kendo-list-view k-options="listUnassignItemGroups"
+                 class="mushiny_list"></div>
+        </div>
+        <div class="mushiny_listBtn" ng-include="'modules/masterData/base/templates/listBtn_horizontal.html'"></div>
+        <!-- up-right -->
+        <div class="mushiny_filterLabel" style="margin-left:-60px;" translate="ASSIGN_ITEM_GROUP"></div>
+        <div class="mushiny_listBox">
+            <input class="k-textbox mushiny_listInput" type="text" ng-model="assignItemGroup"
+                   ng-keyup="filterInput($event, 'listAssignItemGroups', assignItemGroup)"/>
+            <div id="listAssignItemGroups" kendo-list-view k-options="listAssignItemGroups" class="mushiny_list"></div>
+        </div>
+        <div class="mushiny_btnBox">
+            <kendo-button class="k-button k-primary mushiny_btn"
+                          ng-click="save(selectZone, 'listAssignItemGroups', 'saveItemGroupsByZone')"
+                          translate="SAVE"></kendo-button>
+        </div>
+
+        <!-- down -->
+        <!--<div translate="ITEM_GROUP"></div><hr/>-->
+        <!--<div class="mushiny_selectBox">-->
+        <!--<span class="mushiny_selectLabel" style="margin-left:-4px;" translate="ITEM_GROUP"></span>-->
+        <!--<select kendo-combo-box class="mushiny_listInput" k-ng-model="selectItemGroup" k-options="selectItemGroupOptions"></select>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; down-left &ndash;&gt;-->
+        <!--<div class="mushiny_filterLabel" translate="UNASSIGN_ZONE"></div>-->
+        <!--<div class="mushiny_listBox">-->
+        <!--<input class="k-textbox mushiny_listInput" type="text" ng-model="unassignZone" ng-keyup="filterInput($event, 'listUnassignZones', unassignZone)" />-->
+        <!--<div id="listUnassignZones" kendo-list-view k-options="listUnassignZones" class="mushiny_list"></div>-->
+        <!--</div>-->
+        <!--<div class="mushiny_listBtn">-->
+        <!--<div style="padding:5px;"><kendo-button ng-click="moveLeftAll('listUnassignZones', 'listAssignZones')"><span class="k-font-icon k-i-seek-w"></span></kendo-button></div>-->
+        <!--<div style="padding:5px;"><kendo-button ng-click="moveLeftSelect('listUnassignZones', 'listAssignZones')"><span class="k-font-icon k-i-arrowhead-w"></span></kendo-button></div>-->
+        <!--<div style="padding:5px;"><kendo-button ng-click="moveRightSelect('listUnassignZones', 'listAssignZones')"><span class="k-font-icon k-i-arrowhead-e"></span></kendo-button></div>-->
+        <!--<div style="padding:5px;"><kendo-button ng-click="moveRightAll('listUnassignZones', 'listAssignZones')"><span class="k-font-icon k-i-seek-e"></span></kendo-button></div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; down-right &ndash;&gt;-->
+        <!--<div class="mushiny_filterLabel" style="margin-left:-60px;" translate="ASSIGN_ZONE"></div>-->
+        <!--<div class="mushiny_listBox">-->
+        <!--<input class="k-textbox mushiny_listInput" type="text" ng-model="assignZone" ng-keyup="filterInput($event, 'listAssignZones', assignZone)" />-->
+        <!--<div id="listAssignZones" kendo-list-view k-options="listAssignZones" class="mushiny_list"></div>-->
+        <!--</div>-->
+        <!--<div class="mushiny_btnBox">-->
+        <!--<kendo-button class="k-button k-primary mushiny_btn" ng-click="save(selectItemGroup, 'listAssignZones', 'saveZonesByItemGroup')" translate="SAVE"></kendo-button>-->
+        <!--</div>-->
+    </div>
+</div>

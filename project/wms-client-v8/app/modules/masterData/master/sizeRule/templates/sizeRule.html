@@ -1,0 +1,14 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;{{'SIZE_RULE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <!-- grid -->
+        <div class="gridToolbar">
+            <kendo-button class="k-primary gridButton"><span></span>
+            </kendo-button>
+        </div>
+        <kendo-grid id="sizeRuleGrid" options="sizeRuleGridOptions"></kendo-grid>
+    </div>
+</div>

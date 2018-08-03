@@ -1,0 +1,47 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_WAREHOUSE' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.map" href="#">{{'MAP' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="nodeSize" class="required" style="float:right">{{'NODE_SIZE' | translate}}</label></div>
+          <div class="formRight"><input type="number" id="nodeSize" name="nodeSize" class="k-textbox"  ng-model="nodeSize"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="numberOfColumns" class="required" style="float:right">{{'NUMBER_OF_COLUMNS' | translate}}</label></div>
+          <div class="formRight"><input type="number" id="numberOfColumns" name="numberOfColumns" class="k-textbox"  ng-model="numberOfColumns"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="numberOfRows" class="required" style="float:right">{{'NUMBER_OF_ROWS' | translate}}</label></div>
+          <div class="formRight"><input type="number" id="numberOfRows" name="numberOfRows" class="k-textbox"  ng-model="numberOfRows"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'SECTION' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="section" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="sectionSource"></select>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'ACTIVE' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="active" id="activeTrue" class="k-radio" value="true" ng-model="active">
+            <label class="k-radio-label" for="activeTrue">True</label>
+            <input type="radio" name="active" id="activeFalse" class="k-radio" value="false" ng-model="active">
+            <label class="k-radio-label" for="activeFalse">False</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

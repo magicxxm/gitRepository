@@ -1,0 +1,58 @@
+<div style="text-align:center;font-size:20px;font-weight:600;margin-top:5px;">请选择需要处理的问题</div>
+<div style="margin:10px auto;width:98%">
+    <kendo-button class="k-primary" id="problemsSolvingId"  style="width:150px;font-size:18px;" ng-click="problemsSolving()" >待问题处理</kendo-button>
+    <kendo-button class="k-primary" id="problemRecordsId" style="width:150px;font-size:18px;" ng-click="problemRecords()" >处理问题记录</kendo-button>
+    <kendo-button class="k-primary" id="problemClosesId" style="width:150px;font-size:18px;" ng-click="problemCloses()" >关闭问题记录</kendo-button>
+</div>
+<div style="height:{{mainHeight+6}}px;width:98%;margin:10px auto;background:#f2f2f2;">
+    <div style="margin-left:10px;padding-top:10px;">
+        <div ng-show="problemsGridTimeSearch=='problemsSolveTimeSearch'">
+            <span style="font-size:18px;">开始时间</span>&nbsp;&nbsp;<input  kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="stateDateOpen" >
+            <span style="font-size:18px;">结束时间</span>&nbsp;&nbsp;<input  kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="endDateOpen">
+            <kendo-button class="k-primary"  style="font-size:18px;" ng-click="searchOpen()">搜索</kendo-button>
+        </div>
+        <div ng-show="problemsGridTimeSearch=='problemsRecordTimeSearch'">
+            <span style="font-size:18px;">开始时间</span>&nbsp;&nbsp;<input  kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="stateDateProcess">
+            <span style="font-size:18px;">结束时间</span>&nbsp;&nbsp;<input  kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="endDateProcess">
+            <kendo-button class="k-primary"  style="font-size:18px;"  ng-click="searchProcess()" >搜索</kendo-button>
+        </div>
+        <div ng-show="problemsGridTimeSearch=='problemsCloseTimeSearch'">
+            <span style="font-size:18px;">开始时间</span>&nbsp;&nbsp;<input  kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="stateDateClose" >
+            <span style="font-size:18px;">结束时间</span>&nbsp;&nbsp;<input  kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="endDateClose">
+            <kendo-button class="k-primary"  style="font-size:18px;" ng-click="searchClose()">搜索</kendo-button>
+        </div>
+    </div>
+    <div style="text-align:center;margin-top:10px;">
+        <div ng-show="problemsGridSearch=='problemsSolveSearch'">
+            <input  type="text" class="k-textbox" style="width:300px;"  ng-model="itemNoLeft" ng-keyup="searchGridLeftKeyDown($event)">
+            <kendo-button class="k-primary" style="font-size:18px;"  ng-click="searchGridLeft()">{{'SEARCH'| translate }}</kendo-button>
+        </div>
+        <div ng-show="problemsGridSearch=='problemsRecordSearch'">
+            <input  type="text" class="k-textbox" style="width:300px;"  ng-model="itemNoRight" ng-keyup="searchGridRightKeyDown($event)" >
+            <kendo-button class="k-primary" style="font-size:18px;"  ng-click="searchGridRight()">{{'SEARCH'| translate }}</kendo-button>
+        </div>
+        <div ng-show="problemsGridSearch=='problemsCloseSearch'">
+            <input  type="text" class="k-textbox" style="width:300px;"  ng-model="itemNoClose" ng-keyup="searchGridCloseKeyDown($event)" >
+            <kendo-button class="k-primary" style="font-size:18px;"  ng-click="searchGridClose()">{{'SEARCH'| translate }}</kendo-button>
+        </div>
+    </div>
+    <div  ng-show="checkbox">
+        <input type="checkbox" id="flag" class="k-checkbox" ng-model="select_all"  ng-click="selectAll()" style="margin-left:10px;" >
+        <label class="k-checkbox-label" for="flag" style="font-size:18px;">全选</label>
+        <kendo-button class="k-primary" style="float:right;margin-right:10px;font-size:18px;background:#f37825;border:1px solid  #f37825"  ng-click="closeProblemsGrid()">关闭问题</kendo-button>
+    </div>
+    <div style="float:left;width:98%;margin-left:10px;margin-top:10px;margin-right:10px;">
+        <div ng-show="problemsGrid=='problemsSolve'">
+            <kendo-grid class="inboundGrid" id="problemsSolvingGrid" options="problemsSolvingGridOptions"></kendo-grid>
+        </div>
+        <div ng-show="problemsGrid=='problemsRecord'">
+            <kendo-grid class="inboundGrid" id="problemRecordsGrid" options="problemRecordsGridOptions"></kendo-grid>
+        </div>
+        <div ng-show="problemsGrid=='problemsClose'">
+            <kendo-grid class="inboundGrid" id="problemCloseGrid" options="problemCloseGridOptions"></kendo-grid>
+        </div>
+    </div>
+</div>
+
+
+

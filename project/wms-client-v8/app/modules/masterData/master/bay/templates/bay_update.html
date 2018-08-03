@@ -1,0 +1,44 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.bay" href="#">{{'BAY' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator" ng-submit="validate($event)">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate
+                        }}</label></div>
+                    <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" ng-model="name"
+                                                  readonly required
+                                                  validationMessage="{{'WARNING_NAME' | translate }}"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="aisle" class="required" style="float:right">通道</label></div>
+                    <div class="formRight"><input type="text" id="aisle" name="aisle" class="k-textbox" ng-model="aisle"
+                                                  readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="bayIndex" class="required" style="float:right">货架序号</label></div>
+                    <div class="formRight"><input type="number" id="bayIndex" name="bayIndex" class="k-textbox"
+                                                  ng-model="bayIndex" readonly required
+                                                  validationMessage="{{'WARNING_BAY_INDEX' | translate }}"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'POD_TYPE' | translate}}</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="podType" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-data-source="podTypeSource" readonly></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

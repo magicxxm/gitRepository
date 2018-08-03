@@ -1,0 +1,3 @@
+<ul kendo-menu k-options="menuOptions" ng-repeat="menu in menus">
+  <li ng-click="forwardSubMenu(menu.childMenuItems)" >{{ menu.menu.module.resourceKey | translate }}</li>
+</ul>

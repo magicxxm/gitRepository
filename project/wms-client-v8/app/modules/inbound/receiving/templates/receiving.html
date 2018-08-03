@@ -1,0 +1,10 @@
+<div class="comPage">{{'WELCOME' | translate }} <span id="receiving_user"></span> {{'RECEIPT_SYSTEM' | translate }}</div>
+<div style="margin-left:10px;">
+
+  <div class="inboundFont"><kendo-button class="inboundButton k-primary" ui-sref="main.goodsReceiptActivate">{{'DN_ACTIVE'|translate}}</kendo-button></div>
+  <div class="inboundFont" style="margin-top:30px;font-weight:600;">{{'RECEIVING_MODE' | translate }}：</div>
+  <div class="inboundFont"><kendo-button class="inboundButton k-primary" ui-sref="main.receivingContainer({id:'Each Receive To Stow'})">1 {{'SINGLE_RECEIPT' | translate }}</kendo-button></div>
+  <div class="inboundFont"><kendo-button class="inboundButton k-primary" ui-sref="main.receivingContainer({id:'Pallet Receive To Stow'})">2 {{'PALLET_RECEIPT'| translate }}</kendo-button></div>
+  <div class="inboundFont"><kendo-button class="inboundButton k-primary" ui-sref="main.receivingContainer({id:'Each Receive To Tote'})">3 {{'TOTE_RECEIPT' | translate}}</kendo-button></div>
+  <div class="inboundFont"><kendo-button class="inboundButton k-primary" ui-sref="main.receivingContainer({id:'Transfer Receive To Stow'})">4 {{'调拨入库' | translate}}</kendo-button></div>
+</div>

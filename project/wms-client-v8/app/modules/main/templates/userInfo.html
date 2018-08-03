@@ -1,0 +1,49 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a><span>&nbsp;/&nbsp;{{'BASIC_MESSAGE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:auto;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'WAREHOUSE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="warehouse" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="warehouseSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'CLIENT' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="clientSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'USERNAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="username" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="name" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="email" class="required" style="float:right">{{'EMAIL' | translate }}</label></div>
+          <div class="formRight"><input type="email" id="email" name="Email" class="k-textbox" placeholder="name@example.com" ng-model="email"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="phone" class="required" style="float:right">{{'PHONE' | translate }}</label></div>
+          <div class="formRight"><input type="text" id="phone" name="phone" class="k-textbox" pattern="\d{11}" ng-model="phone"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'LOCALE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="locale" k-data-text-field="'resourceKey'" k-data-value-field="'selectionValue'" k-data-source="languageSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'MEASURE_TOOL'| translate }}</div>
+<div style="width:50%;margin:10px auto;">
+  <div style="font-size:18px;margin-top:20px;text-align:center;">
+    原始容器&nbsp;&nbsp;<input type="text"  id="sourceId" class="k-textbox"  ng-model="source" ng-keyup="sources($event)">
+  </div>
+  <div style="font-size:18px;margin-top:20px;text-align:center;" >
+    商品条码&nbsp;&nbsp;<input type="text" id="itemNoId" class="k-textbox" ng-model="itemNo" ng-keyup="itemNos($event)">
+  </div>
+  <div style="margin-top:10px;border:1px solid blue;height:300px;width:100%">
+    <div style="float:left;width:49%;height:240px;border-right:1px solid blue;text-align:center;padding-top:60px;"> <img  width="150px" height="150px" src="image/20161022134004.png"></div>
+    <div style="float:left;width:50%;height:300px;">
+      <div style="font-size:18px;margin-top:30px;text-align:center;">
+        长度(mm)&nbsp;&nbsp;<input type="text" id="widthId"  class="k-textbox" style="width:65%" ng-model="width"  ng-keyup="widths($event)">
+      </div>
+      <div style="font-size:18px;margin-top:30px;text-align:center;" >
+        宽度(mm)&nbsp;&nbsp;<input type="text" id="depthId"  class="k-textbox" style="width:65%" ng-model="depth"  ng-keyup="depths($event)">
+      </div>
+      <div style="font-size:18px;margin-top:30px;text-align:center;" >
+        高度(mm)&nbsp;&nbsp;<input type="text" id="heightId"  class="k-textbox" style="width:65%" ng-model="height" ng-keyup="heights($event)">
+      </div>
+      <div style="font-size:18px;margin-top:30px;text-align:center;" >
+        重量(g)&nbsp;&nbsp;<input type="text" id="weightId"  class="k-textbox" style="width:65%" ng-model="weight" ng-keyup="weights($event)">
+      </div>
+      <div style="font-size:18px;margin-top:20px;text-align:center;">
+        <span>测量机器</span><input type="text"  class="k-textbox" style="width:45%;margin-left:5px" ng-model="measureName" ><kendo-button class="k-primary" style="width:90px;margin-left:5px" ng-click="measureToolmeasure()">测量</kendo-button>
+      </div>
+    </div>
+  </div>
+  <div style="font-size:18px;margin-top:20px;text-align:center;" >
+    目的容器&nbsp;&nbsp;<input type="text"  id="destinationId" class="k-textbox"  ng-model="destination"  ng-keyup="destinations($event)">
+  </div>
+  <div style="font-size:18px;margin-top:20px;text-align:center">
+    <kendo-button class="k-primary" style="width:180px;" ng-click="selectTransferRecords()">S查看测量记录</kendo-button>
+  </div>
+  <div style="font-size:18px;margin-top:20px;text-align:center;background: red;padding: 20px 0 20px 0" ng-show="errMessage">
+    <span style="color:white;font-weight: bold" >{{errMessage}}</span>
+  </div>
+</div>
+
+<div kendo-window="measureSaveWindow"  id="saveMeasureId"   k-title="'保存成功'" k-visible="false" k-modal="true">
+  <div style="margin:20px auto;width:98%;font-size:18px;text-align: center;">
+    保存成功
+  </div>
+  <div style="text-align:center;width:100%;float:left;">
+    <kendo-button class="k-primary ReceiptBut" id="saveMeasureSureId" ng-click="saveMeasureSure();" >{{'SURE' | translate }}</kendo-button>
+  </div>
+</div>

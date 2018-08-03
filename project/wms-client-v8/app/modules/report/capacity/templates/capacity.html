@@ -1,0 +1,40 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'REPORT' | translate }}&nbsp;/&nbsp;{{'CAPACITY' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;">
+    <div style="padding-top:10px;">
+            <kendo-button class="k-primary" ng-style="{ background:  (capacityType=='total') ?'#3f51b5':  '#585858'}" ng-click="capacityType='total';totalQuery()"
+        style="width:150px;font-size:16px;">total</kendo-button>
+      <kendo-button class="k-primary" ng-style="{background:  (capacityType=='pod') ?  '#3f51b5':  '#585858'}" ng-click="capacityType='pod';queryCapcityPods()"
+        style="width:150px;font-size:16px;">pod</kendo-button>
+
+    </div>
+    <div ng-show="capacityType==='pod'">
+
+      <div id="capacityTopBar" style="display: flex;margin-bottom: 10px;align-items:center;flex-wrap:wrap">
+      </div>
+      <div></div>
+      <!-- grid -->
+      <div class="capacitybar">
+
+      </div>
+      <kendo-grid style="text-align: center" id="capacityGRID" options="capacityGridOptions"></kendo-grid>
+    </div>
+    <div ng-show="capacityType==='total'">
+
+      <div id="capacityTotalTopBar" style="display: flex;margin-bottom: 10px;align-items:center;flex-wrap:wrap">
+      </div>
+      <div></div>
+      <!-- grid -->
+      <div class="capacitybar">
+
+      </div>
+      <kendo-grid style="text-align: center" id="capacityTotalGRID" options="capacityTotalGridOptions" ></kendo-grid>
+    </div>
+  </div>
+</div>
+<style>
+
+</style>

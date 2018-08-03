@@ -1,0 +1,43 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.sabc_rule">{{'SABC_RULE' | translate }}</a>&nbsp;/&nbsp;{{'READ' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator" ng-submit="validate($event)">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">名称</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="skuTypeName" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">from</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="fromNo" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">to</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="toNo" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">收货Doc</label></div>
+                    <div class="formRight"><input type="number" class="k-textbox" ng-model="maxDoc" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">补货Doc</label></div>
+                    <div class="formRight"><input type="number" class="k-textbox" ng-model="replenDoc" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">安全Doc</label></div>
+                    <div class="formRight"><input type="number" class="k-textbox" ng-model="safelyDoc" readonly/></div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" ui-sref="main.sabc_rule">{{'BACK' | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.area">{{'AREA' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label  class="required" style="float:right">{{'CLIENT' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="$root.clientSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="description" name="description" class="k-textbox" ng-model="description"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_GOODS_IN' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="useForGoodsIn" id="useForGoodsInY" class="k-radio" value='true' ng-model="useForGoodsIn">
+            <label class="k-radio-label" for="useForGoodsInY">&nbsp;Y</label>
+            <input type="radio" name="useForGoodsIn" id="useForGoodsInN" class="k-radio" value='false' ng-model="useForGoodsIn">
+            <label class="k-radio-label" for="useForGoodsInN">&nbsp;N</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_GOODS_OUT' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="useForGoodsOut" id="useForGoodsOutY" class="k-radio" value='true' ng-model="useForGoodsOut" >
+            <label class="k-radio-label" for="useForGoodsOutY">&nbsp;Y</label>
+            <input type="radio" name="useForGoodsOut" id="useForGoodsOutN" class="k-radio" value='false' ng-model="useForGoodsOut" >
+            <label class="k-radio-label" for="useForGoodsOutN">&nbsp;N</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_PICKING' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="useForPicking" id="useForPickingY" class="k-radio" value='true' ng-model="useForPicking" >
+            <label class="k-radio-label" for="useForPickingY">&nbsp;Y</label>
+            <input type="radio" name="useForPicking" id="useForPickingN" class="k-radio" value='false' ng-model="useForPicking">
+            <label class="k-radio-label" for="useForPickingN">&nbsp;N</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_REPLENISH' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="useForReplenish" id="useForReplenishY" class="k-radio" value='true' ng-model="useForReplenish">
+            <label class="k-radio-label" for="useForReplenishY">&nbsp;Y</label>
+            <input type="radio" name="useForReplenish" id="useForReplenishN" class="k-radio" value='false' ng-model="useForReplenish">
+            <label class="k-radio-label" for="useForReplenishN">&nbsp;N</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_STORAGE' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="useForStorage" id="useForStorageY" class="k-radio"  value='true' ng-model="useForStorage">
+            <label class="k-radio-label" for="useForStorageY">&nbsp;Y</label>
+            <input type="radio" name="useForStorage" id="useForStorageN" class="k-radio"  value='false' ng-model="useForStorage">
+            <label class="k-radio-label" for="useForStorageN">&nbsp;N</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_TRANSFER' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="useForTransfer" id="useForTransferY" class="k-radio" value='true' ng-model="useForTransfer">
+            <label class="k-radio-label" for="useForTransferY">&nbsp;Y</label>
+            <input type="radio" name="useForTransfer" id="useForTransferN" class="k-radio" value='false' ng-model="useForTransfer">
+            <label class="k-radio-label" for="useForTransferN">&nbsp;N</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_RETURN' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="useForReturn" id="useForReturnY" class="k-radio" value='true' ng-model="useForReturn">
+            <label class="k-radio-label" for="useForReturnY">&nbsp;Y</label>
+            <input type="radio" name="useForReturn" id="useForReturnN" class="k-radio" value='false' ng-model="useForReturn">
+            <label class="k-radio-label" for="useForReturnN">&nbsp;N</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_TRANSPORT' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="useForTransport" id="useForTransportY" class="k-radio" value='true' ng-model="useForTransport">
+            <label class="k-radio-label" for="useForTransportY">&nbsp;Y</label>
+            <input type="radio" name="useForTransport" id="useForTransportN" class="k-radio" value='false' ng-model="useForTransport">
+            <label class="k-radio-label" for="useForTransportN">&nbsp;N</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label  class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

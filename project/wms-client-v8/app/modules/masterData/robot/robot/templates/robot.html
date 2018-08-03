@@ -1,0 +1,19 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'MASTER_ROBOT' | translate }}&nbsp;/&nbsp;{{'ROBOT' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <!-- search -->
+        <span>{{'小车账号' }}：<input kendo-masked-text-box type="text" ng-model="robot" ng-keyup="keyUp($event)"
+                                 style="width:120px;"/></span>
+        <kendo-button class="k-primary" ng-click="searchGrid()">
+            <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+        </kendo-button>
+        <!-- grid -->
+        <div class="gridToolbar">
+            <span ng-include="'modules/common/templates/gridTool.html'" ng-controller="masterCtl"></span>
+        </div>
+        <kendo-grid id="robotGrid" options="robotGridOptions"></kendo-grid>
+    </div>
+</div>

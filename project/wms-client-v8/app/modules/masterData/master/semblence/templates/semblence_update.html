@@ -1,0 +1,27 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.semblence" href="#">{{'SEMBLENCE' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="semblence" class="required" style="float:right">{{'SEMBLENCE' | translate}}</label></div>
+          <div class="formRight"><input type="number" min="10" max="90" id="semblence" class="k-textbox" validationMessage="相似度值范围(0-90)" required ng-model="semblence"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">客户</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="clientId" selected="clientName"  k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'"
+                    k-data-source="clientSource" required validationMessage="必需指定客户"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'SAVE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

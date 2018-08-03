@@ -1,0 +1,24 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'OUTBOUND' | translate }}&nbsp;/&nbsp;{{'ZONE_BATCH' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;">
+      <div id="searchOptions" style="display: flex;flex-wrap:wrap;align-items:center;margin-top: 10px">
+        <span style="line-height: 35px">PP：</span><select kendo-multi-select id="PP"  k-options="processNamesOption" k-ng-model="processNames" style="width:360px;margin-right: 10px"></select>
+    <!-- search -->
+        <span style="line-height: 35px">ExSD：</span>
+        <select kendo-multi-select id="expectSendDelivery"  k-options="deliveryDatesOption"  k-ng-model="deliveryDates" style="width:360px;margin-right: 10px"></select>
+
+        <kendo-button class="k-primary" ng-click="searchGrid()" style="height: 36px">
+            <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+        </kendo-button>
+      </div>
+      <p ng-show="selectedIds" style="padding-top: 1em;">Selected: {{ selectedIds }}</p>
+    <!-- grid -->
+      <div style="margin-top: 10px">
+        <div class="gridToolbar"><kendo-button class="k-primary gridButton" ></kendo-button></div>
+        <kendo-grid id="zoneBatchGRID" options="zoneBatchGridOptions" style="text-align: center; "></kendo-grid>
+      </div>
+  </div>
+</div>

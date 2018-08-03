@@ -1,0 +1,47 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.size_filter_rule" href="#">{{'SIZE_FILTER_RULE' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator" ng-submit="validate($event)">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">名称</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box type="text" class="k-textbox" ng-model="name" k-value="name"
+                                required k-data-source="nameSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">规则名</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box type="text" class="k-textbox" ng-model="rule" k-value="rule"
+                                required k-data-source="ruleSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">方式</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box type="text" class="k-textbox" ng-model="mode" k-value="mode"
+                                required k-data-source="modeSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">值</label></div>
+                    <div class="formRight"><input type="text" name="price" class="k-textbox" required
+                                                  validationMessage="值不能为空" ng-model="price"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'TOT' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.tot_job" href="#">{{'OBP_CELL' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="code" class="required" style="float:right">{{'JOB_CODE' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="code" name="code" class="k-textbox"  required validationMessage="{{'WARNING_CODE' | translate }}" ng-model="code"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'JOB_NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox"  required validationMessage="{{'J_WARNING_NAME' | translate }}"  ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'JOB_INDIRECT_TYPE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box type="text" class="k-textbox" k-data-source="indirectTypeValue" k-value="indirectType" ng-model="indirectType"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'JOB_CATEGOTY_NAME' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="jobcategory" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="getJobcategoryNamesSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="description" class="required" style="float:right">{{'JOB_DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="description" name="description" class="k-textbox"  ng-model="description"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

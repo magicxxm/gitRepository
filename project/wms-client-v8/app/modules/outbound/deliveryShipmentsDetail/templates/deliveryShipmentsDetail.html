@@ -1,0 +1,21 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'OUTBOUND' | translate }}&nbsp;/&nbsp;{{'DELIVERY_SHIPMENTS_DETAIL' | translate }}</span>
+    </div>
+    <div style="display: flex;flex-wrap:wrap;align-items:center;margin-top: 10px">
+        <span style="line-height: 35px">开始时间：</span><input kendo-date-picker k-format="'yyyy-MM-dd'" style="margin-right: 20px" ng-model="startTime">
+        <span style="line-height: 35px">结束时间：</span><input kendo-date-picker k-format="'yyyy-MM-dd'" style="margin-right: 20px" ng-model="endTime">
+        <span style="line-height: 35px">ExSD：</span><select id="exSD" kendo-drop-down-list k-options="exSDOptions" style="font-size: 12px;margin-right: 20px"></select>
+        <input type="checkbox" id="notShipped" class="k-checkbox"  ng-model="checked">
+        <label class="k-checkbox-label" for="notShipped" style="margin-right: 20px">只显示未发货Shipment</label>
+        <kendo-button class="k-primary" ng-click="determineSearchCriteria()">{{'SURE' | translate}}</kendo-button>
+    </div>
+    <div style="width: 50%;margin:10px auto; text-align: center">
+        <input type="text" class="k-textbox" style="margin-right: 10px; width: 200px" ng-model="searchOption"/>
+        <kendo-button class="k-primary" ng-click="search()"><span class="k-font-icon k-i-search"></span>{{'SEARCH' | translate}}</kendo-button>
+    </div>
+    <div style="text-align:center">
+        <kendo-grid class="inboundGrid" id="deliverShipmentsDetailGrid" options="deliverShipmentsDetailGridOptions"></kendo-grid>
+    </div>
+</div>

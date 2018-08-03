@@ -1,0 +1,34 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.hardware" href="#">{{'HARDWARE' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="ipAddress" class="required" style="float:right">{{'IP_ADDRESS' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="ipAddress" name="ipAddress" class="k-textbox" ng-model="ipAddress" required validationMessage="{{'WARNING_IP_ADDRESS' | translate }}"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="portNumber" class="required" style="float:right">{{'PORT_NUMBER' | translate}}</label></div>
+          <div class="formRight"><input type="number" id="portNumber" name="portNumber" class="k-textbox"  ng-model="portNumber"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'HARDWARE_TYPE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="hardwareType" k-data-text-field="'resourceKey'" k-data-value-field="'selectionValue'"  k-filter="'contains'" k-data-source="hardwareTypeSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

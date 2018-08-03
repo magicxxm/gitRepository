@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml" />-->
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <!--<property name="LOG_HOME" value="/home" />-->
+    <!-- 开发环境变量develop-->
+    <springProfile name="dev">
+        <property name="LOG_HOME" value="E:/SpDevLogs"/>
+    </springProfile>
+    <!-- 生成环境变量product-->
+    <springProfile name="pro">
+        <property name="LOG_HOME" value="/home/mushiny/wms_v8"/>
+    </springProfile>
+    <!--RobotManager_FILE-->
+    <appender name="WCS_SERVER_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<file>E:/logs/mylog.txt</file>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>/home/mushiny/wms_v8/wcs-server-v8/WCS_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>5</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>500MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--MQ收发日志文件输出-->
+    <appender name="MQ_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<file>E:/logs/mylog.txt</file>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>/home/mushiny/wms_v8/wcs-server-v8/MQ_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>5</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>500MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- 日志文件:按照每天生成 -->
+    <root level="ERROR">
+        <!-- 日志输出地点,输出一个就行 -->
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <!--<logger name="com.mushiny.mq" level="DEBUG"/>-->
+    <logger name="com.mushiny.mq" level="DEBUG" additivity="false">
+        <appender-ref ref="MQ_FILE"/>
+    </logger>
+    <logger name="com.mushiny" level="DEBUG" additivity="false">
+        <appender-ref ref="WCS_SERVER_FILE"/>
+    </logger>
+
+</configuration>

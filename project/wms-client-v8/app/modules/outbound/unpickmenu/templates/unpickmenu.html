@@ -1,0 +1,69 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'UNPICKMENU' | translate }}</span>
+    </div>
+
+    <div class="inboundInteface" >
+        <div class="inboundIntefaceSearchCondition">
+          <div class="input-group">
+            <input type="text" class="form-control" id="stationName" ng-keyup="searchUnPickMenu($event)" placeholder="工作站：" ng-model="stationname">
+            <span class="input-group-btn">
+                <kendo-button class="k-primary" ng-click="specialSearch()"><span class="k-font-icon k-i-search"></span>{{'SEARCH' | translate}}</kendo-button>
+                     <!--<button  class="btn  btn-primary" ng-click="specialSearch()"><span class="glyphicon glyphicon-search" ></span>搜索</button>-->
+             </span>
+          </div>
+        </div>
+        <kendo-grid class="inboundGrid" id="inboundIntefaceContainer" options="inboundIntefaceDataGridOptions"></kendo-grid>
+  </div>
+</div>
+<style>
+
+  .inboundIntefaceSearchCondition ul{
+   list-style: none;
+   margin-top:10px;
+   margin-bottom: 15px;
+
+}
+  .inboundInteface-li label{
+    margin-right:10px;
+    margin-left:10px
+  }
+ .btn-primary, .btn-primary:hover .btn-primary:visited{
+    background-color:#3f51b5;
+    border-color:#3f51b5;
+  }
+ .btn-primary:active,.btn-primary:focus,.btn-primary:active:focus
+  {
+    background-color:#6e7b8b;
+    border-color:#6e7b8b;
+  }
+
+ .inboundIntefaceSearchCondition  li{
+   display:inline-block;
+   vertical-align:top;
+   margin-bottom:10px
+}
+  .inboundInteface-li{
+    margin-right:10px;
+  }
+  .input-group
+  {
+    width:27%;
+    margin-left: 29%;
+    margin-top:20px;
+    margin-bottom: 15px;
+  }
+
+  .transferDisplayButton a{
+    color:#fafafa;
+    padding-left:50px;
+    margin-left: 20px;
+    margin-right: 66px;
+    line-height: 30px;
+    font-size: 13px;
+
+  }
+
+
+</style>

@@ -1,0 +1,18 @@
+<div style="height:327px;font-size:12px;">
+  <!-- search -->
+  <span ng-show="searchOptions.showClient">{{'CLIENT_NAME' | translate }}：
+    <select kendo-combo-box k-ng-model="client" ng-disabled="searchOptions.disableClient" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="clientSource"></select>
+  </span>
+  <span ng-show="searchOptions.showSkuNo">{{'SKU_NO' | translate }}：<input kendo-masked-text-box type="text" ng-model="skuNo" style="width:120px;"/></span>
+  <span>{{'NAME' | translate }}：<input kendo-masked-text-box type="text" ng-model="name" style="width:120px;"/></span>
+  <kendo-button id="searchBtn" class="k-primary" options="searchOptions" ng-click="searchInWindow(searchOptions, name, client, skuNo)">
+    <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+  </kendo-button>
+  <!-- grid -->
+  <div class="gridToolbar"><kendo-button class="k-primary gridButton"></kendo-button></div>
+  <kendo-grid id="queryGrid" k-options="queryGridOptions"></kendo-grid>
+</div>
+<div style="float:right;font-size:12px;margin-top:10px;">
+  <kendo-button class="k-button k-primary" ng-click="doSelectInWindow(window)">{{"SURE" | translate }}</kendo-button>
+  <kendo-button class="k-button k-primary" style="margin-left:10px;" ng-click="window.close()">{{"CANCEL" | translate }}</kendo-button>
+</div>

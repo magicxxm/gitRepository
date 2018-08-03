@@ -1,0 +1,38 @@
+<div class="mushiny-container">
+<div class="clockPage" style="background:#00b050" ><img src="image/clock.png" style="float: left;" />
+  {{'WELCOME_CLOCK' | translate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div style="margin-left:10px;text-align: center;">
+  <div class="totFont" style="margin-top:90px;font-weight: 600;">{{'TOT_EMPLOYEE_CODE' | translate }}：
+    <input id="employeeCode"  type="text" class="inputFont" ng-keydown="scanEmployeeCode($event)"  ng-model="employeeCode"/>
+  </div>
+</div>
+<div style="width:1000px;height:70px;border: 0px">
+</div>
+<div  ng-show="showAttInfo_gb" style="padding-top:15px;padding-bottom:15px;padding-left:10px;padding-right:15px;width:500px;height:220px;margin: 0 auto;background:#65b242;color:white;text-align:left;font-size:25px;">
+  <div class="headFont" style="margin-top:30px;font-weight: 600;">{{'TOT_EMPLOYEE_NAME' | translate }}：
+    {{totEmployeeName}}
+  </div>
+  <div class="headFont" style="margin-top:30px;font-weight: 600;">{{'TOT_CLOCKTYPE' | translate }}：
+    {{totClockType}}
+  </div>
+  <div class="headFont" style="margin-top:30px;font-weight: 600;">{{'TOT_CLOCKTIME' | translate }}：
+    {{totClocktime}}
+  </div>
+</div>
+<div  ng-show="showAttInfo_lb" style="padding-top:15px;padding-bottom:15px;padding-left:10px;padding-right:15px;width:500px;height:220px;margin: 0 auto;background:#5595db;color:white;text-align:left;font-size:25px;" >
+  <div class="headFont" style="margin-top:30px;font-weight: 600;">{{'TOT_EMPLOYEE_NAME' | translate }}：
+    {{totEmployeeName}}
+  </div>
+  <div class="headFont" style="margin-top:30px;font-weight: 600;">{{'TOT_CLOCKTYPE' | translate }}：
+    {{totClockType}}
+  </div>
+  <div class="headFont" style="margin-top:30px;font-weight: 600;">{{'TOT_CLOCKTIME' | translate }}：
+    {{totClocktime}}
+  </div>
+</div>
+  <div style="width:1000px;height:40px;border: 0px">
+  </div>
+  <div ng-show="showError" style=" clear:both; width: 500px;height: 120px;line-height: 120px;background: red;margin-top: 30px;font-size: 30px;text-align: center;color: white;margin:0 auto;">{{errMessage}} </div>
+</div>
+</div>
+

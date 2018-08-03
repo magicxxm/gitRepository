@@ -1,0 +1,21 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'TOT' | translate }}&nbsp;/&nbsp;{{'TOT_JOBTHRESHOLD' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;">
+    <!-- search -->
+    <!--<span>{{'NAME' | translate }}：<input kendo-masked-text-box type="text" ng-model="name" style="width:120px;"/></span>-->
+    <!--<kendo-button class="k-primary" ng-click="searchGrid()">-->
+      <!--<span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}-->
+    <!--</kendo-button>-->
+    <!-- grid -->
+    <div class="gridToolbar" ng-controller="totCtl">
+      <kendo-button class="k-primary gridButton" ng-click="update()">
+        <span class="k-font-icon k-i-pencil"></span>{{'UPDATE' | translate }}
+      </kendo-button>
+    </div>
+    <kendo-grid id="jobthresholdGrid" options="jobthresholdGridOptions"></kendo-grid>
+  </div>
+</div>
+

@@ -1,0 +1,709 @@
+/*report*/
+/*=======================================zonePicking======================================*/
+
+.k-tabstrip .k-tabstrip-items .k-link {
+  padding: 0.5em;
+}
+
+.k-tabstrip:focus {
+  box-shadow: none;
+}
+
+#zonePickingTab {
+  background-color: #e3e3e3;
+}
+
+.gridCellList {
+  width: 160px;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+  background: green;
+}
+
+.mapColor {
+  float:left;
+  width:80px;
+  height:35px;
+  border-radius:5px;
+  margin:5px;
+  border:0;
+  padding:0;
+  /*text-align:center;*/
+  /*line-height:50px*/
+}
+.colorSet {
+  float:left;
+  height:35px;
+  border-radius:5px;
+  margin:5px;
+  border:0;
+  padding:0;
+  text-align:center;
+  line-height:35px
+}
+
+#reBatchStationGRID td[role='gridcell'],
+#reBinStationTypeGRID td[role='gridcell'] {
+  vertical-align: top;
+}
+
+#reBin_containerDetailWin_wnd_title {
+  font-weight: bold
+}
+
+.rebinChoiceClass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: black;
+  border-radius: 5px;
+  background: white;
+  border: 2px solid black;
+}
+
+.rebinWallFloat {
+  color: black;
+  background: white
+}
+
+#BatchOrderShipmentGRID th {
+  text-align: center
+}
+
+#batchGRID th {
+  text-align: center
+}
+
+#batchReadGRID th {
+  text-align: center
+}
+
+#batchShipmentGRID th {
+  text-align: center
+}
+
+#batchOrderGRID th {
+  text-align: center
+}
+
+.reBinContainerBox {
+  height: -webkit-calc(100% - 55px);
+  height: -moz-calc(100% - 55px);
+  height: calc(100% - 55px);
+}
+
+.reBinContainer {
+  height: -webkit-calc(100% - 5%);
+  height: -moz-calc(100% - 5%);
+  height: calc(100% - 5%);
+}
+
+.verticalBox {
+  height: -webkit-calc(76% - 44px);
+  height: -moz-calc(76% - 44px);
+  height: calc(76% - 44px);
+}
+
+.goodsDetailBox {
+  height: -webkit-calc(100% - 180px);
+  height: -moz-calc(100% - 180px);
+  height: calc(100% - 180px);
+}
+
+.reBinScrollBox {
+  height: -webkit-calc(100% - 60px);
+  height: -moz-calc(100% - 60px);
+  height: calc(100% - 60px);
+}
+
+.reBinVerticalOne:before {
+  position: absolute;
+  right: 0;
+  left: 0;
+  content: '';
+  border-bottom: 48px solid transparent;
+  border-left: 48px solid black;
+}
+
+.reBinVerticalTwo:before {
+  top: 0;
+  right: 0;
+  content: '';
+  border-bottom: 48px solid transparent;
+  border-right: 48px solid black;
+  position: absolute
+}
+
+.reBinVerticalSwiperOne:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  border-bottom: 35px solid transparent;
+  border-left: 35px solid black;
+}
+
+.reBinVerticalSwiperTwo:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  content: '';
+  border-bottom: 35px solid transparent;
+  border-right: 35px solid black;
+}
+
+/* thoma.bian */
+
+.titleRebin {
+  color: white;
+  font-size: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.titleContent {
+  height: 40px;
+ /* background: #517bca;*/
+  text-align: center;
+  color: black;
+  font-size: 24px;
+  padding-top: 10px;
+}
+
+.inputHeight {
+  font-size: 16px;
+  height: 54px !important;
+  width: 200px;
+}
+
+.totCenter {
+  width: 400px;
+  height: 280px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid #517bca;
+  margin-left: -200px;
+  margin-top: -140px;
+}
+
+.errCenter {
+  width: 600px;
+  height: 280px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -300px;
+  margin-top: -140px;
+}
+
+.outCenterTwo {
+  height: -webkit-calc(100% - 70px);
+  height: -moz-calc(100% - 70px);
+  height: calc(100% - 70px);
+}
+
+.outboundContainer {
+  width: 800px;
+  margin-top: 20px;
+  margin-left: -webkit-calc((100% - 800px)/2);
+  margin-left: -moz-calc((100% - 800px)/2);
+  margin-left: calc((100% - 800px)/2);
+}
+
+.outCenterThree {
+  width: 700px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -350px;
+  margin-top: -150px;
+}
+
+.triangle-up {
+  width: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid black;
+  position: absolute;
+  color: white;
+  font-size: 16px;
+}
+
+.rebinCar {
+  height: 30px;
+  background: #517bca;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.tdBottom {
+  border-bottom: 1px solid #517bca;
+}
+
+.tdLeft {
+  border-left: 1px solid #517bca;
+}
+
+.table {
+  border: solid #517bca;
+  border-width: 1px 0px 0px 1px;
+  width: 100%;
+  font-size: 14px;
+  border: 1px solid #517bca;
+  color: white;
+  text-align: center;
+}
+
+.windowTitle .k-window-titlebar,
+.windowTitle .k-window-actions {
+  height: 25px !important;
+  color: white !important;
+  font-size: 16pt !important;
+  text-align: center !important;
+  background: #4775ca !important;
+}
+
+.myWindow .k-window-titlebar,
+.myWindow .k-window-actions {
+  height: 40px !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 20pt !important;
+  text-align: center !important;
+  background: #f37825 !important;
+}
+
+.problemMenu .k-window-titlebar,
+.problemMenu .k-window-actions {
+  height: 40px !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 20pt !important;
+  text-align: center !important;
+  background: #5b9bd5 !important;
+}
+
+.th1 {
+  width: 200px;
+  border-left: solid #517bca 1px;
+  border-bottom: solid #517bca 1px;
+  border-top: solid #517bca 1px;
+}
+
+.th2 {
+  border-left: solid #517bca 1px;
+  border-bottom: solid #517bca 1px;
+  border-right: solid #517bca 1px;
+  border-top: solid #517bca 1px;
+}
+
+.td1 {
+  width: 200px;
+  border-left: solid #517bca 1px;
+  border-bottom: solid #517bca 1px
+}
+
+.td2 {
+  border-left: solid #517bca 1px;
+  border-bottom: solid #517bca 1px;
+  border-right: solid #517bca 1px;
+}
+
+.white_content {
+  position: absolute;
+  top: 50%;
+  width: 50%;
+  margin-left: -25%;
+  font-size: 16px;
+  line-height: 20px;
+  height: 20px;
+  overflow: auto;
+}
+
+.onlyOrderPrintGrid.k-grid td {
+  text-align: center;
+}
+
+.onlyOrderPrintGrid.k-grid tr td {
+  height: 25px !important;
+  font-size: 16px !important;
+}
+
+.onlyOrderPrintGrid .k-grid-header th.k-header {
+  color: white !important;
+  background-color: #00b0f0 !important;
+  text-align: center;
+  vertical-align: middle;
+  height: 25px;
+  font-size: 16px !important;
+}
+
+.onlyOrderPrintGrid .k-grid-header th.k-header>.k-link {
+  color: white !important;
+  text-algin: center;
+  font-weight: 600;
+  font-size: 16px !important;
+}
+
+.deleteList .k-grid td {
+  text-align: center;
+}
+
+.deleteList.k-grid tr td {
+  height: 25px !important;
+  font-size: 14px !important;
+}
+
+.deleteList .k-grid-header th.k-header {
+  color: white !important;
+  background-color: #f57d2f !important;
+  text-align: center;
+  height: 25px !important;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.deleteList .k-grid-header th.k-header>.k-link {
+  color: white !important;
+  text-algin: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.outboundGrid .k-grid td {
+  text-align: center;
+}
+
+.outboundGrid.k-grid tr td {
+  height: 25px !important;
+  font-size: 16px !important;
+}
+
+.outboundGrid .k-grid-header th.k-header {
+  color: white !important;
+  background-color: #2f5597 !important;
+  text-align: center;
+  height: 30px !important;
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.outboundGrid .k-grid-header th.k-header>.k-link {
+  color: white !important;
+  text-algin: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.allGrid .k-grid td {
+  text-align: center;
+}
+
+.allGrid .k-grid-header th.k-header {
+  color: white !important;
+  background-color: #2f5597 !important;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.allGrid .k-grid-header th.k-header>.k-link {
+  color: white !important;
+  text-algin: center;
+  font-weight: 600;
+}
+
+.problemGrid .k-grid td {
+  text-align: center;
+}
+
+.problemGrid .k-grid-header th.k-header {
+  color: white !important;
+  background-color: #2f5597 !important;
+  text-align: center;
+  height: 25px !important;
+  vertical-align: middle;
+}
+
+.problemGrid .k-grid-header th.k-header>.k-link {
+  color: white !important;
+  text-algin: center;
+  font-weight: 600;
+}
+
+.problemCls {
+  font-size: 18px;
+  padding-top: 10px;
+  padding-left: 150px;
+}
+
+.selectInf {
+  font-size: 18px;
+  padding-top: 10px;
+  padding-left: 300px;
+}
+
+.outboundButton {
+  width: 300px;
+  height: 55px;
+  margin-top: 20px;
+  font-size: 20px;
+  background: #ff9933 !important;
+  border: 1px solid #ff9933 !important;
+}
+
+.clockPage{
+  height:150px;
+  text-align:center;
+  color:white;
+  font-size: 50px;
+  padding-top: 10px;
+  line-height: 140px;
+}
+
+.totFont {
+  font-size: 35px;
+  vertical-align: middle;
+}
+.headFont {
+  font-size: 25px;
+  vertical-align: middle;
+}
+.inputFont {
+  font-size: 24px;
+  height: 30px;
+  width: 250px;
+  font-weight:normal
+}
+
+.informationTitle {
+  font-size: 20px;
+  height: 40px;
+  color: white;
+  font-weight: 600;
+  padding-top: 15px;
+  text-align: center;
+  background: #F17723;
+}
+
+.packInfo {
+  font-size: 18px;
+  margin-left: 240px;
+  margin-top: 5px;
+}
+
+.deleteInput {
+  height: 60px !important;
+}
+
+.goodsRowColor {
+  background: #deebf7 !important;
+  border: 1px solid #deebf7 !important;
+  color: black !important;
+}
+
+.goodsRowColorComplete {
+  background: #c5e0b4 !important;
+  border: 1px solid #deebf7 !important;
+  color: black !important;
+}
+
+#measureGrid th{
+  text-align: center;
+}
+
+/*--------------------------PACK----------------------*/
+.packGoodsAmountInputTable{
+  margin: 10px 0 10px 20px;
+  width: 95%;
+  font-size: 20px;
+  height: 100px;
+  text-align: center;
+}
+.packGoodsAmountInputTable td{
+  background: #f3f3f3;
+  width: 20%;
+}
+
+.packGoodDetailsGrid   .k-grid td {
+  text-align: center;
+}
+
+.packGoodDetailsGrid.k-grid tr td {
+  height: 25px !important;
+  font-size: 12px !important;
+}
+
+.packGoodDetailsGrid .k-grid-header th.k-header {
+  color: white !important;
+  background-color: #2f5597 !important;
+  text-align: center;
+  height: 30px !important;
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.packGoodDetailsGrid .k-grid-header th.k-header>.k-link {
+  color: white !important;
+  text-algin: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+#packGoodDetailsGrid tr.k-state-selected:hover,#packGoodDetailsGrid  tr.k-state-selected:hover td,#packGoodDetailsGrid tr:hover{
+  background:none ;
+}
+
+#packGoodDetailsGrid td.k-state-selected, #packGoodDetailsGrid tr.k-state-selected>td{
+  border-bottom:solid 1px rgb(230, 230, 230);
+}
+#packGoodDetailsGrid  .k-state-selected {
+  background:none;
+  color: #444;
+}
+
+#packGoodDetailsGrid td{
+  border: solid 1px #B9D1E7;
+}
+
+.packProblemWindow .k-window-titlebar,
+.packProblemWindow .k-window-actions {
+  height: 25px !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 24px !important;
+  text-align: center !important;
+  background: #f37825 !important;
+}
+#weightBtn .k-button[disabled]{
+  background: gray;
+  color: white;
+}
+#weightBtn .k-button[disabled]:hover{
+  background: gray;
+  color: white;
+}
+/*--------------------------出货系统----------------------*/
+#operateCon .k-button[disabled]{
+  background: gray;
+  color: white;
+}
+#operateCon .k-button[disabled]:hover{
+  background: gray;
+  color: white;
+}
+.deliverySystemWindow .k-window-titlebar,
+.deliverySystemWindow .k-window-actions {
+  height: 25px !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 18px !important;
+  text-align: center !important;
+}
+#deliverySystemTable {
+  width: 65%;
+  font-size: 14px;
+  margin:10px auto;
+}
+#deliverySystemTable td{
+  width: 20%;
+  height: 25px;
+  vertical-align: top;
+}
+.weight{
+  font-weight: 600;
+  font-family: '微软雅黑';
+}
+.inputNumber{
+  height: 70%;border-bottom: solid 1px black;width: 70%; float: left
+}
+#deliverySystemTable .k-button[disabled]{
+  background: gray;
+  color: white;
+}
+#deliverySystemTable .k-button[disabled]:hover{
+  background: gray;
+  color: white;
+}
+#shipmentStateGrid .k-grid-header th.k-header{
+  text-align: center;
+}
+#goodsDetailGrid .k-grid-header th.k-header{
+  text-align: center;
+}
+#shipmentDetailTable{
+  border-left: solid 1px #e6e6e6;
+}
+#shipmentDetailTable td {
+  height: 25px;
+  border-bottom: solid 1px #e6e6e6;
+  border-right: solid 1px #e6e6e6;
+  padding-left: 5px;
+}
+
+/*report*/
+/*=======================================zonePicking======================================*/
+ #capacityGRID .k-grid-header th.k-header , #capacitySideGRID .k-grid-header th.k-header , #capacityBinGRID .k-grid-header th.k-header , #capacityTotalGRID  .k-grid-header th.k-header
+ {
+    vertical-align: middle;
+     white-space: initial;
+  text-align: center;
+  word-break: break-all;
+ }
+ 
+ 
+/*internalTool*/
+.internalToolCenter
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.effectiveDateLab{
+  display: flex;
+  width: 95px;
+  margin-right: 10px;
+  justify-content: flex-end;
+  align-items: center;
+}
+.internalToolQueryTable{
+  border-right: #60A6D8 solid 1px;
+  border-bottom: #60A6D8 solid 1px;
+}
+.internalToolQueryTable th{
+  border-top: #60A6D8 solid 1px;
+  border-left: #60A6D8 solid 1px;
+  background: #00b0f0;
+}
+.internalToolQueryTable td{
+  border-top: #60A6D8 solid 1px;
+  border-left: #60A6D8 solid 1px;
+}
+.changeRecordGrid .k-grid-header th.k-header {
+  color: #444 !important;
+  background-color: #00b0f0 !important;
+  text-align: center;
+  vertical-align: middle;
+  height: 25px !important;
+  white-space: inherit;
+}
+.changeRecordGrid .k-grid-header th.k-header>.k-link {
+  color: #444 !important;
+  text-algin: center;
+  font-weight: 600;
+}
+.jobrecordGrid.k-grid td {text-align:center;}
+.jobrecordGrid.k-grid tr td{ font-size:10px !important;  }
+.jobrecordGrid .k-grid-header th.k-header{color:white !important;background-color:#00b0f0 !important;text-align:center;vertical-align: middle;height:32px !important;
+  white-space:inherit;}
+.jobrecordGrid .k-grid-header th.k-header>.k-link{color:white !important;text-algin:center;font-weight: 600;font-size:13px !important;}
+.pprStatisticsGrid.k-grid td {text-align:center;}
+.pprStatisticsGrid.k-grid tr td{ font-size:10px !important; border:1px solid #eeeeee !important;}
+.pprStatisticsGrid .k-grid-header th.k-header{color:white !important;background-color:#00b0f0 !important;text-align:center;vertical-align: middle;height:24px !important;
+  white-space:inherit;}
+.pprStatisticsGrid .k-grid-header th.k-header>.k-link{color:white !important;text-algin:center;font-weight: 600;font-size:13px !important;}

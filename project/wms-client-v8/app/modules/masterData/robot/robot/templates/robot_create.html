@@ -1,0 +1,32 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.robot"  href="#" >{{'ROBOT' | translate }}</a>&nbsp;/&nbsp;{{'CREATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="robot" class="required" style="float:right">{{'车辆ID'}}</label></div>
+          <div class="formRight"><input type="text" id="robot" name="robot" class="k-textbox" required noRepeatRobotId ng-model="robot"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="password" class="required" style="float:right">{{'PASSWORD' | translate}}</label></div>
+          <div class="formRight">
+            <input type="password" id="password" name="password" class="k-textbox" required validationMessage="{{'WARNING_PASSWORD' | translate }}" ng-model="password"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="robotType" class="required" style="float:right">{{'车辆类型'}}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="robotType" id="robotType" name="robotType" k-data-text-field="'name'" k-data-value-field="'id'" k-data-source="robotTypeSource" k-filter="'contains'" required validationMessage="请选择车辆类型！"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label  class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'SAVE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

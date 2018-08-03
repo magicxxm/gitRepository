@@ -1,0 +1,256 @@
+<div ng-controller="ibpCtl"></div>
+
+<div class="inFontPro"  >请确认货位中问题商品数量
+  <kendo-button  class="k-primary" style="font-size:16px;float:right;margin-right:10px" ng-click="releasePodGrid()">释放POD</kendo-button>
+  <kendo-button id="receiving-releasepod" ng-click="refreshPod()" class="k-primary" style="font-size:16px;float:right;margin-right:10px">{{'刷新POD'|translate}}</kendo-button>
+</div>
+
+  <div style="height:{{mainHeight+36}}px;">
+    <div style="width:49%;float:left;text-align:center;">
+      <div class="inFontPro" style="background:#bdd7ee;">{{problemTypeValue}}—{{amount}}—{{problemStorageLocation}}
+        <kendo-button class="k-primary" style="height:40px;float:left;font-size:16px;background:#ffff00;border:1px solid #ffff00;color:black" ng-click="backProblemInbound()">{{'BACK' | translate }}</kendo-button>
+     </div>
+      <div style="background:#f2f2f2;height:{{mainHeight+6}}px;">
+        <div style="text-align:center;padding-top:10px;"><img  height="250px" width="250px" src="image/20161022134004.png" /></div>
+        <div style="text-align:center;padding-top:10px;"><kendo-button class="k-primary" style="width:250px;font-size:16px;" ng-click="problemGoodsNumber()">确认无法找到对应货位</kendo-button></div>
+        <div style="margin-top:10px;">
+          <table align="center" style="width:100%;font-size:16px;font-weight:600;" cellpadding="0" cellspacing="0">
+            <tr style="background: #00b0f0;"><th class="tdPro1" style="width:150px;color:white;">项目</th><th class="tdPro2" style="color:white;">内容</th></tr>
+            <tr><td class="tdPro1">商品编码</td><td class="tdPro2">{{itemNo}}</td></tr>
+            <tr><td class="tdPro1">{{'SKU ID'| translate }}</td><td class="tdPro2">{{skuNo}}</td></tr>
+            <tr><td class="tdPro1">{{'GOODS_NAME'| translate }}</td><td class="tdPro2">{{name}}</td></tr>
+            <tr><td class="tdPro1">长*宽*高</td><td class="tdPro2">{{depth}}*{{width}}*{{height}}mm</td></tr>
+            <tr><td class="tdPro3">重量</td><td class="tdPro4">{{volume}}g</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div style="width:2%;float:left;">
+      &nbsp;
+    </div>
+    <div style="width:49%;float:left;">
+      <div  class="inFontPro" style="background:#bdd7ee" >上架货位记录
+        <kendo-button class="k-primary" style="float:right;font-size:16px;height:40px;"  ng-click="remarks()">+备注</kendo-button>
+      </div>
+      <div style="background:#f2f2f2;height:{{mainHeight+6}}px;">
+        <div style="text-align:center;padding-top:10px;">
+          <kendo-button id="allCargoSpaceId" class="k-primary" style="width:150px;font-size:16px;" ng-click="allCargoSpaces()">A显示所有货位</kendo-button>
+          <kendo-button id="notSelectCargoSpaceId" class="k-primary" style="width:150px;font-size:16px;" ng-click="notSelectCargoSpaces()">H显示未查货位</kendo-button>
+        </div>
+        <div style="padding:10px;">
+          <kendo-grid  class="inboundGrid" id="cargoRecordGRID" options="cargoRecordGridOptions"></kendo-grid>
+        </div>
+        <div ng-show = "seeLocation">
+
+        <div ng-show="cargoRecordPage=='recordNumber'" >
+        <div style="margin-left:10px;font-size:18px;font-weight: 600;width:100%;float:left;padding-top:10px;">
+            <div style="float:left;width:100px;">检查货位</div>
+            <div style="float:left;"><input  type="text" id="cargoSpaceId" class="k-textbox"  ng-keyup="checkCargoSpace($event)" ng-model="cargoSpace"></div>
+            <div style="float:left;margin-left:10px;" ng-show="products">
+               <kendo-button class="k-primary" style="width:150px;background:#69Ac3d;border:1px solid #69Ac3d;">{{problemAmountFiled}}/{{storageLocationAmountFiled}}</kendo-button>
+            </div>
+
+          <div style="float:left;margin-left:10px;" ng-show="errorCargoSpaceLocation">
+            <kendo-button class="k-primary" style="width:300px;background:red;border:1px solid red;">上架记录中并不包含此货位</kendo-button>
+          </div>
+
+            <div style="float:left;margin-left:10px;" ng-show="errorCargoSpace">
+              <kendo-button class="k-primary" style="width:300px;background:red;border:1px solid red;">当前POD不在此工作站</kendo-button>
+            </div>
+
+
+
+           </div>
+           <div style="margin-left:10px;margin-top:10px;font-size:18px;font-weight: 600;width:100%;float:left;">
+           <div style="float:left;width:100px;" >货位中问题商品数量</span></div>
+           <div style="float:left;"><input  type="text" class="k-textbox" ng-keyup="problemProductsNumber($event)" ng-model="productsNumber" id="problemProductsNumber"></div>
+        </div>
+        <div ng-show="goodsCountContent=='goodsCountMore'" style="font-size:16px;padding-top:10px;padding-left:10px;float:left;">
+          <div>已成功找到{{numberPoor}}件问题商品正确位置，请将{{numberPoor}}件{{problemTypeValue}}商品进行上架</div>
+          <div style="float:left;width:90px;font-weight: 600;margin-top:10px;">上架货位</div>
+          <div style="float:left;margin-top:10px;"><input  type="text" id="recargoSpaceNameId" class="k-textbox" ng-keyup="reCheckCargoSpace($event)" ng-model="recargoSpace"></div>
+        </div>
+         <div ng-show="goodsCountContent=='goodCountSuccess'" style="float:left;margin:10px;width:100%;">
+            <kendo-button class="k-primary" style="font-size:18px;width:100%;height:60px;text-align:center;background:#69Ac3d;border:1px solid #69Ac3d;">
+              已成功将{{numberPoor}}件{{problemTypeValue}}商品上架至{{recargoSpace}}中<br>继续查找另一件商品正确位置
+            </kendo-button>
+          </div>
+        </div>
+        <div ng-show="cargoRecordPage=='recordNumberSuccess'" style="margin-left:10px;margin-right:10px;" >
+          <div style="width:100%;font-size:20px;color:white;text-align:center;background:#69Ac3d;height:{{(mainHeight-330)}}px;">
+            <div style="line-height:{{(mainHeight-350)/2}}px;">
+              已成功将{{numberPoor}}件{{problemTypeValue}}商品上架至{{recargoSpace}}中
+            </div>
+            <div>点击继续进行问题处理</div>
+            <br>
+            <div style="font-size:18px;font-weight:600;width:60px;height:25px;padding-top:5px;background:#ffff00;color:black;margin:0px auto;" ng-click="nextGoods()">继续</div>
+          </div>
+        </div>
+
+        <div ng-show="cargoRecordPage=='recordNumberContent'" style="margin-left:10px;margin-right:10px;" >
+          <div style="margin-left:10px;font-size:18px;font-weight: 600;width:100%;float:left;">
+            <div style="float:left;width:90px;">原始容器</div>
+            <div style="float:left;"><input  type="text" class="k-textbox"  ng-model="source" data-value={{problemStorageLocation}}></div>
+          </div>
+          <div style="padding-left:10px;padding-top:10px;font-size:18px;font-weight: 600;width:100%;float:left;">
+            <div style="float:left;width:90px;" >目的容器</span></div>
+            <div style="float:left;"><input  ng-keyup="destinationContainer($event)" type="text" class="k-textbox"  ng-model="destination" ></div>
+          </div>
+          <div style="padding-left:10px;padding-top:10px;width:100%;float:left;">
+            <div style="float:left;width:90px;font-size:18px;font-weight: 600;" >{{'CLIENT_NAME' | translate }}</span></div>
+            <div style="float:left;" >
+              <select style="width:225px;" id="clientValueId" kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-filter="'contains'" k-data-value-field="'id'"  k-data-source="clientSource"></select>
+            </div>
+          </div>
+          <div style="text-align:center;width:100%;margin-top:20px;">
+            <kendo-button class="k-primary ReceiptBut" ng-click="overageSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+            <kendo-button class="k-primary ReceiptBut" ng-click="overageCancel()">2 {{'CANCEL' | translate }}</kendo-button>
+          </div>
+        </div>
+        <div ng-show="cargoRecordPage=='recordNumberOverage'" style="margin-left:10px;margin-right:10px;" >
+          <div style="width:100%;font-size:20px;color:white;background:#e96f1b;height:{{(mainHeight-330)}}px;">
+            <div style="padding-top:10px;margin-left:10px;">
+              已盘盈多货商品：{{name}}
+            </div>
+            <div style="margin-top:10px;margin-left:10px;">盘盈放置目的容器：{{destination}}</div>
+            <div style="margin-top:10px;margin-left:10px;">客户：{{client.name}}</div>
+            <div style="margin-top:10px;margin-left:10px;">点击继续进行问题处理</div>
+            <div style="text-align:center;font-size:18px;font-weight:600;width:60px;height:25px;background:#ffff00;color:black;margin:0px auto;cursor:pointer;" ng-click="nextGoods()">继续</div>
+          </div>
+        </div>
+        <div ng-show="cargoRecordPage=='recordNumberLoss'" style="margin-left:10px;margin-right:10px;" >
+          <div style="width:100%;font-size:20px;color:white;background:#e96f1b;height:{{(mainHeight-330)}}px;">
+            <div style="padding-top:10px;margin-left:10px;">
+              已盘亏少货商品：{{name}}
+            </div>
+            <div style="margin-top:10px;margin-left:10px;">点击继续进行问题处理</div>
+            <br>
+            <div style="text-align:center;font-size:18px;font-weight:600;width:60px;height:25px;padding-top:5px;background:#ffff00;color:black;margin:0px auto;" ng-click="nextGoods()">继续</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<div kendo-window="goodsMaturityDateWindow" id="goodsMaturityDateId" k-title="'请输入商品有效期'" k-visible="false" k-modal="true">
+  <!--<div style="font-size:16px;margin-top:20px;text-align:center;">-->
+    <!--<kendo-button class="k-primary" style="width:180px;" ng-click="produceDate()" id="productionDate ">按生产日期修改</kendo-button>-->
+    <!--<kendo-button class="k-primary" style="width:180px;" ng-click="maturityDate()" id="expirationDate">按到期日期修改</kendo-button>-->
+  <!--</div>-->
+  <!--<div ng-show="goodsMaturity=='produce'" style="text-align:center;">-->
+    <!--<div style="font-size:18px;margin-top:10px;">-->
+      <!--生产年&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox" ng-model= "year" id="produceYear" ng-keyup="produceYearKeyDown($event)">-->
+    <!--</div>-->
+    <!--<div style="font-size:18px;margin-top:10px;">-->
+      <!--生产月&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox"  ng-model="month" id="produceMonth" ng-keyup="produceMonthKeyDown($event)">-->
+    <!--</div>-->
+    <!--<div style="font-size:18px;margin-top:10px;">-->
+      <!--生产日&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox"   ng-model="day">-->
+    <!--</div>-->
+    <!--<div style="font-size:18px;margin-top:10px;">-->
+      <!--有效期(月)&nbsp;&nbsp;<input type="text" class="k-textbox"  ng-model="months">-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div ng-show="goodsMaturity=='maturity'" style="text-align:center;">-->
+    <!--<div style="font-size:18px;margin-top:10px;">-->
+      <!--到期年&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox" ng-model="year">-->
+    <!--</div>-->
+    <!--<div style="font-size:18px;margin-top:10px;">-->
+      <!--到期月&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox" ng-model="month">-->
+    <!--</div>-->
+    <!--<div style="font-size:18px;margin-top:10px;">-->
+      <!--到期日&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox" ng-model="day">-->
+    <!--</div>-->
+  <!--</div>-->
+  <div ng-show="goodsMaturity=='produce'" style="text-align:center;">
+    <div style="font-size:18px;margin-top:10px;">
+      生产年&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox" ng-model= "year" id="produceYear" ng-keyup="produceYearKeyDown($event)">
+    </div>
+    <div style="font-size:18px;margin-top:10px;">
+      生产月&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox"  ng-model="month" id="produceMonth" ng-keyup="produceMonthKeyDown($event)">
+    </div>
+    <div style="font-size:18px;margin-top:10px;">
+      生产日&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox"   ng-model="day" id="produceDay" ng-keyup="produceDayKeyDown($event)">
+    </div>
+    <div style="font-size:18px;margin-top:10px;">
+      有效期(月)&nbsp;&nbsp;<input type="text" class="k-textbox"  ng-model="months" ng-model="months" id="produceDatas" ng-keyup="produceDatasKeyDown($event)">
+    </div>
+  </div>
+  <div ng-show="goodsMaturity=='maturity'" style="text-align:center;">
+    <div style="font-size:18px;margin-top:10px;">
+      到期年&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox" ng-model="year" id="maturityYear" ng-keyup="maturityYearKeyDown($event)">
+    </div>
+    <div style="font-size:18px;margin-top:10px;">
+      到期月&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox" ng-model="month" id="maturityMonth" ng-keyup="maturityMonthKeyDown($event)">
+    </div>
+    <div style="font-size:18px;margin-top:10px;">
+      到期日&nbsp;&nbsp;<input style='margin-left:30px;' type="text" class="k-textbox" ng-model="day" id="maturityDay" ng-keyup="maturityDayKeyDown($event)">
+    </div>
+  </div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="goodsMaturityDateSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+    <kendo-button class="k-primary ReceiptBut" ng-click="goodsMaturityDateWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>
+
+<!--是否盘盈商品-->
+<div kendo-window="diskSurplusGoodsWindow" id="diskSurplusGoodsId" k-title="'是否盘盈商品'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">目前此问题还剩余{{storageLocationNumb}}个货位尚未盘点，是否确认不再盘点，盘盈商品？</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="diskSurplusGoodsSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+    <kendo-button class="k-primary ReceiptBut" ng-click="diskSurplusGoodsWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>
+
+<!--是否盘亏商品-->
+<div kendo-window="diskDeficitGoodsWindow" id="diskDeficitGoodsId" k-title="'是否盘亏商品'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">目前此问题还剩余{{storageLocationNumb}}个货位尚未盘点，是否确认不再盘点，盘亏商品？</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut"  ng-click="diskDeficitGoodsSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+    <kendo-button class="k-primary ReceiptBut"  ng-click="diskDeficitGoodsWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>
+
+<!--请填写备注信息  多货-->
+<div kendo-window="remarksWindow" id="remarksId" k-title="'请填写备注信息'" k-visible="false" k-modal="true">
+  <div style="font-size:18px;font-weight: 600;margin-left:150px;">
+    <span>请选择原因代码</span>
+    <input style="margin-left:50px;width:300px;" type="text" class="k-textbox" ng-model="reasonId" >
+  </div>
+  <div style="font-size:18px;margin-top:10px;margin-left:260px;">
+    <div id="reasonOneId">1—{{problemTypeValue}}重复标记</div>
+    <div id="reasonTwoId" >2—商品标记错误</div>
+    <div >3—其他<textarea type="text" style="height:50px;width:290px;" ng-model="reason"></textarea></div>
+  </div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="remarksWindowSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+    <kendo-button class="k-primary ReceiptBut" ng-click="remarksWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>
+
+<!--请填写备注信息  少货-->
+<div kendo-window="remarksWindowLess" id="remarksLessId" k-title="'请填写备注信息'" k-visible="false" k-modal="true">
+  <div style="font-size:18px;font-weight: 600;margin-left:150px;">
+    <span>请选择原因代码</span>
+    <input style="margin-left:50px;width:300px;" type="text" class="k-textbox" ng-model="reasonId" >
+  </div>
+    <div style="font-size:18px;margin-top:10px;margin-left:260px;">
+      <div id="reasonOneLessId" >1—商品标记错误</div>
+      <div >2—其他<textarea type="text" style="height:50px;width:290px;" ng-model="reason"></textarea></div>
+  </div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="remarksWindowSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+    <kendo-button class="k-primary ReceiptBut" ng-click="remarksWindowLess.close()">2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>
+
+
+    <div kendo-window="inventoryTaskWindow" id="inventoryTaskId" k-title="'数量输入有误'" k-visible="false" k-modal="true">
+      <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">数量输入有误</div>
+      <div style="text-align:center;width:100%;margin-top:20px;">
+        <kendo-button class="k-primary ReceiptBut" ng-click="inventoryTaskWindow.close()">{{'SURE' | translate }}</kendo-button>
+      </div>
+    </div>
+
+

@@ -1,0 +1,25 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'SYSTEM_MANAGE' | translate }}&nbsp;/&nbsp;{{'RESOURCE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <!-- search -->
+        <span>{{'RESOURCE_KEY' | translate }}：<input kendo-masked-text-box type="text" ng-model="resourceKey"
+                                                     ng-keyup="keyUp($event)" style="width:150px;"/></span>
+        <span>{{'RESOURCE_VALUE' | translate }}：<input kendo-masked-text-box type="text" ng-model="resourceValue"
+                                                       ng-keyup="keyUp($event)" style="width:150px;"/></span>
+        <span>{{'LOCALE' | translate }}：<select kendo-combo-box k-ng-model="locale" k-data-text-field="'resourceKey'"
+                                                k-data-value-field="'resourceValue'" k-filter="'contains'"
+                                                k-change="'changeSearch()'"
+                                                k-data-source="languageSource"></select></span>
+        <kendo-button class="k-primary" ng-click="searchGrid()">
+            <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+        </kendo-button>
+        <!-- grid -->
+        <div class="gridToolbar">
+            <span ng-include="'modules/common/templates/gridTool.html'" ng-controller="systemCtl"></span>
+        </div>
+        <kendo-grid id="resourceGrid" options="resourceGridOptions"></kendo-grid>
+    </div>
+</div>

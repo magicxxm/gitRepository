@@ -1,0 +1,51 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'REPORT' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.workflow"  href="#">{{'WORKFLOW' | translate }}</a>&nbsp;/&nbsp;{{'WORKFLOW_PROCESS_PATH_WORK_POOL' | translate }}</span>
+  </div>
+     <div style="border:none;height:{{splitterHeight}}px" kendo-splitter  k-options="splitterOptions"  id="workflowSplitter">
+     <div style="	border-right-style:solid;
+   border-color:#98bf21;">
+      <div style="font-weight:bold">{{'DIMENSION' | translate }}</div>
+      <div>
+        <select kendo-drop-down-list ng-model="dimensionX" id="dimensionChangeXId"   k-change="'dimensionChange(1)'"
+          k-data-source="dimensionSourceX"></select><br>
+        <select kendo-drop-down-list ng-model="dimensionY" id="dimensionChangeYId"   k-change="'dimensionChange(2)'"
+          k-data-source="dimensionSourceY"></select>
+      </div>
+      <div style="font-weight:bold">货件类型</div>
+      <div>
+         <input type="radio" name="itemType" id="itemTypeALL" class="k-radio" value="ALL" ng-model="itemType">
+        <label class="k-radio-label" for="itemTypeALL">ALL</label><br><br>
+        <input type="radio" name="itemType" id="itemTypeCustomerShipment" class="k-radio" value="customerShipment" ng-model="itemType">
+        <label class="k-radio-label" for="itemTypeCustomerShipment">Customer Shipment</label><br><br>
+        <input type="radio" name="itemType" id="itemTypeVendorReturn" class="k-radio" value="vendorReturn" ng-model="itemType">
+        <label class="k-radio-label" for="itemTypeVendorReturn">Vendor Return</label><br><br>
+        <input type="radio" name="itemType" id="itemTypeTransshipments" class="k-radio" value="transshipments" ng-model="itemType">
+        <label class="k-radio-label" for="itemTypeTransshipments">Transshipments</label><br><br>
+      </div>
+      <div>
+        <div style="font-weight:bold">exsd range</div>
+        <input type="radio" name="exsdType" id="exsdTypeALL" class="k-radio" value="ALL" ng-model="exsdType">
+        <label class="k-radio-label" for="exsdTypeALL">ALL</label><br><br>
+        <input type="radio" name="exsdType" id="exsdTypeToday" class="k-radio" value="Today" ng-model="exsdType">
+        <label class="k-radio-label" for="exsdTypeToday">Today</label><br><br>
+        <input type="radio" name="exsdType" id="exsdTypeNext3Day" class="k-radio" value="Next 3 Days" ng-model="exsdType">
+        <label class="k-radio-label" for="exsdTypeNext3Day">Next 3 Days</label><br><br>
+        <input type="radio" name="exsdType" id="exsdType1Day" class="k-radio" value="±1 Day" ng-model="exsdType">
+        <label class="k-radio-label" for="exsdType1Day">±1 Day</label><br><br>
+        <input type="radio" name="exsdType" id="exsdType3Day" class="k-radio" value="±3 Day" ng-model="exsdType">
+        <label class="k-radio-label" for="exsdType3Day">±3 Day</label><br><br>
+        <input type="radio" name="exsdType" id="exsdTypeTime" class="k-radio" value="Time" ng-model="exsdType">
+        <label class="k-radio-label" for="exsdTypeTime">Time</label><br><br>
+        <input id="datetimepickerStart" /></br>
+        <input id="datetimepickerEnd" />
+      </div>
+      <kendo-button class="k-primary" ng-click="doLocation()">
+        <span class="k-font-icon k-i-search"></span>{{'SURE'| translate }}
+      </kendo-button>
+    </div>
+    <div id="workPoolContent" style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;" ng-bind-html="workPoolContent"></div>
+  </div>
+
+</div>

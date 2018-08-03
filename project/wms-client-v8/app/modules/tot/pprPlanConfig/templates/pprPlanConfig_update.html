@@ -1,0 +1,36 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'TOT' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.pprplanconfig" href="#">{{'PPRPLANCONFIG' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="mainProcesses" class="required" style="float:right">{{'Main Processes' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="mainProcesses"  class="k-textbox" required readonly ng-model="mainProcesses"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="coreProcesses" class="required" style="float:right">{{'Core Processes' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="coreProcesses"  class="k-textbox" required readonly ng-model="coreProcesses"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="categoryName" class="required" style="float:right">项目</label></div>
+          <div class="formRight"><input type="text" id="categoryName" class="k-textbox" required readonly ng-model="categoryName" /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="lineItems" class="required" style="float:right">{{'Line Items' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="lineItems" class="k-textbox" required readonly ng-model="lineItems" /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="planRate" class="required" style="float:right">计划效率</label></div>
+          <div class="formRight"><input type="text" id="planRate" class="k-textbox" required validationMessage="{{'WARNING_PLAN_RATE' | translate }}" ng-model="planRate" /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

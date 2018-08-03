@@ -1,0 +1,27 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'ICQA' | translate }}&nbsp;/&nbsp;{{'STOCKTAKING_STATION' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <!-- search -->
+        <span>{{'NAME' | translate }}：<input kendo-masked-text-box type="text" ng-model="name"
+                                             ng-keyup="keyUp($event)" style="width:120px;"/></span>
+        <kendo-button class="k-primary" ng-click="searchGrid()">
+            <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+        </kendo-button>
+        <!-- grid -->
+        <div class="gridToolbar" ng-controller="icqaCtl">
+            <kendo-button class="k-primary gridButton" ng-click="create()"><span class="k-font-icon k-i-plus"></span>{{'CREATE'
+                | translate }}
+            </kendo-button>
+            <kendo-button class="k-primary gridButton" ng-click="update()">
+                <span class="k-font-icon k-i-pencil"></span>{{'UPDATE' | translate }}
+            </kendo-button>
+            <kendo-button class="k-primary gridButton" ng-click="delete()"><span class="k-font-icon k-i-trash"></span>{{'DELETE'
+                | translate }}
+            </kendo-button>
+        </div>
+        <kendo-grid id="stocktakingStationGrid" options="stocktakingStationGridOptions"></kendo-grid>
+    </div>
+</div>

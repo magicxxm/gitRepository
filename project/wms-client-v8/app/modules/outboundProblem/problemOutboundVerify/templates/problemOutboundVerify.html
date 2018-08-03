@@ -1,0 +1,163 @@
+﻿<div ng-controller="obpCtl"></div>
+<div ng-show="outboundProblemVerify=='workStationPage'">
+  <div class="outCenter">
+    <div class="titleContent"><span>请扫描工作站条码</span></div>
+    <div style="text-align:center;padding-top:80px;">
+      <input id="obp_station" type="text" class="inputHeight k-textbox" ng-keyup="workStation($event)" ng-model="workstation"/>
+    </div>
+  </div>
+  <div ng-show='workingStation' class="errorFooter">条码{{workstation}}{{errorMessage}}，请重新扫描</div>
+</div>
+
+<div ng-show="outboundProblemVerify=='Home'" >
+<div  style="font-size:14px;position:absolute;margin-left:20px;line-height:40px;">当前需要进行的操作</div>
+  <div style="line-height: 40px;height: 32px;font-size: 18px;font-weight: 600; margin-left: 42%">请选择需要处理的问题至待处理区
+
+    <kendo-button  class="k-primary" style="font-size:16px;float:right;margin-right:10px" ng-click="exitOnboundProblem()">&nbsp;&nbsp;退出&nbsp;&nbsp;</kendo-button>
+    <kendo-button  class="k-primary" style="font-size:16px;float:right;margin-right:10px"  id="releasePodId" ng-click="releasePodGrid()">释放POD</kendo-button>
+    <kendo-button  class="k-primary" style="font-size:16px;float:right;margin-right:10px" ng-click="callPodGrid()">呼叫POD</kendo-button>
+    <kendo-button  style="font-size:15px;float:right;margin-right:10px;"  id="stopAllocationPod" ng-click="stopAllocationPodGrid()">{{stopcallPOD}}</kendo-button>
+
+  </div>
+  <div style="height:{{mainHeight+36}}px;">
+    <div style="width:48%;float:left;text-align:center;">
+      <div class="inFontPro" style="background:#ffc000;">待问题处理区</div>
+      <div style="background:#f2f2f2;height:{{ mainHeight+6 }}px;">
+        <div style="text-align:center;padding-top:10px;">
+          <input type="text" class="k-textbox" style="width:50%"  ng-model="itemNoLeft" ng-keyup="searchInputLeft($event)">
+          <kendo-button class="k-primary" style="height:30px;font-size:18px;"  ng-click="searchGridLeft()" >{{'SEARCH'| translate }}</kendo-button>
+
+        </div>
+        <div style="padding-top:10px;margin-left:10px;margin-right:10px;">
+          <kendo-grid class="inboundGrid" id="problemOutboundVerifyLeftGird" options="problemOutboundVerifyLeftGridOptions"></kendo-grid>
+        </div>
+      </div>
+    </div>
+    <div style="width:4%;float:left;">
+      <div style="height:20px;width:100%;background:#577eca;margin-top:{{ (mainHeight+6)/2 }}px;text-align:center;color:white;padding-top:5px;" ng-click="moveProblemOutboundVerify('left');"><span   class="k-icon k-i-expand-w"></span></div>
+      <div style="height:20px;width:100%;background:#577eca;margin-top:10px;text-align:center;color:white;padding-top:5px;" ng-click="moveProblemOutboundVerify('right');"> <span   class="k-icon k-i-collapse-w"></span> </div>
+    </div>
+    <div style="width:48%;float:left;">
+      <div class="inFontPro" style="background:#bdd7ee;">正在进行问题处理区</div>
+      <div style="background:#f2f2f2;height:{{ mainHeight+6 }}px;">
+        <div style="height:100%">
+          <div style="text-align:center;padding-top:10px;">
+            <input type="text" class="k-textbox" style="width:50%" ng-model="itemNoRight"  ng-keyup="searchInputRight($event)">
+            <kendo-button class="k-primary" style="height:30px;font-size:18px;"  ng-click="searchGridRight()" >{{'SEARCH'| translate }}</kendo-button>
+            <input type="checkbox" id="flag" class="k-checkbox" ng-model="select_all"  ng-click="selectAll()" style="float:right;margin-right:20px;margin-top:3px;" >
+            <label class="k-checkbox-label" for="flag" style="font-size:16px;float:right;margin-right:10px;margin-top:3px;">全选</label>
+          </div>
+          <div style="padding-top:10px;margin-left:10px;margin-right:10px;height:{{(mainHeight+6)/2-50}}px;">
+            <kendo-grid class="inboundGrid" id="problemOutboundVerifyRightGrid" options="problemOutboundVerifyRightGridOptions"></kendo-grid>
+          </div>
+          <div ng-show = "adjustment">
+          <div style="text-align:center;padding-top:25px;" ng-show="andCase1 == 1">
+            <kendo-button  class="k-primary" style="width:150px;font-size:16px;" ng-click="andCaseChild1()">并案分析</kendo-button>
+            <kendo-button  class="k-primary" style="width:150px;font-size:16px;" ng-click="andCaseChild2()">并案调整</kendo-button>
+          </div>
+          <div ng-show="andCaseChildPage == 'CaseGrid'">
+            <div style="padding-top:5px;margin-left:10px;margin-right:10px;">
+              <kendo-grid class="inboundGrid"   id="andCaseGRID" options="andCaseGridOptions"></kendo-grid>
+            </div>
+            <div style="background:#FFC610;font-weight:600;font-size:18px;margin-left:10px;margin-right:10px;margin-top:5px;">
+              <div style="padding-top:5px;padding-right:10px;line-height:25px;">多货少货数量、batch ID、收货人员和站台一致，收货人员放错车辆导致对应调整可能性较大</div>
+              <div style="padding-right:10px;padding-bottom: 10px;line-height:25px;">建议：在核实完货位无误后，可断定为收货问题，进行对应调整</div>
+            </div>
+          </div>
+
+
+
+          <!--<div ng-show="andCaseChildPage == 'CaseContent'">-->
+            <!--<div style="text-align: center;font-size:16px;margin-top:5px;font-weight: 600" ><span>原始容器&nbsp;&nbsp;</span>-->
+              <!--<input  type="text" class="k-textbox"  ng-model="caseSource" ng-keyup="sourceContainerKeyDown($event)" id="sourceContainerId"></div>-->
+            <!--<div style="text-align: center;font-size:16px;margin-top:5px;font-weight: 600" ><span>目的容器&nbsp;&nbsp;</span>-->
+              <!--<input  type="text" class="k-textbox"  ng-model="caseDestination" ng-keyup="destinationContainerKeyDown($event)" id="destinationContainerId"></div>-->
+            <!--<div style="text-align: center;font-size:16px;margin-top:5px;font-weight: 600"><span>商品数量&nbsp;&nbsp;</span>-->
+              <!--<input  type="text" class="k-textbox" id="numId"  ng-model="caseAmount"></div>-->
+            <!--<div style="float:left;width:90px;font-size:18px;font-weight: 600;" >{{'CLIENT_NAME' | translate }}</span></div>-->
+            <!--<div style="text-align: center" >-->
+              <!--<input style="width:225px;" ng-model="client" id="clientValueId" kendo-combo-box k-ng-model="client"-->
+                     <!--k-data-text-field="'name'" k-filter="'contains'" k-data-value-field="'id'"  k-data-source="clientSource"></input></div>-->
+              <!--&lt;!&ndash;<select style="width:225px;" id="clientValueId" kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-filter="'contains'" k-data-value-field="'id'"  k-data-source="clientSource"></select>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<div>-->
+              <!--<div style="text-align:center;width:100%;">-->
+                <!--<kendo-button class="k-primary ReceiptBut" ng-click="addCaseButtonSure()" > {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;-->
+                <!--<kendo-button class="k-primary ReceiptBut" ng-click="emptyCase()" > {{'CANCEL' | translate }}</kendo-button>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div   ng-show="andCaseInformation" style="width:100%;background:#68aa3d;margin-top:10px;height:80px;">-->
+              <!--<div style="padding-top:10px;text-align:center;font-size:16px;color:white;font-weight:600;">-->
+                <!--已成功将2件收货车牌放置错误的商品从{{caseSource}}转移至{{caseDestination}}-->
+              <!--</div>-->
+              <!--<div style="text-align:center;font-size:14px;font-weight:600;width:60px;line-height:25px;background:#ffff00;color:black;margin:10px auto;" ng-click="continues()">继续</div>-->
+            <!--</div>-->
+          <!--</div>-->
+
+
+
+            <div ng-show="andCaseChildPage == 'CaseContent'">
+              <div style="margin-left: 25%">
+                <div style="margin-left:10px;font-size:18px;font-weight: 600;width:100%;float:left;">
+                  <div style="float:left;width:90px;">原始容器</div> <div style="float:left;">
+                  <input  type="text" class="k-textbox"  ng-model="caseSource" ng-keyup="sourceContainerKeyDown($event)" id="sourceContainerId"></div>
+                </div>
+                <div style="padding-left:10px;padding-top:10px;font-size:18px;font-weight: 600;width:100%;float:left;">
+                  <div style="float:left;width:90px;">目的容器</div><div style="float:left;">
+                  <input  type="text" class="k-textbox"  ng-model="caseDestination" ng-keyup="destinationContainerKeyDown($event)" id="destinationContainerId"></div>
+                </div>
+                <div style="margin-left:10px;padding-top:10px;font-size:18px;font-weight: 600;width:100%;float:left;">
+                  <div style="float:left;width:90px;">商品数量</div><div style="float:left;">
+                  <input  type="text" class="k-textbox" id="numId" ng-model="caseAmount"></div>
+                </div>
+                <div style="padding-left:10px;padding-top:10px;width:100%;float:left;font-weight: 600;">
+                  <div style="float:left;width:90px;font-size:18px;font-weight: 600;" >{{'CLIENT_NAME' | translate }}</div>
+                  <div style="float:left;" >
+                    <!--<input style="width:225px;" ng-model="client" id="clientValueId" kendo-combo-box k-ng-model="client"-->
+                           <!--k-data-text-field="'name'" k-filter="'contains'" k-data-value-field="'id'"  k-data-source="clientSource"></input></div>-->
+                  <select id="comboClientId" style="width:225px;" kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="clientSource"></select>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div style="text-align:center;width:100%;margin-top:20px;" style="margin-left:10px;margin-right:10px;">
+                  <kendo-button class="k-primary ReceiptBut" ng-click="addCaseButtonSure()" > {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+                  <kendo-button class="k-primary ReceiptBut" ng-click="emptyCase()" > {{'CANCEL' | translate }}</kendo-button>
+                </div>
+              </div>
+              <div   ng-show="andCaseInformation" style="width:100%;background:#68aa3d;margin-top:10px;height:80px;">
+                <div style="padding-top:10px;text-align:center;font-size:16px;color:white;font-weight:600;">
+                  已成功将2件收货车牌放置错误的商品从{{caseSource}}转移至{{caseDestination}}
+                </div>
+                <div style="text-align:center;font-size:14px;font-weight:600;width:60px;line-height:25px;background:#ffff00;color:black;margin:10px auto;" ng-click="continues()">继续</div>
+              </div>
+            </div>
+
+
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--呼叫pod---->
+<div kendo-window="inventoryTaskWindow" id="inventoryTaskId" k-title="'温馨提示:'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">请选择相应信息</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="inventoryTaskWindow.close()">{{'SURE' | translate }}</kendo-button>
+  </div>
+</div>
+
+
+<!--退出工作站，带确定以及取消的一般提示框-->
+<div kendo-window="scanSerialNoWindow" id="window_general_ok_cancel" k-title="'提示:'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">还有未到的POD,不能退出工作站</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="scanSerialNoWindow.close()">{{'SURE' | translate }}</kendo-button>
+  </div>
+</div>
+
+

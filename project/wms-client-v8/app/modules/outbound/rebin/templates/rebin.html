@@ -1,0 +1,69 @@
+<!-- 扫描工作站和批次号码 -->
+<div style="margin-top:10px;text-align:center;margin-bottom:10px;" ng-show="stationShow==='true'">
+  <kendo-button  class="k-primary pull-right" ng-click="exitRebin()">{{'LOGOUT' | translate }}</kendo-button>
+</div>
+<div class="outCenter" ng-show="rebinOperate==='scanStation'||rebinOperate==='scanPickingOrder'">
+  <div class="titleContent">
+    <span ng-show="rebinOperate==='scanStation'">请扫描工作站条码</span>
+    <span ng-show="rebinOperate==='scanPickingOrder'">请扫描拣货车号码/批次号码</span>
+  </div>
+  <div style="text-align:center;padding-top:80px;">
+    <input id="rebin_station" ng-show="rebinOperate==='scanStation'" type="text" class="inputHeight k-textbox" ng-keydown="scanStation($event)"
+      ng-model="rebinStationName" />
+    <input id="rebin_pickingOrder" ng-show="rebinOperate==='scanPickingOrder'" type="text" class="inputHeight k-textbox" ng-keydown="scanPickingOrder($event)"
+      ng-model="pickingOrderNo" />
+  </div>
+</div>
+
+<!-- 站台存在遗留任务 -->
+<div class="outboundContainer" style="margin-top:{{mainHeight/2-100}}px;" ng-show="rebinOperate==='stationRebining'">
+  <div class="titleContent"><span>站台存在遗留任务</span></div>
+  <div style="padding-top:10px;padding-left:20px;border:1px solid #517bca;font-size:20px;">
+    <div style="margin-left: 50px">站台存在遗留任务，请确认是否继续操作？</div>
+    <br />
+    <div style="width:150px;text-align:right;float: left">
+      <div style="padding:5px">批次号码：</div>
+      <div style="padding:5px">Rebin车数量：</div>
+      <div style="padding:5px;">ExSD：</div>
+      <div style="padding:5px">车牌号码：</div>
+    </div>
+    <div style="display:inline-block;word-break: break-all;width: 600px">
+      <div style="padding:5px;">{{batchNumber}}</div>
+      <div style="padding:5px;">{{rebinWallCount }}</div>
+     <div style="padding:5px;">{{ExSD}}</div>
+      <div style="padding:5px;">{{containerNumber}}</div>
+    </div>
+    <div style="text-align:center;width:100%;float:left">
+      <kendo-button class="k-primary ReceiptBut" ng-click="stationRebiningSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+      <kendo-button class="k-primary ReceiptBut" ng-click="stationRebiningCanel()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+  </div>
+</div>
+
+<!-- 批次已经做过部分Rebin -->
+<div class="outboundContainer" style="margin-top:{{mainHeight/2-100}}px;" ng-show="rebinOperate==='orderRebining'">
+  <div class="titleContent"><span>批次已经做过部分Rebin</span></div>
+  <div style="padding-top:10px;padding-left:20px;border:1px solid #517bca;font-size:20px;">
+    <div style="margin-left: 50px ">批次已经做过部分Rebin，已经绑定RebinWall，请确认是否继续？</div>
+    <br />
+    <div style="width:150px;text-align:right;float:left">
+      <div style="padding:5px">批次号码：</div>
+      <div style="padding:5px">Rebin车数量：</div>
+      <div style="padding:5px;">ExSD：</div>
+      <div style="padding:5px">车牌号码：</div>
+    </div>
+    <div style="display:inline-block;word-break: break-all;width: 600px">
+      <div style="padding:5px;">{{batchNumber}}</div>
+      <div style="padding:5px;">{{rebinWallCount }}</div>
+      <div style="padding:5px;">{{ExSD}}</div>
+      <div style="padding:5px;">{{containerNumber}}</div>
+    </div>
+    <div style="text-align:center;width:100%;float:left">
+      <kendo-button class="k-primary ReceiptBut" ng-click="OrderRebiningSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+      <kendo-button class="k-primary ReceiptBut" ng-click="OrderRebiningCanel()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+  </div>
+</div>
+
+<!--扫描报错弹出横条-->
+<div class="message" ng-show="messageOperate==='show'">{{message}}</div>

@@ -1,0 +1,118 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;color:white;">日常盘点任务查看</div>
+<div ng-show="icqaDetailPage=='workStationPage'">
+  <div class="outCenter" >
+    <div class="titleContent">
+      <span>请扫描工作站条码</span>
+    </div>
+    <div style="text-align:center;padding-top:80px;">
+      <input  type="text" class="inputHeight k-textbox"  ng-keyup="workStation($event)"  ng-model="workstation"/>
+    </div>
+  </div>
+  <div  ng-show='workingStation' class="errorFooter">条码{{workstation}}不是一个有效工作站，请重新扫描</div>
+  <div  ng-show='workingStation' class="errorFooter">工作站已经分配给员工{{}}，请重新扫描</div>
+</div>
+
+<div ng-show="icqaDetailPage=='ONE'">
+  <div style="margin-left:10px;margin-top:5px;">
+    <span style="font-size:18px;">开始时间</span>&nbsp;&nbsp;<input kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="createdDateOne">
+    <span style="font-size:18px;">结束时间</span>&nbsp;&nbsp;<input kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="createdDateTwo">
+    <kendo-button class="k-primary" style="font-size:18px;" ng-click="searchICQADetailTime()">搜索全部</kendo-button>
+  </div>
+  <div style="text-align:center;margin-top:5px;">
+    <input type="text" class="k-textbox" style="width:300px;" ng-model="inventoryInformation">
+    <kendo-button class="k-primary" style="font-size:18px;" ng-click="searchICQADetail()">{{'SEARCH'| translate }}</kendo-button>
+  </div>
+  <div style="margin-left:10px;margin-top:5px;">
+    <kendo-button class="k-primary" style="font-size:18px;" id="defaultOneInventoryId" on-click="defaultOneInventory()">一轮盘点（{{oneInventoryCount}}）</kendo-button>
+    <kendo-button class="k-primary" style="font-size:18px;" id="defaultTwoInventoryId" on-click="defaultTwoInventory()">二轮盘点（{{twoInventoryCount}}）</kendo-button>
+    <kendo-button class="k-primary" style="font-size:18px;" id="defaultThreeInventoryId" on-click="defaultThreeInventory()">三轮盘点({{threeInventoryCount}})</kendo-button>
+    <kendo-button class="k-primary" style="font-size:18px;" id="defaultFourInventoryId" on-click="defaultFourInventory()">四轮盘点({{fourInventoryCount}})</kendo-button>
+  </div>
+  <div style="margin-top:5px;margin-left:10px;margin-right:10px;">
+    <kendo-grid class="inboundGrid" id="stocktakingOrdersGrid" options="stocktakingOrdersGridOption" k-selectable="'row'" k-on-change="myGridChange()"></kendo-grid>
+  </div>
+</div>
+
+<div ng-show="icqaDetailPage=='TWO'">
+  <div style="margin-top:5px;margin-left:10px;">
+    <kendo-button class="k-primary" style="font-size:18px;" id="oneInventoryId" ng-click="oneInventory()">一轮盘点（{{oneInventoryCountChild}}）</kendo-button>
+    <kendo-button class="k-primary" style="font-size:18px;" id="twoInventoryId" ng-click="twoInventory()">二轮盘点（{{twoInventoryCountChild}}）</kendo-button>
+    <kendo-button class="k-primary" style="font-size:18px;" id="threeInventoryId" ng-click="threeInventory()">三轮盘点({{threeInventoryCountChild}})</kendo-button>
+    <kendo-button class="k-primary" style="font-size:18px;" id="fourInventoryId" ng-click="fourInventory()">四轮盘点({{fourInventoryCountChild}})</kendo-button>
+    <kendo-button class="k-primary" style="font-size:18px;float:right;margin-right:20px;"  ng-click="backAll()">返回</kendo-button>
+    <kendo-button class="k-primary" style="font-size:18px;float:right;margin-right:20px;"  ng-click="closeStocktaking()">手动关闭</kendo-button>
+
+  </div>
+
+  <div style="margin-top:5px;margin-left:10px;margin-right:10px;">
+    <kendo-grid class="inboundGrid" id="stocktakingSelectGridONEId" options="stocktakingSelectGridONEOption"></kendo-grid>
+  </div>
+
+  <div style="margin-top:5px;margin-left:10px;margin-right:10px;" ng-show="inventoryStaff">
+    <div style="font-size:18px;font-weight: 600;margin-top:5px;"> 指定盘点人员 &nbsp;&nbsp;
+      <span ng-repeat="personnel in personnelArr" ng-click="deletePersonnelArr(personnel.id)">
+        {{personnel.username}}
+      </span>
+      <span ng-repeat="newPersonnel in newPersonnelArr">
+        {{newPersonnel.username}}
+      </span>
+    </div>
+    <div style="margin-top:5px;">
+      <select style="width:300px;" id="userNameId" k-change="'inventoryUsers(users)'" kendo-combo-box k-ng-model="users" k-data-text-field="'username'" k-data-value-field="'id'"
+              k-filter="'contains'" k-data-source="usersSource"></select>
+      <kendo-button class="k-primary" style="font-size:18px;" ng-click="stocktakingUser()">+</kendo-button>
+      &nbsp;&nbsp;<span ng-show="inventoryUserToAssign" style="font-size:18px;color:red;">盘点人员已分配</span>
+    </div>
+  </div>
+
+  <div style="margin-top:5px;margin-left:10px;margin-right:10px;" ng-show="stocktakingDetail">
+    <div style="font-size:18px;font-weight: 600;margin-top:5px;">盘点详情
+      <input type="checkbox" id="flag" class="k-checkbox" ng-model="select_all"  ng-click="selectAll()" style="float:right;margin-right:20px;" >
+      <label class="k-checkbox-label" for="flag" style="font-size:18px;float:right;margin-right:10px;">全选</label>
+    </div>
+    <!--<kendo-grid style="margin-top:10px;" class="inboundGrid" id="stocktakingDetailsGridId" options="stocktakingDetailsGridOption"></kendo-grid>-->
+    <kendo-grid style="margin-top:10px;" class="inboundGrid" id="stocktakingDetailsGridId"></kendo-grid>
+  </div>
+</div>
+
+<!--请先选择一条记录-->
+<div kendo-window="stocktakingDetailsWindow" id="stocktakingDetailsId" k-title="'请先记录'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">请先选择一条记录</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="stocktakingDetailsWindow.close()">{{'SURE' | translate }}</kendo-button>
+  </div>
+</div>
+
+<!--请先确认二轮盘点-->
+<div kendo-window="twoInventoryWindow" id="twoInventoryWindowId" k-title="'二轮盘点记录'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">请先确认二轮盘点</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="twoInventoryWindow.close()">{{'SURE' | translate }}</kendo-button>
+  </div>
+</div>
+
+<!--分配人员成功-->
+<div kendo-window="inventoryPersonnelWindow" id="inventoryPersonnelId" k-title="'分配人员'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">{{assignUser}}</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="inventoryPersonnelWindow.close()">{{'SURE' | translate }}</kendo-button>
+  </div>
+</div>
+
+
+<!--盘点数量-->
+<div kendo-window="inventoryCountWindow" id="inventoryCountId" k-title="'盘点数量'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">数量不能小于盘点人员</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="inventoryCountWindow.close()">{{'SURE' | translate }}</kendo-button>
+  </div>
+</div>
+
+
+<!--手动关闭---->
+<div kendo-window="inventoryTaskWindow" id="inventoryTaskId" k-title="'温馨提示:'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">请选择需要关闭的数据</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="inventoryTaskWindow.close()">{{'SURE' | translate }}</kendo-button>
+  </div>
+</div>

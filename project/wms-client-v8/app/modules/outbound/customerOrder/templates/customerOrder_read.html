@@ -1,0 +1,70 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.customer_order">{{'CUSTOMER_ORDER' | translate }}</a>&nbsp;/&nbsp;{{'READ' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'CLIENT' | translate }}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="clientDTO.name" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'ORDER_STRATEGY' | translate }}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="strategy.name" readonly/></div>
+        </li>
+        <!--<li>-->
+          <!--<div class="formLeft"><label class="required" style="float:right">{{'STORAGE_LOCATION' | translate}}</label></div>-->
+          <!--<div class="formRight"><input type="text" class="k-textbox" ng-model="storageLocation.name" readonly/></div>-->
+        <!--</li>-->
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'CUSTOMER_NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="customerName" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'CUSTOMER_NO' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="customerNo" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'SORT_CODE' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="sortCode" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'DELIVERY_DATE' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="deliveryDate" readonly/></div>
+        </li>
+        <!--<li>-->
+          <!--<div class="formLeft"><label class="required" style="float:right">{{'DOCUMENT_URL' | translate}}</label></div>-->
+          <!--<div class="formRight"><input type="text" class="k-textbox" ng-model="documentUrl" readonly/></div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="formLeft"><label class="required" style="float:right">{{'EXTERNAL_NO' | translate}}</label></div>-->
+          <!--<div class="formRight"><input type="text" class="k-textbox" ng-model="externalNo" readonly/></div>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<div class="formLeft"><label class="required" style="float:right">{{'LABEL_URL' | translate}}</label></div>-->
+          <!--<div class="formRight"><input type="text" class="k-textbox" ng-model="labelUrl" readonly/></div>-->
+        <!--</li>-->
+        <li style="margin-bottom:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'ORDER_NO' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="orderNo" readonly/></div>
+        </li>
+        <!--<li>-->
+          <!--<div class="formLeft"><label class="required" style="float:right">{{'PRIORITY' | translate}}</label></div>-->
+          <!--<div class="formRight"><input type="text" class="k-textbox" ng-model="priority" readonly/></div>-->
+        <!--</li>-->
+        <!--<li style="margin-bottom:10px;">-->
+          <!--<div class="formLeft"><label class="required" style="float:right">{{'STATE' | translate}}</label></div>-->
+          <!--<div class="formRight"><input type="text" class="k-textbox" ng-model="state" readonly/></div>-->
+        <!--</li>-->
+      </ul>
+    </form>
+    <hr>
+    <div class="gridToolbar"><kendo-button class="k-primary gridButton"></kendo-button></div>
+    <kendo-grid id="customerOrderPositionGRID" options="customerOrderPositionGridOptions"></kendo-grid>
+    <div class="mushiny_btnBox" style="margin-top:10px;text-align:center;margin-left:-23%;">
+      <kendo-button class="k-button k-primary mushiny_btn" style="width:220px;" ui-sref="main.customer_order" translate="BACK"></kendo-button>
+    </div>
+  </div>
+</div>

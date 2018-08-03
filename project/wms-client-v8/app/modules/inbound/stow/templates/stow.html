@@ -1,0 +1,420 @@
+<div style="height:100%;overflow: hidden;">
+  <div ng-show="scanhead==='0'" class="inbound-scanstation" style="background-color: white;">
+  <div class="inbound-scan-topbar"><span style="font-weight:500;line-height: 2;font-size:28px;text-align: center;color: white" class="inboundFont">请扫描工作站条码</span></div>
+  <input type="text" id="receiving_station" ng-keydown="scanStation($event)" style="width: 50%;font-size:16px;margin-top: 25px;border-style: none;" ng-model="station"/><br>
+  <img src="../../../../image/20161123145423.png" style="margin:auto;position: absolute;top:0;bottom:0;right:0;left:0;width:45%;height:23%;float: left;" /><br>
+
+  </div>
+  <div  ng-show="scanhead==='0'" style="width: 100%;height: 60px;float: left;bottom: 0px;position: fixed;">
+    <span  id="tipDiv" style="text-align: center;font-size: 20px;line-height:3;color: white;background-color: #FF0000;display: block;width: 100%;height: 100%">{{LOGINSTATE}}</span>
+  </div>
+  <!-- normal -->
+  <div ng-show="status==='normal'">
+  <div class="workingStation">
+  <span ng-show="maxAmount===0">{{'RECEIVING_WORKSTATION_NOT_EXIST' | translate }}{{'DESTINATION' | translate }}，</span>
+  <span ng-show="maxAmount>0">{{'RECEIVING_WORKSTATION_HAVE' | translate }}{{maxAmount}}{{'PERSONAL' | translate}}{{'DESTINATION' | translate }}，</span>
+  <span>{{'SCAN_BINDING' | translate }}</span>
+  </div>
+  <div style="margin-top:20px;font-weight:600;">
+  <div style="margin-left:20px;">
+  <span class="inboundFont">{{'DESTINATION' | translate }}</span>
+  <input id="receiving_destination" type="text" class="k-textbox inputCls" ng-model="destination" ng-keydown="scanDestination($event)"/>
+  <span id="warnDestination" class="inboundFont" style="color:red;margin-left:24px;"></span>
+  </div>
+  <div style="margin-top:10px;">
+  <span class="inboundFont">{{'CARTS_BINDING' | translate }}</span>
+  <input id="receiving_container" type="text" class="k-textbox inputCls" ng-model="container" ng-keydown="scanContainer($event)"/>
+  <span id="warnContainer" class="inboundFont" style="color:red;margin-left:24px;"></span>
+  </div>
+  </div>
+  <div class="grid" style="width:75%;margin-top:20px;">
+  <kendo-grid id="receivingGRID" options="receivingGridOptions"></kendo-grid>
+  </div>
+  </div>
+  <!-- 绑定已达最大值 -->
+  <div ng-show="status==='max'" class="inbound-inboundmode">
+    <div class="box_shadow" style="height:15%;background:#EF7421;color:white;font-size:24px;font-weight:600;line-height: 3">{{ 'RECEIVING_MODE' | translate}}</div>
+    <div ng-show="receivingMode!='confirm'" style="margin-top:10px;text-align: center;font-size:18px;">
+      {{ 'RECEIVING_STATION_HAVE_BINDING' | translate}}{{maxAmount}}{{'RECEIVING_DESTINATION_AND_CONTAINER' | translate}}
+    </div>
+    <div ng-show="receivingMode==='confirm'" style="margin-top:10px;text-align: center;margin-left:3%;font-size:18px;">{{ 'RECEIVING_FORCE_FULL_REBINDING' | translate}}</div>
+    <div class="grid" style="margin-top:25px;margin-bottom:25px;margin-left: 7%;margin-right: 7%;">
+      <kendo-grid id="receivedGRID" options="receivedGridOptions"></kendo-grid>
+    </div>
+    <div ng-show="receivingButton!='confirm'" style="font-size:14px;margin-bottom:20px;">
+      <kendo-button class="k-primary k-button" ng-click="toReceiving()" style="width:35%;font-size: 16px;height: 40px">{{ 'CONUTINUE_USE_STOW_NOW' | translate}}</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="receivingMode='confirm';receivingButton='confirm'" style="width:35%;font-size: 16px;height: 40px;margin-left: 3%">{{ 'FULL_RE_PICKPACK' | translate}}</kendo-button>
+    </div>
+    <div ng-show="receivingButton==='confirm'" style="font-size:14px;margin-bottom:20px;">
+      <kendo-button class="k-primary k-button" ng-click="deleteReceivingContainer($event)" style="width:35%;font-size: 16px;height: 40px">{{ 'SURE' | translate}}</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="status='init';receivingMode='init';receivingButton='init';" style="width:35%;font-size: 16px;height: 40px;margin-left: 3%">{{ 'CANCEL' | translate}}</kendo-button>
+    </div>
+  </div>
+  <div ng-show="fullfinish==='0'" class="inbound-scanstation" style="background-color: white;width:60%;height:580px">
+    <div class="inbound-scan-topbar"><span style="font-weight:600;margin-top:2px;text-align: center;color: white;font-size: 24px;line-height: 50px" id="inboundtitle" class="inboundFont">请选择货位类型</span>
+      <kendo-button class="k-primary" ng-disabled="false" style="background-color: yellow;color: blue;float: right;margin-right: 5%;margin-top: 1%" ng-click="startPod()">确定</kendo-button>
+    </div>
+    <div id="select_bin_grid" style="width:100%;height:81%;margin-top: 30px;overflow:auto">
+
+      <!--<kendo-grid id="select_bin_grid" options="select_GridOptions"></kendo-grid>-->
+    </div>
+  </div>
+  <!--改版后的带input输入框的dialog-->
+  <div kendo-window="scanSerialNoWindow" ng-keydown="autoClose($event,this)" id="newtipwindowwithinputer" k-title="'{{'SCAN_GOODS_NUMBER' | translate }}'" k-visible="false" k-modal="true" class="inboundFont">
+    <div class="pop_container" style="width:100%;height:100%">
+      <div style="width: 100%;height:25%;float: left;text-align: center;line-height: 100%">
+        <span id="newtipwindow_span" style="line-height: 1.5;"></span>
+      </div>
+      <img src="../../../../image/20161123145423.png" style="width:50%;height:25%;position: relative;margin-left: 27%;float: left;margin-top: 5%"/>
+      <input id="newtipwindow_inputer" type="text" ng-model="tipvalue" ng-keydown="receivingscan($event)" style="width:35%;margin-left: 35%;margin-top: 5%;position:relative;float: left;"/>
+    </div>
+  </div>
+  <!-- 一般提示的弹出框 -->
+  <div kendo-window="scanSerialNoWindow" ng-keydown="autoClose($event,this)" id="tipwindow" k-title="'{{'SCAN_GOODS_NUMBER' | translate }}'" k-visible="false" k-modal="true" class="inboundFont">
+    <div class="pop_container" style="width:100%;height:100%">
+      <div style="width: 100%;height:100%;float: left;text-align: center;line-height: 100%;font-size: 24px">
+        <span id="tipwindow_span" style="margin: auto;"></span>
+      </div>
+    </div>
+  </div>
+  <div kendo-window="scanSerialNoWindow" id="ok_tipwindow" k-title="'{{'SCAN_GOODS_NUMBER' | translate }}'" k-visible="false" k-modal="true" class="inboundFont">
+    <div class="pop_container" style="width:100%;height:100%">
+      <div style="width: 100%;height:70%;float: left;text-align: center;line-height: 100%">
+        <span id="ok_tipwindow_span" style="margin: auto;"></span>
+      </div>
+      <div style="width: 100%;height:20%;float: left;text-align: center;line-height: 100%">
+        <kendo-button id="ok_tip_btn" ng-click="showChangeStoage(false)" class="k-primary-receiving" style="width: 50%;margin-left: 25%">货筐已满</kendo-button>
+      </div>
+    </div>
+  </div>
+  <!-- 带input扫描的弹出框 -->
+  <div kendo-window="scanSerialNoWindow" ng-keydown="autoClose($event,this)" id="scanwindow" k-title="'{{'SCAN_GOODS_NUMBER' | translate }}'" k-visible="false" k-modal="true" class="inboundFont">
+    <div class="pop_container" style="width:100%;height:100%">
+      <div style="width: 70%;height:100%;float: left;text-align: center;line-height: 100%">
+        <span id="inputwindow_span" style="width:100%;height:50%;float: left;margin: auto;"></span>
+        <img src="../../../../image/image.jpg" style="width: 100%;height: 40%;margin: auto;float: left"/>
+        <input style="width: 100%;height: 8%;float: left;"  id="window-receiving-inputer" ng-keydown="windowScan($event)"/>
+      </div>
+      <div style="width: 30%;height: 100%;margin: auto;float: left">
+        <img style="display: block;width: 100%;height: 100%;"  src="../../../../image/image.jpg" />
+      </div>
+    </div>
+  </div>
+  <!--需要释放pod弹窗-->
+  <div kendo-window="scanSerialNoWindow" id="releasePodWindow" k-title="'{{'SCAN_GOODS_NUMBER' | translate }}'" k-visible="false" k-modal="true" class="inboundFont">
+    <div class="pop_container" style="width:100%;height:100%">
+      <div style="width: 100%;height:70%;float: left;text-align: left;line-height: 100%;margin-top: 2%">
+        <span id="releasePodSpan" style="margin: auto;width: 100%;height: 30%;float: left;line-height: 1.5">{{sureDnTip}}</span>
+        <img src="../../../../image/20161123145423.png" style="width: 40%;height:30%;margin-left: 30%;margin-top: 5%" />
+        <input style="width: 50%;margin-left: 25%;margin-top: 2%" id="sureDn" ng-model="sureDn" ng-keydown="scanDnSureItem($event)"/>
+      </div>
+      <div style="width: 100%;height:20%;float: left;text-align: center;line-height: 100%">
+        <kendo-button id="ok_tip_btn" ng-click="receiving_commonService.CloseWindowByBtn('releasePodWindow');releasePod()" class="k-primary-receiving" style="width: 35%;height: 55%;margin-left: 33%">释放Pod</kendo-button>
+      </div>
+    </div>
+  </div>
+  <!-- 更换货筐的弹出框 -->
+  <div kendo-window="scanstoragewindow" ng-keydown="autoClose($event,this)" id="scanstoragewindow" k-title="'{{'SCAN_GOODS_NUMBER' | translate }}'" k-visible="false" k-modal="true" class="inboundFont">
+    <div class="pop_container" style="width:100%;height:100%">
+      <div style="width: 100%;height:37%;float: left;text-align: left;line-height: 100%">
+        <span id="inputstoragewindow_span" style="width:100%;height:30%;float: left;font-size: 20px;margin: auto;"></span>
+        <img src="../../../../image/20161123145423.png" style="width: 32%;height: 45%;margin-left: 35%;float: left"/>
+        <input style="width: 29%;margin-left: 36%;margin-top:2%;float: left;"  id="window-storage-inputer" ng-keydown="scanOldContainer($event)"/>
+      </div>
+      <span id="storagewindowtip" style="width:100%;height: 5%;font-size: 20px">当前站台货筐信息:</span>
+      <div ng-show="scanstatus==='0'" class="inboundGrid" style="height:55%;width:100%;float: left;text-align: left;margin-top: 2%">
+        <kendo-grid id="singleReceivedGRID" options="singleReceivedGridOptions" style="width:80%;height:85%;margin-left: 10%;margin-top: 3%"></kendo-grid>
+      </div>
+    </div>
+  </div>
+  <!-- 带img&ok&cancel的弹出框 -->
+  <div kendo-window="scanSerialNoWindow" id="window_img_ok_cancel"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div style="width:100%;height:80%;text-align: center;">
+      <span id="win_content" style="width:100%;height: 20%;text-align: left"></span>
+      <img ng-show="wimgstatus==='show'" class="k-image" style="width:100%;height:80%" id="window_img">
+    </div>
+    <div style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="win_receivingok(scancontainerType)" style="width:40%;margin-left: 5%">确定</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="win_receivingcancel(scancontainerType)" style="width:40%;margin-left: 5%">取消</kendo-button>
+    </div>
+  </div>
+  <!-- 带img&ok&cancel的扫描商品多货弹出框 -->
+  <div kendo-window="scanSerialNoWindow" id="window_goodsmore_ok_cancel"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div style="width:100%;height:80%;text-align: center;">
+      <span id="win_goodsmore_content" style="width:100%;height: 20%;text-align: left"></span>
+      <img ng-show="goodsmoreimgstatus==='show'" class="k-image" style="width:100%;height:80%" id="goodsmoreimg">
+    </div>
+    <div style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="scanItemGoodsMore()" style="width:40%;margin-left: 5%">确定</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="closeWindow('window_goodsmore_ok_cancel')" style="width:40%;margin-left: 5%">取消</kendo-button>
+    </div>
+  </div>
+<!--多货再次标记弹窗-->
+  <div kendo-window="scanSerialNoWindow" id="window_goodsmore_more_ok_cancel"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div style="width:100%;height:80%;text-align: center;">
+      <span id="win_goodsmore_more_content" style="width:100%;height: 20%;text-align: left"></span>
+      <img ng-show="goodsmoremoreimgstatus==='show'" class="k-image" style="width:100%;height:80%" id="goodsmoremoreimg">
+    </div>
+    <div style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="goodsmoreOk()" style="width:40%;margin-left: 5%">确定</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="isMore=false;isGoodsMore=false;closeWindow('window_goodsmore_more_ok_cancel');closeWindow('window_goodsmore_ok_cancel');closeWindow('keyboard_window')" style="width:40%;margin-left: 5%">取消</kendo-button>
+    </div>
+  </div>
+  <!-- 带img&ok&cancel的多货弹出框 -->
+  <div kendo-window="scanSerialNoWindow" id="window_img_ok_cancel_amount_sku"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div style="width:100%;height:80%;text-align: center;">
+      <div style="width:100%;height: 80%;text-align: left">
+        <span id="amountsku_sku" style="width: 100%;height: 10%;float: left;margin-left: 30%"></span>
+        <span id="amountsku_skuName" style="width: 100%;height: 10%;float: left;font-size: 14px"></span>
+        <span style="width: 20%;height: 10%;float: left;font-size: 14px">DN内总数量:</span><span id="amountsku_dnAmount" style="width: 70%;height: 10%;float: left;font-size: 14px"></span>
+        <span style="width: 20%;height: 10%;float: left;font-size: 14px">已收货数量:</span><span id="amountsku_receiveAmount" style="width: 70%;height: 10%;float: left;font-size: 14px"></span>
+        <span style="width: 20%;height: 10%;float: left;font-size: 14px">已输入数量:</span><span id="amountsku_inputAmount" style="width: 70%;height: 10%;float: left;font-size: 14px"></span>
+        <span style="width: 20%;height: 10%;float: left;font-size: 14px">超出DN数量:</span><span id="amountsku_beyondAmount" style="width: 70%;height: 10%;float: left;font-size: 14px"></span>
+        <span style="width: 20%;height: 10%;float: left;font-size: 14px">超出权限数量:</span><span id="amountsku_beyondMaxAmount" style="width: 70%;height: 10%;float: left;font-size: 14px"></span>
+        <span id="amountsku_content" style="width: 100%;height: 10%;font-size: 16px;float: left"></span>
+      </div>
+      <img ng-show="w_amountsku_imgstatus==='show'" class="k-image" style="width:30%;height:80%" id="window_amountsku_img">
+    </div>
+    <div ng-show="moregoods==='0'" style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="isSureGoodsMore=true;finish_keyboard(false)" style="width:40%;margin-left: 5%">确定</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="amountCancle('window_img_ok_cancel_amount_sku')" style="width:40%;margin-left: 5%">取消</kendo-button>
+    </div>
+    <div ng-show="moregoods=='1'" style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="close('window_img_ok_cancel_amount_sku')" style="width:40%;margin-left: 5%">确定</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="amountCancle('window_img_ok_cancel_amount_sku')" style="width:40%;margin-left: 5%">取消</kendo-button>
+    </div>
+  </div>
+  <!--退出工作站，带确定以及取消的一般提示框-->
+  <div kendo-window="scanSerialNoWindow" id="window_general_ok_cancel"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div style="width:100%;height:80%;text-align: center;">
+      <span id="general_content" style="width:100%;height: 100%;text-align: left">{{exitStationContent}}</span>
+    </div>
+    <div ng-show="exitflag==='0'" style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="exitStationBefore()" style="width:40%;margin-left: 5%">确定</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="closeGeneralWindow()" style="width:40%;margin-left: 5%">取消</kendo-button>
+    </div>
+    <div ng-show="exitflag==='1'" style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="exitStation()" style="width:40%;margin-left: 5%">确定</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="exitNotFull()" style="width:40%;margin-left: 5%">取消</kendo-button>
+    </div>
+  </div>
+  <!--退出工作站检查提示窗口-->
+  <div kendo-window="scanSerialNoWindow" id="window_exitstation_ok_cancel"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div style="width:100%;height:80%;text-align: center;">
+      <span id="general_exitstation_content" style="width:100%;height: 100%;text-align: left">{{exitStationContentNumTip}}</span>
+    </div>
+    <div ng-show="exitstationflag==='0'" style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="exitType='NO';exitBefore()" style="width:40%;margin-left: 5%">中途休息</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="exitType='YES';exitBefore()" style="width:40%;margin-left: 5%">强制退出</kendo-button>
+    </div>
+    <div ng-show="exitstationflag==='1'" style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="cantExitAndReportLessGoods()" style="width:40%;margin-left: 5%">确定</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="exitCancel()" style="width:40%;margin-left: 5%">取消</kendo-button>
+    </div>
+  </div>
+  <!--上架数量多货弹出框-->
+  <div kendo-window="scanSerialNoWindow" id="window_stow_goods_more_ok_cancel"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div style="width:100%;height:80%;text-align: center;">
+      <span id="_stow_goods_more_span" style="width:100%;height: 100%;text-align: left">商品在当前容器中只有{{ciperAmount}}件,输入数量{{inputAmount}}件,<br/>多余{{goodsMoreAmount}}件是否标记为多货?<br/>点击确认,将上架{{ciperAmount}}件商品,标记{{goodsMoreAmount}}件多货;点击取消,请重新输入数量</span>
+    </div>
+    <div style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="sureGoodsMore()" style="width:40%;margin-left: 5%">确定</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="closeWindow('window_stow_goods_more_ok_cancel')" style="width:40%;margin-left: 5%">取消</kendo-button>
+    </div>
+  </div>
+  <!--带键盘的(收货数量输入)弹窗-->
+  <div kendo-window="scanSerialNoWindow" id="keyboard_window"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div id="keyboard_keys" style="width:80%;height: 50%;margin-left: 10%;margin-right: 10%;float: left;">
+
+    </div>
+    <div style="width:100%;height: 15%;float: left;margin-top: 3%">
+      <input ng-focus="avatimemethod('keyboard_inputer')" type="number" id="keyboard_inputer" ng-keydown="finish_keyboard(true,$event)" style="width:20%;margin-left: 42%;height: 100%;display:block;background-color: #dca7a7;font-size: 48px;float: left;" />
+      <span ng-show="keyboardStatus==='0'" style="width:37%;text-align: center;font-weight: bold;line-height:4;height: 100%;font-size:16px;color: #FF0000;text-align:left;float: left">数量输入有误,请重新输入</span>
+    </div>
+    <div style="width:100%;height: 20%;float: left">
+      <kendo-button class="k-primary k-button" ng-click="finish_keyboard(false)" style="width:30%;margin-top: 5%;margin-left: 37%">{{'SURE'|translate}}</kendo-button>
+
+    </div>
+  </div>
+  <!--带键盘的(多货数量输入)弹窗-->
+  <div kendo-window="scanSerialNoWindow" id="goods_more_keyboard_window"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div id="goods_more_keyboard_keys" style="width:80%;height: 50%;margin-left: 10%;margin-right: 10%;float: left;">
+
+    </div>
+    <div style="width:100%;height: 15%;float: left;margin-top: 3%">
+      <input ng-focus="avatimemethod('goods_more_keyboard_inputer')" type="number" ng-model="goodsMoreAmount" id="goods_more_keyboard_inputer" style="width:20%;margin-left: 42%;height: 100%;display:block;background-color: #dca7a7;font-size: 48px;float: left;" />
+      <span ng-show="goods_more_keyboardStatus==='0'" style="width:37%;text-align: center;font-weight: bold;line-height:4;height: 100%;font-size:16px;color: #FF0000;text-align:left;float: left">数量输入有误,请重新输入</span>
+    </div>
+    <div style="width:100%;height: 20%;float: left">
+      <kendo-button class="k-primary k-button" ng-click="goodsMoreFinish()" style="width:30%;margin-top: 5%;margin-left: 37%">{{'SURE'|translate}}</kendo-button>
+
+    </div>
+  </div>
+
+  <!--提示车牌关闭-->
+  <div kendo-window="scanSerialNoWindow" id="goods_general_ok_cancel"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div style="width:100%;height:80%;text-align: center;">
+      <span id="goods_content" style="width:100%;height: 100%;text-align: left"></span>
+    </div>
+    <div  style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="finishReceiveWindow()" style="width:40%;margin-left: 5%;height:80%">确定</kendo-button>
+      <kendo-button class="k-primary k-button" ng-click="closegoodsWindow()" style="width:40%;margin-left: 5%;height:80%">取消</kendo-button>
+    </div>
+  </div>
+
+
+  <div kendo-window="scanSerialNoWindow" id="goodsless_tips_cancel"  k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div style="width:100%;height:80%;text-align: center;">
+      <span id="goodslesscontent" style="width:100%;height: 100%;text-align: left"></span>
+    </div>
+    <div  style="width:100%;height:18%;margin-top: 1%">
+      <kendo-button class="k-primary k-button" ng-click="closegoodslesstipWindow()" style="width:40%;margin-left: 30%;height:90%">确定</kendo-button>
+    </div>
+  </div>
+
+  <!--menu问题菜单-->
+  <div kendo-window="scanSerialNoWindow" id="promenu_pop_window" k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div class="common-titlebar-with-raduis-shadow-bg" onmouseout="style.backgroundColor='#4775ca'" onmouseover="style.backgroundColor='#5CACEE'" ng-click="goodsDamage()" style="width:70%;height: 10%;;margin-top: 5%;background-color: #4775ca;margin-left: 15%;">
+      <span style="text-align: center;display: block;font-size: 24px;font-weight: bold;color: white;line-height: 2.5">1.商品残损</span>
+    </div>
+    <div class="common-titlebar-with-raduis-shadow-bg" onmouseout="style.backgroundColor='#4775ca'" onmouseover="style.backgroundColor='#5CACEE'" ng-click="showChangeStoage(true)" style="width:70%;height: 10%;;margin-top: 5%;background-color: #4775ca;margin-left: 15%;">
+      <span style="text-align: center;display: block;font-size: 24px;font-weight: bold;color: white;line-height: 2.5">3.货筐已满</span>
+    </div>
+    <div class="common-titlebar-with-raduis-shadow-bg" onmouseout="style.backgroundColor='#4775ca'" onmouseover="style.backgroundColor='#5CACEE'" ng-click="showChartWindow()" style="width:70%;height: 10%;;margin-top: 5%;background-color: #4775ca;margin-left: 15%;">
+      <span style="text-align: center;display: block;font-size: 24px;font-weight: bold;color: white;line-height: 2.5">4.信息查询</span>
+    </div>
+    <div class="common-titlebar-with-raduis-shadow-bg" onmouseout="style.backgroundColor='#4775ca'" onmouseover="style.backgroundColor='#5CACEE'" ng-click="clickReportLight()" style="width:70%;height: 10%;;margin-top: 5%;background-color: #4775ca;margin-left: 15%;">
+      <span style="text-align: center;display: block;font-size: 24px;font-weight: bold;color: white;line-height: 2.5">5.报告暗灯</span>
+    </div>
+  </div>
+  <!--暗灯菜单-->
+  <div kendo-window="scanSerialNoWindow" id="report_light_pop_window" k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div id="report_light_grid" style="width:100%;height:65%;margin-top: 30px;overflow:auto">
+
+    </div>
+    <div id="badStorageState" style="width:100%;height: 30%;text-align: center">
+      <span style="width:100%;height: 10%;font-size: 18px;float: left;">{{scanbadstorageworn}}</span>
+      <img src="../../../../image/20161123145423.png" style="width:25%;height:40%;float: left;margin-left: 37%;margin-top: 2%"/>
+      <input id="scan-badstorage-inputer" ng-model="scanbadstorageinputer" type="text" ng-keydown="scanBadStorage($event)" style="float: left;margin-left: 43%;margin-top: 2%"/>
+    </div>
+  </div>
+  <!--扫描货位周边-->
+  <div kendo-window="scan_side_window" id="scan_side_window" k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div id="scan_side_window_grid"  style="width:100%;height: 30%;;margin-top: 5%;margin-left: 2%;;float: left">
+    </div>
+    <div id="scan_side_inputer_div"  style="width:100%;height: 40%;;margin-top: 5%;margin-left: 2%;float: left">
+      <img src="../../../../image/20161123145423.png" style="width:35%;margin-left:30%;height: 45%;">
+      <input id="scan-side-inputer" ng-model="scansideinputer" type="text" style="width:20%;margin-left: 37%" ng-keydown="sideStorageScan($event)"/>
+    </div>
+    <span style="width: 50%;height:5%;float: left;margin-left: 37%;color: red;">{{scansideworn}}</span>
+  </div>
+  <div kendo-window="scan_side_window" id="chart-window" k-visible="false" k-modal="true" class="inboundFont">
+    <div class="demo-section k-content wide" style="width:60%;height: 80%;float: left">
+      <div id="chart" style="background: center no-repeat"></div>
+    </div>
+    <div style="width:35%;height: 80%;float: left;margin-left: 5%">
+      <span style="width:95%;height: 10%;margin-left: 5px;float: left;">{{'USER'|translate}}:{{user}}</span>
+      <span style="width:95%;height: 10%;margin-left: 5px;float: left;margin-top: 2%">{{'OPERATETIME'|translate}}:{{operateTime}}</span>
+      <span style="width:95%;height: 10%;margin-left: 5px;float: left;margin-top: 2%;">{{'OPERATETOTALCOUNT'|translate}}:{{operateTotalCount}}</span>
+      <span style="width:95%;height: 10%;margin-left: 5px;float: left;margin-top: 2%;">{{'OPERATEPERCENTAGE'|translate}}:{{operatePercentage}}</span>
+      <span style="width:95%;height: 10%;margin-left: 5px;float: left;margin-top: 2%;">{{'GOAL'|translate}}:{{goal}}</span>
+      <span style="width:95%;height: 10%;margin-left: 5px;float: left;margin-top: 2%;">{{'ACHIEVED'|translate}}:{{achieved}}</span>
+      <span style="width:95%;height: 10%;margin-left: 5px;float: left;margin-top: 2%;">{{'PRECIPER'|translate}}:{{preCiper}}</span>
+      <span style="width:95%;height: 10%;margin-left: 5px;float: left;margin-top: 2%;">{{'PRELOCATION'|translate}}:{{preLocation}}</span>
+    </div>
+  </div>
+  <!--扫描问题货位窗口-->
+  <!--<div kendo-window="scanSerialNoWindow" id="scan_badstorage_window" k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">-->
+    <!--<span>{{scanbadstorageworn}}</span>-->
+    <!--<div  style="width:100%;height: 30%;;margin-top: 5%;margin-left: 2%;">-->
+      <!--<img src="../../../../image/bruno.jpg" style="width:40%;height: 80%;float: left;margin-left: 28%">-->
+      <!--<input id="scan-badstorage-inputer" style="margin-left: 30%;width:35%;float: left;margin-top: 5%" ng-model="scanbadstorageinputer" type="text" ng-keydown="scanBadStorage($event)"/>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--选择货位类型-->
+  <div kendo-window="scanSerialNoWindow" id="showBinType_window" k-visible="false" k-modal="true" class="inboundFont" style="width:100%;height:100%">
+    <div style="width:90%;height:10%;float:left;margin-left:5%;">
+      <span id="receiving-showbinspan" style="font-size: 18px">工位当前分配Pod总数:{{podTotal}}</span>
+      <kendo-button id="receiving-stopassignpod" ng-click="stopAssignPod()" style="margin-left: 2%;background-color: red;color: white;font-size: 16px">{{assignpodinfo}}</kendo-button>
+    </div>
+    <span style="font-size: 18px;margin-left:5%;">工位当前选中的货位类型:</span>
+    <div id="show_bin_grid" style="width:95%;height:70%;margin-top: 30px;overflow:auto;float:left;">
+
+    </div>
+    <kendo-button ng-click="startPodInPage()" style="background-color: #3f51b5;color: white;font-size: 16px;width:16%">{{'SURE' | translate}}</kendo-button>
+  </div>
+  <div ng-show="podstatus==='0'" style="width: 100%;height: 100%">
+    <div style="width:100%;height: 5%;float: left;text-align: center">
+      <span id="receiving_tip" style="font-weight: bold;font-size: large;width: 100%;height: 100%;color: #2e2e2e;margin: auto;text-align: left">请扫描要上架的pod号码</span>
+      <input type="text" id="receiving-inputer" ng-keydown="receivingscan($event)" />
+    </div>
+    <div class="mushiny-middle" style="width:100%;height:80%;float: left">
+      <div class="POD" style="width:25%;margin-left:0.5%;height:100%;float: left;">
+        <div  class="titlebar-with-raduis-shadow-bg" style="width:100%;height:90%;float: left;text-align: center">
+          <div class="inbound-scan-topbar" style="width:100%;height:7%;float: left;">
+            <span style="color: white;font-size: 24px;line-height: 150%">{{podInfo}}</span>
+          </div>
+          <div style="width:100%;height:95%;float: left;">
+            <div style="text-align: center" ng-show="podShow==='1'"><span style="font-size: 24px;color: #3c3c3c;margin-top: 30%;display: block">等待Pod信息中...</span></div>
+            <div ng-show="podShow==='0'"  id="receiving_pod_layout" style="width:95%;height:90%;margin: 7%;margin-top: 3%;margin-bottom: 3%;margin-left: 2.5%">
+
+            </div>
+          </div>
+        </div>
+        <div style="width:100%;height:10%;margin-top:5px;float: left;">
+          <div style="float: left;width:100%;height:100%;text-align: center;">
+            <span class="h-center" style="width:100%;height:35%;float: left;font-size: medium;font-weight: bolder">残品</span>
+            <div style="width: 100%;height:60%;float: left;background-color: #9b9b9b;text-align: center">
+              <span ng-show="scanbadcib==='0'" id="scanbadcib" class="receiving-uptopod-label" style="background-color:red ;">扫描残品车牌</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="width: 73%;height:100%;margin-left:0.5%;float: left;text-align: center">
+        <div class="DN" style="width: 100%;height: 30%;">
+          <div class="inbound-scan-topbar" style="width:100%;height:21%;float: left;">
+            <span id="stow-ciper-title" style="color: white;font-size: 24px;line-height: 150%">上架车牌-{{remainder}}/{{ciperTotalAmount}}</span>
+          </div>
+          <div class="titlebar-with-shadow-bg" style="width: 100%;height: 79%;float: left;">
+            <span id="receiving_dn_span" style="color: #000000;height:100%;line-height:3;font-size: 28px;display: block;"></span>
+          </div>
+        </div>
+        <div class="PRODUCT_INFO" style="width:100%;height:40%;float: left;text-align: center">
+          <div class="inbound-scan-topbar" style="width:100%;height:15.8%;float: left;">
+            <span style="width:100%;height:100%;color: white;font-size: 24px;line-height: 150%">{{'PRODUCTINFO'|translate}}</span>
+          </div>
+          <div class="titlebar-with-shadow-bg" style="width: 100%;height: 84.2%;float: left;">
+            <span ng-show="product_info_con==='1'" id="product_info_span" style="width:100%;height: 100%;float: left;color: #000000;font-size: 28px;display: block;line-height: 4;"></span>
+            <div ng-show="product_info_con==='0'" style="width:100%;height: 100%;">
+              <div style="width:33.3%;height: 100%; text-align: center;float: left;">
+                <img src="../../../../image/20161022134004.png" style="margin:0 auto; height:100% ;display:block;">
+              </div>
+              <div style="width:58%;margin-left: 2%;height: 100%;float: left;">
+                <span id="product_info_title" style="width:100%;height: 15%;float: left;text-align: left;color: #000000;font-size: 28px;display: block"></span>
+                <span id="product_info_date" style="width:100%;height: 15%;float: left;text-align: center;color: #000000;font-size: 28px;display: block"></span>
+                <span id="product_info_text" style="width:100%;height: 83%;text-align: left;float: left;color: #000000;font-size: 18px;display: block;margin-top: 3%"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="STATUS" style="width:100%;height:30%;text-align: center">
+          <div class="inbound-scan-topbar" style="width:100%;height:21%;float: left;">
+            <span style="color: white;font-size: 24px;line-height: 150%">{{'STATE'|translate}}</span>
+          </div>
+          <div id="status_value" class="titlebar-with-shadow-bg" style="width: 100%;height: 79%;float: left;">
+            <span id="receiving_status_span" style="width:100%;height: 100%;color: white;font-size: 28px;display: block;line-height: 1.7;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="receiving-footer">
+      <kendo-button id="receiving-allmode" class="k-primary-receiving" ng-click="switchMode(true)" style="margin-left: 2%;">{{'ALLMODE'|translate}}</kendo-button>
+      <kendo-button id="receiving-singlemode" class="k-primary-receiving" ng-click="switchMode(false)">{{'SINGLEMODE'|translate}}</kendo-button>
+      <kendo-button id="receiving-rebinmenu" class="k-primary-receiving" ng-click="showProMenuWindow()">{{'RE_BIN_MENU'|translate}}</kendo-button>
+      <kendo-button id="receiving-sttype" class="k-primary-receiving" ng-click="showBinTypeWindow()">{{'STORAGE_LOCATION_TYPE'|translate}}</kendo-button>
+      <kendo-button id="receiving-finishreceive" class="k-primary-receiving" ng-click="finishReceiveWindow()">{{finishState}}</kendo-button>
+      <kendo-button id="receiving-releasepod" ng-click="releasePod()" class="k-primary-receiving">{{'RELEASEPOD'|translate}}</kendo-button>
+      <kendo-button id="receiving-refreshpod" ng-click="refreshPod()" class="k-primary-receiving">{{'刷新POD'|translate}}</kendo-button>
+    </div>
+  </div>
+</div>

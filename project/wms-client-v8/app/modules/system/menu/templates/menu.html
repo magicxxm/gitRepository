@@ -1,0 +1,32 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'SYSTEM_MANAGE' | translate }}&nbsp;/&nbsp;{{'MENU' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ $root.mainHeight }}px;">
+    <!-- left -->
+    <span class="mushiny_filterLabel" translate="MENU_ITEM"></span>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="menuValue" ng-keyup="filterInput($event, 'listMenus', menuValue)" />
+      <div id="listMenus" kendo-list-view k-options="listMenus" class="mushiny_list" style="height:{{ $root.listHeight }}px;"></div>
+    </div>
+    <div class="mushiny_listBtn" style="margin-top:{{ $root.listBtnTop }}px;" ng-include="'modules/system/base/templates/listBtn_vertical.html'"></div>
+    <!-- mid -->
+    <span class="mushiny_filterLabel" style="margin-left:-60px;" translate="ASSIGN_MODULE"></span>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="assignValue" ng-keyup="filterInput($event, 'listAssignModules', assignValue)" />
+      <div id="listAssignModules" kendo-list-view k-options="listAssignModules" class="mushiny_list" style="height:{{ $root.listHeight }}px;"></div>
+    </div>
+    <div class="mushiny_listBtn" style="margin-top:{{ $root.listBtnTop }}px;" ng-include="'modules/system/base/templates/listBtn_horizontal.html'"></div>
+    <!-- right -->
+    <span class="mushiny_filterLabel" style="margin-left:-60px;" translate="UNASSIGN_MODULE"></span>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="unAssignValue" ng-keyup="filterInput($event, 'listUnassignModules', unAssignValue)" />
+      <div id="listUnassignModules" kendo-list-view k-options="listUnassignModules" class="mushiny_list" style="height:{{ $root.listHeight }}px;"></div>
+    </div>
+    <!-- save -->
+    <div class="mushiny_btnBox" style="margin-left:426px;">
+      <kendo-button class="k-button k-primary mushiny_btn" style="width:300px;" ng-click="save()" translate="SAVE"></kendo-button>
+    </div>
+  </div>
+</div>

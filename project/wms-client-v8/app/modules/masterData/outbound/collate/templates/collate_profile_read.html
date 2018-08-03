@@ -1,0 +1,39 @@
+<form kendo-validator="validator">
+  <ul class="ulCls">
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'PP_NAME' | translate}}</label></div>
+      <div class="formRightCollate"><input type="text" class="k-textbox" readonly ng-model="processPathName"/></div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'PROFILE_TYPE' | translate}}</label></div>
+      <div class="formRightCollate"><input type="text" class="k-textbox" readonly ng-model="profileType"/></div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'COLLATE_WINDOW' | translate}}</label></div>
+      <div class="formRightCollate"><input type="text" class="k-textbox" readonly ng-model="collateWindow"/></div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'TEMPLATE_NAME' | translate}}</label></div>
+      <div class="formRightCollate"><input type="text" class="k-textbox" readonly ng-model="template.name"/></div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'ITEM_PER_BATCH' | translate}}</label></div>
+      <div class="formRightCollate"><input type="text" class="k-textbox" readonly ng-model="itemPerBatch"/></div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'SHIPMENT_PER_BATCH' | translate}}</label></div>
+      <div class="formRightCollate"><input type="text" class="k-textbox" readonly ng-model="shipmentPerBatch" /></div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'CREATE_PURE_EXSD_BATCH' | translate}}</label></div>
+      <div class="formRightCollate"><input type="text" class="k-textbox" readonly ng-model="template.pureExsd" /></div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">&nbsp;</label></div>
+      <div class="formRightCollate">
+        <button class="k-button k-primary" style="width:30%;margin-left:15px;" ng-click="updateCollateProfile()">{{'EDIT' | translate}}</button>
+        <button class="k-button k-primary" style="width:30%;margin-left:25px;" ng-click="deleteCollateProfile()">{{'DELETE' | translate}}</button>
+      </div>
+    </li>
+  </ul>
+</form>

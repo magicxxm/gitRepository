@@ -1,0 +1,16 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'OUTBOUND' | translate }}&nbsp;/&nbsp;{{'COLLATE_LIVE_PICKER' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;">
+    <!-- search -->
+    <span>{{'NAME' | translate }}：<select kendo-combo-box k-ng-model="processPath" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="processPathSource"></select></span>
+    <kendo-button class="k-primary" ng-click="search()">
+      <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+    </kendo-button>
+    <!-- grid -->
+    <div class="gridToolbar"><kendo-button class="k-primary gridButton"></kendo-button></div>
+    <kendo-grid id="collateLivePickerGRID" options="collateLivePickerGridOptions"></kendo-grid>
+  </div>
+</div>

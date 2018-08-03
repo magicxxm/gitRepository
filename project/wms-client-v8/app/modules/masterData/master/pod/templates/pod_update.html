@@ -1,0 +1,107 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.pod" href="#">{{'POD' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator" ng-submit="validate($event)">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'NAME' | translate
+                        }}</label></div>
+                    <div class="formRight"><input type="text" name="name" class="k-textbox" ng-model="name"
+                                                  readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'POD_TYPE' | translate}}</label>
+                    </div>
+                    <div class="formRight">
+                        <input type="text" id="name" name="name" class="k-textbox" ng-model="podType.name" readonly/>
+                    </div>
+                </li>
+                <!--<li>-->
+                    <!--<div class="formLeft"><label class="required" style="float:right">{{'SECTION' | translate }}</label>-->
+                    <!--</div>-->
+                    <!--<div class="formRight">-->
+                        <!--<select kendo-combo-box k-ng-model="section" k-change="'changeSection(section.id)'"-->
+                                <!--k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'"-->
+                                <!--k-data-source="sectionSource"></select>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <li>
+                    <div class="formLeft"><label for="placeMark" class="required" style="float:right">{{'PLACE_MARK' |
+                        translate}}</label></div>
+                    <div class="formRight"><input  id="placeMark" name="placeMark" class="k-textbox"
+                                                  ng-dblclick="selectPlaceMark()" required readonly
+                                                  validationMessage="不能为空"
+                                                  ng-model="placeMark"/></div>
+                </li>
+                <!--<li>-->
+                <!--<div class="formLeft"><label for="sellingDegree" class="required" style="float:right">{{'ITEM_SELLING_DEGREE'-->
+                <!--| translate}}</label></div>-->
+                <!--<div class="formRight"><input type="text" id="sellingDegree" name="sellingDegree" class="k-textbox"-->
+                <!--ng-model="sellingDegree"/></div>-->
+                <!--</li>-->
+                <li>
+                    <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION'
+                        | translate}}</label></div>
+                    <div class="formRight"><input type="text" id="description" name="description" class="k-textbox"
+                                                  ng-model="description"/></div>
+                </li>
+                <!--<li>-->
+                <!--<div class="formLeft"><label for="podIndex" class="required" style="float:right">{{'POD_INDEX' |-->
+                <!--translate}}</label></div>-->
+                <!--<div class="formRight"><input type="number" id="podIndex" name="podIndex" class="k-textbox"-->
+                <!--ng-model="podIndex" required-->
+                <!--validationMessage="{{'WARNING_POD_INDEX' | translate }}"/></div>-->
+                <!--</li>-->
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'TO_WARD' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box class="k-textbox" k-data-source="toWardSource" type="text"
+                               id="toWard" required validationMessage="" k-value="toWard"
+                                ng-model="toWard"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="xPos" class="required" style="float:right">xPos</label></div>
+                    <div class="formRight"><input type="number" id="xPos" name="xPos" class="k-textbox"
+                                                  required readonly validationMessage="不能为空" ng-model="xPos"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="yPos" class="required" style="float:right">yPos</label></div>
+                    <div class="formRight"><input type="number" id="yPos" name="yPos" class="k-textbox"
+                                                  required readonly validationMessage="不能为空" ng-model="yPos"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="addrCodeIdTar" class="required" style="float:right">{{'ADDR_CODE_ID_TAR'
+                        | translate}}</label></div>
+                    <div class="formRight"><input type="number" id="addrCodeIdTar" name="addrCodeIdTar"
+                                                  required validationMessage="不能为空" class="k-textbox"
+                                                  ng-model="addrCodeIdTar"/></div>
+                </li>
+                <!--<li>-->
+                <!--<div class="formLeft"><label class="required" style="float:right">{{'STATE' | translate}}</label></div>-->
+                <!--<div class="formRight">-->
+                <!--<select kendo-combo-box ng-model="state" k-value="state" k-data-source="stateSource"></select>-->
+                <!--</div>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<div class="formLeft"><label class="required" style="float:right">{{'SECTION' | translate}}</label>-->
+                <!--</div>-->
+                <!--<div class="formRight">-->
+                <!--<select kendo-combo-box k-ng-model="section" k-data-text-field="'name'" k-data-value-field="'id'"-->
+                <!--k-filter="'contains'" k-data-source="sectionSource"></select>-->
+                <!--</div>-->
+                <!--</li>-->
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

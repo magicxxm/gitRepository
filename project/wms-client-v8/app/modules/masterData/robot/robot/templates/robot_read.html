@@ -1,0 +1,56 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.robot"  href="#" >{{'ROBOT' | translate }}</a>&nbsp;/&nbsp;{{'READ' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label style="float:right">车辆ID</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="robot" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">硬件版本</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="hardware" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">软件版本</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="software" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">出厂日期</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="priductionText" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">累计时长</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="acc" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">最近维修时间</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="recentlyText" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">入侵检测次数</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="inbreak" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">冷复位次数</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="cold" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">热复位次数</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="hot" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label  class="required" style="float:right">{{'车辆类型' }}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="robotType.name" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" ui-sref="main.robot">{{'BACK' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

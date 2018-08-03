@@ -1,0 +1,340 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'INVENT_ADJUST_TOOL'| translate }}</div>
+<div style="width:100%;">
+  <div style="width:80%;margin:0px auto;">
+    <div style="float:left;margin-top:20px;width:60%;">
+      <div style="font-size:18px;margin-top:10px;">
+        请选择操作模式:&nbsp;&nbsp;
+        <input style="width:60px" type="text" class="k-textbox" ng-keyup="operatingModeAll($event)" ng-model="operatingModeType">
+      </div>
+      <div style="font-size:18px;margin-top:5px;">
+        <kendo-button ng-style="{ background:  (operatingModeType=='1') ?'#3f51b5':  '#585858'}" ng-click="operatingModeTypeClick(1)"
+          class="k-primary">1商品盘赢</kendo-button>
+        <kendo-button ng-style="{ background:  (operatingModeType=='2') ?'#3f51b5':  '#585858'}" ng-click="operatingModeTypeClick(2)"
+          class="k-primary">2商品盘亏</kendo-button>
+        <kendo-button ng-style="{ background:  (operatingModeType=='3') ?'#3f51b5':  '#585858'}" ng-click="operatingModeTypeClick(3)"
+          class="k-primary">3商品移动</kendo-button>
+        <kendo-button ng-style="{ background:  (operatingModeType=='4') ?'#3f51b5':  '#585858'}" ng-click="operatingModeTypeClick(4)"
+          class="k-primary">4修改属性</kendo-button>
+        <kendo-button ng-style="{ background:  (operatingModeType=='5') ?'#3f51b5':  '#585858'}" ng-click="operatingModeTypeClick(5)"
+          class="k-primary">5整箱移动</kendo-button>
+      </div>
+      <!-- 1商品盘赢 -->
+      <div ng-show="operatingModeType==1">
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          目的容器&nbsp;&nbsp;<input id="commodityDiskWinDestinationContainerInput" ng-model="orgContainerName" ng-keyup="focusShow($event,'commodityDiskWinScanGoods','originalContainer')"
+            type="text" class="k-textbox">
+          <div class="internalToolCenter" ng-show="commodityDiskWinScanGoodsShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{originalContainerCount}}units</div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          扫描商品&nbsp;&nbsp;<input id="commodityDiskWinScanGoodsInput" type="text" ng-model="scanningGoodsName" class="k-textbox"
+            ng-keyup="scanningGoods($event)">
+          <div class="internalToolCenter" ng-show="clientShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{scanningGoodsCount}}units</div>
+        </div>
+        <div style="margin-top:5px;display: flex">
+          <span style="font-size:18px;">客 户</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <select id="clientSelectId" kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'"
+            style="width:222px;" k-change="clientSelect" k-data-source="clientSource"></select>
+          <div ng-controller="internalToolCtl">
+          </div>
+          <div class="internalToolCenter" ng-show="commodityDiskWinModelShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          盘盈类型&nbsp;&nbsp;<input ng-model="commodityDiskWinModel" id="commodityDiskWinModelInput" ng-keyup="focusShow($event,'commodityDiskWinCount')"
+            type="text" class="k-textbox">
+          <div class="internalToolCenter" ng-show="commodityDiskWinCountShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;">
+          <kendo-button ng-style="{ background:  (commodityDiskWinModel=='Inventory') ?'#3f51b5':  '#585858'}" ng-click="commodityDiskWinModelClick('Inventory')"
+            style="margin-left: 5px" class="k-primary">1正品库存</kendo-button>
+          <kendo-button ng-style="{ background:  (commodityDiskWinModel=='Damage') ?'#3f51b5':  '#585858'}" ng-click="commodityDiskWinModelClick('Damage')"
+            style="margin-left: 5px" class="k-primary">2残品库存</kendo-button>
+          <kendo-button ng-style="{ background:  (commodityDiskWinModel=='Pending') ?'#3f51b5':  '#585858'}" ng-click="commodityDiskWinModelClick('Pending')"
+            style="margin-left: 5px" class="k-primary">3待调查状态</kendo-button>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          数量&nbsp;&nbsp;<input id="commodityDiskWinCountInput" type="text" ng-model="commodityDiskWinCount" class="k-textbox"
+            ng-keyup="focusShow($event,'commodityDiskWinCountOwner')" style="margin-left:36px;">
+          <div class="internalToolCenter" ng-show="commodityDiskWinCountOwnerShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+        <div style="margin-top:5px;display: flex">
+          <span style="font-size:18px;">调整 原因</span>&nbsp;&nbsp;
+          <select kendo-combo-box id="diskWinAdjustReasonId" k-data-source="adjustReasonSource" k-data-text-field="'name'" ng-model="adjustReason"
+            k-data-value-field="'value'" style="font-weight:bolder;width:222px;"></select>
+          <div class="internalToolCenter" ng-show="commodityDiskWinPersonLiableShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          责任人&nbsp;&nbsp;<input type="text" id="commodityDiskWinPersonLiableInput" ng-model="thoseResponsible" ng-keyup="focusShow($event,'commodityDiskWinproblemDescription','checkUser')"
+            class="k-textbox" style="margin-left:18px;">
+          <div class="internalToolCenter" ng-show="commodityDiskWinproblemDescriptionShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          问题描述&nbsp;&nbsp;<input type="text" ng-model="problemDestination" id="commodityDiskWinproblemDescriptionInput" class="k-textbox">
+        </div>
+        <div readonly ng-show="useNotAfter" style="font-size:18px;margin-top:5px;display: flex">
+          有效期&nbsp;&nbsp;: {{useNotAfter}}
+        </div>
+        <div readonly ng-show="serialRecordType=='ALWAYS_RECORD'" style="font-size:18px;margin-top:5px;display: flex">
+          SN&nbsp;&nbsp;: <input type="text"  ng-model="sn"
+            class="k-textbox" style="margin-left:42px;">
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          <kendo-button class="k-primary" ng-click="goodsDiskWin()">1 {{'SURE' | translate }}</kendo-button>
+          <kendo-button class="k-primary" style="margin-left:20px">2 {{'CANCEL' | translate }}</kendo-button>
+        </div>
+        <div style="font-size:20px;margin-top:5px;display: flex" ng-show="goodsMoveCarts">
+          <kendo-button class="k-primary" style="height:60px;width:100%;border:1px solid #76b44e;background:#76b44e;" ng-click="backDiskWin()">已成功盘盈{{commodityDiskWinCountSuccess}}件商品{{scanningGoodsNameSuccess}}至{{orgContainerNameSuccess}}</kendo-button>
+        </div>
+        <div style="  width: 100%;height: auto;background: red;margin-top: 30px;font-size: 30px;text-align: center;color: white;">{{errMessage}} </div>
+      </div>
+      <!-- 2商品盘亏 -->
+      <div ng-show="operatingModeType==2">
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          原始容器&nbsp;&nbsp;<input type="text" ng-model="orgContainerName" id="commodityInventoriesOriginalContainerInput"
+            ng-keyup="focusShow($event,'commodityInventoriesCommodityBarcode','originalContainer')" class="k-textbox">
+          <div class="internalToolCenter" ng-show="commodityInventoriesCommodityBarcodeShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{originalContainerCount}}件</div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          商品条码&nbsp;&nbsp;<input type="text" class="k-textbox" ng-model="scanningGoodsName" id="commodityInventoriesCommodityBarcodeInput"
+            ng-keyup="scanningGoods($event)">
+          <div class="internalToolCenter" ng-show="commodityInventoriesCountShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">原始容器此商品总计{{scanningGoodsCount}}件</div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          数 量&nbsp;&nbsp;
+          <input type="text" ng-model="commodityInventoriesCount" ng-keyup="focusShow($event,'commodityInventoriesAdjustmentReason')"
+            id="commodityInventoriesCountInput" class="k-textbox" style="margin-left:30px;">
+          <div class="internalToolCenter" ng-show="commodityInventoriesAdjustmentReasonShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+        <div style="margin-top:5px;display: flex">
+          <div style="font-size:18px;">调整原因&nbsp;&nbsp; </div><select kendo-combo-box id="adjustReasonId" ng-model="adjustReason" k-data-source="adjustReasonSource"
+            k-change="focusShowSelect" k-data-text-field="'name'" k-data-value-field="'value'" style="font-weight:bolder;width:222px;"></select>
+          <div class="internalToolCenter" ng-show="commodityInventoriesPersonLiableShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          责任人&nbsp;&nbsp;<input type="text" id="commodityInventoriesPersonLiableInput" ng-model="thoseResponsible" ng-keyup="focusShow($event,'commodityInventoriesProblemDescription','checkUser')"
+            class="k-textbox" style="margin-left:18px;">
+          <div class="internalToolCenter" ng-show="commodityInventoriesProblemDescriptionShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          问题描述&nbsp;&nbsp;<input ng-model="problemDestination" type="text" id="commodityInventoriesProblemDescriptionInput"
+            class="k-textbox">
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          <kendo-button class="k-primary" ng-click="goodsInventoryAhortage()">1 {{'SURE' | translate }}</kendo-button>
+          <kendo-button style="margin-left: 5px;  margin-left:20px" class="k-primary">2 {{'CANCEL' | translate }}</kendo-button>
+        </div>
+        <div style="font-size:20px;margin-top:5px;display: flex" ng-show="goodsMoveCarts">
+          <kendo-button class="k-primary" style="height:60px;width:100%;border:1px solid #76b44e;background:#76b44e;" ng-click="backDiskWin()">已成功从{{orgContainerNameSuccess}}盘亏{{commodityInventoriesCountSuccess}}件商品{{scanningGoodsNameSuccess}}</kendo-button>
+        </div>
+        <div style="  width: 100%;height: auto;background: red;margin-top: 30px;font-size: 30px;text-align: center;color: white;">{{errMessage}} </div>
+      </div>
+      <!-- 3商品移动 -->
+      <div ng-show="operatingModeType==3">
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          原始容器&nbsp;&nbsp;<input type="text" id="commodityMovementOriginalContainerInput" ng-model="orgContainerName" ng-keyup="focusShow($event,'commodityMovementScanGoods','originalContainer')"
+            class="k-textbox">
+          <div class="internalToolCenter" ng-show="commodityMovementScanGoodsShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{originalContainerCount}}件</div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          扫描商品&nbsp;&nbsp;<input type="text" class="k-textbox" ng-model="scanningGoodsName" id="commodityMovementScanGoodsInput"
+            ng-keyup="scanningGoods($event)">
+          <div class="internalToolCenter" ng-show="commodityMovementDestinationContainerShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">原始容器此商品总计{{scanningGoodsCount}}件</div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          目的容器&nbsp;&nbsp;<input type="text" id="commodityMovementDestinationContainerInput" ng-model="destinationContainerName"
+            ng-keyup="focusShow($event,'commodityMovementCount','destinationContainer')" class="k-textbox">
+          <div class="internalToolCenter" ng-show="commodityMovementCountShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{destinationContainerCount}}件</div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          数 量&nbsp;&nbsp;
+          <input type="text" class="k-textbox" id="commodityMovementCountInput" ng-model="commodityCount" style="margin-left:30px;"
+            ng-keyup="moveCount($event)">
+        </div>
+        <div style="font-size:20px;margin-top:5px;display: flex" ng-show="goodsMoveCarts">
+          <kendo-button class="k-primary" style="height:60px;width:100%;border:1px solid #76b44e;background:#76b44e;">已成功从{{orgContainerNameSuccess}} 转移 {{commodityCountSuccess}} 件商品至{{destinationContainerNameSuccess}}</kendo-button>
+        </div>
+        <div style="  width: 100%;height: auto;background: red;margin-top: 30px;font-size: 30px;text-align: center;color: white;">{{errMessage}}</div>
+      </div>
+      <!-- 修改属性 -->
+      <div ng-show="operatingModeType==4">
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          原始容器&nbsp;&nbsp;<input type="text" ng-model="orgContainerName" id="modifyAttributeOriginalContainerInput" ng-keyup="focusShow($event,'modifyAttributeScanGoods','originalContainer')"
+            class="k-textbox">
+          <div class="internalToolCenter" ng-show="modifyAttributeScanGoodsShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{originalContainerCount}}件</div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          扫描商品&nbsp;&nbsp;<input type="text" id="modifyAttributeScanGoodsInput" class="k-textbox" ng-model="scanningGoodsName"
+            ng-keyup="scanningGoods($event)">
+          <div class="internalToolCenter" ng-show="modifyAttributeModelShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          修改属性&nbsp;&nbsp;<input type="text" ng-model="modifyAttributeModel" id="modifyAttributeModelInput" ng-keyup="modifyAttributeModelSelect()"
+            class="k-textbox">
+          <div class="internalToolCenter" ng-show="modifyAttributeCountShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          <kendo-button ng-style="{ background:  (modifyAttributeModel=='Inventory') ?'#3f51b5':  '#585858'}" ng-click="modifyAttributeModelClick('Inventory')"
+            style="margin-left: 5px" k-change="modifyAttributeModelSelect" class="k-primary">1正品库存</kendo-button>
+          <kendo-button ng-style="{ background:  (modifyAttributeModel=='Damage') ?'#3f51b5':  '#585858'}" ng-click="modifyAttributeModelClick('Damage')"
+            style="margin-left: 5px" k-change="modifyAttributeModelSelect" class="k-primary">2残品库存</kendo-button>
+          <kendo-button ng-style="{ background:  (modifyAttributeModel=='Pending') ?'#3f51b5':  '#585858'}" ng-click="modifyAttributeModelClick('Pending')"
+            style="margin-left: 5px" k-change="modifyAttributeModelSelect" class="k-primary">3待调查状态</kendo-button>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          数量&nbsp;&nbsp;<input type="text" id="modifyAttributeCountInput" ng-model="modifycount" ng-keyup="focusShow($event,'modifyAttributeAdjustmentReason')"
+            class="k-textbox" style="margin-left:36px;">
+          <div class="internalToolCenter" ng-show="modifyAttributeAdjustmentReasonShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+        </div>
+        <div style="margin-top:5px;display: flex">
+          <div style="font-size:18px;">调整原因&nbsp;&nbsp; </div> <select style="font-weight:bolder;width:222px;" kendo-combo-box id="adjustReasonModifyAttributeId" ng-model="adjustReason" k-data-source="adjustReasonUpdateSource"
+            k-data-text-field="'name'" k-data-value-field="'value'"  ></select>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          目的容器&nbsp;&nbsp;<input type="text" id="commodityMovementDestinationContainerInput" ng-model="destinationContainerName"
+            ng-keyup="focusShow($event,'commodityMovementCount','destinationContainer')" class="k-textbox">
+          <div class="internalToolCenter" ng-show="commodityMovementCountShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{destinationContainerCount}}件</div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          <kendo-button class="k-primary" ng-click="changePermissions()">1 {{'SURE' | translate }}</kendo-button>
+          <kendo-button style="margin-left: 5px;margin-left:20px" class="k-primary">2 {{'CANCEL' | translate }}</kendo-button>
+        </div>
+        <div style="font-size:20px;margin-top:5px;display: flex" ng-show="goodsMoveCarts">
+          <kendo-button class="k-primary" style="height:60px;width:100%;border:1px solid #76b44e;background:#76b44e;" ng-click="backDiskWin()">成功修改{{modifycountSuccess}}件商品{{scanningGoodsNameSuccess}}属性</kendo-button>
+        </div>
+        <div style="  width: 100%;height: auto;background: red;margin-top: 30px;font-size: 30px;text-align: center;color: white;">{{errMessage}} </div>
+      </div>
+      <!-- 5整箱移动 -->
+      <div ng-show="operatingModeType==5">
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          原始容器&nbsp;&nbsp;<input type="text" id="fclMovingOriginalContainerInput" ng-model="orgContainerName" ng-keyup="focusShow($event,'fclMovingDestinationContainer','originalContainer')"
+            class="k-textbox">
+          <div class="internalToolCenter" ng-show="fclMovingDestinationContainerShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{originalContainerCount}}件</div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          目的容器&nbsp;&nbsp;<input type="text" id="fclMovingDestinationContainerInput" ng-model="destinationContainerName"
+            ng-keyup="fclMovingDestination($event)" ngk class="k-textbox">
+          <div class="internalToolCenter" ng-show="fclMovingDestinationShow">
+            <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{destinationContainerCount}}件</div>
+        </div>
+        <div style="font-size:18px;margin-top:5px;display: flex">
+          <kendo-button class="k-primary" ng-click="moveAll()">1 {{'SURE' | translate }}</kendo-button>
+          <kendo-button style="margin-left:20px" class="k-primary">2 {{'CANCEL' | translate }}</kendo-button>
+        </div>
+        <div style="font-size:20px;margin-top:5px;" ng-show="goodsMoveCarts">
+          <kendo-button class="k-primary" style="height:60px;width:100%;border:1px solid #76b44e;background:#76b44e;" ng-click="backDiskWin()">已成功转移{{orgContainerNameSuccess}}至{{destinationContainerNameSuccess}}</kendo-button>
+        </div>
+        <div style="  width: 100%;height: auto;background: red;margin-top: 30px;font-size: 30px;text-align: center;color: white;">{{errMessage}}</div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div style="float:left;width:40%;">
+    <div style="margin-top:20px;margin-left:10px;border:1px solid blue;height:{{(mainHeight-100)}}px;width:90%;">
+      <div ng-show="_goodsContent" style="height:100%;">
+        <div style="text-align:center;height:180px;margin-top:30px;">
+          <img height="150px" width="150px" src="image/20161022134004.png">
+        </div>
+        <div style="padding-top:10px;font-size:16px;border-top:1px solid blue;width:100%;">
+          <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+            <div style="font-weight:600;float:left;width:20%;">SKU ID</div>
+            <div style="float:left;width:70%">{{skuId}}</div>
+          </div>
+          <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+            <div style="font-weight:600;float:left;width:20%;">商品名称</div>
+            <div style="float:left;width:70%">{{name}}</div>
+          </div>
+          <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+            <div style="font-weight:600;float:left;width:20%;">长*宽*高</div>
+            <div style="float:left;width:70%">{{volume}}mm</div>
+          </div>
+          <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+            <div style="font-weight:600;float:left;width:20%;">重量</div>
+            <div style="float:left;width:70%">{{weight}}g</div>
+          </div>
+          <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+            <div style="font-weight:600;float:left;width:20%;">客户</div>
+            <div style="float:left;width:70%">{{clientName}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:16px;margin-top:20px;text-align:center">
+      <kendo-button class="k-primary" style="width:180px;" ng-click="selectTransferRecords()">S查看库存调整记录</kendo-button>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+<div kendo-window="validityWindow" id="validityAdjustId" style="text-align: center" k-title="'有效期录入'" k-visible="false" k-modal="true">
+  <div>
+    <!--<div style="font-size:18px;margin-top:10px;" >-->
+    <!--<kendo-button class="k-primary" style="color:white;height:60px;width:100%;border:1px solid #f27724;background:#f27724;">生产日期：2013年10月7号，到期日期：2016年10月8号，<br>有效期3年</kendo-button>-->
+    <!--</div>-->
+    <div ng-show="dateModel=='MANUFACTURE'">
+      <div style="font-size:18px;margin-top:10px;display: flex;   justify-content: center;">
+        <span class="effectiveDateLab">生产年</span><input id="productionYear" type="number" ng-keyup="inputValidityDateFocus($event,'productionMonth')"
+          class="k-textbox" ng-model="year">
+      </div>
+      <div style="font-size:18px;margin-top:10px;display: flex;   justify-content: center;">
+        <span class="effectiveDateLab">生产月</span><input type="number" id="productionMonth" ng-keyup="inputValidityDateFocus($event,'productionDay')"
+          class="k-textbox" ng-model="month">
+      </div>
+      <div style="font-size:18px;margin-top:10px;display: flex;   justify-content: center;">
+        <span class="effectiveDateLab">生产日</span><input type="number" id="productionDay" ng-keyup="inputValidityDateFocus($event,'productionValid')"
+          class="k-textbox" ng-model="day">
+      </div>
+      <div style="font-size:18px;margin-top:10px;display: flex;   justify-content: center;">
+        <span class="effectiveDateLab">有效期({{dateUnit}})</span><input type="number" id="productionValid" class="k-textbox"
+          ng-keyup="" ng-model="dateUnits">
+      </div>
+    </div>
+    <div ng-show="dateModel=='EXPIRATION'">
+      <div style="font-size:18px;margin-top:10px;display: flex;   justify-content: center;">
+        <span class="effectiveDateLab">到期年</span><input type="number" id="maturityYear" ng-keyup="inputValidityDateFocus($event,'maturityMonth')"
+          class="k-textbox" ng-model="expiredYear">
+      </div>
+      <div style="font-size:18px;margin-top:10px;display: flex;   justify-content: center;">
+        <span class="effectiveDateLab">到期月</span><input type="number" id="maturityMonth" ng-keyup="inputValidityDateFocus($event,'maturityDay')"
+          class="k-textbox" ng-model="expiredMonth">
+      </div>
+      <div style="font-size:18px;margin-top:10px;display: flex;   justify-content: center;">
+        <span class="effectiveDateLab">到期日</span><input type="number" id="maturityDay" ng-keydowm="" class="k-textbox" ng-model="expiredDay">
+      </div>
+    </div>
+    <div style="text-align:center;width:100%;">
+      <kendo-button class="k-primary ReceiptBut" ng-click="validity()">2 {{'SURE' | translate }}</kendo-button>
+    </div>
+  </div>
+</div>
+<div kendo-window="inventAdjustWindow" id="inventAdjustId" k-title="'库存调整记录'" k-visible="false" k-modal="true">
+  <div style="margin:20px auto;width:98%;">
+    <kendo-grid class="inboundGrid" id="inventAdjustGrid"></kendo-grid>
+  </div>
+  <div style="text-align:center;width:100%;float:left;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="inventAdjustWindow.close();">2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>

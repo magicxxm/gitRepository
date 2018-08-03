@@ -1,0 +1,14 @@
+.errorFooter{
+    line-height:80px;width:100%;
+    clear:both;background:red;
+    color:white;
+    font-size:26px;
+    text-align: center;bottom:0;
+    position:absolute;
+    overflow:hidden;
+}
+
+.buttonColorGrayx{
+    background:gray;
+    border:1px solid gray;
+}

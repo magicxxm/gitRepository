@@ -1,0 +1,45 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">SKU盘点创建</div>
+<div style="margin-top:10px;margin-left:10px;">
+  <div style="float:left;width:400px;"><span style="font-size:18px;">盘点单号</span>&nbsp;&nbsp;<input type="text" class="k-textbox" style="width: 250px;" ng-model="icqaName">&nbsp;&nbsp;</div>
+  <!--<div style="float:left;width:250px;"><span style="font-size:18px;">盘点数量</span>&nbsp;&nbsp;<input type="number" class="k-textbox" ng-model="icqaAmount">&nbsp;&nbsp; </div>-->
+  <div style="float:left;margin-left:20px;"><span style="font-size:18px;float:left;">指定区域</span>&nbsp;&nbsp;
+    <select style="width:300px;float:left;margin-left:10px;" kendo-multi-select id="zoneId" k-ng-model="zone" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'"></select>
+    <!--<select style="width:300px;float:left;margin-left:10px;" kendo-combo-box id="zoneId" k-ng-model="zone" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'"></select>-->
+    <!--<select id="comboClientId" style="width:225px;" kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="clientSource"></select>-->
+  </div>
+</div>
+
+<div style="margin-top:5px;margin-left:30px;float:right;">
+  <span ng-controller="icqaCtl"></span>
+  &nbsp;&nbsp;
+  <kendo-button class="k-primary" style="float:left;font-size:18px;margin-right:20px;" ng-click="addStocktakingOrder()">新增</kendo-button>
+  <kendo-button class="k-primary" style="float:left;font-size:18px;margin-right:20px;" ng-click="saveIcqaCreate()">{{'SAVE'| translate }}</kendo-button>
+  <kendo-button class="k-primary" style="float:left;font-size:18px;margin-right:20px;" ng-click="deleteStocktaking()">{{'DELETE'| translate }}</kendo-button>
+  <kendo-button class="k-primary" style="float:left;font-size:18px;margin-right:20px;" ng-click="exportSkuData()">下载模板</kendo-button>
+  <kendo-button class="k-primary" style="float:left;font-size:18px;margin-right:20px;" ng-click="import('itemData')">批量导入</kendo-button>
+</div>
+<div style="margin-top:5px;margin-left:10px;margin-right:10px;float:left;">
+  <kendo-grid class="inboundGrid" id="stocktakingGridId" options="stocktakingGridOption"></kendo-grid>
+</div>
+
+<!--盘点任务是否重名---->
+<div kendo-window="inventoryTaskWindow" id="inventoryTaskId" k-title="'盘点任务重名'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">任务名称重名</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="inventoryTaskWindow.close()">{{'SURE' | translate }}</kendo-button>
+  </div>
+</div>
+
+<!--<div ng-show = "test">-->
+<!--<div style="float:left;" >-->
+  <!--<select style="width:225px;" id="clientValueId" kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-filter="'contains'" k-data-value-field="'id'"  k-data-source="clientSource"></select>-->
+<!--</div>-->
+<!--</div>-->
+
+<!-- 商品条码校验 -->
+<div kendo-window="remarksWindow" id="remarksId" k-title="'商品条码校验'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">{{itemNoError}}</div>
+  <div style="text-align:center;width:100%;margin-top:20px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="remarksWindow.close()">{{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>

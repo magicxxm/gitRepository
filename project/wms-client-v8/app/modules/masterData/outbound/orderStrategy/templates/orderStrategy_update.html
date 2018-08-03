@@ -1,0 +1,95 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.order_strategy">{{'ORDER_STRATEGY' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'CLIENT' | translate}}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-change="'changeClient(client.id)'" k-ng-model="client" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="$root.clientSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" ng-model="name" required validationMessage="{{'WARNING_NAME' | translate }}" /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'CREATE_SHIPPING_ORDER' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="createShippingOrder" id="createShippingOrderTrue" class="k-radio" value="true" ng-model="createShippingOrder">
+            <label class="k-radio-label" for="createShippingOrderTrue">True</label>
+            <input type="radio" name="createShippingOrder" id="createShippingOrderFalse" class="k-radio" value="false" ng-model="createShippingOrder">
+            <label class="k-radio-label" for="createShippingOrderFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'CREATE_FOLLOWUP_PICKS' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="createFollowupPicks" id="createFollowupPicksTrue" class="k-radio" value="true" ng-model="createFollowupPicks">
+            <label class="k-radio-label" for="createFollowupPicksTrue">True</label>
+            <input type="radio" name="createFollowupPicks" id="createFollowupPicksFalse" class="k-radio" value="false" ng-model="createFollowupPicks">
+            <label class="k-radio-label" for="createFollowupPicksFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'MANUAL_CREATION_INDEX' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="manualCreationIndex" id="manualCreationIndexTrue" class="k-radio" value="true" ng-model="manualCreationIndex">
+            <label class="k-radio-label" for="manualCreationIndexTrue">True</label>
+            <input type="radio" name="manualCreationIndex" id="manualCreationIndexFalse" class="k-radio" value="false" ng-model="manualCreationIndex">
+            <label class="k-radio-label" for="manualCreationIndexFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'PREFER_MATCHING_STOCK' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="preferMatchingStock" id="preferMatchingStockTrue" class="k-radio" value="true" ng-model="preferMatchingStock">
+            <label class="k-radio-label" for="preferMatchingStockTrue">True</label>
+            <input type="radio" name="preferMatchingStock" id="preferMatchingStockFalse" class="k-radio" value="false" ng-model="preferMatchingStock">
+            <label class="k-radio-label" for="preferMatchingStockFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'PREFER_UNOPENED' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="preferUnopened" id="preferUnopenedTrue" class="k-radio" value="true" ng-model="preferUnopened">
+            <label class="k-radio-label" for="preferUnopenedTrue">True</label>
+            <input type="radio" name="preferUnopened" id="preferUnopenedFalse" class="k-radio" value="false" ng-model="preferUnopened">
+            <label class="k-radio-label" for="preferUnopenedFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_LOCKED_LOT' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="useLockedLot" id="useLockedLotTrue" class="k-radio" value="true" ng-model="useLockedLot">
+            <label class="k-radio-label" for="useLockedLotTrue">True</label>
+            <input type="radio" name="useLockedLot" id="useLockedLotFalse" class="k-radio" value="false" ng-model="useLockedLot">
+            <label class="k-radio-label" for="useLockedLotFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_LOCKED_STOCK' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="useLockedStock" id="useLockedStockTrue" class="k-radio" value="true" ng-model="useLockedStock">
+            <label class="k-radio-label" for="useLockedStockTrue">True</label>
+            <input type="radio" name="useLockedStock" id="useLockedStockFalse" class="k-radio" value="false" ng-model="useLockedStock">
+            <label class="k-radio-label" for="useLockedStockFalse">False</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="storageLocation" class="required" style="float:right">{{'DEFAULT_DESTINATION' | translate}}</label></div>
+          <div class="formRight">
+            <input type="text" ng-dblclick="selectStorageLocation(client)" id="storageLocation" name="storageLocation" class="k-textbox" required readonly validationMessage="{{'WARNING_STORAGE_LOCATION' | translate }}" ng-model="storageLocation.name"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

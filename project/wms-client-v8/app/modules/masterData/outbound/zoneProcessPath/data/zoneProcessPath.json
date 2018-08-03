@@ -1,0 +1,76 @@
+{
+   "processAmount": [{
+     "amount": 1140,
+     "processPathName": "singleSmall",
+     "pickAreaAmount":[{
+       "amount": 120,
+       "pickAreaName": "P-1-A"
+     },{
+       "amount": 100,
+       "pickAreaName": "P-1-B"
+     },{
+       "amount": 400,
+       "pickAreaName": "P-1-C"
+     },{
+       "amount": 200,
+       "pickAreaName": "P-1-D"
+     },{
+       "amount": 320,
+       "pickAreaName": "P-2-E"
+     }]
+   },{
+     "amount": 500,
+     "processPathName": "singleLarge",
+     "pickAreaAmount":[{
+       "amount": 100,
+       "pickAreaName": "P-1-A"
+     },{
+       "amount": 100,
+       "pickAreaName": "P-1-B"
+     },{
+       "amount": 100,
+       "pickAreaName": "P-1-C"
+     },{
+       "amount": 100,
+       "pickAreaName": "P-1-D"
+     },{
+       "amount": 100,
+       "pickAreaName": "P-2-E"
+     }]
+   },{
+     "amount": 700,
+     "processPathName": "multiSmall",
+     "pickAreaAmount":[{
+       "amount": 20,
+       "pickAreaName": "P-1-A"
+     },{
+       "amount": 100,
+       "pickAreaName": "P-1-B"
+     },{
+       "amount": 80,
+       "pickAreaName": "P-1-C"
+     },{
+       "amount": 200,
+       "pickAreaName": "P-1-D"
+     },{
+       "amount": 300,
+       "pickAreaName": "P-2-E"
+     }]
+   }],
+  "pickAreaAmount": [{
+    "amount": 240,
+    "pickAreaName": "P-1-A"
+  },{
+    "amount": 300,
+    "pickAreaName": "P-1-B"
+  },{
+    "amount": 580,
+    "pickAreaName": "P-1-C"
+  },{
+    "amount": 500,
+    "pickAreaName": "P-1-D"
+  },{
+    "amount": 720,
+    "pickAreaName": "P-2-E"
+  }]
+}

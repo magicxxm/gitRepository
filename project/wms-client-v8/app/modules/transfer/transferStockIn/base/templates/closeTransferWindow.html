@@ -1,0 +1,24 @@
+<div style="height:150px;font-size:12px;">
+<ul>
+  <li> 请确认是否关闭调拨单？一旦关闭调拨单,调拨单内差异将直接记录为调拨差异，且调拨单不能再次开启，请确认操作</li>
+  <li><label>发货库房:{{selectTranferData.deliveryWarehouse}}</label></li>
+  <li><label>发货时间:{{selectTranferData.deliverGoodsTime}}</label></li>
+  <li><label>预计到货时间:{{selectTranferData.predictTime}}</label></li>
+  <li><label>调拨少货:{{selectTranferData.transferInLess}}</label></li>
+  <li><label>调拨多货:{{selectTranferData.transferInMore}}</label></li>
+  <li>
+    <kendo-button class="k-button k-primary" style="margin-left:100px;margin-top:10px;" ng-click="window2.sureCall()">{{"SURE" | translate }}</kendo-button>
+    <kendo-button class="k-button k-primary" style="margin-top:10px;margin-left:66px;" ng-click="window2.close()">{{"CANCEL" | translate }}</kendo-button>
+  </li>
+</ul>
+</div>
+
+<style>
+  ul{
+    list-style:none;
+  }
+  .k-window-titlebar
+  {
+    text-align:center;
+  }
+</style>

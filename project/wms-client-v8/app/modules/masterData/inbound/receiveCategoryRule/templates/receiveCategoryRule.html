@@ -1,0 +1,21 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'MASTER_INBOUND' | translate }}&nbsp;/&nbsp;{{'RECEIVE_CATEGORY_RULE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <!-- search -->
+        <span>{{'NAME' | translate }}：<input kendo-masked-text-box type="text" ng-model="name"
+                                             ng-keyup="keyUp($event)" style="width:120px;"/></span>
+        <kendo-button class="k-primary" ng-click="searchGrid()">
+            <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+        </kendo-button>
+        <!-- grid -->
+        <div class="gridToolbar" ng-controller="masterCtl">
+            <kendo-button class="k-primary gridButton" ng-click="update()"><span class="k-font-icon k-i-pencil"></span>{{'UPDATE'
+                | translate }}
+            </kendo-button>
+        </div>
+        <kendo-grid id="receiveCategoryRuleGrid" options="receiveCategoryRuleGridOptions"></kendo-grid>
+    </div>
+</div>

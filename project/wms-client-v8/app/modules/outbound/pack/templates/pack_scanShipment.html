@@ -1,0 +1,303 @@
+<div style="height:50px;background:#517bca;">
+    <!--<div class="titleRebin" style="width:auto;float:left;"><span translate="{{packType}}"></span><span>{{packStation}}</span></div>-->
+</div>
+<!--扫描工作站-->
+<div class="outCenter" ng-show="packPage=='workstation'">
+    <div class="titleContent">
+        <span>请扫描工作站条码</span>
+    </div>
+    <div style="text-align:center;padding-top:80px;">
+        <input id="workstationId" type="text" class="inputHeight k-textbox"  ng-keyup="workstations($event)"  ng-model="workstation"/>
+    </div>
+</div>
+<div class="outCenter" ng-show="packPage=='scanPickPackWall'">
+    <div class="titleContent">
+        <span>请扫描Pick-Pack Wall</span>
+    </div>
+    <div style="text-align:center;padding-top:80px;">
+        <input id="pickPackWallId"  type="text" class="inputHeight k-textbox"  ng-keyup="scanPickPackWall($event)"  ng-model="pickPackWall"/>
+    </div>
+</div>
+<!--整体页面-->
+<div ng-show="packPage=='main'" ng-click="iptFocus()">
+    <!--头部-->
+    <div>
+        <input type="text" id="checkGoodsTxt" class="k-textbox" style="position:absolute; opacity: 1" ng-keyup="checkGoods($event)" ng-model="goods" ng-show="packStep=='checkGoods'"/>
+        <input type="text" id="pickPackCellNameTxt" class="k-textbox" style="position:absolute; opacity: 1" ng-keyup="checkCell($event)" ng-model="pickPackCellName" ng-show="packStep=='checkPickPackCell'"/>
+        <input type="text" id="checkSerialNumberTxt" class="k-textbox" style="position:absolute; opacity: 1" ng-keyup="checkSerialNumber($event)" ng-model="serialNumber" ng-show="packStep=='checkSerialNumber'"/>
+        <input type="text" id="checkShipmentTxt" class="k-textbox" style="position:absolute; opacity: 1" ng-keyup="checkShipment($event)" ng-model="shipment" ng-show="packStep=='checkShipment'"/>
+        <input type="text" id="checkBoxTxt" class="k-textbox" style="position:absolute; opacity: 1" ng-keyup="checkBox($event)" ng-model="box" ng-show="packStep=='checkBox'"/>
+        <input type="text" id="problemShipmentTxt" class="k-textbox" style="position:absolute; opacity: 1" ng-keyup="checkProblemShipment($event)" ng-model="problemShipment" ng-show="packStep=='checkProblemShipment'"/>
+        <input type="text" id="serialNumberTxt" class="k-textbox" style="position:absolute; opacity: 1" ng-keyup="scanSerialNumber($event)" ng-model="serialNumber" ng-show="packStep=='checkSerialNumber'"/>
+        <input type="text" id="problemContainerTxt" class="k-textbox" style="position:absolute; opacity: 1" ng-keyup="checkProblemContainer($event)" ng-model="problemContainer" ng-show="packStep=='checkProblemContainer'"/>
+        <div style="text-align:center;font-size:20px;height:30px;font-weight: 600;margin-top:10px;">{{packStepName}}</div>
+    </div>
+    <!--左边栏-->
+    <div style="height:{{mainHeight-120}}px;">
+        <div style="float:left;width:18%;">
+            <div style="width:95%;height:{{(mainHeight-120)*0.6}}px;margin:0px auto;background:#f2f2f2">
+                <div style="line-height:45px;background:#3b6dc7;color:white;text-align:center;font-size:25px;font-weight: 600">推荐包装箱</div>
+                <div ng-show="packBox">
+                    <div style="text-align:center;height:{{((mainHeight-120)*0.6)-30}}px;font-weight:600;font-family: 'Calibri'"
+                         ng-style="{ background:(packStep=='checkProblemContainer') ? '#f2f2f2': ((packOrderState=='orderSuccess') ? '#72b347' : '#ffff00')  ,color:(packOrderState=='orderSuccess') ? 'white' : 'black' ,fontSize:(boxNameLength<6) ?  '90px' :  '70px' }">
+                        <div style="padding-top:{{(((mainHeight-120)*0.6)-220)/2}}px;font-size: 50px" ng-show="useBubbleFilm==true">气垫膜</div>
+                        <div ng-style="{lineHeight:(useBubbleFilm==true)? '':'{{((mainHeight-120)*0.6)-30}}px'}">{{packBox}}</div>
+                    </div>
+                </div>
+            </div>
+            <div style="height:10px;background: white"></div>
+            <div style="width:95%;height:{{(mainHeight-120)*0.4}}px;margin:0px auto;">
+                <div style="line-height:45px;background:#3b6dc7;color:white;text-align:center;font-size:25px;font-weight: 600">Rebin单元格</div>
+                <div style="background:{{reBinCellColor}};color:{{cellColor}};text-align:center;line-height:{{((mainHeight-120)*0.4)-30}}px;height:{{((mainHeight-120)*0.4)-30}}px;font-size:100px;font-weight:600;font-family: 'Calibri'" id="reBinCellColorId">{{rebinCell}}</div>
+                <div style="line-height:35px;color:white;text-align:center;font-size:16px;font-weight: 600" ng-style="{ background:(packStep=='checkBox'|| packOrderState=='orderSuccess') ? '#72b347' : '#3b6dc7'}">订单号码:{{shipmentNo}}
+                </div>
+            </div>
+        </div>
+        <!--中间部分-->
+        <div style="float:left;width:64%">
+            <div style="line-height:45px;background:#3b6dc7;color:white;text-align:center;font-size:25px;font-weight: 600">订单商品明细</div>
+            <div style="height:{{mainHeight-108}}px;border:1px solid #3b6dc7;">
+                <div style="margin:10px;">
+                    <!--商品信息-->
+                    <kendo-grid class="packGoodDetailsGrid" id="packGoodDetailsGrid" options="goodDetailsGridOptions" ng-show="packProblem=='none'" style="text-align: center"></kendo-grid>
+                    <!--错误提示-->
+                    <div style="position:relative;width: 100%; margin: 0 auto;border: solid #ED7D31 1px; height:{{(mainHeight-220)}}px" ng-show="packProblem=='errorDialog'">
+                        <div style="text-align: center; font-size: 24px; padding: 30px 0 10px 0; background: linear-gradient(#F18C55,#E66C18); color: white">{{titleMessage}}</div>
+                        <div style="float:left;width:100%;margin-top:100px;margin-bottom: 100px">
+                            <div style="text-align:center;"><span style="font-size:40px;text-align: right;">{{errorMessage}}</span></div>
+                            <div style="text-align: center;position: absolute;bottom: 40px;width: 100%"><img style="width:240px;height:66px;" src="image/20161123145423.png"></div>
+                        </div>
+                    </div>
+                    <!--商品无法扫描-->
+                    <div style="position:relative;width: 100%; margin: 0 auto;border: solid #ED7D31 1px; height: auto" ng-show="packProblem=='goodsCanNotScan'">
+                        <div style="text-align: center; font-size: 24px; padding: 10px 0 10px 0; background: linear-gradient(#F18C55,#E66C18); color: white">确认商品无法扫描</div>
+                        <div style="padding: 20px">
+                            <div style="float:left;width:80%;">
+                                <div style="text-align:left;word-break: break-all">
+                                    <div>
+                                        <span style="font-size:18px;">{{itemDataName}}</span><br/>
+                                        <span style="font-size:18px;">请扫描商品上所有商品条形码</span><br/>
+                                        <div style="width: 100%;text-align: center;padding: 10px 0 10px 0"><img style="width:240px;height:66px;" src="image/20161123145423.png"></div>
+                                        <span style="font-size:18px;">如果均无法扫描，请按确定登记条码无法扫描，并将订单内全部商品交予问题组。</span>
+                                        <div style="text-align:center;width:100%;float: left">
+                                            <kendo-button class="k-primary ReceiptBut" ng-click="problemProcessingSure('GOODS_NOT_CAN_SCAN');packProblem='none'">1{{'SURE' | translate }}</kendo-button>
+                                            <kendo-button class="k-primary ReceiptBut" ng-click="packProblem='none'">2 {{'CANCEL' | translate }}</kendo-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float:left;width:20%;text-align: center;"><img style="max-width:100%;max-height:{{(mainHeight-230)}}px" src="image/20161022134004.png"></div>
+                            <div style="clear: both"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--右边栏-->
+        <div style="float:left;width:18%">
+            <div style="width:95%;height:{{(mainHeight-120)*0.6}}px;margin:0px auto;">
+                <div style="line-height:45px;background:#3b6dc7;color:white;text-align:center;font-size:25px;font-weight: 600">商品图片</div>
+                <div style="background:#f2f2f2;text-align:center;height:{{((mainHeight-120)*0.6)-30}}px;text-align: center">
+                    <div ng-show="scanNumberShow==true">
+                        <span style="font-size: 50px" ng-style="{color:(packStep=='checkProblemContainer')?'red':'black'}">{{scanNumber}}</span>
+                        <div><img style="max-height:{{((mainHeight-120)*0.6)-108}}px;max-width: 100%" src="image/20161022134004.png"/></div>
+                    </div>
+                </div>
+            </div>
+            <div style="height:10px;background: white"></div>
+            <div style="width:95%;height:{{(mainHeight-120)*0.4}}px;margin:0px auto;">
+                <div style="line-height:45px;background:#3b6dc7;color:white;text-align:center;font-size:25px;font-weight: 600">订单状态</div>
+                <div style="background:#f2f2f2;height:{{((mainHeight-120)*0.4)-30}}px;">
+                    <div ng-show="packOrderState=='packing'" style="color:black;background:#f2f2f2;text-align:center;line-height:{{((mainHeight-120)*0.4)-30}}px;font-size:25px;">正在包装</div>
+                    <div ng-show="packOrderState=='scanning'" style="color:black;background:#f2f2f2;text-align:center;line-height:{{((mainHeight-120)*0.4)-30}}px;font-size:25px;">正在扫描</div>
+                    <div ng-show="packOrderState=='scanBox'" style="color:black;background:#f2f2f2;text-align:center;line-height:{{((mainHeight-120)*0.4)-30}}px;font-size:25px;">等待扫描箱号</div>
+                    <div ng-show="packOrderState=='scanShipment'" style="color:black;background:#f2f2f2;text-align:center;line-height:{{((mainHeight-120)*0.4)-30}}px;font-size:25px;">等待扫描订单</div>
+                    <div ng-show="packOrderState=='exception'" style="color:black;background:#f2f2f2;text-align:center;line-height:{{((mainHeight-120)*0.4)-30}}px;font-size:25px;">异常确认</div>
+                    <div ng-show="packOrderState=='problemProcessing'" style="color:black;background:#f2f2f2;text-align:center;line-height:{{((mainHeight-120)*0.4)-30}}px;font-size:25px;">问题处理</div>
+                    <div ng-show="packOrderState=='markComplete'" style="color:black;background:#f2f2f2;text-align:center;height:{{((mainHeight-120)*0.4)-30}}px;font-size:25px;"><div style="padding-top: {{(((mainHeight-120)*0.4)-88)/2}}px">标记问题完成<br/>扫描问题货框</div></div>
+                    <div ng-show="packOrderState=='processingIsComplete'" style="color:black;background:#f2f2f2;text-align:center;line-height:{{((mainHeight-120)*0.4)-30}}px;font-size:25px;">问题货框扫描完成</div>
+                    <div ng-show="packOrderState=='orderSuccess'" style="background:#72b347;text-align:center;line-height:{{((mainHeight-120)*0.4)-30}}px;font-size:25px;color:white;">订单完成</div>
+                </div>
+                <div style="line-height:35px;background:{{packExsdColor}};color:{{packExsdFontColor}};text-align:center;font-size:16px;font-weight: 600">ExSD:{{packExsdTime}}</div>
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <div style="position:fixed;bottom: 0;height:40px;width:100%;background:#deebf7;margin-top:15px;font-size:20px;font-weight: 600;text-align:right;" id="weightBtn">
+        <kendo-button class="k-primary" ng-click="packProblemWindow('#problemProcessingId',problemProcessingWindow)" style="height: 100%;width: 150px">问题处理</kendo-button>
+        &nbsp;&nbsp;
+        <kendo-button class="k-primary"  style="height: 100%;width: 150px;margin-right: 10px;"  ng-disabled="packWeightEnable" ng-click="packGoodsWeight()">称重</kendo-button>
+    </div>
+</div>
+<div style="width: 100%;height: 35px;line-height: 35px;background: red;color: white;position: fixed;bottom: 0;font-size: 18px;text-align: center;" ng-show="scanErrorMessage">{{scanErrorMessage}}</div>
+<!--确认箱型是否使用正确-->
+<div kendo-window="packBoxWindow" id="packBoxWindow" k-title="'确认箱型是否使用正确'" k-visible="false" k-modal="true">
+    <div style="text-align:center;font-size:18px;margin-top:20px;">
+        系统推荐箱型为<span style="font-weight: 600;font-size:20px;">{{packBox}}</span>，实际使用箱型为<span style="font-weight: 600;font-size:20px;">{{boxName}}</span>，请确认是否使用当前包装箱？
+    </div>
+    <div style="text-align:center;width:100%;margin-top:50px;">
+        <kendo-button class="k-primary ReceiptBut" ng-click="packFinish ()">1 {{'SURE' | translate }}</kendo-button>
+        &nbsp;&nbsp;
+        <kendo-button class="k-primary ReceiptBut" ng-click="packBoxWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+</div>
+<!--确认是否多货-->
+<div kendo-window="packManyGoodsWindow" id="packManyGoods" k-title="'确认是否多货'" k-visible="false" k-modal="true">
+    <div style="font-size:14px;margin-top:10px;">
+        <div style="float:left;width:70%;">
+            <div style="margin-left:20px;">
+                <span style="font-weight:600;font-size:16px;">{{moreItemDataName}}——已扫描件{{moreScanAmount}}/共{{moreAmount}}件</span><br>
+            </div>
+            <div style="margin-top:20px;margin-left:20px;font-size:18px;line-height:30px;">
+                <span>请确认此件是否为多货？</span><br>
+                <span>确定系统将自动产生暗灯，请将多货送至问题组;取消则返回订单包装页面</span>
+            </div>
+        </div>
+        <div style="float:left;width:30%;text-align: center"><img style="max-width:100%;max-height:200px" src="image/20161022134004.png"></div>
+    </div>
+    <div style="text-align:center;width:100%;float:left;">
+        <kendo-button class="k-primary" ng-click="moreGoodsSure()">1 {{'SURE' | translate }}</kendo-button>
+        &nbsp;&nbsp;
+        <kendo-button class="k-primary" ng-click="packManyGoodsWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+</div>
+<!--包装问题菜单-->
+<div kendo-window="problemMenuWindow" id="problemMenu" k-title="'请选择问题类型'" k-visible="false" k-modal="true">
+    <div style="font-size:14px;margin-top:10px;">
+        <div style="float:left;width:70%;position: relative">
+            <div style="margin-left:20px;">
+                <span style="font-weight:600;font-size:16px;">{{itemDataName}}</span><br>
+            </div>
+            <div style="margin-left:20px;width:100%;float:left;position: absolute;top: 150px">
+                <kendo-button class="k-primary ReceiptBut" ng-click="goodsProblemMenu('#packGoodsDamaged',packGoodsDamagedWindow,'GOODS_DAMAGED'); problemMenuWindow.close()">1 商品残损</kendo-button>
+                &nbsp;&nbsp;
+                <kendo-button class="k-primary ReceiptBut" ng-click="goodsProblemMenu('#packGoodsLost',packGoodsLostWindow,'GOODS_LOSS'); problemMenuWindow.close()">2 商品丢失</kendo-button>
+                &nbsp;&nbsp;
+                <kendo-button class="k-primary ReceiptBut" ng-click="goodsCanNotScanSure()">3 无法扫描</kendo-button>
+            </div>
+        </div>
+        <div style="float:left;width:30%;text-align: center"><img style="max-width:100%;max-height:200px" src="image/20161022134004.png"></div>
+    </div>
+</div>
+<!--输入残损数量-->
+<div kendo-window="packGoodsDamagedWindow" id="packGoodsDamaged" k-title="'输入残损数量'" k-visible="false" k-modal="true">
+    <div style="float:left;width:70%;">
+        <div style="font-size:18px;padding-left:20px;">输入残损数量后，此单已通知问题处理人员，请将商品和订单一起交给问题处理人员</div>
+        <table class="packGoodsAmountInputTable">
+            <tbody>
+            <tr>
+                <td ng-repeat="x in [1,2,3,4,5]" ng-click="bind(x)" ng-style="{color:(amount<x)? 'white':'black'}">{{x}}</td>
+            </tr>
+            <tr>
+                <td ng-repeat="x in [6,7,8,9]" ng-click="bind(x)" ng-style="{color:(amount<x)? 'white':'black'}">{{x}}</td>
+                <td ng-click="bind(0)" ng-style="{color:(amount<9)? 'white':'black'}">0</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="text-align: center;padding-left:20px;"><input type="text" class="k-textbox" style="width: 100px;text-align: center;font-size: 20px;text-indent: 0" ng-model="packProblemGoodsAmount" readonly="readonly"/></div>
+        <div style="padding-left:20px;text-align:center;margin-bottom:10px;">
+            <kendo-button class="k-primary" style="height: 35px;font-weight: 600;margin-top: 10px;font-size: 16px;" ng-click="  problemProcessingSure('GOODS_DAMAGED');packGoodsDamagedWindow.close()">1 {{'SURE' | translate }}</kendo-button>
+            &nbsp;&nbsp;
+            <kendo-button class="k-primary" style="height: 35px;font-weight: 600;margin-top: 10px;font-size: 16px;" ng-click="backspace()">2 {{'删除' | translate }}</kendo-button>
+        </div>
+    </div>
+    <div style="float:left;width:30%;text-align:right;"><img style="max-width:100%;max-height:250px" src="image/20161022134004.png"></div>
+</div>
+<!--确认商品是否丢失-->
+<div kendo-window="packGoodsLostWindow" id="packGoodsLost" k-title="'确认商品是否丢失'" k-visible="false" k-modal="true">
+    <div style="float:left;width:70%;">
+        <div style="padding-left:20px;font-size:18px;">是否确认商品：{{itemDataName}}丢失？</div>
+        <div style="margin-top:20px;padding-left:20px;font-size:18px;">确认商品丢失，请将剩余商品和订单交至问题处理人员；取消将返回包装页面</div>
+        <div style="margin-top:20px;padding-left:20px;font-size:18px;"><span style="color:red;font-size:35px;font-weight: 600;">注意</span>：一旦确认商品丢失，商品将被标记丢失，请仔细核实。</div>
+    </div>
+    <div style="float:left;width:30%;text-align:right;"><img style="max-width:100%;max-height:250px" src="image/20161022134004.png"></div>
+    <div style="text-align:center;width:100%;margin-bottom:10px;float:left;">
+        <kendo-button class="k-primary ReceiptBut" ng-click="packProblemWindow('#packGoodsLostInput',packGoodsLostInputWindow);packGoodsLostWindow.close()">1 {{'SURE' | translate }}</kendo-button>
+        &nbsp;&nbsp;
+        <kendo-button class="k-primary ReceiptBut" ng-click="packGoodsLostWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+</div>
+<!--输入商品是否丢失数量-->
+<div kendo-window="packGoodsLostInputWindow" id="packGoodsLostInput" k-title="'确认商品是否丢失'" k-visible="false"
+     k-modal="true">
+    <div style="float:left;width:70%;">
+        <div style="font-size:18px;padding-left:20px;">输入丢失数量后，此单已通知问题处理人员，请将商品和订单一起交给问题处理人员</div>
+        <table class="packGoodsAmountInputTable">
+            <tbody>
+            <tr>
+                <td ng-repeat="x in [1,2,3,4,5]" ng-click="bind(x)" ng-style="{color:(amount<x)? 'white':'black'}">{{x}}</td>
+            </tr>
+            <tr>
+                <td ng-repeat="x in [6,7,8,9]" ng-click="bind(x)" ng-style="{color:(amount<x)? 'white':'black'}">{{x}}</td>
+                <td ng-click="bind(0)" ng-style="{color:(amount<9)? 'white':'black'}">0</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="text-align: center;padding-left:20px;"><input type="text" class="k-textbox" style="width: 100px;text-align: center;font-size: 20px;text-indent: 0" ng-model="packProblemGoodsAmount" readonly="readonly"/></div>
+        <div style="padding-left:20px;text-align:center;margin-bottom:10px;">
+            <kendo-button class="k-primary" style="height: 35px;font-weight: 600;margin-top: 10px;font-size: 16px;" ng-click="problemProcessingSure('GOODS_LOSS');packGoodsLostInputWindow.close()">1 {{'SURE' | translate }}</kendo-button>
+            &nbsp;&nbsp;
+            <kendo-button class="k-primary" style="height: 35px;font-weight: 600;margin-top: 10px;font-size: 16px;" ng-click="backspace()">2 {{'删除' | translate }}</kendo-button>
+        </div>
+    </div>
+    <div style="float:left;width:30%;text-align:right;"><img style="max-width:100%;max-height:250px" src="image/20161022134004.png"></div>
+</div>
+<!--问题处理-->
+<div kendo-window="problemProcessingWindow" id="problemProcessingId" k-title="'请选择问题菜单'" k-visible="false" k-modal="true">
+    <div style="width: 100%;text-align: center">
+        <kendo-button class="k-primary" style="height: 35px;font-weight: 600;margin-top: 30px;font-size: 16px;width: 400px" ng-click="informationInquiry()">1.信息查询</kendo-button><br/>
+        <kendo-button class="k-primary" style="height: 35px;font-weight: 600;margin-top: 40px;margin-bottom: 30px;font-size: 16px;width: 400px" ng-click="stopPack(stationName)">2.退出包装</kendo-button>
+    </div>
+</div>
+<!--信息查询-->
+<div kendo-window="informationInquiryWindow" id="informationInquiryId" k-title="'信息查询'" k-visible="false" k-modal="true">
+    <div style=" width:100%;display: flex">
+        <div style="width: 50%;display: flex"></div>
+        <div style="width: 50%;font-size: 18px">
+            <div>用户：{{userName}}</div>
+            <div>操作时间：{{operationTime}}</div>
+            <div>操作总量：{{totalOperating}}</div>
+            <div>操作效率：{{operationalEfficiency}}</div>
+            <div>目标：{{target}}</div>
+            <div>达成：{{conclude}}</div>
+            <div>上一个Rebin单元格：{{onARebinCell}}</div>
+            <div>上一Pod：{{onAPod}}</div>
+            <div>上一货位：{{onAPallet}}</div>
+            <div>上一订单：{{onTheOrder}}</div>
+            <div>上一箱号：{{onTheCartonNo}}</div>
+        </div>
+    </div>
+</div>
+<!--没有订单错误提示弹框-->
+<div kendo-window="reScanCellWindow" id="scanCellWindowId" k-title="'请重新获取PickPackCell'" k-visible="false" k-modal="true">
+    <div style="text-align:center;font-size:30px !important;margin-top:20px;padding-top: 35px">
+        <span style="font-weight: 600;font-size:20px;">{{errorMessage}}</span>
+    </div>
+</div>
+
+<!--websocket关闭提示-->
+<div kendo-window="hardwareWindows" id="hardwareId"  k-visible="false" k-title="'请手动进行操作'" k-modal="true">
+    <div style="text-align:center;font-size:20px;width: 100%">
+        <div style="text-align: center;">拍灯服务器异常，请手动扫描灯的电子标签！</div>
+        <div style="text-align:center;padding-top: 20px">
+            <kendo-button class="k-primary ReceiptBut" ng-click="hardwareWindows.close()">{{'SURE' | translate }}
+            </kendo-button>
+        </div>
+    </div>
+</div>
+
+<!--错误提示弹窗-->
+<div kendo-window="errorMsgWindow" id="errorWindowId" k-title="'请重新扫描'" k-visible="false" k-modal="true">
+    <div style="font-size:20px;text-align: center;margin-top: 20px;margin-bottom: 20px">{{errorMsg}}</div>
+    <div style="width:100%;text-align: center">
+        <input type="text" id="checkGoodsTxtId" class="k-textbox" style=" opacity: 1" ng-keyup="checkGoods($event)" ng-model="goods" ng-show="packErrorStep=='checkGoods'"/>
+        <input type="text" id="checkShipmentTxtId" class="k-textbox" style=" opacity: 1" ng-keyup="checkShipment($event)" ng-model="shipment" ng-show="packErrorStep=='checkShipment'"/>
+        <input type="text" id="checkBoxTxtId" class="k-textbox" style=" opacity: 1" ng-keyup="checkBox($event)" ng-model="box" ng-show="packErrorStep=='checkBox'"/>
+        <input type="text" id="problemShipmentTxtId" class="k-textbox" style="opacity: 1" ng-keyup="checkProblemShipment($event)" ng-model="problemShipment" ng-show="packErrorStep=='checkProblemShipment'"/>
+        <input type="text" id="problemContainerTxtId" class="k-textbox" style=" opacity: 1" ng-keyup="checkProblemContainer($event)" ng-model="problemContainer" ng-show="packErrorStep=='checkProblemContainer'"/>
+    </div>
+    <div style="text-align:center;width:100%;float:left;margin-top: 20px">
+        <kendo-button class="k-primary" ng-click="closeErrorMsgWindow()">{{'CANCEL' | translate }}</kendo-button>
+    </div>
+</div>
+

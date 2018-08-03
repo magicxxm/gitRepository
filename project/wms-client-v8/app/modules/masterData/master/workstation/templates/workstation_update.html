@@ -1,0 +1,133 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.workstation" href="#">{{'WORKSTATION' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate
+                        }}</label></div>
+                    <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" ng-model="name"
+                                                  readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">工作站类型</label>
+                    </div>
+                    <div class="formRight">
+                        <input type="text" name="name" class="k-textbox" ng-model="workstationType.name" readonly/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'PICK_PACK_WALL' | translate
+                        }}</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="pickPackWall"
+                                k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="pickPackWallSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">拣货还是包装</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box class="k-textbox" k-data-source="pickOrPackSource" type="text"
+                                k-filter="'contains'" k-data-value-field="'name'" k-value="pickOrPack"
+                                ng-model="pickOrPack"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'WORKING_FACE_ORIENTATION' |
+                        translate}}</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box class="k-textbox" k-data-source="toWardSource" type="text"
+                                id="workingFaceOrientation" required validationMessage=""
+                                k-value="workingFaceOrientation"
+                                ng-model="workingFaceOrientation"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="stopPoint" class="required" style="float:right">{{'STOP_POINT' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <input type="number" id="stopPoint" name="stopPoint" class="k-textbox"
+                               required validationMessage="不能为空" ng-model="stopPoint"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="scanPoint" class="required" style="float:right">{{'SCAN_POINT' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <input type="number" id="scanPoint" name="scanPoint" class="k-textbox"
+                               required validationMessage="不能为空" ng-model="scanPoint"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="bufferPoint" class="required" style="float:right">{{'BUFFER_POINT'
+                        | translate}}</label></div>
+                    <div class="formRight">
+                        <input type="number" id="bufferPoint" name="bufferPoint" class="k-textbox"
+                               required validationMessage="不能为空" ng-model="bufferPoint"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'SECTION' | translate }}</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="section" k-change="'changeSection(section.id)'"
+                                k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="sectionSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="placeMark" class="required" style="float:right">{{'PLACE_MARK' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box id="placeMark" k-ng-model="placeMark" type="number"
+                                k-data-text-field="'placeMark'" k-filter="'contains'"
+                                required></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'IS_CALL_POD' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <input type="radio" name="isCallPod" id="isCallPodTrue" class="k-radio" value="true"
+                               ng-model="callPod">
+                        <label class="k-radio-label" for="isCallPodTrue">&nbsp;Y</label>
+                        <input type="radio" name="isCallPod" id="isCallPodFalse" class="k-radio" value="false"
+                               ng-model="callPod">
+                        <label class="k-radio-label" for="isCallPodFalse">&nbsp;N</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'LABEL_CONTROLLER' | translate
+                        }}</label></div>
+                    <div class="formRight">
+                        <select kendo-multi-select k-ng-model="labelController"
+                                k-change="'changeLabelController(labelController)'" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="labelControllerSource"></select>
+                    </div>
+                </li>
+            </ul>
+        </form>
+        <hr>
+        <div class="gridToolbar">
+            <kendo-button class="k-primary gridButton" ng-click="createDetail('workstationPositionGrid')"><span
+                    class="k-font-icon k-i-plus"></span>{{'CREATE' | translate }}
+            </kendo-button>
+            <kendo-button class="k-primary gridButton" ng-click="deleteDetail('workstationPositionGrid')"><span
+                    class="k-font-icon k-i-trash"></span>{{'DELETE' | translate }}
+            </kendo-button>
+        </div>
+        <kendo-grid id="workstationPositionGrid" options="workstationPositionGridOptions"></kendo-grid>
+        <div class="mushiny_btnBox" style="margin-top:10px;text-align:center;margin-left:-23%;">
+            <kendo-button class="k-button k-primary mushiny_btn" style="width:220px;" ng-click="validate($event)"
+                          translate="UPDATE"></kendo-button>
+        </div>
+    </div>
+</div>

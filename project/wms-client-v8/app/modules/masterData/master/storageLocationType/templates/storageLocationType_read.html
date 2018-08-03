@@ -1,0 +1,60 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.storage_location_type" href="#">{{'STORAGE_LOCATION_TYPE' | translate }}</a>&nbsp;/&nbsp;{{'READ' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="name" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="description" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'HEIGHT' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box class="k-textbox" k-format="'# mm'" ng-model="height" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label  style="float:right">{{'WIDTH' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box class="k-textbox" k-format="'# mm'" ng-model="width" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'DEPTH' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box class="k-textbox" k-format="'# mm'" ng-model="depth" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'VOLUME' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box class="k-textbox" k-format="'# mm³'" ng-model="volume" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'LIFTING_CAPACITY' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box class="k-textbox" k-format="'# g'" ng-model="liftingCapacity" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'MAX_ITEM_DATA_AMOUNT' | translate }}</label></div>
+          <div class="formRight"><input type="number" class="k-textbox" ng-model="maxItemDataAmount" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'INVENTORY_STATE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="inventoryState" k-data-text-field="'resourceKey'" k-data-value-field="'selectionValue'"  k-filter="'contains'" k-data-source="inventoryStateSource" readonly></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'STORAGE_TYPE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="storageType" k-data-text-field="'resourceKey'" k-data-value-field="'selectionValue'"  k-filter="'contains'" k-data-source="storageTypeSource" readonly></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" ui-sref="main.storage_location_type">{{'BACK' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

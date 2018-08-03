@@ -1,0 +1,62 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;
+    <span>{{'SYSTEM_MANAGE' | translate }}&nbsp;/&nbsp;{{'USER_WAREHOUSE_ROLE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <!-- up -->
+    <div translate="USER_WAREHOUSE"></div><hr/>
+    <div class="mushiny_selectBox">
+      <span class="mushiny_selectLabel" style="margin-left:-4px;" translate="WAREHOUSE"></span>
+      <select kendo-combo-box class="mushiny_listInput" k-ng-model="selectWarehouseUp" k-options="selectWarehouseUpOptions"></select>
+      <span class="mushiny_selectLabel" style="margin-left:49px;" translate="USER"></span>
+      <input id="selectUserByWarehouse" kendo-combo-box class="mushiny_listInput" k-options="selectUserOptions" k-ng-model="selectUserByWarehouse"/>
+    </div>
+    <!-- up-left -->
+    <div class="mushiny_filterLabel" translate="UNASSIGN_ROLE"></div>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="unAssignRole" ng-keyup="filterInput($event, 'listUnassignRoles', unAssignRole)" />
+      <div id="listUnassignRoles" kendo-list-view k-options="listUnassignRoles" class="mushiny_list"></div>
+    </div>
+    <div class="mushiny_listBtn" ng-include="'modules/system/base/templates/listBtn_horizontal.html'"></div>
+    <!-- up-right -->
+    <div class="mushiny_filterLabel" style="margin-left:-60px;" translate="ASSIGN_ROLE"></div>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="assignRole" ng-keyup="filterInput($event, 'listAssignRoles', assignRole)" />
+      <div id="listAssignRoles" kendo-list-view k-options="listAssignRoles" class="mushiny_list"></div>
+    </div>
+    <div class="mushiny_btnBox">
+      <kendo-button class="k-button k-primary mushiny_btn" ng-click="save('saveRolesByWarehouseUser', 'listAssignRoles', selectWarehouseUp, selectUserByWarehouse)" translate="SAVE"></kendo-button>
+    </div>
+
+    <!-- down -->
+    <div translate="WAREHOUSE_ROLE"></div><hr/>
+    <div class="mushiny_selectBox">
+      <span class="mushiny_selectLabel" style="margin-left:-4px;" translate="WAREHOUSE"></span>
+      <select kendo-combo-box class="mushiny_listInput" k-ng-model="selectWarehouseDown" k-options="selectWarehouseDownOptions"></select>
+      <span class="mushiny_selectLabel" style="margin-left:49px;" translate="ROLE"></span>
+      <input id="selectRoleByWarehouse" kendo-combo-box class="mushiny_listInput" k-options="selectRoleOptions" k-ng-model="selectRoleByWarehouse" />
+    </div>
+    <!-- down-left -->
+    <div class="mushiny_filterLabel" translate="UNASSIGN_USER"></div>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="unAssignUser" ng-keyup="filterInput($event, 'listUnassignUsers', unAssignUser)" />
+      <div id="listUnassignUsers" kendo-list-view k-options="listUnassignUsers" class="mushiny_list"></div>
+    </div>
+    <div class="mushiny_listBtn">
+      <div style="padding:5px;"><kendo-button ng-click="moveRightAll('listUnassignUsers', 'listAssignUsers')"><span class="k-font-icon k-i-seek-e"></span></kendo-button></div>
+      <div style="padding:5px;"><kendo-button ng-click="moveRightSelect('listUnassignUsers', 'listAssignUsers')"><span class="k-font-icon k-i-arrowhead-e"></span></kendo-button></div>
+      <div style="padding:5px;"><kendo-button ng-click="moveLeftSelect('listUnassignUsers', 'listAssignUsers')"><span class="k-font-icon k-i-arrowhead-w"></span></kendo-button></div>
+      <div style="padding:5px;"><kendo-button ng-click="moveLeftAll('listUnassignUsers', 'listAssignUsers')"><span class="k-font-icon k-i-seek-w"></span></kendo-button></div>
+    </div>
+    <!-- down-right -->
+    <div class="mushiny_filterLabel" style="margin-left:-60px;" translate="ASSIGN_USER"></div>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="assignUser" ng-keyup="filterInput($event, 'listAssignUsers', assignUser)" />
+      <div id="listAssignUsers" kendo-list-view k-options="listAssignUsers" class="mushiny_list"></div>
+    </div>
+    <div class="mushiny_btnBox">
+      <kendo-button class="k-button k-primary mushiny_btn" ng-click="save('saveUsersByWarehouseRole', 'listAssignUsers', selectWarehouseDown, selectRoleByWarehouse)" translate="SAVE"></kendo-button>
+    </div>
+  </div>
+</div>

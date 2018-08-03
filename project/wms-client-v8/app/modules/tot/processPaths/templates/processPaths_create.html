@@ -1,0 +1,199 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'TOT' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.process_paths" href="#">{{'PROCESS_PATH' | translate }}</a>&nbsp;/&nbsp;{{'CREATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'PROCESS_PATH_TYPE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="processPathType" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="processPathTypeSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'PICK_DESTINATION' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="pickDestination" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="pickStationTypeSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'REBIN_DESTINATION' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="rebinDestination" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="rebinStationTypeSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'REBIN_WALL_TYPE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="rebinWallType" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="rebinWallTypeSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'PACKING_STATION_TYPE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="packDestination" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="packingStationTypeSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="sortCode" class="required" style="float:right">{{'SORT_CODE' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="sortCode" name="sortCode" class="k-textbox" ng-model="sortCode"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'REGENERATE_SHORTED_PICKS' | translate}}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box type="text" class="k-textbox" k-data-source="regenerateShortedPicksSource" ng-model="regenerateShortedPicks"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="minShipmentsPerBatch" class="required" style="float:right">{{'MIN_SHIPMENTS_PER_BATCH' | translate}}</label></div>
+          <div class="formRight">
+            <input type="number" id="minShipmentsPerBatch" name="minShipmentsPerBatch" class="k-textbox" required validationMessage="{{'WARNING_MIN_SHIPMENTS_PER_BATCH' | translate }}" ng-model="minShipmentsPerBatch"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="maxShipmentsPerBatch" class="required" style="float:right">{{'MAX_SHIPMENTS_PER_BATCH' | translate}}</label></div>
+          <div class="formRight">
+            <input type="number" id="maxShipmentsPerBatch" name="maxShipmentsPerBatch" class="k-textbox" required validationMessage="{{'WARNING_MAX_SHIPMENTS_PER_BATCH' | translate }}" ng-model="maxShipmentsPerBatch"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="minItemsPerBatch" class="required" style="float:right">{{'MIN_ITEMS_PER_BATCH' | translate}}</label></div>
+          <div class="formRight">
+            <input type="number" id="minItemsPerBatch" name="minItemsPerBatch" class="k-textbox" required validationMessage="{{'WARNING_MIN_ITEMS_PER_BATCH' | translate }}" ng-model="minItemsPerBatch"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="maxItemsPerBatch" class="required" style="float:right">{{'MAX_ITEMS_PER_BATCH' | translate}}</label></div>
+          <div class="formRight">
+            <input type="number" id="maxItemsPerBatch" name="maxItemsPerBatch" class="k-textbox" required validationMessage="{{'WARNING_MAX_ITEMS_PER_BATCH' | translate }}" ng-model="maxItemsPerBatch"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'COLLATE_TYPE' | translate}}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box type="text" class="k-textbox" k-data-source="collateTypeSource" required validationMessage="{{'WARNING_COLLATE_TYPE' | translate }}" ng-model="collateType"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'COLLATE_DOCUMENTS' | translate}}</label></div>
+          <div class="formRight">
+            <select kendo-multi-select type="text" class="k-textbox" k-data-source="collateDocumentsSource" required validationMessage="{{'WARNING_COLLATE_DOCUMENTS' | translate }}" ng-model="collateDocuments"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="toteBufferLimited" class="required" style="float:right">{{'TOTE_BUFFER_LIMITED' | translate}}</label></div>
+          <div class="formRight">
+            <input type="text" id="toteBufferLimited" name="toteBufferLimited" class="k-textbox" required validationMessage="{{'WARNING_TOTE_BUFFER_LIMITED' | translate }}" ng-model="toteBufferLimited"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="rejectReasons" class="required" style="float:right">{{'REJECT_REASONS' | translate}}</label></div>
+          <div class="formRight">
+            <input type="text" id="rejectReasons" name="rejectReasons" class="k-textbox" required validationMessage="{{'WARNING_REJECT_REASONS' | translate }}" ng-model="rejectReasons"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="allowedPickTypes" class="required" style="float:right">{{'ALLOWED_PICK_TYPES' | translate}}</label></div>
+          <div class="formRight">
+            <input type="text" id="allowedPickTypes" name="allowedPickTypes" class="k-textbox" required validationMessage="{{'WARNING_ALLOWED_PICK_TYPES' | translate }}" ng-model="allowedPickTypes"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'ALLOWED_CONTAINER_TYPES' | translate}}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box type="text" class="k-textbox" k-data-source="allowedContainerTypesSource" required validationMessage="{{'WARNING_ALLOWED_CONTAINER_TYPES' | translate }}" ng-model="allowedContainerTypes"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="laborUnitClass" class="required" style="float:right">{{'LABOR_UNIT_CLASS' | translate}}</label></div>
+          <div class="formRight">
+            <input type="text" id="laborUnitClass" name="laborUnitClass" class="k-textbox" required validationMessage="{{'WARNING_LABOR_UNIT_CLASS' | translate }}" ng-model="laborUnitClass"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="weightLimit" class="required" style="float:right">{{'WEIGHT_LIMIT' | translate}}</label></div>
+          <div class="formRight">
+            <input type="text" id="weightLimit" name="weightLimit" class="k-textbox" required validationMessage="{{'WARNING_WEIGHT_LIMIT' | translate }}" ng-model="weightLimit"/>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'SCAN_BIN_FIRST' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="scanBinFirst" id="scanBinFirstTrue" class="k-radio" value="true" ng-model="scanBinFirst">
+            <label class="k-radio-label" for="scanBinFirstTrue">True</label>
+            <input type="radio" name="scanBinFirst" id="scanBinFirstFalse" class="k-radio" value="false" ng-model="scanBinFirst">
+            <label class="k-radio-label" for="scanBinFirstFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'COLOR_BASED_BIN_PICKING' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="colorBasedBinPicking" id="colorBasedBinPickingTrue" class="k-radio" value="true" ng-model="colorBasedBinPicking">
+            <label class="k-radio-label" for="colorBasedBinPickingTrue">True</label>
+            <input type="radio" name="colorBasedBinPicking" id="colorBasedBinPickingFalse" class="k-radio" value="false" ng-model="colorBasedBinPicking">
+            <label class="k-radio-label" for="colorBasedBinPickingFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'COLOR_BASED_ITEM_PICKING' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="colorBasedItemPicking" id="colorBasedItemPickingTrue" class="k-radio" value="true" ng-model="colorBasedItemPicking">
+            <label class="k-radio-label" for="colorBasedItemPickingTrue">True</label>
+            <input type="radio" name="colorBasedItemPicking" id="colorBasedItemPickingFalse" class="k-radio" value="false" ng-model="colorBasedItemPicking">
+            <label class="k-radio-label" for="colorBasedItemPickingFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'ONE_ITEM_PER_TOTE' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="oneItemPerTote" id="oneItemPerToteTrue" class="k-radio" value="true" ng-model="oneItemPerTote">
+            <label class="k-radio-label" for="oneItemPerToteTrue">True</label>
+            <input type="radio" name="oneItemPerTote" id="oneItemPerToteFalse" class="k-radio" value="false" ng-model="oneItemPerTote">
+            <label class="k-radio-label" for="oneItemPerToteFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'REQUIRE_NEW_TOTE_ON_PICK_AREA_CHANGE' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="requireNewToteOnPickAreaChange" id="requireNewToteOnPickAreaChangeTrue" class="k-radio" value="true" ng-model="requireNewToteOnPickAreaChange">
+            <label class="k-radio-label" for="requireNewToteOnPickAreaChangeTrue">True</label>
+            <input type="radio" name="requireNewToteOnPickAreaChange" id="requireNewToteOnPickAreaChangeFalse" class="k-radio" value="false" ng-model="requireNewToteOnPickAreaChange">
+            <label class="k-radio-label" for="requireNewToteOnPickAreaChangeFalse">False</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="idleTimeoutInSecond" class="required" style="float:right">{{'IDLE_TIMEOUT_IN_SECONDS' | translate}}</label></div>
+          <div class="formRight">
+            <input type="number" id="idleTimeoutInSecond" name="idleTimeoutInSecond" class="k-textbox" required validationMessage="{{'WARNING_IDLE_TIMEOUT_IN_SECONDS' | translate }}" ng-model="idleTimeoutInSecond"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="toteRescan" class="required" style="float:right">{{'TOTE_RESCAN' | translate}}</label></div>
+          <div class="formRight">
+            <input type="text" id="toteRescan" name="toteRescan" class="k-textbox" required validationMessage="{{'WARNING_TOTE_RESCAN' | translate }}" ng-model="toteRescan"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="pickToContainerImage" class="required" style="float:right">{{'PICK_TO_CONTAINER_IMAGE' | translate}}</label></div>
+          <div class="formRight">
+            <input type="text" id="pickToContainerImage" name="pickToContainerImage" class="k-textbox" required validationMessage="{{'WARNING_PICK_TO_CONTAINER_IMAGE' | translate }}" ng-model="pickToContainerImage"/>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="description" name="description" class="k-textbox" ng-model="description"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label  class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'SAVE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+1、根节点<configuration>，包含下面三个属性：
+　　　　scan: 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+　　　　scanPeriod: 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+　　　　debug: 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+ -->
+<configuration debug="false" scan="true" scanPeriod="60 seconds">
+
+    <!--
+    2、子节点<contextName>：用来设置上下文名称，每个logger都关联到logger上下文，默认上下文名称为default。
+    但可以使用<contextName>设置成其他名字，用于区分不同应用程序的记录。一旦设置，不能修改。
+    -->
+    <contextName>agv-config</contextName>
+
+    <!--
+    3、子节点<property>	：用来定义变量值，它有两个属性name和value，
+    通过<property>定义的值会被插入到logger上下文中，可以使“${}”来使用变量。
+    -->
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <property name="LOG_HOME" value="log" />
+    <!--定义日志文件回滚大小-->
+    <property name="FILE_ROLLING_SIZE" value="512MB" />
+    <!--保存日志的天数-->
+    <property name="LEFT_LOG_DAYS" value="3" />
+
+    <!--
+    5、子节点<appender>：负责写日志的组件，它有两个必要属性name和class。name指定appender名称，class指定appender的全限定名。
+    -->
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志文件:按照每天生成 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/rcs.log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大1MB 超过最大值，会重新建一个文件-->
+                <MaxFileSize>${FILE_ROLLING_SIZE}</MaxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>${LEFT_LOG_DAYS}</MaxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <root level="DEBUG">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="STDOUT" />
+    </root>
+
+
+
+    <!-- 接收mq信息日志打印 -->
+    <appender name="MQReceiveInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/MQReceiveInfo.log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大1MB 超过最大值，会重新建一个文件-->
+                <MaxFileSize>${FILE_ROLLING_SIZE}</MaxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>${LEFT_LOG_DAYS}</MaxHistory>
+        </rollingPolicy>
+    </appender>
+    <logger name="mq.MQReciver" level="DEBUG"  addtivity="false" >
+        <appender-ref ref="MQReceiveInfo" />
+    </logger>
+
+    <!-- 发送mq信息日志打印 -->
+    <appender name="MQPublishInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/MQPublishInfo.log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大1MB 超过最大值，会重新建一个文件-->
+                <MaxFileSize>${FILE_ROLLING_SIZE}</MaxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>${LEFT_LOG_DAYS}</MaxHistory>
+        </rollingPolicy>
+    </appender>
+    <logger name="mq.MQPublisher" level="DEBUG"  addtivity="false" >
+        <appender-ref ref="MQPublishInfo" />
+    </logger>
+
+
+    <!-- 根据不同的session打印日志 -->
+    <appender name="SIFT" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <Key>session</Key>
+            <DefaultValue>unknown</DefaultValue>
+        </discriminator>
+        <sift>
+            <appender name="FILE-${session}" class="ch.qos.logback.core.FileAppender">
+                <File>${LOG_HOME}/session/${session}.log</File>
+                <Append>false</Append>
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <Pattern>%d [%thread] %level %mdc %logger{35} - %msg%n</Pattern>
+                </layout>
+            </appender>
+        </sift>
+    </appender>
+    <logger name="com.mushiny.rcs.server.RCSMessageOperation" level="DEBUG"  addtivity="false" >
+        <appender-ref ref="SIFT" />
+    </logger>
+
+    <!-- 发送AGV报文信息日志打印 -->
+    <appender name="AGVMessageSendLogger" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/AGVMessageSendLogger.log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大1MB 超过最大值，会重新建一个文件-->
+                <MaxFileSize>${FILE_ROLLING_SIZE}</MaxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>${LEFT_LOG_DAYS}</MaxHistory>
+        </rollingPolicy>
+    </appender>
+    <logger name="com.mingchun.mu.log.AGVMessageSendLogger" level="DEBUG"  addtivity="false" >
+        <appender-ref ref="AGVMessageSendLogger" />
+    </logger>
+
+
+    <!-- 打印丢失地址码 -->
+    <appender name="RealTimeMessageLost" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/RealTimeMessageLost.log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大1MB 超过最大值，会重新建一个文件-->
+                <MaxFileSize>${FILE_ROLLING_SIZE}</MaxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>${LEFT_LOG_DAYS}</MaxHistory>
+        </rollingPolicy>
+    </appender>
+    <logger name="com.mingchun.mu.mushiny.extra.function.RealTimeMessageLost" level="DEBUG"  addtivity="false" >
+        <appender-ref ref="RealTimeMessageLost" />
+    </logger>
+
+
+
+
+
+
+
+</configuration>

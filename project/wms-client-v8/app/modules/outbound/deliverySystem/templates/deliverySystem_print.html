@@ -1,0 +1,133 @@
+<div class="mushiny-container">
+    <!-- 一般提示的弹出框 -->
+    <div kendo-window="scanSerialNoWindow" id="deliverPrintTipwindow" k-title="'{{'SCAN_GOODS_NUMBER' | translate }}'" k-visible="false" k-modal="true" class="inboundFont">
+        <div class="deliver_Pop_container" style="width:100%;height:100%">
+            <div style="width: 100%;height:100%;float: left;text-align: left;line-height: 100%">
+                <span id="deliverTipWindow_Span" style="line-height: 1.5;margin: auto;"></span>
+            </div>
+        </div>
+    </div>
+    <div kendo-window="scanSerialNoWindow" id="deliverTipwindowWithButton" k-title="'{{'SCAN_GOODS_NUMBER' | translate }}'" k-visible="false" k-modal="true" class="inboundFont">
+        <div class="deliver_Pop_container" style="width:100%;height:100%">
+            <div style="width: 100%;height:50%;float: left;text-align: center;line-height: 100%">
+                <span id="deliverTipWindow_BtnSpan" style="margin: auto;"></span>
+            </div>
+            <div style="margin-left: 17%" class="inboundFont"><kendo-button class="inboundButton  k-primary" ng-click="rePrint()">{{'SURE'| translate }}</kendo-button></div>
+        </div>
+    </div>
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a><span>&nbsp;/&nbsp;{{'OUTBOUND' | translate }}&nbsp;/&nbsp;
+        <a ui-sref="main.delivery_system" href="#">{{'DELIVERY_SYSTEM' | translate }}</a>&nbsp;/&nbsp;{{'HANDOVER_CONFIRMATION' | translate }}</span>
+    </div>
+    <div style="width: 100%;height:{{ mainHeight+36 }}px;overflow:auto">
+        <table id="deliverySystemTable">
+            <tbody>
+                <tr>
+                    <td colspan="5" style="position: relative; font-size: 26px;text-align: center">
+                        牧星智能发货交接单
+                        <kendo-button class="k-primary" style="width: 100px;font-size: 14px;position: absolute;right: 0" ng-disabled="printable" ng-click="print()">{{'打印' | translate}}</kendo-button>
+                    </td>
+                </tr>
+                <tr><td style="height: 10px"></td></tr>
+                <tr>
+                    <td>Sort Code</td>
+                    <td class="weight">{{sortCode}}</td>
+                    <td>发货库房</td>
+                    <td class="weight">{{warehouse}}</td>
+                </tr>
+                <tr>
+                    <td>出库单号</td>
+                    <td class="weight">{{outNo}}</td>
+                    <td>发货总单量</td>
+                    <td class="weight"><a ng-click="jump()">{{totalNum}}</a></td>
+                </tr>
+                <tr>
+                    <td>打印时间</td>
+                    <td class="weight">{{printTime}}</td>
+                    <td>发货时间</td>
+                    <td class="weight">{{outTime}}</td>
+                </tr>
+                <tr ng-repeat="x in orderNumber">
+                    <td>ExSD</td>
+                    <td class="weight">{{x.exSD}}</td>
+                    <td>发货总单量</td>
+                    <td class="weight"><a ng-click="toJump(x.exSD)">{{x.totalShipments}}</a></td>
+                </tr>
+                <tr><td style="height: 10px"></td></tr>
+                <tr>
+                    <td rowspan="9">运输商签收</td>
+                    <td rowspan="4"><label class="k-checkbox-label" style="margin-right: 20px" >按单交接</label></td>
+                    <td>总计</td>
+                    <td><div class="inputNumber"></div>单</td>
+                    <td><div class="inputNumber"></div>箱</td>
+                </tr>
+                <tr>
+                    <td>普通单(非一单多箱)</td>
+                    <td><div class="inputNumber"></div>单</td>
+                </tr>
+                <tr>
+                    <td>普通单(一单多箱)</td>
+                    <td><div class="inputNumber"></div>单</td>
+                    <td><div class="inputNumber"></div>箱</td>
+                </tr>
+                <tr>
+                    <td>高价单</td>
+                    <td><div class="inputNumber"></div>单</td>
+                </tr>
+                <tr>
+                    <td rowspan="5"><label class="k-checkbox-label" style="margin-right: 20px" >按箱交接</label></td>
+                    <td>总计</td>
+                    <td><div class="inputNumber"></div>单</td>
+                    <td><div class="inputNumber"></div>箱</td>
+                </tr>
+                <tr>
+                    <td>普通单(单件)</td>
+                    <td><div class="inputNumber"></div>单</td>
+                </tr>
+                <tr>
+                    <td>普通单(一单多箱)</td>
+                    <td><div class="inputNumber"></div>单</td>
+                    <td><div class="inputNumber"></div>箱</td>
+                </tr>
+                <tr>
+                    <td>周转箱</td>
+                    <td></td>
+                    <td><div class="inputNumber"></div>箱</td>
+                </tr>
+                <tr>
+                    <td>高价单</td>
+                    <td></td>
+                    <td><div class="inputNumber"></div>箱</td>
+                </tr>
+                <tr><td style="height: 10px"></td></tr>
+                <tr>
+                    <td>承运商签字</td>
+                    <td><div class="inputNumber" style="width: 90%"></div></td>
+                    <td>签字时间</td>
+                    <td><div class="inputNumber"></div>时</td>
+                    <td><div class="inputNumber"></div>分</td>
+                </tr>
+                <tr>
+                    <td>库房发货人签字</td>
+                    <td><div class="inputNumber" style="width: 90%"></div></td>
+                    <td>签字时间</td>
+                    <td><div class="inputNumber"></div>时</td>
+                    <td><div class="inputNumber"></div>分</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">备注</td>
+                    <td colspan="5"><div class="inputNumber" style="width: 95%"></div></td>
+                </tr>
+                <tr>
+                    <td colspan="5"><div class="inputNumber" style="width: 95%"></div></td>
+                </tr>
+                <tr>
+                    <td colspan="5"><div class="inputNumber" style="width: 95%"></div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<style>
+
+</style>

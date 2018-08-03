@@ -1,0 +1,92 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'SYSTEM_MANAGE' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.module">{{'MODULE' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)" style="width:100%;">
+      <ul class="ulCls">
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required readonly validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="description" name="description" class="k-textbox" ng-model="description"/></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'MODULE_TYPE' | translate}}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="moduleType" k-data-text-field="'resourceKey'" k-data-value-field="'selectionValue'" k-data-source="moduleTypeSource" required validationMessage="{{'WARNING_MODULE_TYPE' | translate }}"></select>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'RF_ACTIVE' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="rfActive" id="rfActiveTrue" class="k-radio" value="true" ng-model="rfActive">
+            <label class="k-radio-label" for="rfActiveTrue">True</label>
+            <input type="radio" name="rfActive" id="rfActiveFalse" class="k-radio" value="false" ng-model="rfActive">
+            <label class="k-radio-label" for="rfActiveFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'DK_ACTIVE' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="dkActive" id="dkActiveTrue" class="k-radio" value="true" ng-model="dkActive">
+            <label class="k-radio-label" for="dkActiveTrue">True</label>
+            <input type="radio" name="dkActive" id="dkActiveFalse" class="k-radio" value="false" ng-model="dkActive">
+            <label class="k-radio-label" for="dkActiveFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label for="formPath" class="required" style="float:right">{{'FORM_PATH' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="formPath" name="formPath" class="k-textbox" ng-model="formPath"/></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label for="reportFilename" class="required" style="float:right">{{'REPORT_FILENAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="reportFilename" name="reportFilename" class="k-textbox" ng-model="reportFilename"/></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label for="reportType" class="required" style="float:right">{{'REPORT_TYPE' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="reportType" name="reportType" class="k-textbox" ng-model="reportType"/></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'PRINT_PREVIEW' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="printPreview" id="printPreviewTrue" class="k-radio" value="true" ng-model="printPreview">
+            <label class="k-radio-label" for="printPreviewTrue">True</label>
+            <input type="radio" name="printPreview" id="printPreviewFalse" class="k-radio" value="false" ng-model="printPreview">
+            <label class="k-radio-label" for="printPreviewFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'PRINT_DIALOG' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="printDialog" id="printDialogTrue" class="k-radio" value="true" ng-model="printDialog">
+            <label class="k-radio-label" for="printDialogTrue">True</label>
+            <input type="radio" name="printDialog" id="printDialogFalse" class="k-radio" value="false" ng-model="printDialog">
+            <label class="k-radio-label" for="printDialogFalse">False</label>
+          </div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label for="printCopies" class="required" style="float:right">{{'PRINT_COPIES' | translate}}</label></div>
+          <div class="formRight"><input type="number" id="printCopies" name="printCopies" class="k-textbox" required validationMessage="{{'WARNING_PRINT_COPIES' | translate }}" ng-model="printCopies"/></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label for="title" class="required" style="float:right">{{'TITLE' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="title" name="title" class="k-textbox" ng-model="title"/></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label for="resourceKey" class="required" style="float:right">{{'RESOURCE_KEY' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="resourceKey" name="resourceKey" class="k-textbox" ng-model="resourceKey"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight">
+            <button class="k-button k-primary" type="submit" >{{'UPDATE' | translate}}</button>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

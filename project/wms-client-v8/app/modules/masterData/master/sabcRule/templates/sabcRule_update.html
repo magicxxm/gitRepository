@@ -1,0 +1,61 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.area">{{'SABC_RULE' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator" ng-submit="validate($event)">
+            <ul class="ulCls">
+
+                <li>
+                    <div class="formLeft"><label for="skuTypeName" class="required"
+                                                 style="float:right">名称</label></div>
+                    <div class="formRight"><input type="text" id="skuTypeName" name="skuTypeName" class="k-textbox"
+                                                  required validationMessage="{{'WARNING_NAME' | translate }}"
+                                                  ng-model="skuTypeName"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="fromNo" class="required"
+                                                 style="float:right">from</label></div>
+                    <div class="formRight"><input type="text" id="fromNo" name="fromNo" class="k-textbox"
+                                                  required validationMessage="{{'WARNING_NAME' | translate }}"
+                                                  ng-model="fromNo"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="toNo" class="required"
+                                                 style="float:right">to</label></div>
+                    <div class="formRight"><input type="text" id="toNo" name="toNo" class="k-textbox"
+                                                  required validationMessage="{{'WARNING_NAME' | translate }}"
+                                                  ng-model="toNo"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="maxDoc" class="required"
+                                                 style="float:right">收货Doc</label></div>
+                    <div class="formRight"><input type="number" id="maxDoc" name="maxDoc" class="k-textbox"
+                                                  required validationMessage="{{'WARNING_NAME' | translate }}"
+                                                  ng-model="maxDoc"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="replenDoc" class="required"
+                                                 style="float:right">补货Doc</label></div>
+                    <div class="formRight"><input type="number" id="replenDoc" name="replenDoc" class="k-textbox"
+                                                  required validationMessage="{{'WARNING_NAME' | translate }}"
+                                                  ng-model="replenDoc"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="safelyDoc" class="required"
+                                                 style="float:right">安全Doc</label></div>
+                    <div class="formRight"><input type="number" id="safelyDoc" name="safelyDoc" class="k-textbox"
+                                                  required validationMessage="{{'WARNING_NAME' | translate }}"
+                                                  ng-model="safelyDoc"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

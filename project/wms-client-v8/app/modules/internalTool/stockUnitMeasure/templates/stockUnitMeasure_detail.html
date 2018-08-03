@@ -1,0 +1,29 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'STOCKUNIT_TOOL'| translate }}/商品详情--
+    <a style="color:white;" ui-sref="main.stockunit_check">返回</a>
+</div>
+<div style="padding: 1em">
+    <div style="font-size:18px;margin:auto;text-align:center;">
+        <!--<span class="itemGrid" style="width: 20%;">唯一编号</span>
+        <span class="itemGrid" style="width: 20%;">商品编号</span>
+        <span class="itemGrid" style="width: 60%;">商品名称</span><br/>
+        <span class="itemGridInfo" style="width: 20%;">{{itemNo}}</span>
+        <span class="itemGridInfo" style="width: 20%;">{{skuNo}}</span>
+        <span class="itemGridInfo" style="width: 60%;">{{itemName}}</span>-->
+        <table align="center">
+            <tr class="title">
+                <td>{{ 'ITEM_NO' | translate }}</td>
+                <td>{{ 'SKU_NO' | translate }}</td>
+                <td>商品名称</td>
+            </tr>
+            <tr class="content">
+                <td>{{itemNo}}</td>
+                <td>{{ skuNo }}</td>
+                <td>{{ itemName }}</td>
+            </tr>
+        </table>
+
+    </div>
+    <div style="font-size:16px;margin:auto;text-align:center;">
+        <kendo-grid class="inboundGrid" id="stockItemGrid" options="stockItemGridOptions"></kendo-grid>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'TOT' | translate }}&nbsp;/&nbsp;{{'PPRPLANCONFIG' | translate }}</span>
+  </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+  <div style="margin-top:10px;">
+      <div class="gridToolbar" ng-controller="totCtl">
+          <kendo-button class="k-primary gridButton" ng-click="update()">
+              <span class="k-font-icon k-i-pencil"></span>{{'UPDATE' | translate }}
+          </kendo-button>
+          <!--<kendo-button class="k-primary gridButton" ng-click="import('planConfig')">-->
+              <!--<span class="k-font-icon  k-i-lock"></span>{{'IMPORT' | translate }}-->
+          <!--</kendo-button>-->
+      </div>
+      <kendo-grid id="pprPlanConfigGrid" options="pprPlanConfigGridOptions"></kendo-grid>
+  </div>
+    </div>
+</div>

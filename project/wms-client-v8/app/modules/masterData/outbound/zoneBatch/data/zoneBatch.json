@@ -1,0 +1,55 @@
+[{
+  "amount":[{
+    "currentOperatorAmount":1,
+    "totalVolumeAmount":120,
+    "pickAreaName":"p1a"
+  },{
+    "currentOperatorAmount":1,
+    "totalVolumeAmount":300,
+    "pickAreaName":"p1b"
+  }],
+  "amountDetail":{
+    "batchActiveTime":"0:21:21",
+    "pickingOrderNo":"ert",
+    "processPathName":"pp3",
+    "exSDTime":"2016/11/12 12:00",
+    "unfinishedTotalUnits":121,
+    "finishedTotalUnits":0,
+    "positions":[{
+      "pickAreaName":"p1a",
+      "amount":0,
+      "pickedAmount":0
+    },{
+      "pickAreaName":"p1b",
+      "amount":20,
+      "pickedAmount":20
+    }]
+  }
+},{
+  "amount":[{
+    "currentOperatorAmount":1,
+    "totalVolumeAmount":120,
+    "pickAreaName":"p1a"
+  },{
+    "currentOperatorAmount":1,
+    "totalVolumeAmount":300,
+    "pickAreaName":"p1b"
+  }],
+  "amountDetail":{
+    "batchActiveTime":"0:21:21",
+    "pickingOrderNo":"ert2",
+    "processPathName":"pp4",
+    "exSDTime":"2016/11/12 12:00",
+    "unfinishedTotalUnits":121,
+    "finishedTotalUnits":23,
+    "positions":[{
+      "pickAreaName":"p1a",
+      "amount":20,
+      "pickedAmount":0
+    },{
+      "pickAreaName":"p1b",
+      "amount":20,
+      "pickedAmount":1
+    }]
+  }
+}]

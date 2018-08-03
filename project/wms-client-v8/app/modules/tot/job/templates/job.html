@@ -1,0 +1,22 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'TOT' | translate }}&nbsp;/&nbsp;{{'TOT_JOB' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;">
+    <!-- search -->
+    <span>{{'NAME' | translate }}：<input kendo-masked-text-box type="text" ng-model="name" style="width:120px;"/></span>
+    <kendo-button class="k-primary" ng-click="searchGrid()">
+      <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+    </kendo-button>
+    <!-- grid -->
+    <div class="gridToolbar">
+      <span ng-include="'modules/common/templates/gridTool.html'" ng-controller="totCtl"></span>
+      <!--<kendo-button class="k-primary gridButton" ng-click="import('job')">-->
+        <!--<span class="k-font-icon  k-i-lock"></span>{{'IMPORT' | translate }}-->
+      <!--</kendo-button>-->
+    </div>
+    <kendo-grid id="jobGrid" options="jobGridOptions"></kendo-grid>
+  </div>
+</div>
+

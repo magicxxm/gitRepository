@@ -1,0 +1,15 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;{{'COLLATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;">
+    <!-- grid -->
+    <div class="gridToolbar"><kendo-button class="k-primary gridButton"></kendo-button></div>
+    <kendo-grid id="collateProcessPathGRID" options="collateProcessPathGridOptions"></kendo-grid>
+  </div>
+  <div kendo-window="collateProcessPathWin" k-visible="false" k-modal="true"></div>
+  <div kendo-window="collateExsdWin" k-visible="false" k-modal="true"></div>
+  <div kendo-window="collateProfileReadWin" k-visible="false" k-modal="true"></div>
+  <div kendo-window="collateProfileWin" k-visible="false" k-modal="true"></div>
+</div>

@@ -1,0 +1,47 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.zone" href="#">{{'ZONE' | translate }}</a>&nbsp;/&nbsp;{{'CREATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator" ng-submit="validate($event)">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'CLIENT' | translate }}</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-data-value-field="'id'"
+                                k-filter="'contains'" k-data-source="$root.clientSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">物理区</label></div>
+                    <div class="formRight"><select kendo-combo-box k-ng-model="section"
+                                                   k-data-text-field="'name'" k-data-value-field="'id'"
+                                                   k-filter="'contains'"
+                                                   k-data-source="sectionSource"></select></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required
+                                                  validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION'
+                        | translate}}</label></div>
+                    <div class="formRight"><input type="text" id="description" name="description" class="k-textbox"
+                                                  ng-model="description"/></div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" type="submit">{{'SAVE' | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

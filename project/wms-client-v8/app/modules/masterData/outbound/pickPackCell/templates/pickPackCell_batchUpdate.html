@@ -1,0 +1,63 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+          ui-sref="main.pick_pack_wall" href="#">{{'PICK_PACK_CELL' | translate }}</a>&nbsp;/&nbsp;修改电子标签</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'PICK_PACK_WALL' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="pickPackWall" k-change="'changeWall(pickPackWall)'"  k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="pickPackWallSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'LABEL_CONTROLLER' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-multi-select k-ng-model="labelController" k-change="'changeLabelController(labelController)'" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="labelControllerSource"></select>
+          </div>
+        </li>
+        <!-- digitalLabelFront -->
+        <div translate="DIGITAL_LABEL_FRONT"></div>
+        <div style="width:100%;overflow:scroll;margin-top:10px;">
+          <table border='0' cellpadding='0' cellspacing='0' style='width:{{ frontTableWidth }}px;text-align:center;'>
+            <tr>
+              <td ng-repeat="fieldType in pickPackFieldTypes" style="width:{{ 120*fieldType.numberOfColumns }}px;height:100%;">
+                <table border='1' cellpadding='0' cellspacing='0' style='width:100%;height:100%;text-align:center;border-color:white;'>
+                  <tr ng-repeat="row in toItems(fieldType.numberOfRows) track by $index">
+                    <td style="width:100px;" ng-repeat="column in toItems(fieldType.numberOfColumns) track by $index">
+                      <input kendo-combo-box class="front{{ fieldType.name }}" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="digitalLabelSource" style='width:100%;'/>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- digitalLabelBack -->
+        <div translate="DIGITAL_LABEL_BACK" style="margin-top:20px;"></div>
+        <div style="width:100%;overflow:scroll;margin-top:10px;">
+          <table border='0' cellpadding='0' cellspacing='0' style='width:{{ backTableWidth }}px;text-align:center;'>
+            <tr>
+              <td ng-repeat="fieldType in pickPackFieldTypes" style="width:{{ 120*fieldType.numberOfColumns }}px;height:100%;">
+                <table border='1' cellpadding='0' cellspacing='0' style='width:100%;height:100%;text-align:center;border-color:white;'>
+                  <tr ng-repeat="row in toItems(fieldType.numberOfRows) track by $index">
+                    <td style="width:100px;" ng-repeat="column in toItems(fieldType.numberOfColumns) track by $index">
+                      <input kendo-combo-box class="back{{ fieldType.name }}" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="digitalLabelSource" style='width:100%;'/>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- save -->
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

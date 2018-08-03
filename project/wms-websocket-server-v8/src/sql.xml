@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="sqlMapper" class="com.mushiny.jdbc.config.SqlMapper">
+        <property name="sqls">
+            <props>
+
+                <prop key="getPackWorkStation">
+                    <![CDATA[
+               select MD_WORKSTATION.ID as physics ,OB_PACKINGSTATION.ID ,OB_PACKINGSTATION.`NAME`, MD_WORKSTATION.PICKPACKWALL_ID from MD_WORKSTATION  inner join OB_PACKINGSTATION on OB_PACKINGSTATION.`NAME`=MD_WORKSTATION.STATION_NAME where MD_WORKSTATION.PICKPACKWALL_ID is not null and MD_WORKSTATION.PICK_OR_PACK='PACK' order by MD_WORKSTATION.MODIFIED_DATE asc
+
+]]>
+                </prop>
+                <prop key="getShipment">
+                    <![CDATA[
+               select OB_DIGITALLABEL_SHIPMENT.DIGITALLABEL2, OB_DIGITALLABEL_SHIPMENT.PICKPACKWALL_ID,OB_DIGITALLABEL_SHIPMENT.SHIPMENT_ID from OB_DIGITALLABEL_SHIPMENT where OB_DIGITALLABEL_SHIPMENT.STATION_ID is null and OB_DIGITALLABEL_SHIPMENT.STATE=0
+]]>
+                </prop>
+                <prop key="getPickPackWalls">
+                    <![CDATA[
+               select DISTINCT MD_WORKSTATION.PICKPACKWALL_ID as pickPackWalls from MD_WORKSTATION where MD_WORKSTATION.PICKPACKWALL_ID is not null
+]]>
+                </prop>
+
+                <prop key="getPackWorkStationState">
+                    <![CDATA[
+                select MD_WORKSTATION.ID from MD_WORKSTATION inner join OB_PACKINGSTATION on OB_PACKINGSTATION.`NAME`=MD_WORKSTATION.STATION_NAME and OB_PACKINGSTATION.ID=? where MD_WORKSTATION.PICKPACKWALL_ID=? and MD_WORKSTATION.PICK_OR_PACK="PACK"
+]]>
+                </prop>
+                <prop key="getPackWallDiaState">
+                    <![CDATA[
+               select count(state) as countNum  from OB_DIGITALLABEL_SHIPMENT where OB_DIGITALLABEL_SHIPMENT.STATE=1 and OB_DIGITALLABEL_SHIPMENT.PICKPACKWALL_ID=?
+]]>
+                </prop>
+                <prop key="getWorkStationState">
+                    <![CDATA[
+               select DISTINCT state from OB_DIGITALLABEL_SHIPMENT where OB_DIGITALLABEL_SHIPMENT.STATION_ID=?
+
+]]>
+                </prop>
+
+                <prop key="isStopPack">
+                    <![CDATA[
+               select ISCALLPOD  from MD_WORKSTATION where ID=?
+
+]]>
+                </prop>
+
+                <prop key="getPickWorkStation">
+                    <![CDATA[
+               select MD_WORKSTATION.ID as physics ,OB_PICKSTATION.ID ,OB_PICKSTATION.`NAME`, MD_WORKSTATION.PICKPACKWALL_ID from MD_WORKSTATION left join OB_PICKSTATION on OB_PICKSTATION.WORKSTATION_ID=MD_WORKSTATION.ID where MD_WORKSTATION.PICKPACKWALL_ID is not null and MD_WORKSTATION.PICK_OR_PACK='PICK'
+
+]]>
+                </prop>
+                <prop key="getDigitallabelState">
+                    <![CDATA[
+                select OB_DIGITALLABEL_SHIPMENT.STATE from OB_DIGITALLABEL_SHIPMENT where OB_DIGITALLABEL_SHIPMENT.SHIPMENT_ID=?
+]]>
+                </prop>
+                <prop key="updateDigitallabelShipment">
+                    <![CDATA[
+                update  OB_DIGITALLABEL_SHIPMENT set OB_DIGITALLABEL_SHIPMENT.STATION_ID=? ,OB_DIGITALLABEL_SHIPMENT.STATE=? where OB_DIGITALLABEL_SHIPMENT.SHIPMENT_ID=?
+]]>
+                </prop>
+
+                <prop key="getPodFace">
+                    <![CDATA[
+select DISTINCT concat( MD_POD.`NAME`,' ' ,MD_PODTYPEPOSITION.FACE ) as podFace from MD_POD inner join MD_PODTYPE on MD_POD.PODTYPE_ID=MD_PODTYPE.ID inner join MD_PODTYPEPOSITION on MD_PODTYPEPOSITION.PODTYPE_ID=MD_PODTYPE.ID order by podFace asc
+]]>
+                </prop>
+
+            </props>
+
+        </property>
+    </bean>
+</beans>

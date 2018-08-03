@@ -1,0 +1,36 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_INBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.receive_category_rule">{{'RECEIVE_CATEGORY_RULE' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="operator" class="required" style="float:right">{{'OPERATOR' | translate}}</label></div>
+          <div class="formRight"><input stype="text" id="operator" name="operator" class="k-textbox" required readonly validationMessage="{{'WARNING_OPERATOR' | translate }}" ng-model="operator"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="decisionKey" class="required" style="float:right">{{'DECISION_KEY' | translate}}</label></div>
+          <div class="formRight"><input stype="text" id="decisionKey" name="decisionKey" class="k-textbox" required readonly validationMessage="{{'WARNING_DECISION_KEY' | translate }}" ng-model="decisionKey"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="comparisonType" class="required" style="float:right">{{'COMPARISON_TYPE' | translate}}</label></div>
+          <div class="formRight"><input stype="text" id="comparisonType" name="comparisonType" class="k-textbox" required readonly validationMessage="{{'WARNING_COMPARISON_TYPE' | translate }}" ng-model="comparisonType"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="compKey" class="required" style="float:right">{{'COMP_KEY' | translate}}</label></div>
+          <div class="formRight"><input stype="text" id="compKey" name="compKey" class="k-textbox" readonly ng-model="compKey"/></div>
+        </li>
+        <li style="margin-bottom:10px;">
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.rebatch_slot" href="#">{{'REBATCH_SLOT' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="labelColor" class="required" style="float:right">{{'LABEL_COLOR' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="labelColor" name="labelColor" class="k-textbox" ng-model="labelColor"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="orderIndex" class="required" style="float:right">{{'ORDER_INDEX' | translate}}</label></div>
+          <div class="formRight"><input type="number" id="orderIndex" name="orderIndex" class="k-textbox" required validationMessage="{{'WARNING_ORDER_INDEX' | translate }}" ng-model="orderIndex"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="description" name="description" class="k-textbox" ng-model="description"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

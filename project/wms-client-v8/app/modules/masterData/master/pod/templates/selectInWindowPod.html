@@ -1,0 +1,13 @@
+<div style="height:327px;font-size:12px;">
+    <!-- grid -->
+    <div class="gridToolbar">
+        <kendo-button class="k-primary gridButton"></kendo-button>
+    </div>
+    <kendo-grid id="queryPodPlaceMarkGrid" k-options="queryPodPlaceMarkGridOptions"></kendo-grid>
+</div>
+<div style="float:right;font-size:12px;margin-top:10px;">
+    <kendo-button class="k-button k-primary" ng-click="doSelectInWindow(window)">{{"SURE" | translate }}</kendo-button>
+    <kendo-button class="k-button k-primary" style="margin-left:10px;" ng-click="window.close()">{{"CANCEL" | translate
+        }}
+    </kendo-button>
+</div>

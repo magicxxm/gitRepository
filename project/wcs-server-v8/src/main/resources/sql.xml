@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<bean id="sqlMapper" class="com.mushiny.jdbc.config.SqlMapper">
+    <property name="sqls">
+        <props>
+            <prop key="HOT.SERVICE.QUERYALLSHIPMENTLINE">
+                <![CDATA[SELECT COUNT(*) AS COUNTSHIPMENTS FROM OB_CUSTOMERSHIPMENTPOSITION WHERE STATE<600 AND CREATED_DATE<=?]]>
+            </prop>
+            <prop key="HOT.SERVICE.QUERYALLPICKINGORDERPOSITION">
+                <![CDATA[SELECT ITEMCOUNT.*,HOT.ITEMSELLINGDEGREE
+                    FROM ( SELECT COUNT(ITEMDATA_ID),ITEMDATA_ID FROM OB_PICKINGORDERPOSITION T1
+                    WHERE STATE<600 GROUP BY ITEMDATA_ID ) AS ITEMCOUNT
+                    LEFT JOIN WCS_ITEMDATA_HOT HOT ON ITEMCOUNT.ITEMDATA_ID=HOT.ID]]>
+            </prop>
+            <prop key="HOT.SERVICE.GENCURRENTITEMHOT">
+                <![CDATA[INSERT INTO WCS_ITEMDATA_HOT
+                        SELECT TABCOUNTITEM.ITEMDATA_ID,NOW(),'SYSTEM',COUNTITEM/COUNTPODID,'SYSTEM','DEFAULT'
+                        FROM (SELECT COUNT(ITEMDATA_ID) AS COUNTITEM,ITEMDATA_ID FROM `OB_CUSTOMERSHIPMENTPOSITION` CSP
+                        GROUP BY ITEMDATA_ID) TABCOUNTITEM,
+                        (SELECT COUNT(POD.ID) COUNTPODID,ITEMDATA_ID
+                        FROM MD_POD POD,MD_STORAGELOCATION LOCATION,INV_UNITLOAD UNITLOAD,INV_STOCKUNIT SKU
+                        WHERE POD.ID = LOCATION.POD_ID AND UNITLOAD.STORAGELOCATION_ID = LOCATION.ID AND SKU.UNITLOAD_ID = UNITLOAD.ID
+                        GROUP BY ITEMDATA_ID) TABCOUNTPOD WHERE TABCOUNTPOD.ITEMDATA_ID=TABCOUNTITEM.ITEMDATA_ID]]>
+            </prop>
+            <prop key="HOT.SERVICE.QUERYALLPOTSHOT">
+                <![CDATA[SELECT DISTINCT LOCATION.POD_ID AS POD_ID,ITEMDATA_ID,HOT.ITEMSELLINGDEGREE,MD_POD.`XPOS`,MD_POD.`YPOS`
+                FROM MD_POD,MD_STORAGELOCATION LOCATION,INV_UNITLOAD UNITLOAD,INV_STOCKUNIT SKU,WCS_ITEMDATA_HOT HOT
+                WHERE MD_POD.ID=LOCATION.POD_ID AND UNITLOAD.STORAGELOCATION_ID = LOCATION.ID
+                AND SKU.UNITLOAD_ID = UNITLOAD.ID AND HOT.ID=SKU.ITEMDATA_ID AND MD_POD.SECTION_ID=?]]>
+            </prop>
+
+            <prop key="HOT.SERVICE.QUERYALLPOTSITEMS">
+                <![CDATA[SELECT DISTINCT LOCATION.POD_ID AS POD_ID,SKU.ITEMDATA_ID,MD_POD.`XPOS`,MD_POD.`YPOS`
+            FROM MD_POD,MD_STORAGELOCATION LOCATION,INV_UNITLOAD UNITLOAD,INV_STOCKUNIT SKU
+            WHERE MD_POD.ID=LOCATION.POD_ID AND UNITLOAD.STORAGELOCATION_ID = LOCATION.ID
+            AND SKU.UNITLOAD_ID = UNITLOAD.ID AND MD_POD.SECTION_ID=?
+            AND SKU.ITEMDATA_ID IN (SELECT DISTINCT(ITEMDATA_ID) FROM OB_CUSTOMERSHIPMENTPOSITION,OB_CUSTOMERSHIPMENT
+            WHERE OB_CUSTOMERSHIPMENTPOSITION.SHIPMENT_ID = OB_CUSTOMERSHIPMENT.ID AND OB_CUSTOMERSHIPMENT.STATE<600)]]>
+            </prop>
+            <prop key="HOT.SERVICE.PODITEMS">
+                <![CDATA[SELECT POD_ID,ITEMDATA_ID
+                        FROM MD_POD POD,MD_STORAGELOCATION LOCATION,INV_UNITLOAD UNITLOAD,INV_STOCKUNIT SKU
+                        WHERE POD.ID = LOCATION.POD_ID AND UNITLOAD.STORAGELOCATION_ID = LOCATION.ID
+                        AND SKU.UNITLOAD_ID = UNITLOAD.ID AND POD_ID=? ]]>
+            </prop>
+            <prop key="WAREHOUSEMGR.LOADALLADDRESSES">
+                <![CDATA[SELECT WD_NODE.ID,WD_NODE.TYPE,XPOSITION,YPOSITION,ADDRESSCODEID FROM WD_NODE,WD_MAP
+                WHERE WD_NODE.`MAP_ID` = WD_MAP.`ID` AND WD_MAP.ACTIVE=TRUE AND WD_MAP.`SECTION_ID`=?]]><!--TODO-->
+            </prop>
+            <prop key="WAREHOUSEMGR.LOADWORKSTATIONS">
+                <![CDATA[SELECT * FROM MD_WORKSTATION WHERE STOPPOINT IS NOT NULL
+                AND STOPPOINT<>0 AND MD_WORKSTATION.SECTION_ID=? ]]><!--TODO-->
+            </prop>
+            <prop key="WAREHOUSEMGR.LOADAVAlIABLEADDRESS">
+                <![CDATA[SELECT WD_NODE.ID,WD_NODE.ADDRESSCODEID,XPOSITION,YPOSITION FROM WD_NODE,WD_MAP
+                WHERE TYPE=1 AND WD_MAP.`ACTIVE`=TRUE AND WD_NODE.BLOCKED=FALSE AND WD_MAP.ID=WD_NODE.MAP_ID AND WD_MAP.SECTION_ID=?]]><!--TODO-->
+            </prop>
+            <prop key="HOT.SERVICE.ADDRESS">
+                <![CDATA[SELECT ID,XPOSITION,YPOSITION,BLOCKED FROM WD_NODE WHERE ADDRESSCODEID=?]]><!--TODO-->
+            </prop>
+            <prop key="POD.MANAGER.LOADPODS">
+                <![CDATA[SELECT MD_POD.* FROM MD_POD,WD_MAP,WD_SECTION
+                WHERE WD_SECTION.`ID`=WD_MAP.`SECTION_ID`
+                AND MD_POD.`SECTION_ID`=WD_SECTION.`ID` AND WD_MAP.`ACTIVE`=TRUE]]><!--TODO-->
+            </prop>
+            <prop key="ROBOT.MANAGER.LOADROBOT">
+                <![CDATA[SELECT * FROM MD_ROBOT WHERE ROBOT_ID=?]]><!--TODO-->
+            </prop>
+            <prop key="MapManager.MapRowAndColumn">
+                <![CDATA[SELECT NUMBEROFROWS,NUMBEROFCOLUMNS,WD_MAP.ID FROM WD_MAP,WD_SECTION
+                WHERE RCS_SECTIONID=? AND WD_MAP.`SECTION_ID`=WD_SECTION.`ID`  AND WD_MAP.ACTIVE=TRUE]]><!--TODO-->
+            </prop>
+            <prop key="ROBOTMANAGER.GETROBOTBYROBOTID">
+                <![CDATA[SELECT * FROM WCS_ROBOT WHERE ROBOT_ID=?]]><!--TODO-->
+            </prop>
+            <prop key="WAREHOUSEMANAGER.LOADALLWAREHOUSE">
+                <![CDATA[SELECT DISTINCT(WAREHOUSE_ID) FROM WD_SECTION]]><!--TODO-->
+            </prop>
+            <prop key="WAREHOUSEMANAGER.LOADALLSECTIONS"><!--奇葩-->
+                <![CDATA[SELECT WD_MAP.ID MAP_ID,WD_SECTION.* FROM WD_MAP,WD_SECTION
+                WHERE WD_MAP.`SECTION_ID` = WD_SECTION.`ID` AND WD_MAP.ACTIVE=TRUE AND WD_MAP.WAREHOUSE_ID=?]]><!--TODO-->
+            </prop>
+            <prop key="WareHousemanager.initAutoMoveAddrs">
+                <![CDATA[SELECT * FROM MD_WORKSTATION WHERE SCANPOINT IS NOT NULL AND ID=? AND SECTION_ID=?]]><!--TODO-->
+            </prop>
+            <prop key="RobotManager.loadBasicRobots">
+                <![CDATA[SELECT * FROM MD_ROBOT]]><!--TODO-->
+            </prop>
+            <prop key="RobotManager.loadRegistedRobots">
+                <![CDATA[SELECT * FROM WCS_ROBOT]]><!--TODO-->
+            </prop>
+            <prop key="RobotManager.onUnCheckAll">
+                <![CDATA[UPDATE WCS_ROBOT SET STATUS=-9]]><!--TODO-->
+            </prop>
+            <prop key="OrderManager.loadAllOrderGroup">
+                <![CDATA[SELECT * FROM RCS_TRIP WHERE (TRIP_STATE=New Or TRIP_STATE=Available)
+                AND WAREHOUSE_ID=? AND SECTION_ID=? ORDER BY CREATED_DATE]]><!--TODO-->
+            </prop>
+            <prop key="OrderManager.initOrderGroupOrders">
+                <![CDATA[
+                SELECT RCS_TRIPPOSITION.* FROM RCS_TRIPPOSITION,RCS_TRIP
+                WHERE RCS_TRIPPOSITION.TRIP_STATE=0 and RCS_TRIPPOSITION.`TRIP_ID`= RCS_TRIP.`ID`
+                AND RCS_TRIP.WAREHOUSE_ID=? AND RCS_TRIP.SECTION_ID=? AND TRIP_ID=?
+                ]]><!--TODO-->
+            </prop>
+            <prop key="SystemPropertiesManager.loadSystemProperty">
+                <![CDATA[SELECT SYSTEM_KEY,SYSTEM_VALUE,WAREHOUSE_ID FROM SYS_SYSTEMPROPERTY]]><!--TODO-->
+            </prop>
+            <prop key="WareHouseManager.loadTurnArea">
+                <![CDATA[SELECT MD_TURNAREA.`STATION_ID`, ADDRESSCODEID,TURNAREANODETYPE FROM MD_TURNAREA, MD_TURNAREAPOSITION ,WD_MAP
+                    WHERE MD_TURNAREA.ID=MD_TURNAREAPOSITION.`TURNAREA_ID` AND MD_TURNAREA.`MAP_ID` = WD_MAP.`ID`
+                    AND WD_MAP.`ACTIVE` = TRUE AND WD_MAP.`SECTION_ID` = ?
+                    AND MD_TURNAREA.`STATION_ID`=? ORDER BY TURNAREANODETYPE DESC]]><!--TODO-->
+            </prop>
+            <prop key="RobotManager.updateRobotStatus">
+                <![CDATA[UPDATE WCS_ROBOT SET STATUS=-9,AVAILABLE=FALSE]]><!--TODO-->
+            </prop>
+            <!--跟车自行点-->
+            <prop key="MapManager.queryFollowCells">
+                <![CDATA[SELECT STOPPOINT FROM MD_WORKSTATION WHERE STOPPOINT!=0]]><!--TODO-->
+            </prop>
+            <prop key="OrderManager.getOrderGroupByRobot">
+                <![CDATA[SELECT * FROM RCS_TRIP WHERE (TRIP_STATE=? OR TRIP_STATE=?)
+                AND DRIVE_ID=? AND SECTION_ID=? AND WAREHOUSE_ID=?
+                ORDER BY TRIP_STATE,CREATED_DATE LIMIT 1]]><!--TODO-->
+            </prop>
+            <!--WareHouseManager.initChargerAddrs-->
+            <prop key="WareHouseManager.loadChargers">
+                <![CDATA[SELECT * FROM MD_CHARGER WHERE SECTION_ID=?]]><!--TODO-->
+            </prop>
+            <prop key="OrderManager.getOrderByRobot">
+                <![CDATA[SELECT RCS_TRIP.*,RCS_TRIPPOSITION.POD_USING_FACE,RCS_TRIPPOSITION.POSITION_NO
+                    FROM RCS_TRIP LEFT JOIN RCS_TRIPPOSITION ON RCS_TRIP.`ID` = RCS_TRIPPOSITION.`TRIP_ID`
+                    WHERE RCS_TRIP.TRIP_STATE=? AND RCS_TRIP.DRIVE_ID=?
+                    AND (POSITION_NO NOT IN (-1,-2) OR POSITION_NO IS NULL)
+                    AND (RCS_TRIPPOSITION.TRIPPOSITION_STATE=? OR RCS_TRIPPOSITION.TRIPPOSITION_STATE IS NULL)
+                    ORDER BY RCS_TRIP.CREATED_DATE,POSITION_NO LIMIT 1]]><!--TODO-->
+            </prop>
+            <prop key="RobotManager.isFinishOrderGroup">
+                <![CDATA[SELECT * FROM RCS_TRIPPOSITION WHERE TRIP_ID=? and TRIP_STATE = ?]]><!--TODO-->
+            </prop>
+            <!--加载存储区组关系-->
+            <prop key="WareHouseManager.loadAddrGroup">
+                <![CDATA[SELECT WD_NODE.* FROM WD_NODE,WD_MAP,WD_SECTION
+                WHERE WD_MAP.ID=WD_NODE.MAP_ID AND WD_SECTION.`ID` = WD_MAP.`SECTION_ID`
+                AND WD_MAP.`ACTIVE`=1 AND SECTION_ID=? AND CLASSGROUP IS NOT NULL
+                ORDER BY CLASSGROUP,CLASSVALUE]]>
+            </prop>
+            <!--检查POD是否在调度单里-->
+            <prop key="RobotManager.isPodInOrder">
+                <![CDATA[SELECT PODID FROM RCS_TRIP WHERE PODID=? AND (TRIP_STATE=? OR TRIP_STATE=?)]]>
+            </prop>
+            <!--检查该地址是否是POD目标地址-->
+            <prop key="PodManager.podTarget">
+                <![CDATA[SELECT ADDRCODEID_TAR FROM MD_POD WHERE ADDRCODEID_TAR=?]]>
+            </prop>
+            <prop key="RobotManager.updatePodAddress">
+                <![CDATA[UPDATE MD_POD SET MODIFIED_DATE=?,PLACEMARK=? WHERE NAME=? AND SECTION_ID=?]]>
+            </prop>
+            <!--查找地图所有充电桩 RobotManager.queryChargers-->
+            <prop key="RobotManager.queryChargers">
+                <![CDATA[SELECT * FROM MD_CHARGER WHERE SECTION_ID=?]]>
+            </prop>
+            <!--获取同组的Order  OrderManager.getSameOrderByRobot-->
+            <prop key="OrderManager.getSameOrderByRobot">
+            <![CDATA[SELECT RCS_TRIP.*,RCS_TRIPPOSITION.POD_USING_FACE,RCS_TRIPPOSITION.POSITION_NO
+            FROM RCS_TRIP LEFT JOIN RCS_TRIPPOSITION ON RCS_TRIP.`ID` = RCS_TRIPPOSITION.`TRIP_ID`
+                    WHERE TRIPPOSITION_STATE=? AND RCS_TRIP.DRIVE_ID=?
+                    AND RCS_TRIP.ID=? AND POSITION_NO NOT IN (-1,-2)
+                    ORDER BY POSITION_NO LIMIT 1]]>
+            </prop>
+            <!--开始执行时，检查是否存在返回的调度单  StationPodOrder.checkExistBack2Storage  process时-->
+            <prop key="StationPodOrder.checkExistBack2Storage">
+                <![CDATA[SELECT RCS_TRIPPOSITION.* FROM RCS_TRIPPOSITION
+                    WHERE RCS_TRIPPOSITION.TRIP_ID=? AND POSITION_NO IN (-1,-2)]]>
+            </prop>
+
+            <!--释放pod时，检查是否存在返回的调度单  StationPodOrder.checkExistBack2Storage4PodRelease  释放时-->
+            <prop key="StationPodOrder.checkExistBack2Storage4PodRelease">
+                <![CDATA[SELECT RCS_TRIPPOSITION.* FROM RCS_TRIPPOSITION
+                    WHERE RCS_TRIPPOSITION.TRIP_ID=? AND POSITION_NO IN (-1,-2) AND TRIPPOSITION_STATE=?]]>
+            </prop>
+
+            <!--获取返程存储区的  OrderManager.getBack2StorageOrderByRobot-->
+            <prop key="OrderManager.getBack2StorageOrderByRobot">
+                <![CDATA[SELECT RCS_TRIP.*,RCS_TRIPPOSITION.POD_USING_FACE,RCS_TRIPPOSITION.POSITION_NO
+                    FROM RCS_TRIP LEFT JOIN RCS_TRIPPOSITION ON RCS_TRIP.`ID` = RCS_TRIPPOSITION.`TRIP_ID`
+                    WHERE RCS_TRIP.DRIVE_ID=? AND RCS_TRIP.ID=? AND POSITION_NO =?
+                    ORDER BY POSITION_NO DESC]]>
+            </prop>
+            <!--子调度单 OrderManager.orderPositions-->
+            <prop key="OrderManager.orderPositions">
+                <![CDATA[SELECT * FROM RCS_TRIPPOSITION WHERE TRIP_ID =? AND POD_USING_FACE=?]]>
+            </prop>
+            <!--两条自动调度单的更新 StationPodOrder.updateBackOrderPosition-->
+            <prop key="StationPodOrder.updateBackOrderPosition">
+                <![CDATA[UPDATE RCS_TRIPPOSITION SET TRIPPOSITION_STATE=? WHERE TRIP_ID =? AND POSITION_NO=?]]>
+            </prop>
+            <!--取消调度单-->
+            <prop key="OrderManager.cancelRobotOrders">
+                <![CDATA[UPDATE RCS_TRIP SET TRIPPOSITION_STATE=? WHERE ID =? AND DRIVE_ID=?]]>
+            </prop>
+            <prop key="OrderManager.cancelRobotOrderPositions">
+                <![CDATA[UPDATE RCS_TRIPPOSITION SET TRIPPOSITION_STATE=? WHERE TRIP_ID =? AND DRIVE_ID=?]]>
+            </prop>
+            <!--StationPodOrder.deletePositions 删除记录-->
+            <prop key="StationPodOrder.deletePositions">
+                <![CDATA[DELETE FROM RCS_TRIPPOSITION WHERE TRIP_ID=? AND POSITION_NO<0]]>
+            </prop>
+            <!--OrderManager.getWorkingOrderByRobot 小车当前在执行的任务 某个TripID的 Process 或 Leaving 的一条Process的记录-->
+            <prop key="OrderManager.getWorkingOrderByRobot">
+                <![CDATA[SELECT RCS_TRIP.*,RCS_TRIPPOSITION.POD_USING_FACE,RCS_TRIPPOSITION.POSITION_NO
+            FROM RCS_TRIP LEFT JOIN RCS_TRIPPOSITION ON RCS_TRIP.`ID` = RCS_TRIPPOSITION.`TRIP_ID`
+                    WHERE (RCS_TRIP.TRIP_STATE=? OR RCS_TRIP.TRIP_STATE=?)
+                    AND TRIPPOSITION_STATE=? AND RCS_TRIP.DRIVE_ID=?
+                    AND RCS_TRIP.ID=? ORDER BY POSITION_NO LIMIT 1]]>
+            </prop>
+            <!--StationPodOrder.cancelPosition-->
+            <prop key="StationPodOrder.cancelPosition">
+                <![CDATA[UPDATE RCS_TRIPPOSITION SET TRIPPOSITION_STATE=? WHERE TRIP_ID=?]]>
+            </prop>
+            <!--查询回存储区和缓冲区的明细-->
+            <prop key="OrderManager.orderPositionsByIndex">
+                <![CDATA[SELECT * FROM RCS_TRIPPOSITION WHERE TRIP_ID =? AND POSITION_NO=?]]>
+            </prop>
+            <!--查询仓库信息-->
+            <prop key="ROBOTMANAGER.GETWAREHOUSEBYID">
+                <![CDATA[SELECT * FROM SYS_WAREHOUSE WHERE ID=?]]><!--TODO-->
+            </prop>
+            <!--根据podId更新pod位置-->
+            <prop key="MEDIA.UpdatePodAddrByPodIndex">
+                <![CDATA[UPDATE MD_POD SET PLACEMARK=?, XPOS=?, YPOS=?, STATE=?, TOWARD=? WHERE POD_INDEX=?]]><!--TODO-->
+            </prop>
+            <!--删除所有小车-->
+            <prop key="MEDIA.DeleteRobots">
+                <![CDATA[DELETE FROM WCS_ROBOT]]><!--TODO-->
+            </prop>
+            <!--删除所有调度单-->
+            <prop key="MEDIA.DeleteTrips">
+                <![CDATA[DELETE FROM RCS_TRIP]]><!--TODO-->
+            </prop>
+            <!--删除所有调度单明细-->
+            <prop key="MEDIA.DeleteTripPositions">
+                <![CDATA[DELETE FROM RCS_TRIPPOSITION]]><!--TODO-->
+            </prop>
+            <!--删除在途IB-->
+            <prop key="MEDIA.DeleteIB">
+                <![CDATA[DELETE FROM IB_ENROUTEPOD]]><!--TODO-->
+            </prop>
+            <!--删除在途OB-->
+            <prop key="MEDIA.DeleteOB">
+                <![CDATA[DELETE FROM OB_ENROUTEPOD]]><!--TODO-->
+            </prop>
+            <!--删除在途PQA-->
+            <prop key="MEDIA.DeletePQA">
+                <![CDATA[DELETE FROM PQA_ENROUTEPOD]]><!--TODO-->
+            </prop>
+            <!--查询未完成的充电任务-->
+            <prop key="RobotManager.QueryChargeOrders">
+                <![CDATA[SELECT * FROM RCS_TRIP WHERE TRIP_TYPE='ChargerDrive' AND TRIP_STATE<>'Finish']]><!--TODO-->
+            </prop>
+            <!--PodManager.queryItemHots-->
+            <prop key="PodManager.queryItemHots">
+                <![CDATA[SELECT TABCOUNTITEM.ITEMDATA_ID,NOW(),'SYSTEM',COUNTITEM/COUNTPODID AS ITEMPERPOD,'SYSTEM','DEFAULT'
+            FROM (SELECT COUNT(CSP.ITEMDATA_ID) AS COUNTITEM,ITEMDATA_ID FROM `OB_CUSTOMERSHIPMENTPOSITION` CSP,OB_CUSTOMERSHIPMENT CS
+            WHERE CSP.`SHIPMENT_ID`=CS.ID AND CS.STATE<600
+            GROUP BY ITEMDATA_ID) TABCOUNTITEM, (SELECT COUNT(POD.ID) COUNTPODID,ITEMDATA_ID
+            FROM MD_POD POD,MD_STORAGELOCATION LOCATION,INV_UNITLOAD UNITLOAD,INV_STOCKUNIT SKU
+            WHERE POD.ID = LOCATION.POD_ID AND UNITLOAD.STORAGELOCATION_ID = LOCATION.ID AND SKU.UNITLOAD_ID = UNITLOAD.ID
+            GROUP BY ITEMDATA_ID) TABCOUNTPOD WHERE TABCOUNTPOD.ITEMDATA_ID=TABCOUNTITEM.ITEMDATA_ID]]>
+            </prop>
+        </props>
+    </property>
+</bean>
+</beans>

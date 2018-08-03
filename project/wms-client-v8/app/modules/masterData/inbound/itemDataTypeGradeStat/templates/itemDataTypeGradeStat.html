@@ -1,0 +1,35 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'INBOUND' | translate }}&nbsp;/&nbsp;{{'ITEM_DATA_TYPE_GRADE_STAT' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <!-- search -->
+
+        <span><input kendo-masked-text-box type="number" ng-model="dayNumber"
+                     style="width:200px;"/></span>
+        <kendo-button class="k-primary" ng-click="sureDay()">
+            <span class="k-font-icon">确定计算天数</span>
+        </kendo-button>
+        <span style="padding-left: 10px;width: 200px"> <input kendo-time-picker id="refreshTime"
+                                                              class="k-textbox"
+                                                              type="text"
+                                                              name="refreshTime"
+                                                              k-format="'HH:mm'"
+                                                              ng-model="refreshTime"
+                                                              style="width:220px"/></span>
+        <kendo-button class="k-primary" ng-click="sureTime()">
+            <span class="k-font-icon">确定刷新时间</span>
+        </kendo-button>
+        <!-- grid -->
+        <div class="gridToolbar" ng-controller="masterCtl">
+            <kendo-button class="k-primary gridButton" ng-click="update()">
+                <span class="k-font-icon k-i-pencil"></span>{{'UPDATE' | translate }}
+            </kendo-button>
+            <kendo-button class="k-primary gridButton" ng-click="create()"><span class="k-font-icon k-i-plus"></span>{{'CREATE'
+                | translate }}
+            </kendo-button>
+        </div>
+        <kendo-grid id="itemDataTypeGradeStatGrid" options="itemDataTypeGradeStatGridOptions"></kendo-grid>
+    </div>
+</div>

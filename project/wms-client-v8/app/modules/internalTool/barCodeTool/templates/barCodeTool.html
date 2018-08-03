@@ -1,0 +1,81 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'BAR_CODE_TOOL'| translate }}</div>
+<div style="width:100%;">
+  <div style="width:70%;margin:0px auto;">
+    <div style="float:left;margin-top:20px;width:55%;">
+      <div  style="font-size:18px;margin-top:20px;display: flex">
+        商品条码:&nbsp;&nbsp;
+        <input  id="scanGood" type="text" class="k-textbox" ng-model="skuNo" ng-keyup="goodsBarCode($event)">
+         <div class="internalToolCenter" ng-show="goodsBarCodeShow">
+          <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+      </div>
+      <div ng-show="barCodeSku">
+          <div style="font-size:18px;margin-top:20px;display: flex">
+            SKU &nbsp;&nbsp;&nbsp;ID:&nbsp;&nbsp;
+            <input  type="text" id="skuIdInput" ng-model="skuId" ng-keyup="skuIdClick($event)" class="k-textbox" >
+             <div class="internalToolCenter" ng-show="skuIdShow">
+          <img height="30px" width="30px" src="image/checkSuccess.png"></div>
+          </div>
+           <div style="font-size:18px;margin-top:20px;display: flex">
+             打印数量:&nbsp;&nbsp;
+           <input  type="text" class="k-textbox" ng-model="barCodeCount" id="printQuantityInput" ng-keyup="numberOfPrints($event)">
+ 
+           </div>
+      </div>
+       <div ng-show="continueGoods">
+         <div style="font-size:18px;margin-top:10px;background:#f27724;height:60px;color:white;padding-top:10px;padding-left:10px;" >
+           注意：条码粘贴错误会导致商品错误，请仔细核实打印数量
+           一旦打印数量超过实际使用数量，请及时销毁多余条码。
+         </div>
+         <div style="margin-top:20px;">
+           <kendo-button class="k-primary" style="font-size:18px;height:50px;width:100%;border:1px solid #76b44e;background:#76b44e;" ng-click="nextGoods()">
+             补打条码成功，请扫描下一商品继续
+           </kendo-button>
+         </div>
+      </div>
+    </div>
+    <div style="float:left;width:45%;">
+      <div style="margin-top:20px;margin-left:10px;border:1px solid blue;height:{{(mainHeight-100)}}px;width:90%;">
+        <div ng-show="_goodsContent" style="height:100%;">
+          <div style="text-align:center;height:180px;margin-top:30px;">
+            <img   height="150px" width="150px"  src="image/20161022134004.png">
+          </div>
+          <div style="padding-top:10px;font-size:16px;border-top:1px solid blue;width:100%;">
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;"><div style="font-weight:600;float:left;width:20%;">SKU ID</div><div style="float:left;width:70%">{{itemNo}}</div></div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;"><div style="font-weight:600;float:left;width:20%;">商品名称</div><div style="float:left;width:70%">{{goodName}}</div></div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;"><div style="font-weight:600;float:left;width:20%;">长*宽*高</div><div style="float:left;width:70%">{{width}}mm*{{depth}}mm*{{height}}mm</div></div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;"><div style="font-weight:600;float:left;width:20%;">重量</div><div style="float:left;width:70%">{{weight}}g</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:16px;margin-top:20px;text-align:center">
+        <kendo-button class="k-primary" style="width:180px;" ng-click="selectTransferRecords()">S查看条码打印记录</kendo-button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<div kendo-window="barCodeProductsWindow"  id="barCodeProductsId"   k-title="'此条码对应多件商品，请确认需要补打条码的商品'" k-visible="false" k-modal="true">
+  <div style="margin:20px auto;width:98%;height:300px;">
+    <kendo-grid class="inboundGrid"  id="barCodeProductsGrid"   ></kendo-grid>
+  </div>
+  <div style="text-align:center;width:100%;float:left;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="barCodeProductsSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+    <kendo-button class="k-primary ReceiptBut" ng-click="barCodeProductsWindow.close();" >2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>
+
+
+<div kendo-window="barCodeWindow"  id="barCodeId"   k-title="'条码打印记录'" k-visible="false" k-modal="true">
+  <div style="font-weight: 600;font-size:18px;margin:20px auto;width:98%;">
+    <div style="margin-top:10px;"></div>
+  </div>
+  <div style=" width:98%; ">
+    <kendo-grid class="inboundGrid" id="barCodeSelectGrid"  ></kendo-grid>
+  </div>
+  <div style="text-align:center;width:100%;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="barCodeWindow.close();" >2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>

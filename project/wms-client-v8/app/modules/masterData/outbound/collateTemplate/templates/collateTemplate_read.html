@@ -1,0 +1,44 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.collate_template"  href="#">{{'COLLATE_TEMPLATE' | translate }}</a>&nbsp;/&nbsp;{{'READ' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="name" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'MIN_ITEMS' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box type="number" k-format="'p0'" class="k-textbox" ng-model="minItems" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'MAX_ITEMS' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box type="number" k-format="'p0'" class="k-textbox" ng-model="maxItems" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'MIN_SHIPMENTS' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box type="number" k-format="'p0'" class="k-textbox" ng-model="minShipments" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'MAX_SHIPMENTS' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box type="number" k-format="'p0'" class="k-textbox" ng-model="maxShipments" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'PURE_EXSD' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="pureExsd" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="description" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label  class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" ui-sref="main.collate_template">{{'BACK' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

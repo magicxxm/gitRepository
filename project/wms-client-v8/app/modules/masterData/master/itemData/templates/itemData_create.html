@@ -1,0 +1,166 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.item_data"
+            href="#">{{'ITEM_DATA' | translate }}</a>&nbsp;/&nbsp;{{'CREATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator" ng-submit="validate($event)">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'CLIENT' | translate}}</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-data-value-field="'id'"
+                                k-filter="'contains'" k-data-source="$root.clientSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'ITEM_DATA_GLOBAL' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <input type="text" ng-dblclick="selectItemDataGlobal()" id="itemDataGlobal"
+                               name="itemDataGlobal" class="k-textbox" required readonly
+                               validationMessage="{{'WARNING_ITEM_DATA_GLOBAL' | translate }}"
+                               ng-model="itemDataGlobal.skuNo"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required
+                                                  validationMessage="{{'WARNING_NAME' | translate }}"
+                                                  ng-model="itemDataGlobal.name"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION'
+                        | translate}}</label></div>
+                    <div class="formRight"><input type="text" id="description" name="description" class="k-textbox"
+                                                  ng-model="itemDataGlobal.description"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="safetyStock" class="required" style="float:right">{{'SAFETY_STOCK'
+                        | translate}}</label></div>
+                    <div class="formRight"><input type="number" id="safetyStock" name="safetyStock" class="k-textbox"
+                                                  ng-model="itemDataGlobal.safetyStock"/></div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'ITEM_GROUP' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="itemDataGlobal.itemGroup.name"
+                                                  readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label style="float:right">{{'SKU_NO' | translate}}</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="itemDataGlobal.skuNo"
+                                                  readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label style="float:right">{{'ITEM_NO' | translate}}</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="itemDataGlobal.itemNo"
+                                                  readonly/></div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'LOT_MANDATORY' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="itemDataGlobal.lotMandatory"
+                                                  readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="lotType" class="required" style="float:right">{{'LOT_TYPE' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" id="lotType" name="lotType" class="k-textbox"
+                                                  ng-model="itemDataGlobal.lotType" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="lotUnit" class="required" style="float:right">{{'LOT_UNIT' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" id="lotUnit" name="lotUnit" class="k-textbox"
+                                                  ng-model="itemDataGlobal.lotUnit" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="lotThreshold" class="required" style="float:right">{{'LOT_THRESHOLD'
+                        | translate}}</label></div>
+                    <div class="formRight"><input type="text" id="lotThreshold" name="lotThreshold" class="k-textbox"
+                                                  ng-model="itemDataGlobal.lotThreshold" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label style="float:right">{{'HANDING_UNIT' | translate}}</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="itemDataGlobal.itemUnit.name"
+                                                  readonly/></div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label style="float:right">{{'MEASURED' | translate}}</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="itemDataGlobal.measured"
+                                                  readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label style="float:right">{{'LENGTH' | translate}}</label></div>
+                    <div class="formRight"><input kendo-numeric-text-box class="k-textbox" k-format="'# mm'"
+                                                  ng-model="itemDataGlobal.width" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label style="float:right">{{'WIDTH' | translate}}</label></div>
+                    <div class="formRight"><input kendo-numeric-text-box class="k-textbox" k-format="'# mm'"
+                                                  ng-model="itemDataGlobal.depth" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label style="float:right">{{'HEIGHT' | translate}}</label></div>
+                    <div class="formRight"><input kendo-numeric-text-box class="k-textbox" k-format="'# mm'"
+                                                  ng-model="itemDataGlobal.height" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label style="float:right">{{'VOLUME' | translate}}</label></div>
+                    <div class="formRight"><input kendo-numeric-text-box class="k-textbox" k-format="'# mm³'"
+                                                  ng-model="itemDataGlobal.volume" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label style="float:right">{{'WEIGHT' | translate}}</label></div>
+                    <div class="formRight"><input kendo-numeric-text-box class="k-textbox" k-format="'# g'"
+                                                  ng-model="itemDataGlobal.weight" readonly/></div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'MULTIPLE_PART' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="itemDataGlobal.multiplePart"
+                                                  readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'MULTIPLE_PART_AMOUNT' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="number" class="k-textbox"
+                                                  ng-model="itemDataGlobal.multiplePartAmount" readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'PREFER_OWN_BOX' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="itemDataGlobal.preferOwnBox"
+                                                  readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'PREFER_BAG' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="itemDataGlobal.preferBag"
+                                                  readonly/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'USE_BUBBLE_FILM' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" class="k-textbox" ng-model="itemDataGlobal.useBubbleFilm"
+                                                  readonly/></div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" type="submit">{{'SAVE' | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

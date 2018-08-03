@@ -1,0 +1,62 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'MEASURE_QUERY'| translate }}</div>
+<div style="width:98%;margin:10px auto;">
+  <span style="font-size:18px;">{{'START_TIME'| translate }}</span>&nbsp;&nbsp;<input  ng-model="startTime" kendo-date-picker  k-format="'yyyy-MM-dd'">
+  <span style="font-size:18px;">{{'END_TIME'| translate }}</span>&nbsp;&nbsp;<input ng-model="endTime"  kendo-date-picker  k-format="'yyyy-MM-dd'">
+ <!-- <kendo-button class="k-primary" style="font-size:18px;" >{{'SEARCH_ALL'| translate }}</kendo-button> -->
+</div>
+<div style="text-align:center;margin-top:10px;">
+  <input  type="text" ng-model="term" ng-keyup="searchKeyup($event)" id="termId" class="k-textbox" style="width:300px">
+  <kendo-button class="k-primary" ng-click="search()"  style="font-size:18px;" >{{'SEARCH'| translate }}</kendo-button>
+</div>
+<div style="font-size:16px;width:98%;margin:10px auto;text-align:center;">
+  <kendo-grid class="inboundGrid" id="measureQueryGrid"  ></kendo-grid>
+</div>
+<div kendo-window="measureQueryWindow" id="measureQueryWindow" k-visible="false" k-modal="true">
+  <div style="height: 42%;border: #e2e2e2 solid 1px">
+    <div style="width: 100%;text-align: center;background: #bdd7ee;font-size: 18px;height: 25px"><span>商品详细信息</span></div>
+    <div style="width: 100%;height: 89%;display: flex;align-items: center">
+      <div style="width: 25%;float: left;height: 90%;display: flex;justify-content: center;margin-left: 20px">
+        <img src="image/20161022134004.png" style="max-height: 100%;max-width: 100%"/>
+      </div>
+      <div style="width: 71.5%;float: left;height: 90%;display: flex;justify-content: center">
+        <table class="internalToolQueryTable" style="width:100%;height: 100%" cellspacing="0">
+          <tbody>
+          <tr>
+            <th style="width: 25%">项目</th>
+            <th>内容</th>
+          </tr>
+          <tr>
+            <td style="text-align: center">SKU</td>
+            <td>{{skuNo}}</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">MS SKUBarcode</td>
+            <td>{{skuId}}</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">商品名称</td>
+            <td>{{skuName}}</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">长*宽*高</td>
+            <td>{{volume}}</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">重量</td>
+            <td>{{weight}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div style="height: 55%;border: #e2e2e2 solid 1px;margin-top: 10px;text-align: center;" id="sizeChangeRecord">
+    <div style="width: 100%;text-align: center;background: #bdd7ee;font-size: 18px;height: 25px"><span>商品尺寸更改记录</span></div>
+    <div style="width: 97%;margin:7.5px auto">
+      <kendo-grid id="sizeChangeRecordGrid" class="changeRecordGrid"   style="text-align: center"></kendo-grid>
+    </div>
+  </div>
+      <div style="text-align:center;width:100%">
+      <kendo-button class="k-primary ReceiptBut" ng-click="measureQueryWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+</div>

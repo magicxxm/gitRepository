@@ -1,0 +1,11 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'STOCKUNIT_TOOL'| translate }}</div>
+<div style="padding: 1em">
+    <div style="font-size:18px;margin:auto;text-align:center;">
+        <input type="text" class="k-textbox" style="width:300px" ng-model="param" id="paramId" ng-keyup="stockUnitSearch($event)"/>
+        <kendo-button class="k-primary" style="font-size:18px;" ng-click="search()">{{'SEARCH'| translate }}</kendo-button>
+        <kendo-button class="k-primary" style="font-size:18px;float:right;margin-right:20px;margin-top:5px" id="exportId" ng-click="export()">导出库存</kendo-button>
+    </div>
+</div>
+<div style="font-size:18px;margin:auto;text-align:center;">
+    <kendo-grid class="inboundGrid" id="stockGrid" options="stockGridOptions"></kendo-grid>
+</div>

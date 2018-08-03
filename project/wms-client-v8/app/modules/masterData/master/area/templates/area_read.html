@@ -1,0 +1,60 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.area">{{'AREA' | translate }}</a>&nbsp;/&nbsp;{{'READ' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'CLIENT' | translate }}</label></div>
+          <div class="formRight"><input type="text"  class="k-textbox" ng-model="client" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text"  class="k-textbox"  ng-model="name" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="description" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_GOODS_IN' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox"  ng-model="useForGoodsIn" readonly></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_GOODS_OUT' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox"  ng-model="useForGoodsOut" readonly></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_PICKING' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox"  ng-model="useForPicking" readonly></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_REPLENISH' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox"  ng-model="useForReplenish" readonly></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_STORAGE' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox"  ng-model="useForStorage" readonly></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_TRANSFER' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox"  ng-model="useForTransfer" readonly></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_RETURN' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox"  ng-model="useForReturn" readonly></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'USE_FOR_TRANSPORT' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox"  ng-model="useForTransport" readonly></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary"  ui-sref="main.area">{{'BACK' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

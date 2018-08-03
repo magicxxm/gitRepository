@@ -1,0 +1,24 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'MASTER_INBOUND' | translate }}&nbsp;/&nbsp;{{'INVENTORY_ANALYSIS' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <span vertical-align="top";> {{'开始时间' | translate }}：</span> <input style="margin-left: 10px;" id="startDaypicker"  ng-model="startDay" />
+        <span vertical-align="top";> <input id="startTimepicker"  ng-model="startTime" /></span>
+        <span vertical-align="top";> {{'结束时间' | translate }}：</span> <input style="margin-left: 10px;" id="endDaypicker"  ng-model="endDay" />
+        <span vertical-align="top";> <input id="endTimepicker"  ng-model="endTime" /></span>
+        <span vertical-align="top";>{{'频率' | translate }}：<input kendo-masked-text-box type="text" placeholder="分钟" ng-model="interval" style="margin-left: 10px;width:120px;"/></span>
+        <kendo-button class="k-primary" ng-click="start()" style="margin-left: 20px;">
+            <span class="k-font-icon k-i-search"></span>{{'开始'| translate }}</kendo-button>
+        <kendo-button class="k-primary" ng-click="stop()">
+            <span class="k-font-icon k-i-search"></span>{{'停止'| translate }}</kendo-button>
+        <span style="vertical-align:middle;padding-left:10px;padding-right:10px;padding-top:5px;padding-bottom:5px;margin-left: 10px;background-color:#65b242;color:white;text-align:left;font-size:24px;">{{message}}</span>
+        <!-- grid -->
+        <div class="gridToolbar" ng-controller="masterCtl">
+            <kendo-button class="k-primary gridButton"></kendo-button>
+        </div>
+        <kendo-grid id="inventoryAnalysisGrid" options="inventoryAnalysisGridOptions"></kendo-grid>
+
+    </div>
+</div>

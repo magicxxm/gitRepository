@@ -1,0 +1,142 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'SKU_TOOL'| translate }}</div>
+<div style="text-align:center;margin-top:10px;">
+    <input type="text" class="k-textbox" style="width:300px" id="skuId" ng-model="itemNo" ng-keyup="goodsSku($event)">
+    <kendo-button class="k-primary" style="font-size:18px;" ng-click="goodsSKUSearch()">{{'SEARCH'| translate }}</kendo-button>
+</div>
+<div kendo-tab-strip style="margin-top:10px;" options="tabOpation">
+    <!-- tab list -->
+    <ul style="background: #3f51b5">
+        <li class="k-state-active" style="font-size:16px;">商品信息</li>
+        <li style="font-size: 16px;">采购订单</li>
+        <li style="font-size:16px;">库存记录</li>
+        <li style="font-size:16px;">调整记录</li>
+        <li style="font-size:16px;">历史记录</li>
+    </ul>
+
+    <div style="padding: 1em">
+        <div style="font-size:16px;width:98%;margin:auto;text-align:center;">
+            <div style="width:100%;margin:0px auto;border:1px solid blue;height:{{(mainHeight-100)/1.5}}px;">
+                <div style="float:left;width:30%;border-right:1px solid blue;text-align:center;height:{{(mainHeight-100)/1.5}}px;">
+                    <img width="150px" height="150px" src="image/20161022134004.png" style="margin-top:{{((mainHeight-100)/1.5-150)/2}}px ">
+                </div>
+                <div style="width:69%;float:left;text-align:center;height:{{(mainHeight-100)/1.5}}px;">
+                    <div style="margin-top: {{((mainHeight-100)/1.5-229)/2}}px">
+                        <div style="width:90%;text-align:center;margin:0 auto;height:45px;">
+                            <div style="float:left;line-height:45px;width:16%;text-align:center;font-size:18px;background:#00b0f0;height:45px; color: white">SKU NO.</div>
+                            <div style="float:left;line-height:45px;width:34%;text-align:center;font-size:18px;background:#f2f2f2;height:45px;">{{skuNo}}</div>
+                            <div style="float:left;line-height:45px;width:16%;text-align:center;font-size:18px;background:#00b0f0;height:45px;color: white">SKU ID.</div>
+                            <div style="float:left;line-height:45px;width:34%;text-align:center;font-size:18px;background:#f2f2f2;height:45px;">{{itemNub}}</div>
+                        </div>
+                        <div style="width:90%;height:1px">&nbsp;</div>
+                        <div style="width:90%;text-align:center;margin:0 auto;height:45px;">
+                            <div style="float:left;line-height:45px;height:45px;width:16%;text-align:center;font-size:18px;background:#00b0f0;color: white;font-weight: bold">商品种类</div>
+                            <div style="float:left;line-height:45px;height:45px;width:34%;text-align:center;font-size:18px;background:#f2f2f2;">{{itemGroupName}}</div>
+                            <div style="float:left;line-height:45px;height:45px;width:16%;text-align:center;font-size:18px;background:#00b0f0;color: white;font-weight: bold">商品类型</div>
+                            <div style="float:left;line-height:45px;height:45px;width:34%;text-align:center;font-size:18px;background:#f2f2f2;">{{itemUnitName}}</div>
+                        </div>
+                        <div style="width:90%;height:1px">&nbsp;</div>
+                        <div style="width:90%;text-align:center;margin:0 auto;height:45px;">
+                            <div style="float:left;line-height:45px;height:45px;width:16%;text-align:center;font-size:18px;background:#00b0f0;color: white;font-weight: bold">商品名称</div>
+                            <div style="float:left;line-height:45px;height:45px;width:84%;text-align:center;font-size:18px;background:#f2f2f2;">{{name}}</div>
+                        </div>
+                        <div style="width:90%;height:1px">&nbsp;</div>
+                        <div style="width:90%;text-align:center;margin:0 auto;height:45px;">
+                            <div style="float:left;line-height:45px;height:45px;width:16%;text-align:center;font-size:18px;background:#00b0f0;color: white;font-weight: bold">商品描述</div>
+                            <div style="float:left;line-height:45px;height:45px;width:84%;text-align:center;font-size:18px;background:#f2f2f2;">{{description}}</div>
+                        </div>
+                        <div style="width:90%;height:1px">&nbsp;</div>
+                        <div style="width:90%;text-align:center;margin:0 auto;height:45px;">
+                            <div style="float:left;line-height:45px;height:45px;width:16%;text-align:center;font-size:18px;background:#00b0f0;color: white;font-weight: bold">商品尺寸(mm)</div>
+                            <div style="float:left;line-height:45px;height:45px;width:34%;text-align:center;font-size:18px;background:#f2f2f2;">{{size}}</div>
+                            <div style="float:left;line-height:45px;height:45px;width:16%;text-align:center;font-size:18px;background:#00b0f0;color: white;font-weight: bold">重量(g)</div>
+                            <div style="float:left;line-height:45px;height:45px;width:34%;text-align:center;font-size:18px;background:#f2f2f2;">{{weight}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 1em">
+        <div style="font-size:18px;margin:auto;text-align:center;">
+            <kendo-grid class="inboundGrid" id="purchaseOrderGrid" options="purchaseOrderGridOptions"></kendo-grid>
+        </div>
+    </div>
+
+    <div style="padding: 1em">
+        <div style="font-size:18px;margin:auto;text-align:center;">
+            <kendo-grid class="inboundGrid" id="inventoryRecordsGrid" options="inventoryRecordsGridOptions"></kendo-grid>
+        </div>
+    </div>
+
+    <div style="padding: 1em">
+        <div style="font-size:18px;margin:auto;text-align:center;">
+            <kendo-grid class="inboundGrid" id="adjustRecordsGrid" options="adjustRecordsGridOptions"></kendo-grid>
+        </div>
+    </div>
+
+    <div style="padding: 1em">
+        <ul class="searchOpation">
+            <li><span class="label" style="background: #00b0f0; ">开始时间：</span><input kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="createdDate"></li>
+            <li><span class="label" style="background: #00b0f0; ">操作代码：</span><input kendo-masked-text-box type="text" ng-model="recordCode" /></li>
+            <li><span class="label" style="background: #00b0f0; ">用户：</span><input kendo-masked-text-box type="text" ng-model="username" /></li>
+            <li><span class="label" style="background: #00b0f0; ">原始容器：</span><input kendo-masked-text-box type="text" ng-model="fromStorageLocation" /></li>
+            <li><span class="label" style="background: #00b0f0; ">目的容器：</span><input kendo-masked-text-box type="text" ng-model="toStorageLocation" /></li>
+            <li><span class="label" style="background: #00b0f0; ">使用工具：</span><input kendo-masked-text-box type="text" ng-model="recordTool" /></li>
+            <li><span class="label" style="background: #00b0f0; ">操作:</span><input kendo-masked-text-box type="text" ng-model="recordType" /></li>
+            <li>
+                <kendo-button class="k-primary" ng-click="search()"><span class="k-font-icon k-i-search"></span>
+                    <SEARC></SEARC>{{'SEARCH'| translate }}</kendo-button>
+            </li>
+        </ul>
+        <div style="margin:auto;text-align:center;">
+            <kendo-grid class="inboundGrid" id="historyRecordsGrid" options="historyRecordsGridOptions"></kendo-grid>
+        </div>
+    </div>
+
+    <!--扫描商品错误弹窗-->
+    <div kendo-window="scanItemErrorWindows" id="scanItem" k-title="'请重新输入商品条码'" k-visible="false" k-modal="true">
+        <div style="text-align:center;margin-top:10px;font-weight: 400;">
+            {{itemMsg}}
+        </div>
+        <div style="text-align:center;padding-top: 30px">
+            <kendo-button class="k-primary ReceiptBut" ng-click="scanItemErrorWindows.close()">{{'SURE' | translate }}
+            </kendo-button>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .k-header {
+        background-color: #e3e3e3;
+    }
+
+    .k-tabstrip:focus {
+        box-shadow: none;
+    }
+
+    .searchOpation {
+        width: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: auto;
+        display: inline-block;
+    }
+
+    .searchOpation li {
+        float: left;
+        margin-bottom: 10px;
+        height: 35px;
+        margin-right: 10px;
+    }
+
+    .label {
+        display: inline-block;
+        text-align: right;
+    }
+
+    .k-tabstrip .k-tabstrip-items .k-link {
+        padding: 0.5em;
+    }
+</style>

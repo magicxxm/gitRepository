@@ -1,0 +1,53 @@
+[{
+   "itemNo": "24",
+   "itemName": "apple iphone",
+   "amountScaned": 0,
+   "amount": 2,
+   "amountProblem": 1,
+   "problemType": "DAMAGED",
+   "scaned": "unscaned",
+   "lotMandatory": false,
+   "lotType": "EXPIRATION",
+   "serialRecordType": "NO_RECORD",
+   "stockUnitAmount": 0,
+   "solveKey": "CONFIRM_DAMAGED"
+},{
+   "itemNo": "25",
+   "itemName": "apple iphone",
+   "amountScaned": 0,
+   "amount": 3,
+   "amountProblem": 1,
+   "problemType": "LOSE",
+   "scaned": "unscaned",
+   "lotMandatory": false,
+   "lotType": "MANUFACTURE",
+   "serialRecordType": "NO_RECORD",
+   "stockUnitAmount": 0,
+   "solveKey": ""
+},{
+   "itemNo": "26",
+   "itemName": "apple iphone",
+   "amountScaned": 0,
+   "amount": 3,
+   "amountProblem": 1,
+   "problemType": "UNABLE_SCAN_SKU",
+   "scaned": "unscaned",
+   "serialRecordType": "NO_RECORD",
+   "solveKey": "",
+   "width": 1,
+   "depth": 2,
+   "height": 3,
+   "weight": 7
+},{
+   "itemNo": "27",
+   "itemName": "apple iphone",
+   "amountScaned": 1,
+   "amount": 3,
+   "amountProblem": 1,
+   "problemType": "UNABLE_SCAN_SN",
+   "lotMandatory": false,
+   "lotType": "MANUFACTURE",
+   "scaned": "unscaned",
+   "serialRecordType": "ALWAYS_RECORD",
+   "solveKey": ""
+}]

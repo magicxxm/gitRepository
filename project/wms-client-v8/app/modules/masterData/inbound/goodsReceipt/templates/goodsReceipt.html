@@ -1,0 +1,27 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'MASTER_INBOUND' | translate }}&nbsp;/&nbsp;{{'GOODS_RECEIPT' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <!-- search -->
+        <span>{{'GR_NO' | translate }}：<input kendo-masked-text-box type="text" ng-model="grNo"
+                                              ng-keyup="keyUp($event)"   style="width:120px;"/></span>
+        <kendo-button class="k-primary" ng-click="searchGrid()">
+            <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+        </kendo-button>
+        <!-- grid -->
+        <div class="gridToolbar" ng-controller="masterCtl">
+            <kendo-button class="k-primary gridButton" ui-sref="main.goodsReceiptActivate">
+                <span class="k-font-icon k-i-checkmark"></span>{{'DN_ACTIVE' | translate }}
+            </kendo-button>
+            <kendo-button class="k-primary gridButton" ng-click="closedDN()">
+                <span class="k-font-icon"></span>{{'CLOSED' | translate }}
+            </kendo-button>
+            <kendo-button class="k-primary gridButton" ng-click="openDN()">
+                <span class="k-font-icon"></span>{{'OPEN_ALL' | translate }}
+            </kendo-button>
+        </div>
+        <kendo-grid id="goodsReceiptGrid" options="goodsReceiptGridOptions"></kendo-grid>
+    </div>
+</div>

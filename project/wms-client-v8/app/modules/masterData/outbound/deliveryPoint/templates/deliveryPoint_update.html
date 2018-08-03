@@ -1,0 +1,43 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.deliveryPoint" href="#">{{'DELIVERY_POINT' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator" ng-submit="validate($event)">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'CARRIER' | translate }}</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="carrier" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'" k-data-source="carrierSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'DELIVERY_SORT_CODE' | translate
+                        }}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="deliverySortCode" k-data-text-field="'code'"
+                                k-data-value-field="'id'" k-filter="'contains'" k-data-source="deliverySortCodeSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'DELIVERY_TIME' | translate
+                        }}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="deliveryTime" k-data-text-field="'deliveryTime'"
+                                k-data-value-field="'id'" k-filter="'contains'" k-data-source="deliveryTimeSource"></select>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

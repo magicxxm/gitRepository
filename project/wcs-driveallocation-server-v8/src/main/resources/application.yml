@@ -1,0 +1,35 @@
+# SERVER PROFILES
+server:
+  port: 12004
+logging:
+  level:
+    root: INFO
+    com.mushiny.wcs: DEBUG
+    jdbc.sqltiming: INFO
+    jdbc.sqlonly: OFF
+    jdbc.audit: OFF
+    jdbc.resultset: OFF
+    jdbc.resultsettable: OFF
+    jdbc.connection: OFF
+  config: classpath:logback-spring.xml
+# SPRING PROFILES
+mushiny:
+  robot3.begain.index: 50
+  emptyRun.endAddress.enable: true
+spring:
+  profiles.active: 203
+
+  # JPA
+  jpa:
+    database: MYSQL
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+    generate-ddl: false
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+
+  # JACKSON
+  jackson:
+    serialization.write-dates-as-timestamps: false
+    serialization.indent_output: true

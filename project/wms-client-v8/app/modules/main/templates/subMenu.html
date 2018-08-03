@@ -1,0 +1,10 @@
+<div ng-click="goBack()" style="cursor:pointer;color:#000;padding:8px" >
+  <span class="k-font-icon k-i-arrowhead-w" ></span>
+  <span style="padding:4px;">{{'BACK' | translate }}</span>
+</div>
+<hr style="color:#2d3e50;margin-top:0px;margin-bottom:0px;border-top:1px solid #000">
+<div style="overflow:auto;" class="menuHeight">
+  <ul kendo-menu k-options="menuOptions" ng-repeat="menu in subMenus">
+    <li ui-sref="main.{{menu.menu.module.resourceKey | lowercase}}">{{ menu.menu.module.resourceKey | translate}}</li>
+  </ul>
+</div>

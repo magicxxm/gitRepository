@@ -1,0 +1,84 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.bay" href="#">{{'BAY' | translate }}</a>&nbsp;/&nbsp;{{'CREATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator" ng-submit="validate($event)">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'CLIENT' | translate}}</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="client" k-change="'changeClient(client.id)'"
+                                k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="clientSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'ZONE' | translate}}</label>
+                    </div>
+                    <div class="formRight"><select kendo-combo-box id="zone" k-ng-model="zone"
+                                                   k-data-text-field="'name'" k-data-value-field="'id'"
+                                                   k-filter="'contains'"></select></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">通道</label>
+                    </div>
+                    <div class="formRight">
+                        <input type="number" style="float:left;width:22.5%" class="k-textbox" ng-model="aisleFrom"/>
+                        <span style="float:left;width:4%;text-align:center;margin-top:7px;">{{'TO' | translate}}</span>
+                        <input type="number" style="float:left;width:22.5%" class="k-textbox" ng-model="aisleTo"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'BAY' | translate}}</label>
+                    </div>
+                    <div class="formRight">
+                        <input type="number" style="float:left;width:22.5%" class="k-textbox" ng-model="bayFrom"/>
+                        <span style="float:left;width:4%;text-align:center;margin-top:7px;">{{'TO' | translate}}</span>
+                        <input type="number" style="float:left;width:22.5%" class="k-textbox" ng-model="bayTo"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="bayIndex" class="required" style="float:right">货架序号</label></div>
+                    <div class="formRight"><input type="number" id="bayIndex" name="bayIndex" class="k-textbox"
+                                                  ng-model="bayIndex" required
+                                                  validationMessage="{{'WARNING_BAY_INDEX' | translate }}"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'POD_TYPE' | translate}}</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="podType" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'" k-data-source="podTypeSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'AREA' | translate}}</label>
+                    </div>
+                    <div class="formRight"><select kendo-combo-box id="area" k-ng-model="area"
+                                                   k-data-text-field="'name'" k-data-value-field="'id'"
+                                                   k-filter="'contains'"></select></div>
+                </li>
+                <!--<li>-->
+                    <!--<div class="formLeft"><label class="required" style="float:right">{{'ITEM_SELLING_DEGREE' |-->
+                        <!--translate}}</label></div>-->
+                    <!--<div class="formRight">-->
+                        <!--<select kendo-multi-select id="itemSellingDegree"-->
+                                <!--k-ng-model="itemSellingDegree"-->
+                                <!--k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'"-->
+                                <!--k-data-source="itemSellingDegreeSource">-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" type="submit">{{'SAVE' | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

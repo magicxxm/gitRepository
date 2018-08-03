@@ -1,0 +1,12 @@
+[{
+  "shipmentNo": "MS123456789",
+  "cell": "F01",
+  "problemType": "DAMAGED",
+  "reportBy": "张三",
+  "jobType": "Pack",
+  "reportDate": "2017-5-15 12:21:30",
+  "obpsCreateDate": "2017-5-16 12:21:30",
+  "exSD": "2017-5-16 15:00",
+  "problemStorageLocation": "MS123456789",
+  "timeCondition": "98"
+}]

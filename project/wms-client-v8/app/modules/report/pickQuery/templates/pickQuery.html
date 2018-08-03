@@ -1,0 +1,41 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'REPORT' | translate }}&nbsp;/&nbsp;{{'PICK_QUERY' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;">
+    <div>
+      <kendo-button class="k-primary" style="width:300px" ng-style="{background:  (pickType=='area') ? '#3f51b5' : '#585858' }" ng-click="pickType='area';pickarea();"
+        style="width:150px;font-size:16px;">pick area search</kendo-button>
+      <kendo-button class="k-primary" style="width:300px" ng-style="{ background:  (pickType=='exsd') ? '#3f51b5' : '#585858' }" ng-click="pickType='exsd';pickExsd()"
+        style="width:150px;font-size:16px;">exsd search</kendo-button>
+    </div>
+    <div ng-show="pickType==='area'" style="padding-top:10px;">
+      <span>ppName</span> <input type="text" ng-model="ppName" class="k-textbox" style="width:300px;margin-left: 20px;">
+      <span style="margin-left: 20px;">pickArea</span> <input type="text" ng-model="pickArea" class="k-textbox" style="width:300px;margin-left: 20px;">
+      <kendo-button class="k-primary" ng-click="searchArea()" style="font-size:18px;margin-left: 20px;">{{'SEARCH'| translate }}</kendo-button>
+      <div id="pickTypeAreaTopBar" style="display: flex;margin-bottom: 10px;align-items:center;flex-wrap:wrap">
+      </div>
+      <div></div>
+      <!-- grid -->
+      <div id="pickTypeAreabar">
+      </div>
+      <kendo-grid style="text-align: center" id="pickTypeAreaGRID" ></kendo-grid>
+    </div>
+    <div ng-show="pickType==='exsd'" style="padding-top:10px;">
+     <span>ppName</span>  <input type="text" ng-model="ppName" class="k-textbox" style="width:300px;margin-left: 20px;">
+    <span style="margin-left: 20px;">EXSD</span>   <input style="margin-left: 20px;" id="datetimepicker" />
+      <kendo-button class="k-primary" ng-click="searchExsd()" style="font-size:18px;margin-left: 20px;">{{'SEARCH'| translate }}</kendo-button>
+      <div id="pickTypeExsdTopBar" style="display: flex;margin-bottom: 10px;align-items:center;flex-wrap:wrap">
+      </div>
+      <div></div>
+      <!-- grid -->
+      <div id="pickTypeExsdbar">
+      </div>
+      <kendo-grid style="text-align: center" id="pickTypeExsdGRID" ></kendo-grid>
+    </div>
+  </div>
+</div>
+<style>
+
+</style>

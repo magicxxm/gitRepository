@@ -1,0 +1,152 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'transfer' | translate }}&nbsp;/&nbsp;{{'transferStockIn' | translate }}</span>
+  </div>
+
+
+    <div class="transfer" >
+
+
+        <div class="transferSearchCondition">
+          <div>
+            <ul>
+              <li class="transfer-li">
+                <label>开始时间</label><input  id="startDatetimepicker" ng-model="startDate"  />
+              </li>
+              <li class="transfer-li"><label>结束时间</label><input  id="endDatetimepicker"  ng-model="endDate" /></li>
+              <li class="transfer-li">
+                <label><input type="checkbox" ng-model="closedOrder"> 只显示尚未关闭的调拨单</label>
+                <label><input type="checkbox" ng-model="differOrder">只显示有调拨单差异的单号</label>
+                <label><button  class="btn  btn-primary" ng-click="submitStatistics()">确认</button></label>
+              </li>
+            </ul>
+
+
+          </div>
+
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="请输入调拨单号或状态或发货库房" ng-model="seachText">
+            <span class="input-group-btn">
+                     <button  class="btn  btn-primary" ng-click="specialSearch()"><span class="glyphicon glyphicon-search" ></span>搜索</button>
+             </span>
+          </div>
+        </div>
+
+        <div>
+          <div class="transferContainer">
+
+            <div  class="transferDisplayButton">
+              <div ng-show="transferDisplayDataClick">
+
+                <a href="" ng-click="activeTransfer()">调拨单激活</a><a href="" ng-click="closeTransfer()">调拨单关闭</a><a href=""><span class="glyphicon glyphicon-remove" ng-click="hideButton()"></span></a>
+              </div>
+
+            </div>
+            <div class="dialog">
+
+            </div>
+            <div class="transferDisplay" >
+
+            </div>
+            <script type="text/x-kendo-template" id="template">
+              <div class="tabstrip">
+                <ul>
+                  <li class="k-state-active">
+                   调拨箱概况
+                  </li>
+                  <li>
+                    问题调拨箱概况
+                  </li>
+                  <li>
+                    问题调拨箱详情
+                  </li>
+                  <li>
+                    调拨箱详情
+                  </li>
+                </ul>
+                <div>
+                  <div class="transferContainerSumary">
+
+                  </div>
+                </div>
+                <div>
+                  <div class='transferProbContainerSumary'>
+
+                  </div>
+                </div>
+                <div>
+                  <div class='transferProbContainerdetails'>
+
+                  </div>
+                </div>
+                <div>
+                  <div class='transferContainerDetails'>
+
+                  </div>
+                </div>
+              </div>
+
+            </script>
+          </div>
+
+
+        </div>
+  </div>
+  <div kendo-window="window2" id="mushinyWindow2" k-visible="false" k-modal="true"></div>
+</div>
+<style>
+
+  .transferSearchCondition ul{
+  list-style: none;
+   margin-top:10px
+}
+  .transfer-li label{
+    margin-right:10px;
+    margin-left:10px
+  }
+ .btn-primary, .btn-primary:hover .btn-primary:visited{
+    background-color:#3f51b5;
+    border-color:#3f51b5;
+  }
+ .btn-primary:active,.btn-primary:focus,.btn-primary:active:focus
+  {
+    background-color:#6e7b8b;
+    border-color:#6e7b8b;
+  }
+
+ .transferSearchCondition  li{
+   display:inline-block;
+   vertical-align:top;
+   margin-bottom:10px
+}
+  .transfer-li{
+    margin-right:10px;
+  }
+  .input-group
+  {
+    width:27%;
+    margin-left: 29%;
+    margin-top:26px;
+  }
+  .transferContainer{
+
+    margin-top:50px
+  }
+  .transferDisplayButton{
+    height:30px;
+    background-color:#3f51b5;
+
+  }
+  .transferDisplayButton a{
+    color:#fafafa;
+    padding-left:50px;
+    margin-left: 20px;
+    margin-right: 66px;
+    line-height: 30px;
+    font-size: 13px;
+
+  }
+
+
+</style>

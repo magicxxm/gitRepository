@@ -1,0 +1,66 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.workstation">{{'WORKSTATION' | translate }}</a>&nbsp;/&nbsp;{{'READ' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="name" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'WORKSTATION_TYPE' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="workstationType.name" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'FIXED_SCANNER' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="fixedScanner" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'PICK_PACK_WALL' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox"  ng-model="pickPackWall.name" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">拣货还是包装</label></div>
+          <div class="formRight"><input type="text" class="k-textbox"  ng-model="pickOrPack" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'WORKING_FACE_ORIENTATION' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="workingFaceOrientation" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'STOP_POINT' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="stopPoint" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'SCAN_POINT' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="scanPoint" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'BUFFER_POINT' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="bufferPoint" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'SECTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="section.name" readonly/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'PLACE_MARK' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="placeMark" readonly/></div>
+        </li>
+        <li style="margin-bottom:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'IS_CALL_POD' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="callPod" readonly/></div>
+        </li>
+      </ul>
+    </form>
+    <hr>
+    <div class="gridToolbar"><kendo-button class="k-primary gridButton"></kendo-button></div>
+    <kendo-grid id="workstationPositionGrid" options="workstationPositionGridOptions"></kendo-grid>
+    <div class="mushiny_btnBox" style="margin-top:10px;text-align:center;margin-left:-23%;">
+      <kendo-button class="k-button k-primary mushiny_btn" style="width:220px;" ui-sref="main.workstation" translate="BACK"></kendo-button>
+    </div>
+  </div>
+</div>

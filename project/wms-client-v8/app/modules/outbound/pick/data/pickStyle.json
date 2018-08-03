@@ -1,0 +1,6 @@
+[
+  {"No":"NO","PositionNo":"POSITION_NO","pickCarNo":"PICKCAR_NO","skuCount":"SKU_COUNT"},
+  {"No":"1","PositionNo":"残品位置条码","pickCarNo":"toIBRP0002","skuCount":"2"},
+  {"No":"2","PositionNo":"无法扫描位置条码","pickCarNo":"toIBRP0003","skuCount":"3"},
+  {"No":"3","PositionNo":"待调查位置条码","pickCarNo":"toIBRP0004","skuCount":"40"}
+]

@@ -1,0 +1,113 @@
+  <div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'INPUT_VALIDITY_TOOL'| translate }}</div>
+
+<div style="width:100%;">
+  <div style="width: 80%;margin:0px auto;">
+    <div style="float:left;margin-top:20px;width:55%;">
+      <div style="font-size:18px;">
+        请选择操作模式:&nbsp;&nbsp;
+        <input style="width:60px" ng-model="inputValidityModel" type="text" class="k-textbox" readonly>
+      </div>
+      <div style="font-size:16px;margin-top:10px;">
+        <kendo-button class="k-primary" ng-style="{ background:  (inputValidityModel=='1') ?'#3f51b5':  '#585858'}" ng-click="moveModelclick(1)" style="width:180px;">1原始容器固定</kendo-button>
+        <kendo-button class="k-primary" ng-style="{ background:  (inputValidityModel=='2') ?'#3f51b5':  '#585858'}" ng-click="moveModelclick(2)" style="width:180px;">2逐一录入</kendo-button>
+      </div>
+      <div style="font-size:18px;margin-top:20px;display: flex">
+        <div style="display: flex"><span class="effectiveDateLab">原始容器</span><input id="orgContainer" type="text" ng-model="orgContainerName" class="k-textbox" ng-keyup="orgContainer($event)"></div>
+        <div class="internalToolCenter" ng-show="scanningGoodsShow">
+          <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{orgContainerCount}}件</div>
+      </div>
+      <div style="font-size:18px;margin-top:20px;display: flex">
+        <div style="display: flex"><span class="effectiveDateLab">扫描商品</span><input id="scanningGoods" type="text" class="k-textbox" ng-model="scanningGoodsName" ng-keyup="scanGoods($event)"> </div>
+        <div class="internalToolCenter" ng-show="dateSelectShow"> <img height="30px" width="30px" src="image/checkSuccess.png">原始容器此商品总计{{scanningGoods}}件</div>
+      </div>
+      <div ng-show="dateSelectShow">
+        <div style="font-size:18px;margin-top:10px;text-align: center;background:#f27724;height:35px;color:white;padding-top:10px;padding-left:10px;">
+          到期日期：{{expirationDate}}
+        </div>
+        <!--<div style="font-size:18px;margin-top:10px;" >-->
+        <!--<kendo-button class="k-primary" style="color:white;height:60px;width:100%;border:1px solid #f27724;background:#f27724;">生产日期：2013年10月7号，到期日期：2016年10月8号，<br>有效期3年</kendo-button>-->
+        <!--</div>-->
+        <div ng-show="dateModel=='manufacture'">
+          <div style="font-size:18px;margin-top:10px;display: flex">
+            <span class="effectiveDateLab">生产年</span><input id="productionYear" type="number" ng-keyup="inputValidityDateFocus($event,'productionMonth')" class="k-textbox" ng-model="year">
+          </div>
+          <div style="font-size:18px;margin-top:10px;display: flex">
+            <span class="effectiveDateLab">生产月</span><input type="number" id="productionMonth" ng-keyup="inputValidityDateFocus($event,'productionDay')" class="k-textbox" ng-model="month">
+          </div>
+          <div style="font-size:18px;margin-top:10px;display: flex">
+            <span class="effectiveDateLab">生产日</span><input type="number" id="productionDay" ng-keyup="inputValidityDateFocus($event,'productionValid')" class="k-textbox" ng-model="day">
+          </div>
+          <div style="font-size:18px;margin-top:10px;display: flex">
+            <span class="effectiveDateLab">有效期({{dateUnit}})</span><input type="number"  id="productionValid" class="k-textbox" ng-keyup="checkDate($event,year,month,day,dateUnits)" ng-model="dateUnits">
+          </div>
+        </div>
+        <div ng-show="dateModel=='expiration'">
+          <div style="font-size:18px;margin-top:10px;display: flex">
+            <span class="effectiveDateLab">到期年</span><input type="number" id="maturityYear" ng-keyup="inputValidityDateFocus($event,'maturityMonth')" class="k-textbox" ng-model="expiredYear">
+          </div>
+          <div style="font-size:18px;margin-top:10px;display: flex">
+            <span class="effectiveDateLab">到期月</span><input type="number" id="maturityMonth" ng-keyup="inputValidityDateFocus($event,'maturityDay')" class="k-textbox" ng-model="expiredMonth">
+          </div>
+          <div style="font-size:18px;margin-top:10px;display: flex">
+            <span class="effectiveDateLab">到期日</span><input type="number" id="maturityDay" ng-keydown="checkDate($event,expiredYear,expiredMonth,expiredDay)" class="k-textbox" ng-model="expiredDay">
+          </div>
+        </div>
+      </div>
+      <div ng-show="showType=='dateSucess'" style="margin-top:20px;">
+        <kendo-button class="k-primary" style="font-size:18px;height:auto;width:100%;border:1px solid #76b44e;background:#76b44e;">
+          已成功修改商品<br>到期日期：{{useNotAfterSuccess}}
+        </kendo-button>
+      </div>
+        <div style=" clear:both; width: 100%;height: auto;background: red;margin-top: 30px;font-size: 30px;text-align: center;color: white;">{{errMessage}} </div>
+    </div>
+    <div style="float:left;width:45%;">
+      <div style="margin-top:20px;margin-left:10px;border:1px solid blue;height:{{(mainHeight-100)}}px;width:100%;">
+        <div ng-show="_goodsContent" style="height:100%;">
+          <div style="text-align:center;height:180px;margin-top:30px;">
+            <img height="150px" width="150px" src="image/20161022134004.png">
+          </div>
+           <div style="padding-top:10px;font-size:16px;border-top:1px solid blue;width:100%;">
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+              <div style="font-weight:600;float:left;width:20%;">SKU ID</div>
+              <div style="float:left;width:70%">{{skuId}}</div>
+            </div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+              <div style="font-weight:600;float:left;width:20%;">商品名称</div>
+              <div style="float:left;width:70%">{{commodityName}}</div>
+            </div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+              <div style="font-weight:600;float:left;width:20%;">长*宽*高</div>
+              <div style="float:left;width:70%">{{volume}}</div>
+            </div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+              <div style="font-weight:600;float:left;width:20%;">重量</div>
+              <div style="float:left;width:70%">{{weight}}</div>
+            </div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+              <div style="font-weight:600;float:left;width:20%;">客户</div>
+              <div style="float:left;width:70%">{{clientName}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:16px;margin-top:20px;text-align:center">
+        <kendo-button class="k-primary" style="width:180px;" ng-click="selectTransferRecords()">S查看记录</kendo-button>
+      </div>
+    </div>
+   
+  </div>
+</div>
+</div>
+
+
+<div kendo-window="inputValidityWindow" id="inputValidityId" k-title="'有效期录入记录'" k-visible="false" k-modal="true">
+  <div style="font-weight: 600;font-size:18px;margin:20px auto;width:98%;">
+
+  </div>
+  <div style="margin:20px auto;width:98%;">
+    <kendo-grid class="inboundGrid" id="inputValidityGrid"  ></kendo-grid>
+  </div>
+  <div style="text-align:center;width:100%;float:left;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="inputValidityWindow.close();">2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+[{
+  "shipmentNo":"123456789",
+  "container":"",
+  "description":"",
+  "exSD":"2017-5-15",
+  "timeCondition":"40",
+  "solveDate":"2017-5-15",
+  "solveBy":"btm",
+  "solveShipmentPositions":
+    [{"itemNo":"6933890313524","amountScaned":0,"amount":1,"itemName": "Apple iPhone 6s (64G) 4G智能手机(金色 公开版)","scaned":"unscaned","serialRecordType":"ALWAYS_RECORD","serialNo":"123"},
+     {"itemNo":"6933890313356","amountScaned":0,"amount":2,"itemName": "PISEN 品胜 充电器 iPad苹果专用版适用苹果,iPad,iPhone等USB接口充电","scaned":"unscaned","lotMandatory":true,"lotType":"EXPIRATION","count":2},
+     {"itemNo":"6933890313909","amountScaned":0,"amount":1,"itemName": "飞利浦 Philips SHE6000 耳塞式耳机 (MP3耳机 虚拟环绕立体声技术 4种尺寸超柔软橡胶耳罩) ","scaned":"unscaned"
+   }]
+
+}]

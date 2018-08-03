@@ -1,0 +1,322 @@
+.outCenterTwo {
+    height: -webkit-calc(100%);
+    height: -moz-calc(100%);
+    height: calc(100%);
+}
+.verticalBox {
+    height: -webkit-calc(80% - 20px);
+    height: -moz-calc(80% - 20px);
+    height: calc(80% - 20px);
+}
+.pod {
+    height: 30px;
+    background: #517ACB;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+}
+.sku{
+    height: 30px;
+    background: #517bca;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+}
+.basket{
+    height:100%;
+    width: 30%;
+    border: 1px solid #D9D9D9;
+    background: #D9D9D9;
+    float: left;
+}
+.podContainerBox {
+    height: -webkit-calc(100% - 55px);
+    height: -moz-calc(100% - 55px);
+    height: calc(100% - 55px);
+}
+.podContainer {
+    height: -webkit-calc(100%);
+    height: -moz-calc(100%);
+    height: calc(100%);
+}
+.podChoiceClass {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: black;
+    border-radius: 5px;
+    background: white;
+    border: 3px solid black;
+    font-size: 35px;
+}
+.pickFont{
+    font-size:20px;
+    vertical-align:middle;
+}
+.title{
+    border:1px solid #6D90D0;
+    background: #00b0f0;
+}
+.title td{
+    border:1px solid #6D90D0;
+    border-collapse: collapse;
+    padding:10px 40px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+}
+.thTitle td{
+    background: #2f5597;
+    padding: 3px;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+}
+.content{
+    background: #E9EBE5;
+}
+.content td{
+    border:1px solid #6D90D0;
+    border-collapse: collapse;
+    padding-top:10px;
+    padding-bottom:10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+}
+.trContent td{
+    border:1px solid #6D90D0;
+    border-collapse: collapse;
+    padding-top:10px;
+    padding-bottom:10px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 400;
+}
+.skuNoInput{
+    width: 18%;
+    margin-left: 7px;
+    height: 100%;
+    background: #f2f2f2;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+}
+.comPage{
+    height:45px;
+    background:#6fb242;
+    text-align:center;
+    color:white;
+    font-size: 22px;
+    padding-top:15px;
+}
+.pickButton{
+    width:300px;
+    height:50px;
+    margin-top:20px;
+    font-size:20px;
+    font-weight:700;
+    background:#ff9933 !important;
+    border:1px solid #ff9933 !important;
+}
+.pickPackButton{
+    width:200px;
+    height:40px;
+    margin-top:3%;
+    font-size:20px;
+    font-weight:700;
+    background:#517ACB !important;
+    border:1px solid #517ACB !important;
+}
+.refreshButton{
+    width:200px;
+    height:35px;
+    /*margin-top:3%;*/
+    font-size:18px;
+    font-weight:700;
+    background:#517ACB !important;
+    border:1px solid #517ACB !important;
+}
+.pickNoInputButton{
+    width:100px;
+    height:50%;
+    margin-top:10px;
+    margin-bottom:5px;
+    font-size:25px;
+    font-weight:700;
+    background:#517ACB !important;
+    border:1px solid #517ACB !important;
+}
+.outCenter {
+    width: 400px;
+    height: 280px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 1px solid #517ACB;
+    margin-left: -200px;
+    margin-top: -140px;
+}
+.titleContent {
+    height: 40px;
+    background: #517ACB;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    padding-top: 10px;
+}
+.k-textbox{height:30px !important;}
+.inputHeight {
+    font-size: 16px;
+    height: 54px !important;
+    width: 200px;
+}
+.message{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height: 50px;
+    background: red;
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    padding-top: 10px;
+    font-weight: 600;
+}
+.ReceiptBut{
+    height: 35px;
+    font-weight:600;
+    margin-right: 10px;
+    margin-top: 14px;
+    font-size: 16px;
+    border-color: #517ACB;
+    background-color: #517ACB;
+}
+.fullBut{
+    height: 70px;
+    width: 220px;
+    font-weight:600;
+    margin-right: 10px;
+    margin-top: 14px;
+    font-size: 26px;
+    border-color: #517ACB;
+    background-color: #517ACB;
+}
+.receiptBut{
+    height: 35px;
+    font-weight:600;
+    margin-right: 10px;
+    margin-top: 14px;
+    font-size: 20px;
+}
+.pickPackWallChoiceClass {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 30px;
+    font-weight: 600;
+    font-color:white;
+    background: #3399FF;
+    color: white;
+}
+.questionBut{
+    height: 40px;
+    font-weight:600;
+    margin-top: 15px;
+    font-size: 20px;
+    width:50%;
+    border-color: #517ACB;
+    background-color: #517ACB;
+}
+.lightBut{
+    height: 40px;
+    font-weight:600;
+    margin-top: 30px;
+    font-size: 20px;
+    text-align: left;
+    width:80%;
+}
+.blueWindow .k-window-titlebar,
+.blueWindow .k-window-actions
+{
+    height: 40px !important;
+    color: white !important;
+    font-size: 20pt !important;
+    text-align:center !important;
+    background: #517ACB !important;
+}
+.pickGoodsAmountInputTable{
+    border: none;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 95%;
+    font-size: 45px;
+    font-weight: 600;
+    height: 95%;
+    text-align: center;
+}
+.stationPosition{
+    border: none;
+    margin: 10px 10px 10px 20px;
+    width: 95%;
+    font-size: 20px;
+    font-weight: 600;
+    height: 95%;
+    text-align: center;
+}
+.locationInfo{
+    width:100%;
+    height:89%;
+    background:#f2f2f2;
+    font-weight:600;
+    text-align: center;
+}
+.stationPosition .tr1 td{
+    width: 16%;
+    background: white;
+    margin-right: 3px;
+}
+.pickGoodsAmountInputTable .tr1 td{
+    width: 16%;
+    background: white;
+    margin-right: 3px;
+}
+.stationPosition .tr2 td{
+    border: 1px solid #f2f2f2;
+    background: #D9D9D9;
+    margin-right: 3px;
+    color:white;
+}
+.pickGoodsAmountInputTable .tr2 td{
+    border: 1px solid #f2f2f2;
+    background: #D9D9D9;
+    margin-right: 3px;
+}
+.pickNoInput{
+    width:20%;
+    height: 50px;
+    background: #fce6d7;
+    border: none;
+    font-size: 50px;
+    font-weight: 600;
+    text-align: center;
+}
+.pickPackNoButton{
+    width:100px;
+    height:50%;
+    margin-top:3px;
+    margin-bottom:2px;
+    font-size:18px;
+    font-weight:700;
+    background: #517acb; !important;
+    border:1px solid #517ACB !important;
+}
+.infoStyle{
+    margin-top: 10px;
+}
+

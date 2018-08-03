@@ -1,0 +1,28 @@
+﻿<div style="height:40px;background:#517bca;">
+  <div class="titleRebin" style="width:300px;float:left;"></div>
+</div>
+
+<div ng-show="outboundProblem=='workStationPage'">
+  <div class="outCenter">
+    <div class="titleContent"><span>请扫描工作站条码</span></div>
+    <div style="text-align:center;padding-top:80px;">
+      <input id="obp_station" type="text" class="inputHeight k-textbox" ng-keyup="workStation($event)" ng-model="workstation"/>
+    </div>
+  </div>
+  <div ng-show='workingStation' class="errorFooter">条码{{obProblemStation}}{{errorMessage}},请重新扫描</div>
+</div>
+
+<div ng-show="outboundProblem=='problemCarPage'">
+  <div class="outCenterThree">
+    <div class="titleContent"><span>请扫描问题处理车</span></div>
+    <div style="padding-left:20px;border:1px solid #517bca;font-size:20px;">
+      <div style="padding-top:20px;padding-bottom:20px;line-height:100px;">
+        <span>OB问题处理车：</span>
+        <span class="triangle-up" style="padding-top:40px;"></span>
+        <span style="position: absolute;margin-left: 15px; color: white;font-size: 16px;">1</span>
+        <input id="obp_wall" style="width:350px;margin-left:50px;" type="text" class="k-textbox inputCls" ng-keyup="problemHandingCarts($event)" ng-model="problemHandingCar"/>
+      </div>
+    </div>
+  </div>
+  <div ng-show='problemCart' class="errorFooter">{{obProblemWall}}问题处理车无效,请重新扫描</div>
+</div>

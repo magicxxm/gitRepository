@@ -1,0 +1,24 @@
+
+<div style="height:129px;font-size:12px;">
+<ul>
+  <li> <p>请确认是否开启调拨单？调拨单一旦激活，将记录为介绍时间，并且计算上架时间，请确认操作</p></li>
+  <li><label>发货库房:{{selectTranferData.deliveryWarehouse}}</label></li>
+  <li><label>发货时间:{{selectTranferData.deliverGoodsTime}}</label></li>
+  <li><label>预计到货时间:{{selectTranferData.expectedTime}}</label></li>
+  <li>
+    <kendo-button class="k-button k-primary" style="margin-left:100px;margin-top:46px;" ng-click="window2.sureCall()">{{"SURE" | translate }}</kendo-button>
+  <kendo-button class="k-button k-primary" style="margin-top:46px;margin-left:66px;" ng-click="window2.close()">{{"CANCEL" | translate }}</kendo-button>
+  </li>
+
+</ul>
+
+</div>
+<style>
+  ul{
+    list-style:none;
+  }
+  .k-window-titlebar
+  {
+    text-align:center;
+  }
+</style>

@@ -1,0 +1,24 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;{{'DIGITAL_LABEL' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <!-- search -->
+        <span>{{'NAME' | translate }}：<input kendo-masked-text-box type="text" ng-model="name"
+                                             ng-keyup="keyUp($event)" style="width:120px;"/></span>
+        <span>{{'ENTITY_LOCK' | translate }}：<select kendo-combo-box k-ng-model="entityLock"
+                                                     k-data-text-field="'resourceKey'"
+                                                     k-data-value-field="'resourceValue'" k-filter="'contains'"
+                                                     k-change="'changeSearch()'"
+                                                     k-data-source="entityLockSource"></select></span>
+        <kendo-button class="k-primary" ng-click="searchGrid()">
+            <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+        </kendo-button>
+        <!-- grid -->
+        <div class="gridToolbar">
+            <span ng-include="'modules/common/templates/gridTool.html'" ng-controller="masterCtl"></span>
+        </div>
+        <kendo-grid id="digitalLabelGrid" options="digitalLabelGridOptions"></kendo-grid>
+    </div>
+</div>

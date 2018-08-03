@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--兄弟节点同名为不合法-->
+<config>
+    <node_name>rcs</node_name>
+    <section_id>3</section_id>
+    <mina_port>8899</mina_port>
+
+    <rabbit>
+        <user>mushiny</user>
+        <password>mushiny</password>
+        <port>5672</port>
+        <topic>-</topic>
+        <url>localhost</url>
+    </rabbit>
+
+    <other>
+        <isScanPod>true</isScanPod>
+    </other>
+
+    <AGVConfig>
+               <!-- 锁格最大数量 -->
+		<AGV_SEND_PATH_MODEL_ALL>0</AGV_SEND_PATH_MODEL_ALL>
+        <AGV_SEND_PATH_MODEL>0</AGV_SEND_PATH_MODEL>
+        <AGV_SEND_PATH_MODEL_LOCKED>1</AGV_SEND_PATH_MODEL_LOCKED>
+        <AGV_SEND_PATH_MODEL>1</AGV_SEND_PATH_MODEL>
+        <AGV_LOCKED_MAX_COUNTS>5</AGV_LOCKED_MAX_COUNTS>
+        <AGV_SEND_SP_COUNTS_ON_TIMEOUT>4</AGV_SEND_SP_COUNTS_ON_TIMEOUT>
+
+        <!-- AGV心跳执行时间(毫秒) -->
+        <AGV_BEAT_LOOP_TIME>500</AGV_BEAT_LOOP_TIME>
+        <!-- AGV状态检查间隔时间(毫秒) -->
+        <AGV_CHECK_LOOP_TIME>1</AGV_CHECK_LOOP_TIME>
+        <!-- AGV心跳超时时间(毫秒) -->
+        <AGV_BEAT_TIMEOUT>60000</AGV_BEAT_TIMEOUT>
+        <!-- AGV实时数据超时时间(毫秒) -->
+        <AGV_RT_TIMEOUT>60000</AGV_RT_TIMEOUT>
+        <!-- AGV心跳或实时数据超时时间(毫秒) -->
+        <AGV_BEAT_OR_RT_TIMEOUT>60000</AGV_BEAT_OR_RT_TIMEOUT>
+        <!-- AGV位置不改变超时时间(毫秒) -->
+        <AGV_NO_POSITION_CHANGE_TIMEOUT>45000</AGV_NO_POSITION_CHANGE_TIMEOUT>
+        <!-- AGV锁格超时时间(毫秒) -->
+        <AGV_LOCK_SP_TIMEOUT>15000</AGV_LOCK_SP_TIMEOUT>
+
+        <PRIVILEGE_ENTER_CELL>0</PRIVILEGE_ENTER_CELL>
+        <PRIVILEGE_ROTATION_CELL>0</PRIVILEGE_ROTATION_CELL>
+
+    </AGVConfig>
+    <MapConfig>
+        <CELL_WIDTH>40</CELL_WIDTH>
+        <CELL_HEIGHT>40</CELL_HEIGHT>
+        <MAP_MARGIN_TOP>50</MAP_MARGIN_TOP>
+        <MAP_MARGIN_RIGHT>50</MAP_MARGIN_RIGHT>
+        <MAP_MARGIN_BOTTON>50</MAP_MARGIN_BOTTON>
+        <MAP_MARGIN_LEFT>50</MAP_MARGIN_LEFT>
+        <MAP_ZOOM_IN_RADIO>1.1</MAP_ZOOM_IN_RADIO>
+        <MAP_ZOOM_OUT_RAIDO>0.9</MAP_ZOOM_OUT_RAIDO>
+        <MAP_BACKGROUD_COLOR>-8355712</MAP_BACKGROUD_COLOR>
+
+        <CELL_MARGIN_COMMON_COLOR>-4861953</CELL_MARGIN_COMMON_COLOR>
+        <CELL_COMMON_COLOR>-8355712</CELL_COMMON_COLOR>
+        <CELL_ALARM_COLOR>-65536</CELL_ALARM_COLOR>
+        <CELL_PATH_COLOR>-16745472</CELL_PATH_COLOR>
+        <CELL_MARGIN_PATH_COLOR>-16731904</CELL_MARGIN_PATH_COLOR>
+        <CELL_LOCKED_PATH_COLOR>-16731904</CELL_LOCKED_PATH_COLOR>
+        <CELL_LOCKED_MARGIN_PATH_COLOR>-16712704</CELL_LOCKED_MARGIN_PATH_COLOR>
+        <CELL_SELECTED_COLOR>-16777038</CELL_SELECTED_COLOR>
+        <CELL_SELECTED_MARGIN_COLOR>-16776962</CELL_SELECTED_MARGIN_COLOR>
+    </MapConfig>
+    <RCSConfig>
+        <NODE_NAME>RCS1</NODE_NAME>
+        <SECTION_ID>2</SECTION_ID>
+        <!-- 小车行走的距离 -->
+		<CELL_SIZE>1450</CELL_SIZE>
+        <!-- 小车行走的列间距离 -->
+		<ROW_CELL_SIZE>1150</ROW_CELL_SIZE>
+        <!-- 小车行走的行间距离 -->
+		<COL_CELL_SIZE>1350</COL_CELL_SIZE>
+    </RCSConfig>
+    <RotateAreaConfig>
+        <R1X>5301</R1X>
+        <R1Y>5301</R1Y>
+        <!-- 旋转区R1地址码 -->
+        <R1_ADDRESS_CODE_ID>5301</R1_ADDRESS_CODE_ID>
+    </RotateAreaConfig>
+</config>
+
+
+
+
+
+
+
+
+
+
+
+
+

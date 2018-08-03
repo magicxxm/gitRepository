@@ -1,0 +1,72 @@
+
+a {color:blue;}
+.divider { height:1px;margin:6px;padding:0;background-color:rgba(0,0,0,0.1);}
+.leftHeight {height:-webkit-calc(100% - 70px);height:-moz-calc(100% - 70px);height:calc(100% - 70px);}
+.menuHeight {height:-webkit-calc(100% - 37px);height:-moz-calc(100% - 37px);height:calc(100% - 37px);}
+
+/* layout */
+/*div[kendo-splitter] .k-splitbar { display: none;}*/
+div[kendo-splitter] .k-pane {height:100% !important;}
+
+/* header */
+.mushiny-header { height:50px;padding-left:10px;margin-bottom:10px;background:#349ABB;}
+.mushiny-header-nav { float:left;border-radius:50%;}
+span[kendo-menu].k-menu>li:first-child {background-color:#349ABB;}
+span[kendo-menu].k-menu>li:first-child>span:first-child {padding:5px;margin:0px;}
+
+/* menu */
+.k-font-icon { font-size:22px;}
+ul[kendo-menu].k-menu .k-item { background-color: #f5f5f2;}
+ul[kendo-menu].k-menu .k-item>.k-link { line-height:9px;padding-left:20px;font-weight:bold;}
+
+/* container */
+.mushiny-container {margin-left:10px;}
+.mushiny-nav {height:25px;background:#f5f5f2;color:#2d3e50;padding-top:10px;padding-left:10px;}
+
+/* common(上下箭头) */
+.k-textbox .k-icon {position:static;margin:0px;}
+/*主页面背景*/
+.menu-background{
+height: 100%;
+  margin-right: 40px;
+  text-align:center;
+}
+/* grid */
+.k-font-icon { font-size:16px;}
+.gridToolbar {clear:both;margin-top:10px;background:#3f51b5;}
+.gridButton {
+  background:#3f51b5;
+  border:1px solid #3f51b5;
+  height:35px;
+  cursor:pointer;
+  box-shadow:none !important;
+}
+.k-grid .k-grouping-header { color: white !important;}
+.k-grid td.k-state-selected {  background-color: #3F51B5 !important;}
+.k-grid td {  padding: 5px !important;}
+/*.k-grid-header th.k-header{background-color:#3f51b5 !important; }*/
+/*.k-grid-header th.k-header>.k-link{ color:white !important;}*/
+
+/* form */
+.list ul{list-style:none;overflow:hidden;padding:0;height:75px;}
+.list ul li{float:left;height:30px; line-height:30px;margin-top:5px;margin-left:5px;}
+.ulCls li {list-style: none;float:left;width:100%;margin-top:10px;}
+.k-button {height:31px;padding:4px 14px !important}
+
+.formLeftCollate { width:25%;float:left;line-height:30px;}
+.formRightCollate {float:left;width:75%;}
+.formRightCollate input {width:75%;margin-left:15px;}
+.formRightCollate .k-combobox {width:75%;margin-left:15px;}
+
+.formLeft { width:15%;float:left;line-height: 30px;}
+.formRightWin {float:left;width:85%;}
+.formRightWin input, .formRightWin span[class~=k-numerictextbox] {width:75%;margin-left:15px;}
+.formRight{float:left;width:85%;}
+.formRight input, .formRight span[class~=k-numerictextbox] {width:50%;margin-left:15px;}
+.formRight select {width:50%;margin-left:15px;}
+.formRight button {width:15%;margin-left:20%;height:30px;}
+.formRightDiv {border:1px solid lightgray;height:150px;width:50%;margin-left:15px;float:left;}
+.formRight .k-combobox, .formRight .k-multiselect {width:50%;margin-left:15px;}
+.k-widget.k-tooltip-validation { margin-left:5px; padding-top:6px;padding-bottom:6px;}
+input.k-textbox{height:30px !important;}
+.k-multiselect-wrap>ul>.k-button {width:auto !important}

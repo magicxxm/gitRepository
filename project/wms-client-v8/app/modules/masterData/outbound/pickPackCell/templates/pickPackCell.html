@@ -1,0 +1,33 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;{{'PICK_PACK_CELL' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <!-- search -->
+        <span>{{'NAME' | translate }}：<input kendo-masked-text-box type="text" ng-model="name"
+                                             ng-keyup="keyUp($event)" style="width:120px;"/></span>
+        <span>{{'PICK_PACK_WALL' | translate }}：<select kendo-combo-box k-ng-model="pickPackWall"
+                                                        k-data-text-field="'name'" k-data-value-field="'id'"
+                                                        k-filter="'contains'"
+                                                        k-change="'changeSearch()'"
+                                                        k-data-source="pickPackWallSource"></select></span>
+        <span>{{'ENTITY_LOCK' | translate }}：<select kendo-combo-box k-ng-model="entityLock"
+                                                     k-data-text-field="'resourceKey'"
+                                                     k-data-value-field="'resourceValue'" k-filter="'contains'"
+                                                     k-change="'changeSearch()'"
+                                                     k-data-source="entityLockSource"></select></span>
+        <kendo-button class="k-primary" ng-click="searchGrid()">
+            <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+        </kendo-button>
+        <!-- grid -->
+        <div class="gridToolbar">
+      <span ng-controller="masterCtl">
+        <kendo-button class="k-primary gridButton" ng-click="update()"><span class="k-font-icon k-i-pencil"></span>{{'UPDATE' | translate }}</kendo-button>
+        <kendo-button class="k-primary gridButton" ng-click="delete()"><span class="k-font-icon k-i-trash"></span>{{'DELETE' | translate }}</kendo-button>
+        <kendo-button class="k-primary gridButton" ng-click="batchDelete()"><span></span>修改电子标签</kendo-button>
+      </span>
+        </div>
+        <kendo-grid id="pickPackCellGrid" options="pickPackCellGridOptions"></kendo-grid>
+    </div>
+</div>

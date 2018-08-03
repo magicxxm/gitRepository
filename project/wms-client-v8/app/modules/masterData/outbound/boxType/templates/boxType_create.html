@@ -1,0 +1,54 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.box_type"  href="#">{{'BOX_TYPE' | translate }}</a>&nbsp;/&nbsp;{{'CREATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'CLIENT' | translate}}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="client" k-data-text-field="'name'" k-data-value-field="'id'"  k-filter="'contains'" k-data-source="clientSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'GROUP' | translate}}</label></div>
+          <div class="formRight"><select kendo-combo-box class="k-textbox" k-data-source="groupSource" ng-model="group"></select></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="width" class="required" style="float:right">{{'LENGTH' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box k-format="'# mm'" id="width" name="width" class="k-textbox" ng-model="width"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="depth" class="required" style="float:right">{{'WIDTH' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box k-format="'# mm'" id="depth" name="depth" class="k-textbox" ng-model="depth"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="height" class="required" style="float:right">{{'HEIGHT' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box k-format="'# mm'" id="height" name="height" class="k-textbox" ng-model="height"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="thickness" class="required" style="float:right">{{'THICKNESS' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box k-format="'# mm'" id="thickness" name="thickness" class="k-textbox" ng-model="thickness"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="weight" class="required" style="float:right">{{'WEIGHT' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box k-format="'# g'" id="weight" name="weight" class="k-textbox" ng-model="weight"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="description" name="description" class="k-textbox" ng-model="description"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'SAVE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

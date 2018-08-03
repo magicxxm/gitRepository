@@ -1,0 +1,46 @@
+<!--调拨出详情页面-->
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'OUTBOUND' | translate }}&nbsp;/&nbsp;{{'调拨出详情' | translate }}</span>
+    </div>
+    <div  style="margin-top:10px;height:{{mainHeight+36}}px;overflow:auto;">
+        <div style="width: 70%">
+            <div style="width: 100%;background: #00b0f0;height: 30px;line-height: 30px;font-size: 16px;color: white;"><span>{{'调拨信息'|translate}}</span></div>
+            <table style="width: 100%;font-size: 14px" cellpadding="0" cellspacing="0" id="transferStockOutDetailTable">
+                <tr>
+                    <td style="width: 50%">外部调拨单号</td>
+                    <td style="width: 50%">{{fromTransferStockOutNo}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">调拨发货单号</td>
+                    <td style="width: 50%">{{toTransferStockOutNo}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">接收库房</td>
+                    <td style="width: 50%">{{acceptWareHouse}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">发货时间</td>
+                    <td style="width: 50%">{{shippingDateTime}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">{{'STATE'|translate}}</td>
+                    <td style="width: 50%">{{state}}</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <div style="width: 70%;height: 30px;background: #00b0f0;margin-top: 10px;line-height: 30px;font-size: 16px;color: white;">
+                <span>{{'调拨箱概况'|translate}}</span>
+            </div>
+            <kendo-grid style="text-align: center" id="transferStockOutContainerSomeGrid" options="transferStockOutContainerSomeGridOptions"></kendo-grid>
+        </div>
+        <div style="width: 70%">
+            <div style="width: 100%;height: 30px;background: #00b0f0;margin-top: 10px;line-height: 30px;font-size: 16px;color: white;">
+                <span>{{'调拨箱详情'|translate}}</span>
+            </div>
+            <kendo-grid style="text-align: center" id="transferStockOutContainerDetailGrid" options="transferStockOutDetailGridOptions"></kendo-grid>
+        </div>
+    </div>
+</div>

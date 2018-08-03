@@ -1,0 +1,57 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'OUTBOUND' | translate }}&nbsp;/&nbsp;{{'SHIPMENT_DETAIL' | translate }}</span>
+    </div>
+    <div  style="margin-top:10px;height:{{mainHeight+36}}px;overflow:auto;">
+        <div style="margin:10px auto; width: 50%;text-align: center">
+            <input type="text" class="k-textbox" style="width: 200px;margin-right: 10px" ng-model="CustomerShipmentId"/>
+            <kendo-button class="k-primary" ng-click="search()"><span class="k-font-icon k-i-search"></span>{{'SEARCH' | translate}}</kendo-button>
+        </div>
+        <div style="width: 40%">
+            <div style="width: 100%;background: #00b0f0;height: 30px;line-height: 30px;font-size: 16px;color: white;"><span>{{'ShipmentInfo'|translate}}</span></div>
+            <table style="width: 100%;font-size: 14px" cellpadding="0" cellspacing="0" id="shipmentDetailTable">
+                <tr>
+                    <td style="width: 50%">Shipment ID</td>
+                    <td style="width: 50%">{{shipmentId}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">ExSD</td>
+                    <td style="width: 50%">{{exSD}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">SortCode</td>
+                    <td style="width: 50%">{{backSortCode}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">Shipment Created</td>
+                    <td style="width: 50%">{{shipmentCreated}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">Shipment Condition</td>
+                    <td style="width: 50%">{{shipmentCondition}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">Batch ID</td>
+                    <td style="width: 50%">{{batchId}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 50%">Batch Created</td>
+                    <td style="width: 50%">{{batchCreateTime}}</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <div style="width: 100%;height: 30px;background: #00b0f0;margin-top: 10px;line-height: 30px;font-size: 16px;color: white;">
+                <span>{{'ItemDataDetail'|translate}}</span>
+            </div>
+            <kendo-grid style="text-align: center" id="goodsDetailGrid" options="goodsDetailGridOptions"></kendo-grid>
+        </div>
+        <div style="width: 70%">
+            <div style="width: 100%;height: 30px;background: #00b0f0;margin-top: 10px;line-height: 30px;font-size: 16px;color: white;">
+                <span>{{'SHIPMENTSTATE'|translate}}</span>
+            </div>
+            <kendo-grid style="text-align: center" id="shipmentStateGrid" options="shipmentStateGridOptions"></kendo-grid>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'LOT_MANAGER_TOOL'| translate }}</div>
+<div style="text-align:center;margin-top:10px;">
+    <input type="text" class="k-textbox" style="width:300px" ng-model="param" id="paramId" ng-keyup="lotSerach($event)">
+    <kendo-button class="k-primary" style="font-size:18px;" ng-click="search()">{{'SEARCH'| translate }}</kendo-button>
+</div>
+<div style="padding: 1em">
+    <div style="font-size:18px;margin:auto;text-align:center;">
+        <kendo-grid class="inboundGrid" id="lotManagerGrid" options="lotManagerGridGridOptions"></kendo-grid>
+    </div>
+</div>

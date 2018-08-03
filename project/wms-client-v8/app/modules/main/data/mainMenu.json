@@ -1,0 +1,95 @@
+[{
+  "id": 1,
+  "menu": {"module": {"resourceKey": "SYSTEM_MANAGE"}},
+  "childMenuItems": [{
+    "id": 1.1,
+    "name": "MENU",
+    "menu": {"module": {"resourceKey": "MENU"}}
+  }]
+},{
+  "id": 2,
+  "menu": {"module": {"resourceKey": "MASTER_DATA"}},
+  "childMenuItems": [{
+    "id": 2.1,
+    "name": "AREA",
+    "menu": {"module": {"resourceKey": "AREA"}}
+  }]
+},{
+  "id": 3,
+  "menu": {"module": {"resourceKey": "INBOUND_CONFIG"}},
+  "childMenuItems": [{
+    "id": 3.1,
+    "name": "ADVICE_REQUEST",
+    "menu": {"module": {"resourceKey": "ADVICE_REQUEST"}}
+  }]
+},{
+  "id": 4,
+  "menu": {"module": {"resourceKey": "INBOUND"}},
+  "childMenuItems": [{
+    "id": 4.1,
+    "name": "RECEIVING",
+    "menu": {"module": {"resourceKey": "RECEIVING"}}
+  }]
+},{
+  "id": 4.1,
+  "menu": {"module": {"resourceKey": "INBOUND_PROBLEM"}},
+  "childMenuItems": [{
+    "id": 4.11,
+    "name": "PROBLEM_INBOUND",
+    "menu": {"module": {"resourceKey": "PROBLEM_INBOUND"}}
+  },{
+    "id": 4.12,
+    "name": "PROBLEM_INBOUND_MANAGE",
+    "menu": {"module": {"resourceKey": "PROBLEM_INBOUND_MANAGE"}}
+  }]
+},{
+  "id": 5,
+  "menu": {"module": {"resourceKey": "OUTBOUND_CONFIG"}},
+  "childMenuItems": [{
+    "id": 5.1,
+    "name": "BOX_TYPE",
+    "menu": {"module": {"resourceKey": "BOX_TYPE"}}
+  }]
+},{
+  "id": 6,
+  "menu": {"module": {"resourceKey": "OUTBOUND"}},
+  "childMenuItems": [{
+    "id": 6.1,
+    "name": "PACK",
+    "menu": {"module": {"resourceKey": "PACK"}}
+  },{
+    "id": 6.2,
+    "name": "PICK",
+    "menu": {"module": {"resourceKey": "PICK"}}
+  }]
+},{
+  "id": 7,
+  "menu": {"module": {"resourceKey": "REPORT"}},
+  "childMenuItems": [{
+    "id": 7.1,
+    "name": "PICKING_CART",
+    "menu": {"module": {"resourceKey": "PICKING_CART"}}
+  },
+  {
+    "id": 7.2,
+    "name": "pickingArea",
+    "menu": {"module": {"resourceKey": "PICKING_AREA"}}
+  },
+  {
+    "id": 7.3,
+    "name": "pickingCategory",
+    "menu": {"module": {"resourceKey": "PICKING_CATEGORY"}}
+  },
+  {
+    "id": 7.4,
+    "name": "zonePicking",
+    "menu": {"module": {"resourceKey": "ZONE_PICKING"}}
+  }
+  ,
+  {
+    "id": 7.5,
+    "name": "batch",
+    "menu": {"module": {"resourceKey": "BATCH"}}
+  }
+  ]
+}]

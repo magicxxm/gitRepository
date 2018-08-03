@@ -1,0 +1,82 @@
+[
+  {
+    "processPathId": "1",
+    "processPathName": "PP Samll",
+    "processPathType": "batch",
+    "processPathLock": 0,
+    "padTime": 60,
+    "shipments": 20,
+    "items": 200,
+    "pickers": 2,
+    "now": "19:05:24",
+    "deliveryPoints": [{
+       "deliveryTime": "2017-03-22T20:00:00",
+       "items": 0,
+      "shipments": 0
+     },{
+      "deliveryTime": "2017-03-22T22:00:00",
+      "items": 0,
+      "shipments": 0
+    },{
+      "deliveryTime": "2017-03-22T23:00:00",
+      "items": 0,
+      "shipments": 0
+    }],
+    "collateProfiles": [{
+       "id": "q",
+       "profileType": "Near",
+       "fromDays": 0, "toDays": 0,
+       "fromHours": 0, "toHours": 2,
+       "fromMinutes": 0, "toMinutes": 0,
+       "template": {
+         "id": "template-q",
+         "name": "A",
+         "minItems": 0,
+         "maxItems": 1,
+         "minShipments": 0,
+         "maxShipments": 1,
+         "pureExsd": "false"
+       }
+    }, {
+      "id": "w",
+      "profileType": "Middle",
+      "fromDays": 0, "toDays": 0,
+      "fromHours": 2, "toHours": 3,
+      "fromMinutes": 0, "toMinutes": 0,
+      "template": {
+        "id": "template-w",
+        "name": "B",
+        "minItems": 0,
+        "maxItems": 1,
+        "minShipments": 0,
+        "maxShipments": 1,
+        "pureExsd": "yes"
+      }
+    }]
+  },
+  {
+    "processPathId": "2",
+    "processPathName": "SingleMedium",
+    "processPathType": "batch",
+    "processPathLock": 0,
+    "padTime": 60,
+    "shipments": 20,
+    "items": 200,
+    "pickers": 2,
+    "now": "19:05:24",
+    "deliveryPoints": [{
+      "deliveryTime": "2017-03-22T21:00:00",
+      "items": 0,
+      "shipments": 0
+    },{
+      "deliveryTime": "2017-03-22T22:00:00",
+      "items": 0,
+      "shipments": 0
+    },{
+      "deliveryTime": "2017-03-22T23:00:00",
+      "items": 0,
+      "shipments": 0
+    }],
+    "collateProfiles": []
+  }
+]

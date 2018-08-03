@@ -1,0 +1,468 @@
+<div id="rebin_parent" ng-click="rebinFocus()" style="width:100%;height:100%;">
+  <!-- 问题处理 -->
+  <div ng-show="showPage==='main'" style="height:50px;background:#517bca;">
+    <div class="titleRebin" style="width:300px;float:left;">rebin站台-{{rebinStation.rebinStationName}}</div>
+    <ul id="rebin_questionMenu" style="float:right;font-size:14px;background:#517bca;height:30px;">
+      <li style="color:white;"><span translate="RE_BIN_MENU"></span>
+        <ul>
+          <li key="GOODS_DAMAGE"><span translate="RE_BIN_MENU_GOODS_DAMAGE"></span></li>
+          <li key="GOODS_NOT_SCAN"><span translate="RE_BIN_MENU_GOODS_NOT_SCAN"></span></li>
+          <li key="MESSAGE_SEARCH"><span translate="RE_BIN_MENU_MESSAGE_SEARCH"></span></li>
+          <li key="GOODS_LOSE"><span translate="RE_BIN_MENU_GOODS_LOSE"></span></li>
+          <li key="RE_BIN_FINISH"><span translate="RE_BIN_MENU_RE_BIN_FINISH"></span></li>
+          <li key="RE_BIN_STOP"><span translate="RE_BIN_MENU_RE_BIN_STOP"></span></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <!-- rebin车 -->
+  <div ng-show="showPage==='container'" style="margin-top:10px;" class="outCenterTwo">
+    <div class="outboundContainer">
+      <!-- 批次信息 -->
+      <div class="titleContent"><span>批次信息</span></div>
+      <div style="padding-top:20px;padding-left:20px;border:1px solid #517bca;font-size:20px;">
+        <div style="width:150px;text-align:right;float: left">
+          <div style="padding:5px;">批次号码：</div>
+          <div style="padding:5px;">Rebin车数量：</div>
+          <div style="padding:5px;">ExSD：</div>
+          <div style="padding:5px;">车牌号码：</div>
+        </div>
+        <div style="display:inline-block;word-break: break-all;width: 600px">
+          <div style="padding:5px;">{{batchNumber}}</div>
+          <div style="padding:5px;">{{rebinWallCount }}</div>
+          <div style="padding:5px;">{{ExSD}}</div>
+          <div style="padding:5px;">{{containerNumber}}</div>
+        </div>
+        <div style="margin-top:10px;text-align:center;margin-bottom:10px;">
+          <kendo-button ui-sref="main.mainMenu" class="k-primary">2 {{'CANCEL' | translate }}</kendo-button>
+        </div>
+      </div>
+      <!-- 扫描rebin车 -->
+      <div class="titleContent" style="margin-top:15px;"><span>请扫描Rebin车</span></div>
+      <div style="padding-left:20px;padding-bottom:20px;border:1px solid #517bca;font-size:20px;">
+        <div style="padding-top:20px;">
+          <span>{{pickingOrder.rebinWallTypeName}}</span><span class="triangle-up"></span>
+          <span style="position:absolute;margin-left:10px;color:white;font-size:16px;">1</span>
+          <input id="rebin_one" type="text" class="k-textbox inputCls" placeholder="{{rebinWallMessage1}}" style="width:350px;margin-left:50px;"
+            ng-keydown="scanReBinWall($event, 'one')" ng-model="rebinWall1" />
+        </div>
+        <div ng-show="rebinWallCount>1" style="padding-top:20px;padding-bottom:20px;">
+          <span>{{pickingOrder.rebinWallTypeName}}</span><span class="triangle-up"></span>
+          <span style="position:absolute;margin-left:10px;color:white;font-size:16px;">2</span>
+          <input id="rebin_two" type="text" class="k-textbox inputCls" placeholder="{{rebinWallMessage2}}" style="width:350px;margin-left:50px;"
+            ng-keydown="scanReBinWall($event, 'two')" ng-model="rebinWall2" />
+        </div>
+      </div>
+      <!-- 错误信息 -->
+      <div ng-show="bindRebinError!=''" style="height:40px;color:white;background:red;font-size:20px;margin-top:5px;padding-top:15px;text-align:center;">
+        {{bindRebinError}}
+      </div>
+    </div>
+  </div>
+
+  <!-- main -->
+  <div ng-show="showPage==='main'" style="margin:20px;" class="outCenterTwo">
+    <!-- 扫描第一辆拣货车 -->
+    <div ng-show="pickingProcess==='scanFirstContainer' && rebinEnd===false">
+      <div style="position:absolute;font-size:18px;">
+        <span translate="RE_BIN_CURRENT_OPERATE"></span>
+        <input id="rebin_first" type="text" class="k-textbox" style="opacity: 1" ng-keydown="scanPickingContainer($event)" ng-trim="true"
+          ng-model="firstContainer" />
+      </div>
+      <div style="text-align:center;font-weight:600;font-size: 22px" translate="REBIN_SCAN_FIRST_CONTAINER"></div>
+    </div>
+    <!-- 扫描商品 -->
+    <div ng-show="pickingProcess==='scanGoods' && containerComplete!=containerTotal && rebinEnd===false && batchComplete!=batchTotal ">
+      <div style="position:absolute;font-size:18px;">
+        <span translate="RE_BIN_CURRENT_OPERATE"></span>
+        <input id="rebin_goods" type="text" class="k-textbox" style="opacity: 1" ng-trim="true" ng-keydown="scanGoods($event)" ng-model="goods"
+        />
+      </div>
+      <div style="text-align:center;font-weight:600;font-size: 22px" translate="REBIN_CHECK_SCAN_GOODS"></div>
+    </div>
+    <!-- 扫描下一辆拣货车 -->
+    <div ng-show="pickingProcess==='next' && containerComplete==containerTotal && rebinEnd===false && batchComplete!=batchTotal">
+      <div style="position:absolute;font-size:18px;">
+        <span translate="RE_BIN_CURRENT_OPERATE"></span>
+        <input id="rebin_next" type="text" class="k-textbox" style="opacity: 1" ng-trim="true" ng-keydown="scanPickingContainer($event)"
+          ng-model="nextContainer" />
+      </div>
+      <div style="text-align:center;font-weight:600;font-size: 22px" translate="REBIN_SCAN_NEXT_CONTAINER"></div>
+    </div>
+    <!-- 结束rebin 前置 -->
+    <div ng-show="!rebinEnd && batchComplete==batchTotal && rebinStart">
+      <div style="position:absolute;font-size:18px;"><span translate="RE_BIN_CURRENT_OPERATE"></span>
+        <input id="hotKey" type="text" class="k-textbox" style="opacity: 1" ng-trim="true" ng-keydown="scanGoods($event)" ng-model="goods"/></div>
+      <div style="text-align:center;font-weight:600;font-size: 22px">请结束此批次Rebin</div>
+    </div>
+    <!-- 结束rebin head -->
+    <div ng-show="rebinEnd===true">
+      <div style="position:absolute;font-size:18px;"><span translate="RE_BIN_CURRENT_OPERATE"></span></div>
+      <div style="text-align:center;font-weight:600;font-size: 22px;">请从打印机取出订单并将问题订单及商品送至问题处理处</div>
+    </div>
+    <!-- vertical -->
+    <div ng-style="{height: (rebinEnd) ? '30%' : false}" class="verticalBox" style="margin-top:10px;height: 65%">
+      <!-- left rebin01 -->
+      <div ng-show="rebinEnd===false" style="float:left;width:25%;height:100%;font-weight:600;background:#f2f2f2;">
+        <div class="rebinCar">Rebin-1车</div>
+        <div class="rebinContainerBox" style="border: 10px solid #f2f2f2;">
+          <div class="rebinContainer" style="width:100%;background:white;text-align: center;position: relative">
+            <div style="height: {{(100 / pickingOrder.numRow)}}%" ng-repeat="row in  rebinWallOneRows">
+              <div style="width: 100%;height:90% ;display: flex; ">
+                <div style="background:{{row.color}};width:{{(100-1*(pickingOrder.numColumn+1))/pickingOrder.numColumn}}%; margin-left:1%;height:100%"
+                  ng-repeat="column in row.item">
+                  <div ng-show="column.choice" class="rebinChoiceClass">{{column.name}}</div>
+                </div>
+              </div>
+              <div style="height: 10%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- middle rebin container -->
+      <div ng-style="{float: (rebinEnd) ? 'false' : 'left',margin : (rebinEnd) ? 'auto':'false' }" style="width:50%;height:100%;">
+        <!-- base message -->
+        <div style="margin:0px 10px 0 10px;">
+          <table class="table" cellspacing="0" cellpadding="0" style="font-size:16px;font-weight:600;margin-bottom: 0px;">
+            <!-- 车牌号码 -->
+            <tr>
+              <td style="width:100px;background:#2f5597;" class="tdBottom" translate="LICENSE_PLATE"></td>
+              <td class="tdBottom" style="color: black">{{containerName}}</td>
+              <td style="width:100px;" rowspan="2" class="tdLeft tdBottom">
+                <kendo-button class="k-primary" style="height:auto;font-weight:600;" ng-click="readContainerProcess()" translate="READ_CONTAINER_PROCESS"></kendo-button>
+              </td>
+            </tr>
+            <!-- 车牌进度 -->
+            <tr>
+              <td style="width:100px;background:#2f5597;" class="tdBottom" translate="LICENSE_PROCESS"></td>
+              <td class="tdBottom" style="height: 19px;">
+                <div>
+                  <div ng-show="containerComplete || containerComplete==0" style=" color:#000;height: 100%;text-align: center;  float:left;width:{{(containerComplete-lostAmount)/containerTotal*100}}%; background:  linear-gradient(90deg,#92d050 100%,#ffffff {{(containerTotal-containerComplete-lostAmount)/batchTotal*100}}%)">{{(containerComplete-lostAmount)+"/"+containerTotal}}</div>
+                  <div ng-show="lessGoodsAmount==='less'" style=" color:#000;height: 100%; text-align: center; float:left;background: #FF0000;width:{{lostAmount/containerTotal*100}}%;">{{lostAmount}}</div>
+                </div>
+
+              </td>
+            </tr>
+            <!-- 批次进度 -->
+            <tr>
+              <td style="width:100px;background:#2f5597;" translate="BATCH_PROCESS"></td>
+              <td colspan="2">
+                <div>
+                  <div ng-show="batchComplete|| batchComplete == 0 " style="color:#000;text-align: center; width:{{(batchComplete-lostBatchAmount)/batchTotal*100}}%;height: 100%; float:left;background: linear-gradient(90deg,#92d050 100%,#ffffff {{(batchTotal-batchComplete-lostBatchAmount)/batchTotal*100}}%)">{{(batchComplete-lostBatchAmount)+"/"+batchTotal}}</div>
+                  <div ng-show="lessBatchGoodsAmount==='less'" style=" color:#000;text-align: center; width:{{lostBatchAmount/batchTotal*100}}%;height: 100%; float:left;background: #FF0000 ">{{lostBatchAmount}}</div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- goods detail -->
+        <div ng-show="rebinEnd===false" class="goodsDetailBox" style="margin:0px 10px 0 10px;">
+          <div ng-show="rebinGoodsStatus==='success'" style="height:100%;">
+            <!-- 1 -->
+            <div id="rebinWallDivId" ng-style="{opacity: (rebinType==='one') ? 1 : 0,background:rebinColor,color:(rebinColor=='#66ffff'||rebinColor=='#ffff00') ? 'black':'#ffffff'}"
+              class="rebinVertical rebinVerticalOne" style="float:left;width:32%;height:100%;text-align:center;">
+             <!-- <div style="font-size: 25px;position: absolute;top: 0;left:5px; height:20%;color:white;font-family: Calibri;">1</div>-->
+              <div class="rebinMargin" style="font-size:100px; font-family:calibri;font-weight:600;height: {{rebinWallHeight*0.4}}px;margin-top: {{(rebinWallHeight-rebinWallHeight*0.4)/2}}px;margin-bottom: {{(rebinWallHeight-rebinWallHeight*0.4)/2}}px" >{{rebinWallOneFolatHierarchy}}{{rebinWallOneFolatNumber}}</div>
+            </div>
+            <!-- goods detail message -->
+            <div style="float:left;width:36%;height:100%;text-align:center;">
+              <div style="width:100%;height:88%;background:#f2f2f2;"  ng-style="{background:pictureColor == 'true'? '#EF9112':'#f2f2f2'}"><img style="padding-top: 10%;padding-bottom: 10%;width:75%; height:75%"   src="image/20161022134004.png"></div>
+              <div style="width:100%;height:12%;background:{{exsdColor}};color:{{exsdFontColor}};font-weight:600;">
+                <div ng-show="rebinExSD" style="padding-top:5px;font-size: 15px">ExSD：{{rebinExSD}}</div>
+              </div>
+            </div>
+            <!-- 2 -->
+            <div id="rebinTwoWallDivId" ng-style="{opacity: (rebinType==='two') ? 1 : 0 ,background:rebinColor,color:(rebinColor=='#66ffff'||rebinColor=='#ffff00') ? 'black':'#ffffff'}"
+              class="rebinVertical rebinVerticalTwo" style="float:left;width:32%;height:100%;text-align:center;color:white;">
+             <!-- <div style="font-size: 25px;position: absolute;top: 0;height:20%;right:5px;color:white;font-family: Calibri;">2</div>-->
+              <div class="rebinMargin" style="font-size:100px;font-family:calibri;font-weight:600;height: {{rebinWallHeight*0.4}}px;margin-top: {{(rebinWallHeight-rebinWallHeight*0.4)/2}}px;margin-bottom: {{(rebinWallHeight-rebinWallHeight*0.4)/2}}px">{{rebinWallTwoFolatHierarchy}}{{rebinWallTwoFolatNumber}}</div>
+            </div>
+          </div>
+        </div>
+        <!-- goods list -->
+        <div ng-show="rebinEnd===false" style="margin:5px 10px 0 10px;">
+          <kendo-grid id="rebinGoodsGrid" class="allGrid" style="float:left;text-align:center;word-break:break-all;line-height: 2em" options="rebinGoodsGridOptions"></kendo-grid>
+        </div>
+      </div>
+      <!-- right rebin02 -->
+      <div ng-show="rebinEnd===false" style="float:left;width:25%;height:100%;background:#f2f2f2;font-weight:600;text-align: center">
+        <div class="rebinCar">Rebin-2车</div>
+        <div class="rebinContainerBox" style="border:10px solid #f2f2f2;">
+          <div class="rebinContainer" style="width:100%;background:white;text-align:center;position:relative;">
+            <div style="height: {{(100 / pickingOrder.numRow)}}%" ng-repeat="row in  rebinWallTwoRows">
+              <div style="width:100%;height:90%;display:flex;">
+                <div style="background:{{row.color}};width:{{(100-1*(pickingOrder.numColumn+1))/pickingOrder.numColumn}}%; margin-left:1%;height:100%"
+                  ng-repeat="column in row.item">
+                  <div ng-show="column.choice" class="rebinChoiceClass">{{column.name}}</div>
+                </div>
+              </div>
+              <div style="height:10%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- 轮播区 -->
+    <div ng-show="rebinEnd===false" class="swiper-container" style=" height:22%;margin-top:10px;" ng-show="true">
+        <div class="swiper-wrapper" style="margin-left: 50px">
+           <div class="swiper-slide" ng-repeat="x in rebinHistory" style="height:100%;margin-right: 20px;width: 220.429px;">
+             <div ng-class="{1: 'rebinVerticalSwiperOne', 2: 'rebinVerticalSwiperTwo'}[x.type]" ng-style="{color:(x.color=='#66ffff'||x.color=='#ffff00') ? 'black':'#ffffff'}"
+                     style="height:28px;padding-top:7px;background:{{x.color}};text-align:center;font-size:20px;font-weight:600;">{{x.name}}</div>
+             <div ng-show="x.type==1" style="font-size: 20px;  position: absolute;top: 0;left:5px; color:white;font-family: Calibri;">1</div>
+             <div ng-show="x.type==2" style="font-size: 20px;position: absolute;top: 0;right:5px;color:white;font-family: Calibri;">2</div>
+             <div class="rebinScrollBox" style="width:100%;height: 50%;text-align: center;background:{{x.pictureBackgroundColor}}"><img style="width:120px;height: 100%" src="image/20161022134004.png"></div>
+             <div style="background:{{x.deliveryTimeColor}};color:{{x.deliveryTimeFont}};line-height:25px;text-align:center;font-size:15px;height: 30px">{{x.deliveryTime}}</div>
+           </div>
+        </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+    </div>
+    <!-- 结束rebin -->
+    <div ng-show="rebinEnd===true">
+      <div style="display:flex;justify-content:center">
+        <div style="width:25%;">
+            <div style="font-size:20px" class="rebinEndGirdHead">{{rebinWallOneName}}</div>
+          <kendo-grid class="allGrid" id="rebinWallOneProblemGrid" options="rebinWallOneProblemOptions"></kendo-grid>
+        </div>
+        <div ng-show="rebinWallCount>1" style="width: 25%;margin-left:5%;">
+            <div style="font-size: 20px" class="rebinEndGirdHead">{{rebinWallTwoName}}</div>
+          <kendo-grid class="allGrid" id="rebinWallTwoProblemGrid" options="rebinWallTwoProblemOptions"></kendo-grid>
+        </div>
+        <div style="width:40%;margin-left:5%;height: 260px;">
+          <div style="font-size: 20px" class="rebinEndGirdHead">多货明细</div>
+         <!-- <kendo-grid class="allGrid" id="rebinMoreGoodsGrid" options="rebinMoreGoodsOptions"></kendo-grid>-->
+          <table width="98%">
+              <tr class="thTitle">
+                <td width="30%">SKU</td>
+                <td width="40%">名称</td>
+                <td width="10%">数量</td>
+                <td width="20%">容器</td>
+              </tr>
+          </table>
+
+           <div style="overflow-y: scroll;height:177px;border:1px solid #f2f2f2">
+            <table style="width: 100%">
+              <tr class="trContent" ng-repeat="x in itemMore">
+                <td width="30%">{{ x.itemNo }}</td>
+                <td width="40%">{{ x.itemName }}</td>
+                <td width="10%">{{ x.amount }}</td>
+                <td width="20%">{{ x.container }}</td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+      </div>
+      <div>
+        <div style="margin-top:10px;text-align:center;margin-top:30px;margin-bottom: 30px">
+          <kendo-button class="k-button k-primary mushiny_btn" style="width:400px;font-size: 25px;height: 40px" ng-click="rebinContinueClick()">1继续Rebin下一批次</kendo-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 错误提示 -->
+  <div kendo-window="rebinErrorWindow" id="rebinErrorWindowId" k-title="'错误提示'" k-visible="false" k-modal="true">
+    <div style="display:flex;height:150px;align-items: center;justify-content:center;font-size:20px;">{{rebinError}}</div>
+    <div style="text-align:center;width:100%" ng-show="errorMsgShow==='good'">
+      <input id="scanGoodsId" type="text" class="k-textbox" style="opacity: 1" ng-trim="true" ng-keydown="scanGoods($event)" ng-model="goods">
+    </div>
+    <div style="text-align:center;width:100%" ng-show="errorMsgShow==='firstContainer'">
+      <input id="scanOneContainer" type="text" class="k-textbox" style="opacity: 1" ng-trim="true" ng-keydown="scanPickingContainer($event)" ng-model="firstContainer">
+    </div>
+    <div style="text-align:center;width:100%" ng-show="errorMsgShow==='secondContainer'">
+      <input id="scanneTwoContainer" type="text" class="k-textbox" style="opacity: 1" ng-trim="true" ng-keydown="scanPickingContainer($event)" ng-model="nextContainer">
+    </div>
+  </div>
+
+<!--
+  &lt;!&ndash; 请重新扫描拣货车 &ndash;&gt;
+  <div kendo-window="pickContainerWindow" id="rebin_pickContainerWin" k-title="'请重新扫描拣货车'" k-visible="false" k-modal="true">
+    <div style="text-align:center;font-size:20px;margin-top:20px;">
+      <span><span style="font-weight:600;">90887655433366</span> 不是一个有效的车牌号码，请重新扫描</span>
+    </div>
+    <div style="text-align:center;font-size:16px;margin-top:20px;"><img src="image/20161123145423.png"></div>
+  </div>
+
+  &lt;!&ndash; 请重新扫描商品 &ndash;&gt;
+  <div kendo-window="reScanGoodsWindow" id="rebin_reScanGoodsWin" k-title="'请重新扫描商品'" k-visible="false" k-modal="true">
+    <div style="text-align:center;font-size:20px;margin-top:20px;">
+      <span><span style="font-weight:600;">90887655433366</span> 不是一个有效的商品条码，请重新扫描</span>
+    </div>
+    <div style="text-align:center;font-size:16px;margin-top:20px;"><img src="image/20161123145423.png"></div>
+    <div style="text-align:center;width:100%">
+      <kendo-button class="k-primary ReceiptBut" ng-click="reScanGoodsWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+  </div>
+-->
+
+  <!-- 车牌信息展示 -->
+  <div kendo-window="containerDetailWindow" id="rebin_containerDetailWin" k-title="'车牌信息展示'" k-visible="false" k-modal="true">
+    <table style="width:100%;text-align: center" cellspacing="0" cellpadding="0">
+      <tr style="height:40px;background:#00b0f0;font-size:16px;color: white">
+        <th class="th1">车牌</th>
+        <th class="th2">进度</th>
+      </tr>
+      <tr ng-repeat="detail in containerDetails" style="border:solid #000 1px;font-size: 20px">
+        <td class="td1">{{ detail.containerName }}</td>
+        <td class="td2" style="height:100%;">
+          <div style="display: flex;justify-content: center;align-items: center;width:100%; float:left;height:30px;background: linear-gradient(90deg,#92d050 {{ detail.amountRebined/detail.amountTotal*100}}%,#ffffff {{ detail.amountRebined/detail.amountTotal*100}}%)">{{ detail.amountRebined}}/{{detail.amountTotal}}</div>
+        </td>
+      </tr>
+    </table>
+    <div style="text-align:center;width:100%">
+      <kendo-button class="k-primary ReceiptBut" ng-click="containerDetailWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+  </div>
+
+  <!-- Rebin问题菜单 -->
+  <div kendo-window="problemMenuWindow" id="rebin_problemWin" k-title="'Rebin问题菜单'" k-visible="false" k-modal="true">
+    <div class="problemCls">
+      <span style="font-weight:600;">热键号码&nbsp;:&nbsp;</span>
+      <input id="problemGoodsId" style="width:60px;font-weight:600;" type="text" class="k-textbox" ng-keydown="problemGoodKeydown($event)"
+        ng-model="problemGood">
+    </div>
+    <div class="problemCls">D — 商品残损</div>
+    <div class="problemCls">P — 商品无法扫描</div>
+    <div class="problemCls">I — 信息查询</div>
+    <div class="problemCls">M — 商品丢失</div>
+    <div class="problemCls">E — Rebin结束</div>
+    <div class="problemCls">F — 退出Rebin</div>
+    <div style="text-align:center;width:100%">
+      <kendo-button class="k-primary ReceiptBut" ng-click="problemGoods($event)">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+      <kendo-button class="k-primary ReceiptBut" ng-click="problemMenuWindow.close();problemGood = '';goods = ''">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+  </div>
+
+  <!-- 扫描残损商品 -->
+  <div kendo-window="damagedGoodsWindow" id="damagedGoodsId" k-title="'扫描残损商品'" k-visible="false" k-modal="true">
+    <div style="font-size:18px;">
+      扫描残损商品后，此单将通知问题处理人员，请将商品先放入Rebin格中，批次商品全部Rebin完毕后请将商品和订单一起送至问题处理处
+      <div ng-show="scandamageItem==='damage'" style="font-weight:800;color: red;">
+        {{damageErrorMsg}}
+      </div>
+    </div>
+    <div style="margin-top:10px;text-align:center;">
+      <input id="rebin_damageGoods" type="text" class="k-textbox" ng-keydown="scanDamageGoods($event)" ng-model="damageGoods" />
+    </div>
+
+    <div style="text-align:center;width:100%">
+      <kendo-button class="k-primary ReceiptBut" ng-click="damagedGoodsWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+  </div>
+
+  <!-- 无法扫描商品 -->
+  <div kendo-window="notScanGoodsWindow" id="notScanGoodsId" k-title="'确认条码无法扫描商品'" k-visible="false" k-modal="true">
+    <div style="width:100%;float:left">
+      <kendo-grid id="notScanGoodsGrid" options="notScanGoodsGridOptions"></kendo-grid>
+    </div>
+    <div style="text-align:center;width:100%;float:left">
+      <kendo-button class="k-primary ReceiptBut" ng-click="notScanGoodsSure($event)">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+      <kendo-button class="k-primary ReceiptBut" ng-click="notScanGoodsWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+  </div>
+
+  <!-- 信息查询 -->
+  <div kendo-window="selectInformationWindow" id="selectInformationId" k-title="'信息查询'" k-visible="false" k-modal="true">
+    <div style="width:100%">
+      <div style="font-size:18px;margin-left:300px;">用户名：{{userName}}</div>
+      <div class="selectInf">工作站：{{rebinStation.rebinStationName}}</div>
+      <div class="selectInf">批次总数：{{batchTotal}}</div>
+      <div class="selectInf">已扫描商品数：{{containerComplete}}</div>
+      <!--<div class="selectInf">包装时间：0.5 小时</div>-->
+      <!--<div class="selectInf">包装效率：200件/小时</div>-->
+    </div>
+    <div style="width:100%;margin-top:10px;">
+      <div style="width:49%;float:left;">
+        <div class="rebinCar">{{rebinWallOneName}}</div>
+        <kendo-grid class="allGrid" id="selectInformationGridId1" options="rebinWallOneProblemOptions" style="font-size:16px;"></kendo-grid>
+      </div>
+      <div style="width:2%;float:left;">&nbsp;</div>
+      <div style="width:49%;float:left;">
+        <div class="rebinCar">{{rebinWallTwoName}}</div>
+        <kendo-grid class="allGrid" id="selectInformationGridId2" options="rebinWallTwoProblemOptions" style="font-size:16px;"></kendo-grid>
+      </div>
+    </div>
+    <div style="text-align:center;width:100%;float:left">
+      <kendo-button class="k-primary ReceiptBut" ng-click="selectInformationWindow.close();">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+  </div>
+
+  <!-- 确认是否少货 -->
+  <div kendo-window="whetherLessGoodsWindow" id="whetherLessGoodsId" k-title="'确认是否少货'" k-visible="false" k-modal="true">
+    <div style="font-size:18px;font-weight:600;">车牌号码：{{lessContainerName}} &nbsp;&nbsp;&nbsp; 少货总数：{{lessAmountInContainer}}</div>
+    <div style="margin-top:10px;border: 0px">
+      <kendo-grid class="allGrid" style="font-size:16px;" id="whetherLessGoodsGrid" options="whetherLessGoodsGridOptions"></kendo-grid>
+    </div>
+    <div style="text-align:center;width:100%;float:left">
+      <kendo-button class="k-primary ReceiptBut" ng-click="whetherLessGoodsWindow.close()" ng-disabled="lessGoodsCancel">1 已找到商品</kendo-button>&nbsp;&nbsp;
+      <kendo-button class="k-primary ReceiptBut" ng-click="whetherLessGoodsCancel()" ng-disabled="lessGoodsSure">2 未找到商品</kendo-button>
+    </div>
+    <div ng-show="whetherLessGoods==='less'" style="margin-top:20px;font-weight:600;font-size:16px;">
+      登记少货，并触发暗灯，请在此批次Rebin结束后，根据界面提示，将相应Rebin格的商品送至问题处理处
+    </div>
+  </div>
+
+<!--  &lt;!&ndash; 请确认包装商品名称 &ndash;&gt;
+  <div kendo-window="goodNameWindow" id="goodNameId" k-title="'请确认包装商品名称'" k-visible="false" k-modal="true">
+    <div style="font-size:18px;">SKU ID：69001245599088</div>
+    <div style="margin-top:10px;font-size:18px;">此SKU ID对应5种商品，请确认rebin商品。</div>
+    <div style="margin-top:10px;">
+      <kendo-grid class="allGrid" id="goodsNameGrid" style="font-size:16px;" options="goodsNameGridOptions"></kendo-grid>
+    </div>
+    <div style="text-align:center;width:100%">
+      <kendo-button class="k-primary ReceiptBut">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+      <kendo-button class="k-primary ReceiptBut" ng-click="goodNameWindow.close()">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+  </div>-->
+
+  <!-- 商品数量 是否多货 -->
+  <div kendo-window="whetherMoreGoodsWindow" id="whetherMoreGoodsId" k-title="'确认是否多货'" k-visible="false" k-modal="true">
+    <div style="font-size:18px;">车牌号码：{{unitMoreContainerName}} 剩余商品：{{unitMoreAmountInContainer}}</div>
+    <div style="margin-top:10px;font-size:18px;"> 此商品在车牌中属于多货商品，请查看下方提示位置是否存在少货</div>
+    <div style="margin-top:10px;border: 0px">
+      <kendo-grid class="allGrid" style="font-size:16px;border: 1px" id="whetherMoreGoodsGrid" options="whetherMoreGoodsGridOptions"></kendo-grid>
+    </div>
+    <div style="text-align:center;width:100%;">
+      <kendo-button  class="k-primary ReceiptBut" ng-click="whetherMoreGoodsWindow.close()" ng-disabled="locationBnt">1 已找到正确位置</kendo-button>&nbsp;&nbsp;
+      <kendo-button  class="k-primary ReceiptBut" ng-click="notFontLocation()" ng-disabled="errorLocationBnt">2 未找到正确位置</kendo-button>
+    </div>
+    <div ng-show="locationContent == 'location'" style="margin-top:20px;font-weight:600;font-size:16px;">
+      已登记多货，并触发暗灯，请在此批次Rebin结束后，根据界面提示，将多货商品送至问题处理处，扫描下一商品继续
+      <div style="text-align: center">
+        <input id="rescan_nextGoods" type="text" class="k-textbox" style="opacity: 1" ng-trim="true" ng-keydown="scanGoods($event)" ng-model="goods">
+      </div>
+    </div>
+  </div>
+
+  <!--sku 是否多货-->
+  <div kendo-window="whetherMoreGoodsSKUWindow" id="whetherMoreGoodsSKUId" k-title="'确认是否多货'" k-visible="false" k-modal="true">
+    <div>
+      <div style="font-size:18px;">车牌号码：{{skuMoreContainerName}} 剩余商品：{{skuMoreAmountInContainer}}</div>
+      <div style="margin-top:10px;font-size:18px;">此商品在车牌中属于多货商品，请确认是否是多货商品</div>
+      <table align="center">
+        <tr class="title">
+          <td width="80px">图片</td>
+          <td>SKU</td>
+          <td>商品名称</td>
+        </tr>
+        <tr class="content" >
+          <td><img width="50px" height="50px" src="image/20161022134004.png"></td>
+          <td>{{ skuNo }}</td>
+          <td>{{ itemName }}</td>
+        </tr>
+      </table>
+    </div>
+    <div style="text-align:center;width:100%;float:left">
+      <kendo-button class="k-primary ReceiptBut" ng-click="whetherMoreGoodsSKUSure()" ng-disabled="skuMoreSure">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+      <kendo-button class="k-primary ReceiptBut" ng-click="whetherMoreGoodsSKUWindow.close()"  ng-disabled="skuMoreCancel">2 {{'CANCEL' | translate }}</kendo-button>
+    </div>
+    <div ng-show="whetherMoreGoods=='more'" style="margin-top:20px;font-weight:600;font-size:16px;">
+      已登记多货，并触发暗灯，请在此批次Rebin结束后，根据界面提示，将相应Rebin格的商品送至问题处理处，扫描下一商品继续
+        <div style="text-align: center">
+          <input id="reScanGoodsId" type="text" class="k-textbox" style="opacity: 1" ng-trim="true" ng-keydown="scanGoods($event)" ng-model="goods">
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="mushiny-container">
+  <div class="clockPage" style="background:#3E70CA" ><img src="image/indirectClock.png" style="float: left;" />
+    {{'WELCOME_INDIRECTCLOCK' | translate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div style="margin-left:10px;text-align: center;">
+  <div class="totFont" style="margin-top:70px;font-weight: 600;">{{'TOT_EMPLOYEE_CODE' | translate }}：
+    <input id="employeeCode"  type="text" class="inputFont"  ng-keyup="keyupCheckEmployeeCode($event)"  ng-model="employeeCode"/>
+  </div>
+  <div class="totFont" style="margin-top:30px;font-weight: 600;">{{'TOT_JOB_CODE' | translate }}：
+    <input id="jobCode"  type="text" class="inputFont"  ng-keyup="scanEmployeeCodeAndJobCode($event)"  ng-model="jobCode"/>
+  </div>
+  <div style="width:1000px;height:50px;border: 0px">
+  </div>
+<div  ng-show="showJobInfo" style="padding-top:15px;padding-bottom:15px;padding-left:10px;padding-right:15px;width:600px;height:290px;margin: 0 auto;background:#228B22;color:white;text-align:left;font-size:25px;">
+  <div class="headFont" style="margin-top:30px;font-weight: 600;">{{'TOT_EMPLOYEE_NAME' | translate }}：
+    {{totEmployeeName}}
+  </div>
+  <div class="headFont" style="margin-top:30px;font-weight: 600;">{{'TOT_JOB_NAME' | translate }}：
+    {{totJobName}}
+  </div>
+  <div class="headFont" style="margin-top:30px;font-weight: 600;">{{'TOT_CLOCKTIME' | translate }}：
+    {{totClocktime}}
+  </div>
+  <div class="headFont" style="margin-top:30px;font-weight: 600;">{{'TOT_JOB_DESCRIPTION' | translate }}：
+    {{totJobDescription}}
+  </div>
+</div>
+  <div style="width:1000px;height:70px;border: 0px">
+  </div>
+  <div ng-show="showError" style=" clear:both; width: 500px;height: 120px;line-height: 120px;background: red;margin-top: 30px;font-size: 30px;text-align: center;color: white;margin:0 auto;">{{errMessage}} </div>
+</div>
+</div>
+

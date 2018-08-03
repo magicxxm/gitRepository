@@ -1,0 +1,10 @@
+spring:
+  #DATASOURCE
+  datasource:
+    #url: jdbc:log4jdbc:mysql://192.168.1.202:3306/wms-suning-v8?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:log4jdbc:mysql://192.168.1.202:3306/wms_v8_staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    driverClassName: net.sf.log4jdbc.DriverSpy
+    type: com.zaxxer.hikari.HikariDataSource
+

@@ -1,0 +1,205 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'TOT' | translate }}&nbsp;/&nbsp;{{'MESSAGE' | translate }}</span>
+  </div>
+
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+
+  <div style="display:table;border:1px black solid;width:49%;height:200px;float:left;margin-right: 10px">
+
+      <div style="display:table-cell;border-right:1px black solid;text-align: center;width:30%">头像</div>
+      <div style="display:table-cell;border-right:1px black solid;text-align: center;width:35%">
+        <table style="text-align: center;width: 100%;height: 92%;">
+
+          <tr style="text-align: center;line-height: 20px;"><td colspan="4">员工信息</td></tr>
+          <tr style="text-align: left;line-height: 20px;"><td>工    号</td><td>{{totEmployeeCode}}</td></tr>
+          <tr style="text-align: left;line-height: 20px;"><td>姓    名</td><td>{{totEmployeeName}}</td></tr>
+          <tr style="text-align: left;line-height: 20px;"><td>所属库房</td><td>{{warehouseName}}</td></tr>
+        </table>
+      </div>
+      <div style="display:table-cell;border-bottom:0px black solid;text-align: center;width:35%">
+        <table style="border:0px black solid;width:100%;height: 100%">
+          <tr style="text-align: center;line-height: 20px;border:0px black solid"><td>信息查询</td></tr>
+          <tr style="text-align: center;line-height: 20px;border:0px black solid">
+            <td>
+              <kendo-button class="k-primary" ng-style="{ background:  (statisticsType=='cTime') ?'#3f51b5':  '#585858'}" ng-click="statisticsType='cTime'; goClockDetailPage()"
+                            style="width:150px;font-size:16px;" id="ctimebutton"  >打卡时间详情</kendo-button>
+            </td>
+          </tr>
+          <tr style="text-align: center;line-height: 15px;border:0px black solid">
+            <td>
+              <kendo-button class="k-primary" ng-style="{background:  (statisticsType=='jobDetail') ?  '#3f51b5':  '#585858'}" ng-click="statisticsType='jobDetail';goJobDetailPage()"
+                            style="width:150px;font-size:16px;" id="jobbutton">工作详情</kendo-button>
+            </td>
+          </tr>
+          <tr style="text-align: center;line-height: 20px;border:0px black solid"><td></td></tr>
+        </table>
+      </div>
+  </div>
+  <div style="display:table;border:1px black solid;width:49%;height:200px;">
+    <div style="display:table-cell;border:0px black solid;padding-right: 22px">
+
+      <table height="200px"  cellspacing="0" cellpadding="0" width="100%">
+        <tr height=12% border-bottom="1px black solid"><td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;打卡时间详情</td></tr>
+        <tr>
+          <td width=40% border-right="1px black solid">
+            <table width="100%" height="70%" border-right="1px black solid">
+              <tr style="text-align: center">
+                <td>
+                  员工工号
+                </td>
+                <td>
+                  <input id="employeeCode"  type="text" style="width: 68%;" class="k-textbox"  ng-disabled="true"  ng-model="employeeCode"/>
+                </td>
+              </tr>
+              <tr style="text-align: center">
+                <td>
+                  库房
+                </td>
+                <td>
+                  <input id="selectWarehouse" style="width: 68%;" />
+                </td>
+              </tr>
+              <tr style="text-align: center">
+                <td>
+                  客户
+                </td>
+                <td>
+                  <input id="selectClientInfos" style="width: 68%;" />
+                </td>
+              </tr>
+              <tr></tr>
+            </table>
+          </td>
+          <td colspan=2>
+            <table width=100% height=100%>
+              <tr style="text-align: left">
+                <td colspan=2>
+                  Report Date Range
+                </td>
+              </tr>
+              <tr style="text-align: left">
+                <td>
+                  <input type="radio" ng-value=1  ng-model="timeType" name="selectState" id="dayRadio" ng-click="dayDatecheck();"> Day
+                </td>
+                <td>
+                  <input kendo-date-picker style="margin-left: 20px;width:81%;" id="dayDatetimepicker" k-format="'yyyy-MM-dd'" type="text"
+                         name="dayDatetimepicker" ng-model="dayDate"/>
+                </td>
+
+                <td></td>
+              </tr>
+              <tr style="text-align: left">
+                <td>
+                  <input type="radio" ng-value=2  ng-model="timeType" name="selectState" id="periodsDayRadio" ng-click="dayDatecheck();">IntraDay
+                </td>
+                <td>
+
+                  <input style="margin-left: 20px;width:81%" id="startDatetimepicker" ng-model="startDate"  />
+                </td>
+
+              </tr>
+              <tr>
+                <td style="text-align: right">to</td>
+                <td>
+
+                  <input style="margin-left: 20px;width:81%" id="endDatetimepicker"  ng-model="endDate" />
+                </td>
+
+              </tr>
+              <tr style="text-align: right">
+                <td colspan="2">
+                  <kendo-button ng-show="statisticsType=='cTime'" class="k-primary" style="width:39%;float:left" id="changeClock" >更改打卡时间
+                  </kendo-button>
+                  <kendo-button class="k-primary" style="width:39%" ng-click="searchCtimeDetails()" style="font-size:18px;margin-left: 20px;">{{'SUBMIT'| translate }}</kendo-button>
+                </td>
+
+
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+
+  <div ng-show="statisticsType=='cTime'" style="text-align:center;margin:0px auto;width:1120px;height:35px;">
+    <div style="background:#A6A6A6;" class="mapColor"></div>
+    <div class="colorSet">下班时间</div>
+    <div style="background:#00B050;" class="mapColor"></div>
+    <div class="colorSet">上班时间</div>
+    <div style="background:#0000FF;" class="mapColor"></div>
+    <div class="colorSet">直接工作</div>
+    <div style="background:#7030A0;" class="mapColor"></div>
+    <div class="colorSet";>普通间接工作</div>
+    <div style="background:#00FFFF;" class="mapColor"></div>
+    <div class="colorSet">超级间接工作</div>
+    <div style="background:#FFC000;" class="mapColor"></div>
+    <div class="colorSet">准备工作</div>
+    <div style="background:#000000;" class="mapColor"></div>
+    <div class="colorSet">无工作</div>
+  </div>
+
+    <div id="reassignment" style="display: none">
+      <div style="text-align:center;margin:0px auto;width:80%;height: 85%;">
+        <table style="text-align: center;width: 100%;height: 100%;border:1px black solid;">
+
+          <tr style="text-align: center;height: 10%"><td colspan="2">Assign Function Time</td></tr>
+          <tr style="text-align: center;height: 10%"><td width="30%">工    号</td><td>{{totEmployeeCode}}</td></tr>
+          <tr style="text-align: center;height: 10%"><td width="30%">开始时间</td><td>{{startDateTime}}</td></tr>
+          <tr style="text-align: center;height: 10%"><td width="30%">结束时间</td><td>{{endDateTime}}</td></tr>
+          <tr style="text-align: center;height: 10%"><td width="30%">工作详情</td><td>{{message}}</td></tr>
+          <tr style="text-align: center;height: 10%"><td width="30%">间接项目</td>
+            <td><input id="selectCategory" style="width: 95%;" /></td></tr>
+          <tr style="text-align: center;height: 10%"><td width="30%">间接工作</td>
+            <td><input id="selectJob" style="width: 95%;" /></td></tr>
+        </table>
+      </div>
+      <div style="text-align:center;margin:0px auto;width:80%;margin-top: 20px">
+      <kendo-button class="k-primary" style="width:39%" ng-click="addJobRecord()" style="font-size:18px;margin-left: 20px;">{{'SUBMIT'| translate }}</kendo-button>
+      </div>
+    </div>
+
+    <div id="clockDetail" style="display: none">
+      <div >
+        <h4>当前打卡情况</h4>
+        <table>
+          <tr ng-hide="colckDetailData.length>0"><td>{{'TOT_NOCLOCKRECORD' | translate }}</td></tr>
+          <tr ng-show="colckDetailData.length>0">
+            <!--<td ng-repeat="column in colckDetailColumns track by $index" style="width:{{column.width}}">{{column.name}}</td>-->
+            <td style="width: 25%">打卡类型</td>
+            <td style="width: 38%">打卡时间</td>
+            <td style="width: 25%">打卡方式</td>
+            <td style="width: 25%">是否删除</td>
+          </tr>
+          <tr ng-repeat="detailData in colckDetailData track by $index ">
+            <td style="display: none">{{detailData.id}}</td>
+            <td>{{detailData.clockType}}</td>
+            <td>{{detailData.clockTime}}</td>
+            <td>{{detailData.clockMethod}}</td>
+            <td> <kendo-button class="k-primary" ng-click="DeleteCtime(detailData)" style="font-size:18px;">删除
+            </kendo-button>
+            </td>
+          </tr>
+        </table>
+        <h4>添加新的打卡</h4>
+        <input style="margin-left: 20px;width:40%" id="clockDatetimepicker"  ng-model="clockDateTime"/>
+        <input  style="margin-left: 10px;width:40%" id="clockType" />
+        <kendo-button class="k-primary" ng-click="addClockTimedetail()" style="font-size:18px;margin-left: 20px;">添加
+        </kendo-button>
+      </div>
+    </div>
+
+    <div class="totStatisticsDetail">
+      <div ui-view="detailContainer">
+
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+</div>

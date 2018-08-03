@@ -1,0 +1,49 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.collate_template"  href="#">{{'COLLATE_TEMPLATE' | translate }}</a>&nbsp;/&nbsp;{{'CREATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="minItems" class="required" style="float:right">{{'MIN_ITEMS' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box type="number" k-step="0.01" k-min="0" k-max="1" k-format="'p0'" id="minItems" name="minItems" class="k-textbox" ng-model="minItems"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="maxItems" class="required" style="float:right">{{'MAX_ITEMS' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box type="number" k-step="0.01" k-min="0" k-max="1" k-format="'p0'" id="maxItems" name="maxItems" class="k-textbox" ng-model="maxItems"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="minShipments" class="required" style="float:right">{{'MIN_SHIPMENTS' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box type="number" k-step="0.01" k-min="0" k-max="1" k-format="'p0'" id="minShipments" name="minShipments" class="k-textbox" ng-model="minShipments"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="maxShipments" class="required" style="float:right">{{'MAX_SHIPMENTS' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box type="number" k-step="0.01" k-min="0" k-max="1" k-format="'p0'" id="maxShipments" name="maxShipments" class="k-textbox" ng-model="maxShipments"/></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'PURE_EXSD' | translate}}</label></div>
+          <div class="formRight">
+            <input type="radio" name="pureExsd" id="pureExsdTrue" class="k-radio" value="true" ng-model="pureExsd">
+            <label class="k-radio-label" for="pureExsdTrue">True</label>
+            <input type="radio" name="pureExsd" id="pureExsdFalse" class="k-radio" value="false" ng-model="pureExsd">
+            <label class="k-radio-label" for="pureExsdFalse">False</label>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="description" name="description" class="k-textbox" ng-model="description"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label  class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'SAVE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

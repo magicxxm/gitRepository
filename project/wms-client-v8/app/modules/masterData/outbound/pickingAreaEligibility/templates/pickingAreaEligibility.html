@@ -1,0 +1,32 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;
+    <span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;{{'PICKING_AREA_ELIGIBILITY' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <!-- down -->
+    <div translate="PICKING_AREA"></div><hr/>
+    <div class="mushiny_selectBox">
+      <span class="mushiny_selectLabel" style="margin-left:-4px;" translate="CLIENT"></span>
+      <input kendo-combo-box class="mushiny_listInput" k-options="selectClientOptions" k-ng-model="selectClient" />
+      <span class="mushiny_selectLabel" style="margin-left:25px;" translate="PICKING_AREA"></span>
+      <select id="selectPickingArea" kendo-combo-box class="mushiny_listInput" k-ng-model="selectPickingArea" k-options="selectPickingAreaOptions"></select>
+    </div>
+    <!-- down-left -->
+    <div class="mushiny_filterLabel" translate="UNASSIGN_USER"></div>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="unassignUser" ng-keyup="filterInput($event, 'listUnassignUsers', unassignUser)" />
+      <div id="listUnassignUsers" kendo-list-view k-options="listUnassignUsers" class="mushiny_list"></div>
+    </div>
+    <div class="mushiny_listBtn" ng-include="'modules/masterData/base/templates/listBtn_horizontal.html'"></div>
+    <!-- down-right -->
+    <div class="mushiny_filterLabel" style="margin-left:-60px;" translate="ASSIGN_USER"></div>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="assignUser" ng-keyup="filterInput($event, 'listAssignUsers', assignUser)" />
+      <div id="listAssignUsers" kendo-list-view k-options="listAssignUsers" class="mushiny_list"></div>
+    </div>
+    <div class="mushiny_btnBox">
+      <kendo-button class="k-button k-primary mushiny_btn" ng-click="save(selectPickingArea, 'listAssignUsers', 'saveUsersByPickingArea')" translate="SAVE"></kendo-button>
+    </div>
+  </div>
+</div>

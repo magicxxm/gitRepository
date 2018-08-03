@@ -1,0 +1,12 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'REPORT' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.workflow"  href="#">{{'WORKFLOW' | translate }}</a>&nbsp;/&nbsp;{{'DETAIL' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:hidden;">
+    <kendo-button class="k-primary" ng-click="getLegacy()" style="font-size:18px;margin-left: 20px;">刷新</kendo-button>
+    <!-- grid -->
+    <div class="gridToolbar"><kendo-button class="k-primary gridButton"></kendo-button></div>
+    <kendo-grid id="workflowDetailGrid" options="workflowDetailGridOptions"></kendo-grid>
+  </div>
+</div>

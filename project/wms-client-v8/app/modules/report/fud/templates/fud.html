@@ -1,0 +1,59 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'REPORT' | translate }}&nbsp;/&nbsp;{{'FUD' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;">
+    <div kendo-tab-strip style="margin-top:10px;" options="tabOpation" id="abc">
+      <!-- tab list -->
+      <ul style="background-color: #3f51b5">
+        <li class="k-state-active" style="font-size:14px;">遗留数据</li>
+        <li style="font-size:14px;">FUD</li>
+      </ul>
+      <div style="padding:5px;">
+         <kendo-button class="k-primary" ng-click="getLegacy()" style="font-size:18px;margin-left: 20px;">刷新</kendo-button>
+        <div style="font-size:16px;width:100%;text-align:center;">  
+          <kendo-grid class="inboundGrid" id="legacyDataGrid" options="legacyDataGridOptions"></kendo-grid>
+        </div>
+      </div>
+      <div style="padding:5px;">
+        <kendo-button class="k-primary" ng-click="getLegacyFud()" style="font-size:18px;margin-left: 20px;">刷新</kendo-button>
+        <div style="font-size:16px;width:100%;text-align:center;">
+          <kendo-grid class="inboundGrid" id="fudGrid" options="fudGridOptions"></kendo-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  .k-tabstrip:focus {
+    box-shadow: none;
+  }
+
+  .k-header {
+    background-color: #e3e3e3;
+  }
+
+  .searchOpation {
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    display: inline-block;
+  }
+
+  .searchOpation li {
+    float: left;
+    margin-bottom: 10px;
+    height: 35px;
+    margin-right: 10px;
+  }
+
+  .label {
+    display: inline-block;
+    width: 60px;
+    text-align: right;
+  }
+</style>

@@ -1,0 +1,14 @@
+<!--调拨出配置-->
+<div class="mushiny-container">
+    <div class="gridToolbar">
+        <span ng-include="'modules/transfer/transferStockOut/templates/gridToolBar.html'" ng-controller="transferCtl"></span>
+    </div>
+    <div style="display: flex;flex-wrap:wrap;align-items:center;margin-top: 10px">
+        <span style="line-height: 35px">发货库房：</span><input type="text" style="margin-right: 20px" ng-model="out">
+        <span style="line-height: 35px">接收库房：</span><input type="text"  style="margin-right: 20px" ng-model="accpet">
+        <kendo-button class="k-primary" ng-click="search()">{{'SURE' | translate}}</kendo-button>
+    </div>
+    <div style="margin:auto;text-align:center;">
+        <kendo-grid class="inboundGrid" id="transferStockOutConfigGrid" options="transferStockOutConfigGridOptions"></kendo-grid>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;质量稽核&nbsp;/&nbsp;呼叫POD</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">POD名称</label>
+                    </div>
+                    <div class="formRight">
+                        <input ng-model="podName" type="text" class="k-textbox"/>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">工作站</label>
+                    </div>
+                    <div class="formRight">
+                        <input ng-model="stationName" type="text" class="k-textbox"
+                        />
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">POD面</label></div>
+                    <div class="formRight">
+                        <select id="multiselect" multiple="multiple" ng-model="face">
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
+                        </select>
+                      <!--  <select id="multiselect" kendo-multi-select ng-model="face"
+                                k-filter="'contains'"
+                                k-data-source="faceSource"></select>-->
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" ng-click="validate($event)">呼叫POD</button>
+
+                    </div>
+                    <div class="formRight" style="float:right">
+                        <kendo-button class="pickButton" ng-click="freePod($event)">释放pod</kendo-button>
+                    </div>
+                    <div class="formRight" style="float:right">
+                        <kendo-button class="pickButton" ng-click="clearPod($event)">重置</kendo-button>
+                    </div>
+                </li>
+
+            </ul>
+
+      <!--  <div class="formRight" style="margin-left: 452px">
+            <kendo-button class="pickButton" ng-click="freePod()">释放pod</kendo-button>
+        </div>-->
+    </div>
+
+</div>

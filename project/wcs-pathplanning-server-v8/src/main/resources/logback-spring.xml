@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <springProfile name="202">
+        <property name="LOG_HOME" value="/home"/>
+    </springProfile>
+    <springProfile name="249">
+        <property name="LOG_HOME" value="/home"/>
+    </springProfile>
+    <springProfile name="201">
+        <property name="LOG_HOME" value="/home"/>
+    </springProfile>
+    <springProfile name="152">
+        <property name="LOG_HOME" value="/home"/>
+    </springProfile>
+    <springProfile name="12">
+        <property name="LOG_HOME" value="/home"/>
+    </springProfile>
+    <springProfile name="203">
+        <property name="LOG_HOME" value="/home"/>
+    </springProfile>
+    <springProfile name="100">
+        <property name="LOG_HOME" value="/home"/>
+    </springProfile>
+    <!--牧星日志输出-->
+    <logger name="com.mushiny" level="DEBUG"/>
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- 日志文件:按照每天生成 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>
+                [ %-5level] [%date{yyyy-MM-dd HH:mm:ss.SSS}] %logger{96} [%line] - %msg%n
+            </pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/log/path/suning/pathPlaning_%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大1MB 超过最大值，会重新建一个文件-->
+                <maxFileSize>100 MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>1</MaxHistory>
+        </rollingPolicy>
+    </appender>
+    <!-- 日志输出级别 -->
+    <root level="ERROR">
+        <appender-ref ref="STDOUT"/>
+          <appender-ref ref="FILE" />
+    </root>
+</configuration>

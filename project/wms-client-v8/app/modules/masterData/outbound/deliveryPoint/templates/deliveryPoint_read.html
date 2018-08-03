@@ -1,0 +1,29 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.deliveryPoint" href="#">{{'DELIVERY_POINT' | translate }}</a>&nbsp;/&nbsp;{{'READ' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label style="float:right">{{'CARRIER' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="carrier.name" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'DELIVERY_SORT_CODE' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="deliverySortCode.code" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label style="float:right">{{'DELIVERY_TIME' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="deliveryTime.deliveryTime" readonly /></div>
+        </li>
+
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" ui-sref="main.delivery_point">{{'BACK' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'OUTBOUND' | translate }}&nbsp;/&nbsp;{{'CAMPARE_BOX' | translate }}</span>
+    </div>
+<div style="width:98%;margin:10px auto;">
+    <span style="font-size:18px;">开始时间</span>&nbsp;&nbsp;<input  kendo-date-picker  ng-model="startTime"  k-format="'yyyy-MM-dd'">
+    <span style="font-size:18px;">结束时间</span>&nbsp;&nbsp;<input  kendo-date-picker ng-model="endTime"  k-format="'yyyy-MM-dd'">
+    <span style="font-size:18px;">类型</span><span>
+        <select style="width: 150px;height:40px;background-color: #fafafa;border:none" ng-model="compare">
+            <option value="=" style="font-size: 10px">使用箱型 = 推荐箱型</option>
+            <option value=">" style="font-size: 10px">使用箱型 &gt; 推荐箱型</option>
+            <option value="<" style="font-size: 10px">使用箱型 &lt; 推荐箱型</option>
+            <option value="" style="font-size: 10px">全部</option>
+        </select>
+    </span>
+    <kendo-button class="k-primary" ng-click="search()" style="font-size:18px;" >{{'SURE'| translate }}</kendo-button>
+</div>
+<div style="text-align:center;margin-top:10px;">
+    <input  id="compareBoxId" type="text" ng-keyup="searchKeyUp($event)" ng-model="seek" class="k-textbox" style="width:300px">
+    <kendo-button class="k-primary" ng-click="search()" style="font-size:18px;">{{'SEARCH'| translate }}</kendo-button>
+</div>
+<div style="font-size:18px;width:98%;margin:10px auto;text-align:center;">
+    <kendo-grid class="inboundGrid" id="inputValidityQueryGrid"  options="compareBoxGridOptions"></kendo-grid>
+</div>
+</div>

@@ -1,0 +1,38 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'MASTER_ROBOT' | translate }}&nbsp;/&nbsp;{{'TRIP_MANAGER' | translate }}</span>
+    </div>
+    <div style="width:99%;margin-top:10px;" >
+        <span style="font-size:18px;">开始时间</span>&nbsp;&nbsp;<input  kendo-date-picker  ng-model="startTime"  k-format="'yyyy-MM-dd'"/>
+        <span style="font-size:18px;margin-left: 10px;">结束时间</span>&nbsp;&nbsp;<input  kendo-date-picker  ng-model="endTime"  k-format="'yyyy-MM-dd'"/>
+        <span style="font-size:18px;margin-left: 10px;">调度单类型</span>
+        <span style="width: 350px;float:right;margin-right:420px;">
+     <select style="margin-left: 30px;margin-top: -35px;" id="multiselect" multiple="multiple" ng-model="type">
+         <option>StowPod</option>
+         <option>PickPod</option>
+         <option>IBPPod</option>
+         <option>OBPPod</option>
+         <option>ICQAPod</option>
+         <option>PodRun</option>
+         <option>ChargerDrive</option>
+         <option>EmptyRun</option>
+     </select>
+    </span>
+        <span style="float:left;margin-left:900px;margin-top: -20px;">
+    <input type="checkbox" id="yetFinish" class="k-checkbox" ng-model="checked">
+    <label class="k-checkbox-label" for="yetFinish" style="margin-left: 15px" >显示Finish状态调度单</label>
+        <span style="float: right;margin-left: 70px;margin-top: -15px;">
+            <kendo-button class="k-primary" ng-click="search()" style="font-size:18px;margin-left: -35px;" >{{'SURE'| translate }}</kendo-button>
+            <kendo-button class="k-primary" style="font-size:18px;margin-left: 20px;"  ng-click="export()">批量导出</kendo-button>
+        </span>
+    </span>
+        <div style="float:left;margin-top: 20px;margin-left: 500px">
+            <input  type="text" class="k-textbox" style="width:300px" id="wcsTripId" ng-model="seek" ng-keyup="wcsTripManager($event)"/>
+            <kendo-button class="k-primary"  style="font-size:18px;"  ng-click="tripSearch()">{{'SEARCH'| translate }}</kendo-button>
+        </div>
+        <div class="inboundGrid" style="margin-top: 70px;text-align: center">
+            <kendo-grid id="tripGrid" options="tripManagerOptions"></kendo-grid>
+        </div>
+    </div>
+</div>

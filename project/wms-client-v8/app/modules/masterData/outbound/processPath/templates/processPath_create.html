@@ -1,0 +1,177 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.process_path" href="#">{{'PROCESS_PATH' | translate }}</a>&nbsp;/&nbsp;{{'CREATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator" ng-submit="validate($event)">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required
+                                                  validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'PROCESS_PATH_TYPE' | translate
+                        }}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="processPathType" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="processPathTypeSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">拣货方式</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box type="text" class="k-textbox" k-data-source="pickWaySource"
+                                required ng-model="pickWay"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'PICK_DESTINATION' | translate
+                        }}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="pickDestination" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="pickStationTypeSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'REBIN_DESTINATION' | translate
+                        }}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="rebinDestination" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="rebinStationTypeSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'REBIN_WALL_TYPE' | translate
+                        }}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="rebinWallType" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="rebinWallTypeSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'PACKING_STATION_TYPE' |
+                        translate }}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="packDestination" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="packingStationTypeSource"></select>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'REGENERATE_SHORTED_PICKS' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box type="text" class="k-textbox"
+                                k-data-source="regenerateShortedPicksSource" ng-model="regenerateShortedPicks"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="minShipmentsPerBatch" class="required" style="float:right">{{'MIN_SHIPMENTS_PER_BATCH'
+                        | translate}}</label></div>
+                    <div class="formRight">
+                        <input type="number" id="minShipmentsPerBatch" name="minShipmentsPerBatch" class="k-textbox"
+                               required validationMessage="{{'WARNING_MIN_SHIPMENTS_PER_BATCH' | translate }}"
+                               ng-model="minShipmentsPerBatch"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="maxShipmentsPerBatch" class="required" style="float:right">{{'MAX_SHIPMENTS_PER_BATCH'
+                        | translate}}</label></div>
+                    <div class="formRight">
+                        <input type="number" id="maxShipmentsPerBatch" name="maxShipmentsPerBatch" class="k-textbox"
+                               required validationMessage="{{'WARNING_MAX_SHIPMENTS_PER_BATCH' | translate }}"
+                               ng-model="maxShipmentsPerBatch"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="minItemsPerBatch" class="required" style="float:right">{{'MIN_ITEMS_PER_BATCH'
+                        | translate}}</label></div>
+                    <div class="formRight">
+                        <input type="number" id="minItemsPerBatch" name="minItemsPerBatch" class="k-textbox" required
+                               validationMessage="{{'WARNING_MIN_ITEMS_PER_BATCH' | translate }}"
+                               ng-model="minItemsPerBatch"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="maxItemsPerBatch" class="required" style="float:right">{{'MAX_ITEMS_PER_BATCH'
+                        | translate}}</label></div>
+                    <div class="formRight">
+                        <input type="number" id="maxItemsPerBatch" name="maxItemsPerBatch" class="k-textbox" required
+                               validationMessage="{{'WARNING_MAX_ITEMS_PER_BATCH' | translate }}"
+                               ng-model="maxItemsPerBatch"/>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'COLLATE_DOCUMENTS' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <select kendo-multi-select type="text" class="k-textbox" k-data-source="collateDocumentsSource"
+                                required validationMessage="{{'WARNING_COLLATE_DOCUMENTS' | translate }}"
+                                ng-model="collateDocuments"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="targetPickRate" class="required"
+                                                 style="float:right">目标捡货效率</label></div>
+                    <div class="formRight"><input type="number" id="targetPickRate" name="targetPickRate"
+                                                  class="k-textbox"
+                                                  ng-model="targetPickRate"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="processPad" class="required"
+                                                 style="float:right">时间间隔</label></div>
+                    <div class="formRight"><input type="number" id="processPad" name="processPad"
+                                                  class="k-textbox"
+                                                  ng-model="processPad"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="batchLimit" class="required"
+                                                 style="float:right">BATCH数量</label></div>
+                    <div class="formRight"><input type="number" id="batchLimit" name="batchLimit"
+                                                  class="k-textbox"
+                                                  ng-model="batchLimit"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="toteLimit" class="required"
+                                                 style="float:right">TOTE数量</label></div>
+                    <div class="formRight"><input type="number" id="toteLimit" name="toteLimit"
+                                                  class="k-textbox"
+                                                  ng-model="toteLimit"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION'
+                        | translate}}</label></div>
+                    <div class="formRight"><input type="text" id="description" name="description" class="k-textbox"
+                                                  ng-model="description"/></div>
+                </li>
+                <li style="margin-top:10px;">
+                    <div class="formLeft"><label class="required" style="float:right">是否是HotPick</label></div>
+                    <div class="formRight">
+                        <input type="radio" name="hotpick" id="hotpickTrue" class="k-radio" value="true"
+                               ng-model="hotpick">
+                        <label class="k-radio-label" for="hotpickTrue">True</label>
+                        <input type="radio" name="hotpick" id="hotpickFalse" class="k-radio" value="false"
+                               ng-model="hotpick">
+                        <label class="k-radio-label" for="hotpickFalse">False</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+                    <div class="formRight">
+                        <button class="k-button k-primary" type="subimt">{{'SAVE' | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

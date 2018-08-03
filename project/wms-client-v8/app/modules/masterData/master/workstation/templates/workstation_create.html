@@ -1,0 +1,133 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.workstation">{{'WORKSTATION' | translate }}</a>&nbsp;/&nbsp;{{'CREATE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <form kendo-validator="validator">
+            <ul class="ulCls">
+                <li>
+                    <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required
+                                                  validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'WORKSTATION_TYPE' | translate
+                        }}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="workstationType" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="workstationTypeSource"></select>
+                    </div>
+                </li>
+                <li style="margin-top:10px;">
+                    <div class="formLeft"><label class="required" style="float:right">{{'FIXED_SCANNER' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <input type="radio" name="fixedScanner" id="fixedScannerTrue" class="k-radio" value="true"
+                               ng-model="fixedScanner">
+                        <label class="k-radio-label" for="fixedScannerTrue">True</label>
+                        <input type="radio" name="fixedScanner" id="fixedScannerFalse" class="k-radio" value="false"
+                               ng-model="fixedScanner">
+                        <label class="k-radio-label" for="fixedScannerFalse">False</label>
+                    </div>
+                </li>
+                <li style="margin-bottom:10px;">
+                    <div class="formLeft"><label class="required" style="float:right">{{'PICK_PACK_WALL' | translate
+                        }}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="pickPackWall" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="pickPackWallSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">捡货还是包装</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box ng-model="pickOrPack" k-data-source="pickOrPackSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'WORKING_FACE_ORIENTATION' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box ng-model="workingFaceOrientation" k-data-source="toWardSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="stopPoint" class="required" style="float:right">{{'STOP_POINT' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="number" id="stopPoint" name="stopPoint" class="k-textbox"
+                                                  ng-model="stopPoint"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="scanPoint" class="required" style="float:right">{{'SCAN_POINT' |
+                        translate}}</label></div>
+                    <div class="formRight"><input type="number" id="scanPoint" name="scanPoint" class="k-textbox"
+                                                  ng-model="scanPoint"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="bufferPoint" class="required" style="float:right">{{'BUFFER_POINT'
+                        | translate}}</label></div>
+                    <div class="formRight"><input type="number" id="bufferPoint" name="bufferPoint" class="k-textbox"
+                                                  ng-model="bufferPoint"/></div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'SECTION' | translate }}</label>
+                    </div>
+                    <div class="formRight">
+                        <select kendo-combo-box k-ng-model="section" k-change="'changeSection(section.id)'"
+                                k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="sectionSource"></select>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label for="placeMark" class="required" style="float:right">{{'PLACE_MARK' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <select kendo-combo-box id="placeMark" k-ng-model="placeMark" k-data-text-field="'placeMark'"
+                                k-data-value-field="'id'" k-filter="'contains'"></select>
+                    </div>
+                </li>
+                <li style="margin-top:10px;">
+                    <div class="formLeft"><label class="required" style="float:right">{{'IS_CALL_POD' |
+                        translate}}</label></div>
+                    <div class="formRight">
+                        <input type="radio" name="isCallPod" id="isCallPodTrue" class="k-radio" value="true"
+                               ng-model="isCallPod">
+                        <label class="k-radio-label" for="isCallPodTrue">True</label>
+                        <input type="radio" name="isCallPod" id="isCallPodFalse" class="k-radio" value="false"
+                               ng-model="isCallPod">
+                        <label class="k-radio-label" for="isCallPodFalse">False</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="formLeft"><label class="required" style="float:right">{{'LABEL_CONTROLLER' | translate
+                        }}</label></div>
+                    <div class="formRight">
+                        <select kendo-multi-select k-ng-model="labelController"
+                                k-change="'changeLabelController(labelController)'" k-data-text-field="'name'"
+                                k-data-value-field="'id'" k-filter="'contains'"
+                                k-data-source="labelControllerSource"></select>
+                    </div>
+                </li>
+            </ul>
+        </form>
+        <hr>
+        <div class="gridToolbar">
+            <kendo-button class="k-primary gridButton" ng-click="createDetail('workstationPositionGrid')"><span
+                    class="k-font-icon k-i-plus"></span>{{'CREATE' | translate }}
+            </kendo-button>
+            <kendo-button class="k-primary gridButton" ng-click="deleteDetail('workstationPositionGrid')"><span
+                    class="k-font-icon k-i-trash"></span>{{'DELETE' | translate }}
+            </kendo-button>
+        </div>
+        <kendo-grid id="workstationPositionGrid" options="workstationPositionGridOptions"></kendo-grid>
+        <div class="mushiny_btnBox" style="margin-top:10px;text-align:center;margin-left:-23%;">
+            <kendo-button class="k-button k-primary mushiny_btn" style="width:220px;" ng-click="validate($event)"
+                          translate="SAVE"></kendo-button>
+        </div>
+    </div>
+</div>

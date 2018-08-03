@@ -1,0 +1,30 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;
+    <span>{{'MASTER_DATA' | translate }}&nbsp;/&nbsp;{{'HARDWARE_WORKSTATION' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <!-- up -->
+    <div translate="WORKSTATION"></div><hr/>
+    <div class="mushiny_selectBox">
+      <span class="mushiny_selectLabel" style="margin-left:-16px;" translate="WORKSTATION"></span>
+      <input id="selectWorkstation" kendo-combo-box class="mushiny_listInput" k-options="selectWorkstationOptions" k-ng-model="selectWorkstation" />
+    </div>
+    <!-- up-left -->
+    <div class="mushiny_filterLabel" translate="UNASSIGN_HARDWARE"></div>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="unAssignHardware" ng-keyup="filterInput($event, 'listUnassignHardwares', unAssignHardware)" />
+      <div id="listUnassignHardwares" kendo-list-view k-options="listUnassignHardwares" class="mushiny_list"></div>
+    </div>
+    <div class="mushiny_listBtn" ng-include="'modules/masterData/base/templates/listBtn_horizontal.html'"></div>
+    <!-- up-right -->
+    <div class="mushiny_filterLabel" style="margin-left:-60px;" translate="ASSIGN_HARDWARE"></div>
+    <div class="mushiny_listBox">
+      <input class="k-textbox mushiny_listInput" type="text" ng-model="assignHardware" ng-keyup="filterInput($event, 'listAssignHardwares', assignHardware)" />
+      <div id="listAssignHardwares" kendo-list-view k-options="listAssignHardwares" class="mushiny_list"></div>
+    </div>
+    <div class="mushiny_btnBox">
+      <kendo-button class="k-button k-primary mushiny_btn" ng-click="save(selectWorkstation, 'listAssignHardwares', 'saveHardwaresByWorkstation')" translate="SAVE"></kendo-button>
+    </div>
+  </div>
+</div>

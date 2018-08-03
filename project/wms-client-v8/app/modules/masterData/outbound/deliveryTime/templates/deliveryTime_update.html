@@ -1,0 +1,22 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.deliveryTime" href="#">{{'DELIVERY_TIME' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="deliveryTime" class="required" style="float:right">{{'DELIVERY_TIME' | translate}}</label></div>
+          <div class="formRight">&nbsp;&nbsp;&nbsp;
+            <input kendo-date-time-picker type="text" k-format="'yyyy-MM-dd HH:mm:ss'" style="width:50%;"id="deliveryTime" name="deliveryTime" class="k-textbox"  ng-model="deliveryTime"/></div>
+        </li>
+
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

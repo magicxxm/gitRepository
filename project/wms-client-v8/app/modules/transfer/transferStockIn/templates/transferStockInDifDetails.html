@@ -1,0 +1,90 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'transfer' | translate }}&nbsp;/&nbsp;{{'transferStockIn' | translate }}</span>
+  </div>
+
+
+    <div class="transfer" >
+
+
+        <div class="transferSearchCondition">
+          <div>
+            <ul>
+              <li class="transfer-li">
+                <label>开始时间</label><input  id="startDatetimepicker" ng-model="startDate"  />
+              </li>
+              <li class="transfer-li"><label>结束时间</label><input  id="endDatetimepicker"  ng-model="endDate" /></li>
+
+            </ul>
+
+
+          </div>
+
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="请输入外部调拨单号或调拨发货单号或容器号码或SKU ID或商品名称或上报人员或处理人员" ng-model="searchText">
+            <span class="input-group-btn">
+                     <button  class="btn btn-primary" ng-click="submitStatistics()"><span class="glyphicon glyphicon-search" ></span>搜索</button>
+             </span>
+          </div>
+        </div>
+
+        <div>
+          <div class="transferContainer">
+
+            <div  class="transferDisplayButton"> </div>
+            <div class="transferDisplay" >
+
+            </div>
+
+          </div>
+
+
+        </div>
+  </div>
+
+</div>
+<style>
+  .transferSearchCondition ul{
+  list-style: none;
+   margin-top:10px
+}
+  .transfer-li label{
+    margin-right:10px;
+    margin-left:10px
+  }
+
+ .transferSearchCondition  li{
+   display:inline-block;
+   vertical-align:top;
+   margin-bottom:10px
+}
+  .transfer-li{
+    margin-right:10px;
+  }
+  .input-group
+  {
+    width:27%;
+    margin-left: 29%;
+    margin-top:26px;
+  }
+  .transferContainer{
+
+    margin-top:50px
+  }
+  .transferDisplayButton{
+    height:30px;
+    background-color:#0070c0;
+
+  }
+  .transferDisplayButton a{
+    color:#fafafa;
+    padding-left:50px;
+    margin-left: 20px;
+    margin-right: 66px;
+    line-height: 30px;
+    font-size: 13px;
+
+  }
+
+</style>

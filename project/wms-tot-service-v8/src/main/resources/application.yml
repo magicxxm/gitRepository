@@ -1,0 +1,7 @@
+# SERVER PROFILES
+server:
+  port: 11088
+
+# SPRING PROFILES
+spring:
+  profiles.active: 202

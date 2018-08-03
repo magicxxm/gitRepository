@@ -1,0 +1,10 @@
+[{
+  "date":"2017/3/7",
+  "exSD":"12:10:00",
+  "shipmentId":"MS12345678",
+  "ciperNo":"CP0001",
+  "moveTime":"2017/3/7  11:55:00",
+  "operator":"张三",
+  "sortCode ":"SZ001-01",
+  "state":"sorted"
+}]

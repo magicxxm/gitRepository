@@ -1,0 +1,34 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.pick_pack_field_type" href="#">{{'PICK_PACK_FIELD_TYPE' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'PICK_PACK_CELL_TYPE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="pickPackCellType" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="pickPackCellTypeSource"></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="numberOfRows" class="required" style="float:right">{{'NUMBER_OF_ROWS' | translate}}</label></div>
+          <div class="formRight"><input type="number" id="numberOfRows" name="numberOfRows" class="k-textbox" ng-model="numberOfRows"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="numberOfColumns" class="required" style="float:right">{{'NUMBER_OF_COLUMNS' | translate}}</label></div>
+          <div class="formRight"><input type="number" id="numberOfColumns" name="numberOfColumns" class="k-textbox" ng-model="numberOfColumns"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

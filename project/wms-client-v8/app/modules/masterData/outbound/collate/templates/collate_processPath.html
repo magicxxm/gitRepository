@@ -1,0 +1,30 @@
+<form kendo-validator="validator">
+  <ul class="ulCls">
+    <li>
+      <div class="formLeft"><label for="targetPickRate" class="required" style="float:right">{{'TARGET_PICK_RATE' | translate}}</label></div>
+      <div class="formRightWin"><input type="number" id="targetPickRate" name="targetPickRate" class="k-textbox" ng-model="targetPickRate"/></div>
+    </li>
+    <li>
+      <div class="formLeft"><label for="processPad" class="required" style="float:right">{{'PROCESS_PAD' | translate}}</label></div>
+      <div class="formRightWin"><input kendo-numeric-text-box type="number" step="30" k-format="'# 分钟'" id="processPad" name="processPad" class="k-textbox" ng-model="processPad"/></div>
+    </li>
+    <li>
+      <div class="formLeft"><label for="toteLimit" class="required" style="float:right">{{'TOTE_LIMIT' | translate}}</label></div>
+      <div class="formRightWin"><input type="number" id="toteLimit" name="toteLimit" class="k-textbox" ng-model="toteLimit"/></div>
+    </li>
+    <li>
+      <div class="formLeft"><label for="batchLimit" class="required" style="float:right">{{'BATCH_LIMIT' | translate}}</label></div>
+      <div class="formRightWin"><input type="number" id="batchLimit" name="batchLimit" class="k-textbox" ng-model="batchLimit"/></div>
+    </li>
+    <li>
+      <div class="formLeft"><label for="maxPickRate" class="required" style="float:right">{{'MAX_PICK_RATE' | translate}}</label></div>
+      <div class="formRightWin"><input type="number" id="maxPickRate" name="maxPickRate" class="k-textbox" readonly ng-value=targetPickRate*batchLimit /></div>
+    </li>
+    <li>
+      <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+      <div class="formRightWin">
+        <button class="k-button k-primary" type="submit" style="width:75%;margin-left:15px;" ng-click="validate($event, targetPickRate, processPad, toteLimit, batchLimit)">{{'SURE' | translate}}</button>
+      </div>
+    </li>
+  </ul>
+</form>

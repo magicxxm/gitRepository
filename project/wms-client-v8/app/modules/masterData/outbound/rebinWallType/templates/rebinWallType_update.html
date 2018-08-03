@@ -1,0 +1,44 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.rebin_wall_type" href="#">{{'REBIN_WALL_TYPE' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required readonly validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="numberOfRows" class="required" style="float:right">{{'NUMBER_OF_ROWS' | translate}}</label></div>
+          <div class="formRight"><input type="number" id="numberOfRows" name="numberOfRows" class="k-textbox" required readonly validationMessage="{{'WARNING_NUMBER_OF_ROWS' | translate }}" ng-model="numberOfRows"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="numberOfColumns" class="required" style="float:right">{{'NUMBER_OF_COLUMNS' | translate}}</label></div>
+          <div class="formRight"><input type="number" id="numberOfColumns" name="numberOfColumns" class="k-textbox" required readonly validationMessage="{{'WARNING_NUMBER_OF_COLUMNS' | translate }}" ng-model="numberOfColumns"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'REBIN_CELL_TYPE' | translate }}</label></div>
+          <div class="formRight">
+            <select kendo-combo-box k-ng-model="rebinCellType" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="rebinCellTypeSource" readonly></select>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="description" name="description" class="k-textbox" ng-model="description"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">{{'REBIN_WALL_TYPE_POSITION' | translate}}</label></div>
+          <div class="formRight">
+            <table id="rebinWallTypePosition" border="0" cellpadding="0" cellspacing="0" style="margin-left:15px;width:50%;text-align:center;"></table>
+          </div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

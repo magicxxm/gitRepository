@@ -1,0 +1,24 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'TOT' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.tot_jobthreshold" href="#">{{'TOT_JOBTHRESHOLD' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="thresholdA" class="required" style="float:right">{{'J_A' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box id="thresholdA" name="thresholdA" class="k-textbox" k-format="'# min'" required validationMessage="{{'WARNING_A' | translate }}"  ng-model="thresholdA"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label for="thresholdB" class="required" style="float:right">{{'J_B' | translate}}</label></div>
+          <div class="formRight"><input kendo-numeric-text-box id="thresholdB" name="thresholdB" class="k-textbox" k-format="'# min'" required validationMessage="{{'J_WARNING_B' | translate }}" ng-model="thresholdB"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

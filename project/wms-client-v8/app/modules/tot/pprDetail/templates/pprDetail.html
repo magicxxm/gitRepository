@@ -1,0 +1,209 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'TOT' | translate }}&nbsp;/&nbsp;{{'PPRDETAIL' | translate }}</span>
+  </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <div style="width:1000px;height:20px;border: 0px">
+    </div>
+    <div id="ppr-top" style="display:table;border:1px black solid;margin-left: 15px;margin-top:5px;width: 80%">
+            <table height="140px"  cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width=40% border-right="1px black solid">
+                        <table width=100% border-right="1px black solid">
+                            <tr style="text-align: center">
+                                <td>
+                                    库房
+                                </td>
+                                <td>
+                                    <input id="selectWarehouse" style="width:60%;"  />
+                                </td>
+                            </tr>
+                            <tr style="text-align: center">
+                                <td>
+                                    客户
+                                </td>
+                                <td>
+                                    <input id="selectClientInfos" style="width:60%;" />
+                                </td>
+                            </tr>
+                            <tr style="text-align: center">
+                                <td>
+                                    项目名
+                                </td>
+                                <td>
+                                    <input id="selectCategory" kendo-combo-box style="width:60%;" k-ng-model="selectCategory" k-options="selectCategoryOptions"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan=2>
+                        <table width=100% height=100%>
+                            <tr style="text-align: left">
+                                <td colspan=2>
+                                    Report Date Range
+                                </td>
+                            </tr>
+                            <tr style="text-align: left">
+                                <td>
+                                    <input id="dayState" type="radio" ng-value=1 ng-checked="true" ng-model="timeType" name="dayState" ng-click="setState($event)" > Day
+                                </td>
+                                <td>
+                                    <input style="margin-left: 20px;width:85%" id="dayDatetimepicker"  ng-model="dayTime"  />
+                                </td>
+
+                            </tr>
+                            <tr style="text-align: left">
+                                <td>
+                                    <input id="weekDateState" type="radio" ng-value=2  ng-model="timeType" name="dayState" ng-click="setState($event)"> Week
+                                </td>
+                                <td>
+                                    <input style="margin-left: 20px;width:85%" id="weekDatetimepicker"  ng-model="weekSrcDate"  />
+
+                                </td>
+                            </tr>
+                            <tr style="text-align: left">
+                                <td>
+                                    <input id="monthDateState" type="radio" ng-value=3 ng-model="timeType" name="dayState" ng-click="setState($event)"> Month
+                                </td>
+                                <td>
+                                    <input style="margin-left: 20px;width:85%" id="monthDateTimepicker"  ng-model="monthDate"/>
+                                </td>
+
+                            </tr>
+                            <tr style="text-align: left">
+                                <td>
+                                    <input id="dateTimeState" type="radio" ng-value=4 ng-model="timeType" name="dayState" ng-click="setState($event)">IntraDay
+                                </td>
+                                <td>
+
+                                    <input style="margin-left: 20px;width:85%" id="startDatetimepicker"  ng-model="startDateTime"/>
+                                </td>
+                                <td>
+                                    to<input style="margin-left: 20px;width:85%" id="endDatetimepicker"  ng-model="endDateTime" />
+                                </td>
+                            </tr>
+                            <tr style="text-align: right">
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <kendo-button class="k-primary" ng-click="submitStatistics()" style="font-size:18px;margin-left: 20px;">{{'SUBMIT'| translate }}</kendo-button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+    </div>
+  <div style="margin-top:10px;">
+      <div style="padding:1em;">
+          <div ng-show="jobTypeFlag=='nothing'" style='width:100%;font-size:60px;text-align: center;margin-top:100px'>
+              数据为空
+          </div>
+      <div ng-show="jobTypeFlag=='direct'">
+        <div style="margin-top:10px;">
+          <div id="pprDetailTotalGrid" class="pprStatisticsGrid"></div>
+        </div>
+          <div style='font-size:10px;text-align: center;margin-top:20px;margin-bottom:10px; border:1px solid #eeeeee;'>
+              <table ng-repeat="datas in pprDetailDataSource"  border=1 cellspacing=0 cellpadding=0 style='width:100%;border-color:white;'>
+                      <tr style='height:32px;background-color:rgb(0, 176, 240);color:white;'>
+                          <td colspan="21">{{datas[0].jobCode + "--" + datas[0].jobName}}</td>
+                      </tr>
+                      <tr style='height:32px;background-color:rgb(0, 176, 240);color:white;'>
+                          <td rowspan="3">员工账号</td>
+                          <td rowspan="3">员工姓名</td>
+                          <td rowspan="2" colspan="6">工作时间(小时)</td>
+                          <td colspan="14">商品</td>
+                      </tr>
+                      <tr style='height:32px;background-color:rgb(0, 176, 240);color:white;'>
+                          <td rowspan="2">扫描商品次数</td>
+                          <td rowspan="2">扫描商品效率</td>
+                          <td rowspan="2">一次扫描操作商品数量</td>
+                          <td colspan="2">Small</td>
+                          <td colspan="2">Medium</td>
+                          <td colspan="2">Large</td>
+                          <td colspan="2">OverSize</td>
+                          <td colspan="2">EACH-Total</td>
+                      </tr>
+                      <tr style='height:32px;background-color:rgb(0, 176, 240);color:white;'>
+                          <td>Small</td>
+                          <td>Medium</td>
+                          <td>Large</td>
+                          <td>OverSize</td>
+                          <td>Prep</td>>
+                          <td>Total</td>
+                          <td>数量</td>
+                          <td>效率</td>
+                          <td>数量</td>
+                          <td>效率</td>
+                          <td>数量</td>
+                          <td>效率</td>
+                          <td>数量</td>
+                          <td>效率</td>
+                          <td>数量</td>
+                          <td>效率</td>
+                      </tr>
+                  <tr ng-repeat="data in datas" height="32px">
+                      <td>{{data.employeeCode}}</td>
+                      <td>{{data.employeeName}}</td>
+                      <td>{{data.sHours}}</td>
+                      <td>{{data.mHours}}</td>
+                      <td>{{data.lHours}}</td>
+                      <td>{{data.oHours}}</td>
+                      <td>{{data.orderHours}}</td>
+                      <td>{{data.tHours}}</td>
+                      <td>{{data.times}}</td>
+                      <td>{{data.unitHourTimes}}</td>
+                      <td>{{data.unitAmount}}</td>
+                      <td>{{data.sAmount}}</td>
+                      <td>{{data.sUnitHourAmount}}</td>
+                      <td>{{data.mAmount}}</td>
+                      <td>{{data.mUnitHourAmount}}</td>
+                      <td>{{data.lAmount}}</td>
+                      <td>{{data.lUnitHourAmount}}</td>
+                      <td>{{data.oAmount}}</td>
+                      <td>{{data.oUnitHourAmount}}</td>
+                      <td>{{data.tAmount}}</td>
+                      <td>{{data.tUnitHourAmount}}</td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+          <div ng-show="jobTypeFlag=='inDirect'">
+          <div style="margin-top:10px;">
+              <div id="pprIndirectDetailTotalGrid" class="pprStatisticsGrid"></div>
+          </div>
+          <div style='font-size:10px;text-align: center;margin-top:20px;margin-bottom:10px; border:1px solid #eeeeee;'>
+              <table ng-repeat="iDatas in pprIndirectDetailDataSource"  border=1 cellspacing=0 cellpadding=0 style='width:100%;border-color:white;'>
+                  <tr style='height:32px;background-color:rgb(0, 176, 240);color:white;'>
+                      <td colspan="5">{{iDatas[0].jobCode}}</td>
+                  </tr>
+                  <tr style='height:32px;background-color:rgb(0, 176, 240);color:white;'>
+                      <td rowspan="2">员工账号</td>
+                      <td rowspan="2">员工姓名</td>
+                      <td>工作时间(小时)</td>
+                      <td colspan="2">商品</td>
+                  </tr>
+                  <tr style='height:32px;background-color:rgb(0, 176, 240);color:white;'>
+                      <td>Total</td>
+                      <td>数量</td>
+                      <td>效率</td>
+                  </tr>
+                  <tr ng-repeat="iData in iDatas" height="32px">
+                      <td>{{iData.employeeCode}}</td>
+                      <td>{{iData.employeeName}}</td>
+                      <td>{{iData.tHours}}</td>
+                      <td>{{iData.tAmount}}</td>
+                      <td>{{iData.tUnitHourAmount}}</td>
+                  </tr>
+              </table>
+          </div>
+          </div>
+      </div>
+  </div>
+    </div>
+</div>
+<style>
+</style>

@@ -1,0 +1,30 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+        <span>&nbsp;/&nbsp;{{'MASTER_INBOUND' | translate }}&nbsp;/&nbsp;{{'REPLENISH_STRATEGY' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <!-- search -->
+        <span>{{'ENTITY_LOCK' | translate }}：<select kendo-combo-box k-ng-model="entityLock"
+                                                     k-data-text-field="'resourceKey'"
+                                                     k-data-value-field="'resourceValue'" k-filter="'contains'"
+                                                     k-change="'changeSearch()'"
+                                                     k-data-source="entityLockSource"></select></span>
+        <kendo-button class="k-primary" ng-click="searchGrid()">
+            <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+        </kendo-button>
+        <!-- grid -->
+        <div class="gridToolbar" ng-controller="masterCtl">
+            <kendo-button class="k-primary gridButton" ng-click="create()"><span class="k-font-icon k-i-plus"></span>{{'CREATE'
+                | translate }}
+            </kendo-button>
+            <kendo-button class="k-primary gridButton" ng-click="update()"><span class="k-font-icon k-i-pencil"></span>{{'UPDATE'
+                | translate }}
+            </kendo-button>
+            <kendo-button class="k-primary gridButton" ng-click="delete()">
+                <span class="k-font-icon k-i-trash"></span>{{'DELETE' | translate }}
+            </kendo-button>
+        </div>
+        <kendo-grid id="replenishStrategyGrid" options="replenishStrategyGridOptions"></kendo-grid>
+    </div>
+</div>

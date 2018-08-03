@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/kendo/kendo.common.min.css">
+    <link rel="stylesheet" href="bower_components/kendo/kendo.default.min.css">
+    <link rel="stylesheet" href="bower_components/kendo/kendo.common-material.min.css">
+    <link rel="stylesheet" href="bower_components/kendo/kendo.material.min.css">
+    <link rel="stylesheet" href="bower_components/swiper/dist/css/swiper.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/mushiny.css">
+    <link rel="stylesheet" href="css/inbound.css">
+    <link rel="stylesheet" href="css/outbound.css">
+    <link rel="stylesheet" href="css/tot.css">
+    <link rel="stylesheet" href="css/pick.css">
+    <link rel="stylesheet" href="css/problemOutbound.css">
+</head>
+
+<body ng-app="myApp" style="font: 12px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;">
+<div ui-view style="height:100%"></div>
+<script src="bower_components/kendo/jquery.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/kendo/kendo.all.min.js"></script>
+<script src="modules/masterData/base/constants/kendo.jszip.js"></script>
+
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+<script src="bower_components/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-websocket/dist/angular-websocket.min.js"></script>
+<script src="bower_components/swiper/dist/js/swiper.min.js"></script>
+<script src="bower_components/reconnecting-websocket/reconnecting-websocket.js"></script>
+
+<script src="app.module.js"></script>
+<script src="app.constant.js"></script>
+<script src="app.route.js"></script>
+<script src="modules/common/constants/common.constant.js"></script>
+<script src="modules/common/constants/common.export.js"></script>
+<script src="modules/common/services/common.service.js"></script>
+<script src="modules/login/constants/login.constant.js"></script>
+<script src="modules/login/controllers/login.controller.js"></script>
+<script src="modules/login/services/login.service.js"></script>
+<script src="modules/main/constants/main.constant.js"></script>
+<script src="modules/main/controllers/main.controller.js"></script>
+<script src="modules/main/controllers/userInfo.controller.js"></script>
+<script src="modules/main/services/main.service.js"></script>
+<!-- system -->
+<script src="modules/system/base/constants/base.constant.js"></script>
+<script src="modules/system/base/controllers/base.controller.js"></script>
+<script src="modules/system/base/services/base.service.js"></script>
+<script src="modules/system/client/controllers/client.controller.js"></script>
+<script src="modules/system/menu/controllers/menu.controller.js"></script>
+<script src="modules/system/menu/services/menu.service.js"></script>
+<script src="modules/system/module/controllers/module.controller.js"></script>
+<script src="modules/system/resource/controllers/resource.controller.js"></script>
+<script src="modules/system/rfMenu/controllers/rfMenu.controller.js"></script>
+<script src="modules/system/rfMenu/services/rfMenu.service.js"></script>
+<script src="modules/system/role/controllers/role.controller.js"></script>
+<script src="modules/system/roleModule/controllers/roleModule.controller.js"></script>
+<script src="modules/system/roleModule/services/roleModule.service.js"></script>
+<script src="modules/system/selection/controllers/selection.controller.js"></script>
+<script src="modules/system/systemProperty/controllers/systemProperty.controller.js"></script>
+<script src="modules/system/user/controllers/user.controller.js"></script>
+<script src="modules/system/user/services/user.service.js"></script>
+<script src="modules/system/userGroup/controllers/userGroup.controller.js"></script>
+<script src="modules/system/userWarehouse/controllers/userWarehouse.controller.js"></script>
+<script src="modules/system/userWarehouse/services/userWarehouse.service.js"></script>
+<script src="modules/system/userWarehouseRole/controllers/userWarehouseRole.controller.js"></script>
+<script src="modules/system/userWarehouseRole/services/userWarehouseRole.service.js"></script>
+<script src="modules/system/warehouse/controllers/warehouse.controller.js"></script>
+<script src="modules/system/warehouseClient/controllers/warehouseClient.controller.js"></script>
+<script src="modules/system/warehouseClient/services/warehouseClient.service.js"></script>
+<!-- masterData -->
+<script src="modules/masterData/base/constants/base.constant.js"></script>
+<script src="modules/masterData/base/controllers/base.controller.js"></script>
+<script src="modules/masterData/base/services/base.service.js"></script>
+<script src="modules/masterData/master/area/controllers/area.controller.js"></script>
+<script src="modules/masterData/master/dropZone/controllers/dropZone.controller.js"></script>
+<script src="modules/masterData/master/sabcRule/controllers/sabcRule.controller.js"></script>
+<script src="modules/masterData/master/hardware/controllers/hardware.controller.js"></script>
+<script src="modules/masterData/master/hardwareWorkstation/controllers/hardwareWorkstation.controller.js"></script>
+<script src="modules/masterData/master/hardwareWorkstation/services/hardwareWorkstation.service.js"></script>
+<script src="modules/masterData/master/itemData/controllers/itemData.controller.js"></script>
+<script src="modules/masterData/master/itemData/services/itemData.service.js"></script>
+<script src="modules/masterData/master/itemDataGlobal/controllers/itemDataGlobal.controller.js"></script>
+<script src="modules/masterData/master/itemDataGlobal/services/itemDataGlobal.service.js"></script>
+<script src="modules/masterData/master/itemGroup/controllers/itemGroup.controller.js"></script>
+<script src="modules/masterData/master/itemUnit/controllers/itemUnit.controller.js"></script>
+<script src="modules/masterData/master/pod/controllers/pod.controller.js"></script>
+<script src="modules/masterData/master/pod/services/pod.service.js"></script>
+<script src="modules/masterData/master/podType/controllers/podType.controller.js"></script>
+<script src="modules/masterData/master/storageLocation/controllers/storageLocation.controller.js"></script>
+<script src="modules/masterData/master/storageLocation/services/storageLocation.service.js"></script>
+<script src="modules/masterData/master/storageLocationType/controllers/storageLocationType.controller.js"></script>
+<script src="modules/masterData/master/zone/controllers/zone.controller.js"></script>
+<script src="modules/masterData/master/zoneItemGroup/controllers/zoneItemGroup.controller.js"></script>
+<script src="modules/masterData/master/zoneItemGroup/services/zoneItemGroup.service.js"></script>
+<script src="modules/masterData/master/workstation/controllers/workstation.controller.js"></script>
+<script src="modules/masterData/master/workstation/services/workstation.service.js"></script>
+<script src="modules/masterData/master/workstationShow/controllers/workstationShow.controller.js"></script>
+<script src="modules/masterData/master/workstationShow/services/workstationShow.service.js"></script>
+<script src="modules/masterData/master/workstationType/controllers/workstationType.controller.js"></script>
+<script src="modules/masterData/master/sizeRule/controllers/sizeRule.controller.js"></script>
+<script src="modules/masterData/master/sizeFilterRule/controllers/sizeFilterRule.controller.js"></script>
+<script src="modules/masterData/master/sizeFilterRule/services/sizeFilterRule.service.js"></script>
+<script src="modules/masterData/master/bay/controllers/bay.controller.js"></script>
+<script src="modules/masterData/master/bay/services/bay.service.js"></script>
+<!-- master-inbound -->
+<script src="modules/masterData/inbound/adviceRequest/controllers/adviceRequest.controller.js"></script>
+<script src="modules/masterData/inbound/adviceRequest/services/adviceRequest.service.js"></script>
+<script src="modules/masterData/inbound/goodsReceipt/controllers/goodsReceipt.controller.js"></script>
+<script src="modules/masterData/inbound/itemDataTypeGradeStat/controllers/itemDataTypeGradeStat.controller.js"></script>
+<script src="modules/masterData/inbound/itemDataTypeGradeStat/services/itemDataTypeGradeStat.service.js"></script>
+<script src="modules/masterData/inbound/goodsReceipt/services/goodsReceipt.service.js"></script>
+<script src="modules/masterData/inbound/receiveCategory/controllers/receiveCategory.controller.js"></script>
+<script src="modules/masterData/inbound/receiveCategoryRule/controllers/receiveCategoryRule.controller.js"></script>
+<script src="modules/masterData/inbound/receiveDestination/controllers/receiveDestination.controller.js"></script>
+<script src="modules/masterData/inbound/receiveDestination/services/receiveDestination.service.js"></script>
+<script src="modules/masterData/inbound/receiveEligibility/controllers/receiveEligibility.controller.js"></script>
+<script src="modules/masterData/inbound/receiveEligibility/services/receiveEligibility.service.js"></script>
+<script src="modules/masterData/inbound/receiveStation/controllers/receiveStation.controller.js"></script>
+<script src="modules/masterData/inbound/receiveStationType/controllers/receiveStationType.controller.js"></script>
+<script src="modules/masterData/inbound/receiveThreshold/controllers/receiveThreshold.controller.js"></script>
+<script src="modules/masterData/inbound/replenishStrategy/controllers/replenishStrategy.controller.js"></script>
+<script src="modules/masterData/inbound/stowEligibility/controllers/stowEligibility.controller.js"></script>
+<script src="modules/masterData/inbound/stowEligibility/services/stowEligibility.service.js"></script>
+<script src="modules/masterData/inbound/stowStation/controllers/stowStation.controller.js"></script>
+<script src="modules/masterData/inbound/stowStationType/controllers/stowStationType.controller.js"></script>
+<script src="modules/masterData/inbound/stowThreshold/controllers/stowThreshold.controller.js"></script>
+<!--  master-outbound -->
+<script src="modules/masterData/outbound/boxType/controllers/boxType.controller.js"></script>
+<script src="modules/masterData/outbound/carrier/controllers/carrier.controller.js"></script>
+<script src="modules/masterData/outbound/digitalLabel/controllers/digitalLabel.controller.js"></script>
+<script src="modules/masterData/outbound/goodsOutDoor/controllers/goodsOutDoor.controller.js"></script>
+<script src="modules/masterData/outbound/labelController/controllers/labelController.controller.js"></script>
+<script src="modules/masterData/outbound/orderStrategy/controllers/orderStrategy.controller.js"></script>
+<script src="modules/masterData/outbound/packingStation/controllers/packingStation.controller.js"></script>
+<script src="modules/masterData/outbound/packingStationType/controllers/packingStationType.controller.js"></script>
+<script src="modules/masterData/outbound/pickingArea/controllers/pickingArea.controller.js"></script>
+<script src="modules/masterData/outbound/pickingArea/services/pickingArea.service.js"></script>
+<script src="modules/masterData/outbound/pickingAreaEligibility/controllers/pickingAreaEligibility.controller.js"></script>
+<script src="modules/masterData/outbound/pickingAreaEligibility/services/pickingAreaEligibility.service.js"></script>
+<script src="modules/masterData/outbound/pickingCategory/controllers/pickingCategory.controller.js"></script>
+<script src="modules/masterData/outbound/pickingCategory/services/pickingCategory.service.js"></script>
+<script src="modules/masterData/outbound/pickingProcessEligibility/controllers/pickingProcessEligibility.controller.js"></script>
+<script src="modules/masterData/outbound/pickingProcessEligibility/services/pickingProcessEligibility.service.js"></script>
+<script src="modules/masterData/outbound/pickPackCell/controllers/pickPackCell.controller.js"></script>
+<script src="modules/masterData/outbound/pickPackCell/services/pickPackCell.service.js"></script>
+<script src="modules/masterData/outbound/pickPackCellType/controllers/pickPackCellType.controller.js"></script>
+<script src="modules/masterData/outbound/pickPackCellTypeBoxType/controllers/pickPackCellTypeBoxType.controller.js"></script>
+<script src="modules/masterData/outbound/pickPackCellTypeBoxType/services/pickPackCellTypeBoxType.service.js"></script>
+<script src="modules/masterData/outbound/pickPackFieldType/controllers/pickPackFieldType.controller.js"></script>
+<script src="modules/masterData/outbound/pickPackWall/controllers/pickPackWall.controller.js"></script>
+<script src="modules/masterData/outbound/pickPackWall/services/pickPackWall.service.js"></script>
+<script src="modules/masterData/outbound/pickPackWallType/controllers/pickPackWallType.controller.js"></script>
+<script src="modules/masterData/outbound/pickStation/controllers/pickStation.controller.js"></script>
+<script src="modules/masterData/outbound/pickStationType/controllers/pickStationType.controller.js"></script>
+<script src="modules/masterData/outbound/processPath/controllers/processPath.controller.js"></script>
+<script src="modules/masterData/outbound/processPathType/controllers/processPathType.controller.js"></script>
+<script src="modules/masterData/outbound/rebatchSlot/controllers/rebatchSlot.controller.js"></script>
+<script src="modules/masterData/outbound/rebatchStation/controllers/rebatchStation.controller.js"></script>
+<script src="modules/masterData/outbound/rebatchStationType/controllers/rebatchStationType.controller.js"></script>
+<script src="modules/masterData/outbound/rebinCell/controllers/rebinCell.controller.js"></script>
+<script src="modules/masterData/outbound/rebinCellType/controllers/rebinCellType.controller.js"></script>
+<script src="modules/masterData/outbound/rebinStation/controllers/rebinStation.controller.js"></script>
+<script src="modules/masterData/outbound/rebinStationType/controllers/rebinStationType.controller.js"></script>
+<script src="modules/masterData/outbound/rebinWall/controllers/rebinWall.controller.js"></script>
+<script src="modules/masterData/outbound/rebinWallType/controllers/rebinWallType.controller.js"></script>
+<script src="modules/masterData/outbound/sortingStation/controllers/sortingStation.controller.js"></script>
+<script src="modules/masterData/outbound/sortingStationType/controllers/sortingStationType.controller.js"></script>
+<script src="modules/masterData/outbound/deliverySortCode/controllers/deliverySortCode.controller.js"></script>
+<script src="modules/masterData/outbound/deliveryTime/controllers/deliveryTime.controller.js"></script>
+<script src="modules/masterData/outbound/deliveryPoint/controllers/deliveryPoint.controller.js"></script>
+<script src="modules/masterData/outbound/pickingAreaAndPPEligibility/controllers/pickingAreaAndPPEligibility.controller.js"></script>
+<script src="modules/masterData/outbound/pickingAreaAndPPEligibility/services/pickingAreaAndPPEligibility.service.js"></script>
+<script src="modules/masterData/outbound/zoneBatch/controllers/zoneBatch.controller.js"></script>
+<script src="modules/masterData/outbound/zoneBatch/services/zoneBatch.service.js"></script>
+<script src="modules/masterData/outbound/zoneProcessPath/controllers/zoneProcessPath.controller.js"></script>
+<script src="modules/masterData/outbound/zoneProcessPath/services/zoneProcessPath.service.js"></script>
+<script src="modules/masterData/outbound/collate/controllers/collate.controller.js"></script>
+<script src="modules/masterData/outbound/collate/services/collate.service.js"></script>
+<script src="modules/masterData/outbound/collateLivePicker/controllers/collateLivePicker.controller.js"></script>
+<script src="modules/masterData/outbound/collateLivePicker/services/collateLivePicker.service.js"></script>
+<script src="modules/masterData/outbound/collateTemplate/controllers/collateTemplate.controller.js"></script>
+<!-- semblance -->
+<script src="modules/masterData/master/semblence/controllers/semblence.controller.js"></script>
+<script src="modules/masterData/master/semblence/services/semblence.service.js"></script>
+<!-- master-robot -->
+<script src="modules/masterData/robot/robot/controllers/robot.controller.js"></script>
+<script src="modules/masterData/robot/robotType/controllers/robotType.controller.js"></script>
+<script src="modules/masterData/robot/batterConfig/controllers/batterConfig.controller.js"></script>
+<script src="modules/masterData/robot/chargingPile/controllers/chargingPile.controller.js"></script>
+<script src="modules/masterData/robot/chargingPile/services/chargingPile.service.js"></script>
+<script src="modules/masterData/robot/tripManager/controllers/tripManager.controller.js"></script>
+<script src="modules/masterData/robot/tripManager/services/tripManager.service.js"></script>
+<script src="modules/masterData/robot/robotLaveBattery/controllers/robotLaveBattery.controller.js"></script>
+<script src="modules/masterData/robot/robotLaveBattery/services/robotLaveBattery.service.js"></script>
+<!-- master-warehouse -->
+<script src="modules/masterData/warehouse/map/controllers/map.controller.js"></script>
+<script src="modules/masterData/warehouse/section/controllers/section.controller.js"></script>
+<!-- inbound -->
+<script src="modules/inbound/base/constants/base.constants.js"></script>
+<script src="modules/inbound/receiving/common/receiving-common.js"></script>
+<script src="modules/inbound/receiving/service/receiving.service.js"></script>
+<script src="modules/inbound/receiving/common/receiving-factory.js"></script>
+<script src="modules/inbound/receiving/controllers/receiving.controller.js"></script>
+<script src="modules/inbound/receiving/controllers/receiving_tote.controller.js"></script>
+<script src="modules/inbound/receiving/controllers/receiving_pallet.controller.js"></script>
+<script src="modules/inbound/receiving/controllers/receiving_single.controller.js"></script>
+<script src="modules/inbound/stow/controllers/stow.controller.js"></script>
+<!-- inboundProblem -->
+<script src="modules/inboundProblem/base/constants/base.constant.js"></script>
+<script src="modules/inboundProblem/base/controllers/base.controller.js"></script>
+<script src="modules/inboundProblem/base/services/base.service.js"></script>
+<script src="modules/inboundProblem/ibpStation/controllers/ibpStation.controller.js"></script>
+<script src="modules/inboundProblem/ibpStationType/controllers/ibpStationType.controller.js"></script>
+<script src="modules/inboundProblem/problemInbound/controllers/problemInbound.controller.js"></script>
+<script src="modules/inboundProblem/problemInbound/controllers/problemInbound_read.controller.js"></script>
+<script src="modules/inboundProblem/problemInbound/services/problemInbound.service.js"></script>
+<script src="modules/inboundProblem/problemInboundManage/services/problemInboundManage.service.js"></script>
+<script src="modules/inboundProblem/problemInboundManage/controllers/problemInboundManage.controller.js"></script>
+<!-- outboundProblem -->
+<script src="modules/outboundProblem/base/constants/base.constant.js"></script>
+<script src="modules/outboundProblem/base/controllers/base.controller.js"></script>
+<script src="modules/outboundProblem/base/services/base.service.js"></script>
+<script src="modules/outboundProblem/obpCell/controllers/obpCell.controller.js"></script>
+<script src="modules/outboundProblem/obpCellType/controllers/obpCellType.controller.js"></script>
+<script src="modules/outboundProblem/obpStation/controllers/obpStation.controller.js"></script>
+<script src="modules/outboundProblem/obpStationType/controllers/obpStationType.controller.js"></script>
+<script src="modules/outboundProblem/obpWall/controllers/obpWall.controller.js"></script>
+<script src="modules/outboundProblem/obpWallType/controllers/obpWallType.controller.js"></script>
+<script src="modules/outboundProblem/problemOutbound/services/problemOutbound.service.js"></script>
+<script src="modules/outboundProblem/problemOutbound/controllers/problemOutbound.controller.js"></script>
+<script src="modules/outboundProblem/problemOutbound/controllers/problemOutbound_detail.controller.js"></script>
+<script src="modules/outboundProblem/problemOutbound/controllers/problemOutbound_forced.controller.js"></script>
+<script src="modules/outboundProblem/problemOutbound/controllers/problemOutbound_pick.controller.js"></script>
+<script src="modules/outboundProblem/problemOutbound/controllers/problemOutbound_shipment.controller.js"></script>
+<script src="modules/outboundProblem/problemOutbound/controllers/problemOutbound_wall.controller.js"></script>
+<script src="modules/outboundProblem/problemOutboundVerify/services/problemOutboundVerify.service.js"></script>
+<script src="modules/outboundProblem/problemOutboundVerify/controllers/problemOutboundVerify.controller.js"></script>
+<script src="modules/outboundProblem/problemOutboundVerify/controllers/problemOutboundVerify_read.controller.js"></script>
+<script src="modules/outboundProblem/problemOutboundManage/services/problemOutboundManage.service.js"></script>
+<script src="modules/outboundProblem/problemOutboundManage/controllers/problemOutboundManage.controller.js"></script>
+<script src="modules/outbound/customerOrder/controllers/customerOrder.controller.js"></script>
+<script src="modules/outbound/customerOrder/services/customerOrder.service.js"></script>
+<script src="modules/outbound/customerShipment/controllers/customerShipment.controller.js"></script>
+<script src="modules/outbound/customerShipmentState/controllers/customerShipmentState.controller.js"></script>
+<script src="modules/outbound/customerShipmentState/services/customerShipmentState.service.js"></script>
+<script src="modules/outbound/customerShipmentTime/controllers/customerShipmentTime.controller.js"></script>
+<script src="modules/outbound/customerShipmentTime/services/customerShipmentTime.service.js"></script>
+<!-- ICQA -->
+<script src="modules/icqa/base/constants/base.constant.js"></script>
+<script src="modules/icqa/base/controllers/base.controller.js"></script>
+<script src="modules/icqa/base/services/base.service.js"></script>
+<script src="modules/icqa/icqaAdjustment/services/icqaAdjustment.servive.js"></script>
+<script src="modules/icqa/icqaAdjustment/controllers/icqaAdjustment.controller.js"></script>
+<script src="modules/icqa/icqaAndon/services/icqaAndon.service.js"></script>
+<script src="modules/icqa/icqaAndon/controllers/icqaAndon.controller.js"></script>
+<script src="modules/icqa/icqaCreate/services/icqaCreate.services.js"></script>
+<script src="modules/icqa/icqaCreate/controllers/icqaCreate.controller.js"></script>
+<script src="modules/icqa/icqaDetail/services/icqaDetail.services.js"></script>
+<script src="modules/icqa/icqaDetail/controllers/icqaDetail.controller.js"></script>
+<script src="modules/icqa/stocktakingStation/controllers/stocktakingStation.controller.js"></script>
+<script src="modules/icqa/stocktakingStationType/controllers/stocktakingStationType.controller.js"></script>
+<script src="modules/icqa/icqaSystemStocktaking/controllers/icqaSystemStocktaking.controller.js"></script>
+<script src="modules/icqa/icqaSystemStocktaking/services/icqaSystemStocktaking.services.js"></script>
+<script src="modules/icqa/icqaSystemCreate/controllers/icqaSystemCreate.controller.js"></script>
+<script src="modules/icqa/icqaSystemCreate/services/icqaSystemCreate.services.js"></script>
+<script src="modules/icqa/icqaAllStocktaking/controllers/icqaAllStocktaking.controller.js"></script>
+<script src="modules/icqa/icqaAllStocktaking/services/icqaAllStocktaking.services.js"></script>
+<script src="modules/icqa/callPod/services/callPod.service.js"></script>
+<script src="modules/icqa/callPod/controllers/callPod.controller.js"></script>
+<!-- outbound -->
+<script src="modules/outbound/base/services/websocket.service.js"></script>
+<script src="modules/outbound/base/constants/base.constant.js"></script>
+<script src="modules/outbound/base/services/base.service.js"></script>
+<script src="modules/outbound/base/controllers/base.controller.js"></script>
+<script src="modules/outbound/base/constants/base.constant.js"></script>
+<script src="modules/outbound/base/services/base.service.js"></script>
+<script src="modules/outbound/rebin/controllers/rebin.controller.js"></script>
+<script src="modules/outbound/rebin/controllers/rebin_main.controller.js"></script>
+<script src="modules/outbound/rebin/services/rebin.service.js"></script>
+<script src="modules/outbound/rebatch/controllers/rebatch.controller.js"></script>
+<script src="modules/outbound/rebatch/services/rebatch.service.js"></script>
+<script src="modules/outbound/pack/controllers/pack.controller.js"></script>
+<script src="modules/outbound/pack/controllers/pack_scanGoods.controller.js"></script>
+<script src="modules/outbound/pack/controllers/pack_noScanGoods.controller.js"></script>
+<script src="modules/outbound/pack/controllers/pack_scanShipment.controller.js"></script>
+<script src="modules/outbound/pack/services/pack.service.js"></script>
+<script src="modules/outbound/rebinPack/controllers/rebinPack.controller.js"></script>
+<script src="modules/outbound/rebinPack/services/rebinPack.service.js"></script>
+<script src="modules/outbound/pick/controllers/pick.controller.js"></script>
+<script src="modules/outbound/pick/controllers/pick_toPack.controller.js"></script>
+<script src="modules/outbound/pick/controllers/pick_toTote.controller.js"></script>
+<script src="modules/outbound/pick/controllers/pick_toSinglePack.controller.js"></script>
+<script src="modules/outbound/pick/services/pickToPack.service.js"></script>
+<script src="modules/outbound/pick/services/pickToTote.service.js"></script>
+<script src="modules/outbound/pick/services/pickToSinglePack.service.js"></script>
+<script src="modules/outbound/rebin/controllers/rebin.controller.js"></script>
+<script src="modules/outbound/deliverySystem/controllers/deliverySystem.controller.js"></script>
+<script src="modules/outbound/deliverySystem/services/deliverySystem.service.js"></script>
+<script src="modules/outbound/deliveryShipmentsDetail/controllers/deliveryShipmentsDetail.controller.js"></script>
+<script src="modules/outbound/deliveryShipmentsDetail/services/deliveryShipmentsDetail.service.js"></script>
+<script src="modules/outbound/shipmentDetail/controllers/shipmentDetail.controller.js"></script>
+<script src="modules/outbound/shipmentDetail/services/shipmentDetail.service.js"></script>
+<script src="modules/outbound/queryCart/controllers/queryCart.controller.js"></script>
+<script src="modules/outbound/queryCart/services/queryCart.service.js"></script>
+<script src="modules/outbound/cartQueryShipment/controllers/cartQueryShipment.controller.js"></script>
+<script src="modules/outbound/cartQueryShipment/services/cartQueryShipment.service.js"></script>
+<script src="modules/outbound/pick/controllers/pick_toSinglePack.controller.js"></script>
+<script src="modules/outbound/pick/services/pickToSinglePack.service.js"></script>
+<script src="modules/outbound/campareBox/controllers/campareBox.controller.js"></script>
+<script src="modules/outbound/campareBox/services/campareBox.service.js"></script>
+<script src="modules/outbound/unpickmenu/controllers/unpickmenu.controller.js"></script>
+<script src="modules/outbound/unpickmenu/services/unpickmenu.service.js"></script>
+<!--调拨-->
+<script src="modules/transfer/transferStockOut/base/base.controller.js"></script>
+<script src="modules/transfer/transferStockOut/services/transOut.service.js"></script>
+<script src="modules/transfer/transferStockOut/base/constants.js"></script>
+<script src="modules/transfer/transferStockOut/controllers/transferStockOutMainPage.controller.js"></script>
+<script src="modules/transfer/transferStockOut/controllers/transferStockOutDetail.controller.js"></script>
+<script src="modules/transfer/transferStockOutConfig/controller/transferStockOutConfig.controller.js"></script>
+
+
+<!-- report -->
+<script src="modules/report/base/constants/base.constant.js"></script>
+<script src="modules/report/base/controllers/base.controller.js"></script>
+<script src="modules/report/base/services/base.service.js"></script>
+<script src="modules/report/pickQuery/controllers/pickQuery.controller.js"></script>
+<script src="modules/report/pickQuery/services/pickQuery.service.js"></script>
+<script src="modules/report/fud/services/fud.service.js"></script>
+<script src="modules/report/fud/controllers/fud.controller.js"></script>
+<script src="modules/report/capacity/controllers/capacity.controller.js"></script>
+<script src="modules/report/capacity/controllers/capacitySide.controller.js"></script>
+<script src="modules/report/capacity/controllers/capacityBin.controller.js"></script>
+<script src="modules/report/capacity/services/capacity.service.js"></script>
+<script src="modules/report/workflow/controllers/workflow.controller.js"></script>
+<script src="modules/report/workflow/controllers/workflowWorkPoolProcessPath.controller.js"></script>
+<script src="modules/report/workflow/controllers/workflowProcessPathWorkPool.controller.js"></script>
+<script src="modules/report/workflow/services/workflow.service.js"></script>
+<!-- internalTool -->
+<script src="modules/internalTool/base/constants/base.constant.js"></script>
+<script src="modules/internalTool/base/controllers/base.controller.js"></script>
+<script src="modules/internalTool/base/services/base.service.js"></script>
+<script src="modules/internalTool/moveTool/controllers/moveTool.controller.js"></script>
+<script src="modules/internalTool/moveTool/services/moveTool.service.js"></script>
+<script src="modules/internalTool/skuTool/controllers/skuTool.controller.js"></script>
+<script src="modules/internalTool/skuTool/services/skuTool.service.js"></script>
+<script src="modules/internalTool/measureQuery/controllers/measureQuery.controller.js"></script>
+<script src="modules/internalTool/measureQuery/services/measureQuery.service.js"></script>
+<script src="modules/internalTool/inputValidityQuery/controllers/inputValidityQuery.controller.js"></script>
+<script src="modules/internalTool/inputValidityQuery/services/inputValidityQuery.service.js"></script>
+<script src="modules/internalTool/measureTool/controllers/measureTool.controller.js"></script>
+<script src="modules/internalTool/measureTool/services/measureTool.service.js"></script>
+<script src="modules/internalTool/inventAdjustTool/controllers/inventAdjustTool.controller.js"></script>
+<script src="modules/internalTool/inventAdjustTool/services/inventAdjustTool.service.js"></script>
+<script src="modules/internalTool/barCodeTool/controllers/barCodeTool.controller.js"></script>
+<script src="modules/internalTool/barCodeTool/services/barCodeTool.service.js"></script>
+<script src="modules/internalTool/containerTool/controllers/containerTool.controller.js"></script>
+<script src="modules/internalTool/containerTool/services/containerTool.service.js"></script>
+<script src="modules/internalTool/inputValidityTool/controllers/inputValidityTool.controller.js"></script>
+<script src="modules/internalTool/inputValidityTool/services/inputValidityTool.service.js"></script>
+<script src="modules/internalTool/stockUnitMeasure/controllers/stockUnitMeasure.controller.js"></script>
+<script src="modules/internalTool/stockUnitMeasure/services/stockUnitMeasure.service.js"></script>
+<script src="modules/internalTool/lotManager/controllers/lotManager.controller.js"></script>
+<script src="modules/internalTool/lotManager/services/lotManager.service.js"></script>
+<!-- TOT -->
+<script src="modules/tot/base/constants/base.constant.js"></script>
+<script src="modules/tot/base/controllers/base.controller.js"></script>
+<script src="modules/tot/base/services/base.service.js"></script>
+<script src="modules/tot/attendance/controllers/attendance.controller.js"></script>
+<script src="modules/tot/attendance/services/attendance.service.js"></script>
+<script src="modules/tot/jobrecord/controllers/jobrecord.controller.js"></script>
+<script src="modules/tot/jobrecord/services/jobrecord.service.js"></script>
+<script src="modules/tot/jobcategory/controllers/jobcategory.controller.js"></script>
+<script src="modules/tot/directJobcategory/controllers/directJobcategory.controller.js"></script>
+<script src="modules/tot/job/controllers/job.controller.js"></script>
+<script src="modules/tot/directJob/controllers/directJob.controller.js"></script>
+<script src="modules/tot/directJob/services/directJob.service.js"></script>
+<script src="modules/tot/jobrelation/controllers/jobrelation.controller.js"></script>
+<script src="modules/tot/jobthreshold/controllers/jobthreshold.controller.js"></script>
+<script src="modules/tot/jobthreshold/controllers/jobthreshold.controller.js"></script>
+<script src="modules/tot/totStatistics/controllers/totJobDetail.controller.js"></script>
+<script src="modules/tot/totStatistics/controllers/totStatistics.controller.js"></script>
+<script src="modules/tot/totStatistics/controllers/totStatisticsCtimedetail.controller.js"></script>
+<script src="modules/tot/totStatistics/services/totStatistics.service.js"></script>
+<script src="modules/tot/totStatistics/services/totStatisticsDetail.service.js"></script>
+<script src="modules/tot/pprStatistics/controllers/pprStatistics.controller.js"></script>
+<script src="modules/tot/pprStatistics/services/pprStatistics.service.js"></script>
+<script src="modules/tot/pprStatistics/services/pprStatisticsDetail.service.js"></script>
+<script src="modules/tot/pprDetail/controllers/pprDetail.controller.js"></script>
+<script src="modules/tot/pprPlanConfig/controllers/pprPlanConfig.controller.js"></script>
+<script src="modules/tot/pprPlanConfig/services/pprPlanConfig.service.js"></script>
+<!-- transfer -->
+<script src="modules/transfer/transferStockIn/controllers/transferStockIn.controller.js"></script>
+<script src="modules/transfer/transferStockIn/services/transfer.service.js"></script>
+<script src="modules/transfer/transferStockIn/base/transferInConstants.js"></script>
+<script src="modules/transfer/transferStockIn/controllers/transferStockInAdd.controller.js"></script>
+<script src="modules/transfer/transferStockIn/controllers/transferStockInDifferenceDetails.controller.js"></script>
+<!-- inventoryAnalysis-->
+<script src="modules/replenish/base/constants/base.constant.js"></script>
+<script src="modules/replenish/base/controllers/base.controller.js"></script>
+<script src="modules/replenish/base/services/base.service.js"></script>
+<script src="modules/replenish/inventoryAnalysis/controllers/inventoryAnalysis.controller.js"></script>
+<script src="modules/replenish/inventoryAnalysis/services/inventoryAnalysis.service.js"></script>
+<script src="modules/platManage/inboundInteface/base/inboundIntefaceConstants.js"></script>
+<script src="modules/platManage/inboundInteface/controllers/inboundInteface.controller.js"></script>
+<script src="modules/platManage/inboundInteface/services/inboundInteface.service.js"></script>
+<script src="modules/platManage/inboundInteface/controllers/inboundPosition.controller.js"></script>
+
+</body>
+
+</html>

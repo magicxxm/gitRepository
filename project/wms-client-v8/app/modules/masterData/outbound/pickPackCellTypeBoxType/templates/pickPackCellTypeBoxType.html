@@ -1,0 +1,41 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;
+        <span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;{{'PICK_PACK_CELL_TYPE_BOX_TYPE' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <!-- down -->
+        <div translate="BOX_TYPE"></div>
+        <hr/>
+        <div class="mushiny_selectBox">
+            <span class="mushiny_selectLabel" style="margin-left:20px;" translate="CLIENT"></span>
+            <input kendo-combo-box class="mushiny_listInput" k-options="selectClientOptions" k-ng-model="selectClient"/>
+            <span class="mushiny_selectLabel" style="margin-left:43px;" translate="CELL_TYPE"></span>
+            <select id="selectBoxType" kendo-combo-box class="mushiny_listInput" k-ng-model="selectBoxType"
+                    k-options="selectBoxTypeOptions"></select>
+        </div>
+        <!-- down-left -->
+        <div class="mushiny_filterLabel" style="padding-left: 25px" translate="UNASSIGN_PICK_PACK_CELL_TYPE"></div>
+        <div class="mushiny_listBox">
+            <input class="k-textbox mushiny_listInput" type="text" ng-model="unassignPickPackCellType"
+                   ng-keyup="filterInput($event, 'listUnassignPickPackCellTypes', unassignPickPackCellType)"/>
+            <div id="listUnassignPickPackCellTypes" kendo-list-view k-options="listUnassignPickPackCellTypes"
+                 class="mushiny_list"></div>
+        </div>
+        <div class="mushiny_listBtn" style="margin-left:15px;"
+             ng-include="'modules/masterData/base/templates/listBtn_horizontal.html'"></div>
+        <!-- down-right -->
+        <div class="mushiny_filterLabel" style="margin-left:-55px;" translate="ASSIGN_PICK_PACK_CELL_TYPE"></div>
+        <div class="mushiny_listBox">
+            <input class="k-textbox mushiny_listInput" type="text" ng-model="assignPickPackCellType"
+                   ng-keyup="filterInput($event, 'listAssignPickPackCellTypes', assignPickPackCellType)"/>
+            <div id="listAssignPickPackCellTypes" kendo-list-view k-options="listAssignPickPackCellTypes"
+                 class="mushiny_list"></div>
+        </div>
+        <div class="mushiny_btnBox" style="margin-left:376px;">
+            <kendo-button class="k-button k-primary mushiny_btn"
+                          ng-click="save(selectBoxType, 'listAssignPickPackCellTypes', 'savePickPackCellTypesByBoxType')"
+                          translate="SAVE"></kendo-button>
+        </div>
+    </div>
+</div>

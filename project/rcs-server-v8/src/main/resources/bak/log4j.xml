@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--#log4j中有5级logger ,#FATAL 0 ,#ERROR 3 ,#WARN 4 ,#INFO 6 ,#DEBUG 7 -->
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <!--输出到控制台-->
+    <appender name="LOG.Console"  class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} - %t - %c - %L[%-5p] - %m%n"/>
+        </layout>
+    </appender>
+
+    <!--将RCS的信息输出到文件-->
+    <appender name="LOG" class="org.apache.log4j.FileAppender">
+        <param name="File" value="./log" />
+        <param name="Append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} - %t - %c - %L[%-5p] - %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="DEBUG" />
+            <param name="LevelMax" value="FATAL" />
+        </filter>
+    </appender>
+
+
+
+
+
+
+    <!--  打印所有接收到mq的信息  -->
+    <appender name="receivedMqLog" class="org.apache.log4j.FileAppender">
+        <param name="file" value="./receivedMqLog" />
+        <param name="Append" value="false" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} - %t - %c - %L[%-5p] - %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="DEBUG" />
+            <param name="LevelMax" value="FATAL" />
+        </filter>
+    </appender>
+    <category name="mq.MQReciver" additivity="false">
+        <priority value="DEBUG"/>
+        <appender-ref ref="receivedMqLog"/>
+    </category>
+    <logger name="receivedMqLog" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="receivedMqLog" />
+    </logger>
+
+
+
+    <!--  打印所有发送到mq的信息  -->
+    <appender name="publishedMqLog" class="org.apache.log4j.FileAppender">
+        <param name="file" value="./publishedMqLog" />
+        <param name="Append" value="false" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} - %t - %c - %L[%-5p] - %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="DEBUG" />
+            <param name="LevelMax" value="FATAL" />
+        </filter>
+    </appender>
+    <category name="mq.MQPublisher" additivity="false">
+        <priority value="DEBUG"/>
+        <appender-ref ref="publishedMqLog"/>
+    </category>
+    <logger name="publishedMqLog" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="publishedMqLog" />
+    </logger>
+
+
+
+
+
+
+    <root>
+        <priority value="DEBUG"/>
+        <appender-ref ref="LOG.Console" />
+        <appender-ref ref="LOG" />
+    </root>
+
+
+</log4j:configuration>

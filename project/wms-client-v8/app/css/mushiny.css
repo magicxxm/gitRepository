@@ -1,0 +1,11 @@
+
+/* common */
+.mushiny_selectBox {margin-bottom:25px;margin-left:36px;}
+.mushiny_selectLabel {margin-right:5px;vertical-align:middle;}
+.mushiny_filterLabel {display:inline-block;vertical-align:top;}
+.mushiny_listBox {width:300px;display:inline-block;vertical-align:top;}
+.mushiny_listInput {width:300px;}
+.mushiny_list {height:400px;margin-top:10px;border:1px solid #87CEFA;overflow:scroll;overflow-x:hidden;}
+.mushiny_listBtn {width:70px;margin-left:5px;margin-top:155px;display:inline-block;text-align:center;vertical-align:middle;}
+.mushiny_btnBox {margin-left:340px;margin-top:5px;margin-bottom:5px;}
+.mushiny_btn {width:130px;height:30px;}

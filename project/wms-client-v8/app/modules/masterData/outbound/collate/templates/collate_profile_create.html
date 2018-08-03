@@ -1,0 +1,47 @@
+<form kendo-validator="validator">
+  <ul class="ulCls">
+    <li>
+      <div class="formLeftCollate"><label for="processPath" class="required" style="float:right">{{'PROCESS_PATH' | translate}}</label></div>
+      <div class="formRightCollate"><input type="text" id="processPath" name="processPath" readonly class="k-textbox" ng-model="processPath.name"/></div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'PROFILE_TYPE' | translate}}</label></div>
+      <div class="formRightCollate">
+        <select kendo-combo-box ng-model="profileType" k-filter="'contains'" k-data-source="profileTypeSource"></select>
+      </div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label for="index" class="required" style="float:right">{{'ORDER_INDEX' | translate}}</label></div>
+      <div class="formRightCollate"><input type="number" id="index" name="index" class="k-textbox" ng-model="index"/></div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'FROM' | translate}}</label></div>
+      <div>
+        <input type="number" min="0" class="k-textbox" style="margin-left:15px;margin-right:5px;width:60px;" ng-model="fromDays"/><span translate="DAYS"></span>
+        <input type="number" min="0" max="24" class="k-textbox" style="margin-right:5px;width:60px;" ng-model="fromHours"/><span translate="HOURS"></span>
+        <input type="number" min="0" max="30" step="30" class="k-textbox" style="margin-right:5px;width:60px;" ng-model="fromMinutes"/><span translate="MINUTES"></span>
+      </div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'TO' | translate}}</label></div>
+      <div>
+        <input type="number" min="0" class="k-textbox" style="margin-left:15px;margin-right:5px;width:60px;" ng-model="toDays"/><span translate="DAYS"></span>
+        <input type="number" min="0" max="24" class="k-textbox" style="margin-right:5px;width:60px;" ng-model="toHours"/><span translate="HOURS"></span>
+        <input type="number" min="0" max="30" step="30" class="k-textbox" style="margin-right:5px;width:60px;" ng-model="toMinutes"/><span translate="MINUTES"></span>
+      </div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">{{'COLLATE_TEMPLATE' | translate}}</label></div>
+      <div class="formRightCollate">
+        <select kendo-combo-box k-ng-model="template" k-data-text-field="'name'" k-data-value-field="'id'" k-filter="'contains'" k-data-source="templateSource"></select>
+      </div>
+    </li>
+    <li>
+      <div class="formLeftCollate"><label class="required" style="float:right">&nbsp;</label></div>
+      <div class="formRightCollate">
+        <button class="k-button k-primary" style="width:30%;margin-left:15px;" ng-click="saveCollateProfile(profileType, index, fromDays, fromHours, fromMinutes, toDays, toHours, toMinutes, template)">{{'SAVE' | translate}}</button>
+        <button class="k-button k-primary" style="width:30%;margin-left:25px;" ng-click="collateProfileWin.close()">{{'CANCEL' | translate}}</button>
+      </div>
+    </li>
+  </ul>
+</form>

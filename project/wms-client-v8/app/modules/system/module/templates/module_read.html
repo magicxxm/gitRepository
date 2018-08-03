@@ -1,0 +1,70 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'SYSTEM_MANAGE' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.module">{{'MODULE' | translate }}</a>&nbsp;/&nbsp;{{'READ' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)" style="width:100%;">
+      <ul class="ulCls">
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="name" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="description" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'MODULE_TYPE' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="moduleType.resourceKey" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'RF_ACTIVE' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="rfActive" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'DK_ACTIVE' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="dkActive" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'FORM_PATH' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="formPath" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'REPORT_FILENAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="reportFilename" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'REPORT_TYPE' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="reportType" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'PRINT_PREVIEW' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="printPreview" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'PRINT_DIALOG' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="printDialog" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'PRINT_COPIES' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="printCopies" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'TITLE' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="title" readonly /></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label class="required" style="float:right">{{'RESOURCE_KEY' | translate}}</label></div>
+          <div class="formRight"><input type="text" class="k-textbox" ng-model="resourceKey" readonly /></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight">
+             <button class="k-button k-primary" ui-sref="main.module" >{{'BACK' | translate}}</button>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

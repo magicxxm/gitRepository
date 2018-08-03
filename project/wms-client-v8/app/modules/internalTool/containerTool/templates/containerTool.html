@@ -1,0 +1,68 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'CONTAINER_TOOL'| translate }}</div>
+<div style="text-align:center;margin-top:10px;" >
+    <input  type="text" class="k-textbox" style="width:300px" id="containerId" ng-model="storageLocationName" ng-keyup="inventoryContainers($event)">
+    <kendo-button class="k-primary"  style="font-size:18px;"  ng-click="inventorySearch()">{{'SEARCH'| translate }}</kendo-button>
+</div>
+
+<div kendo-tab-strip  style="margin-top:10px;" options="tabOpation" id="abc">
+    <!-- tab list -->
+
+    <ul style="background-color: #3f51b5">
+        <li class="k-state-active" style="font-size:16px;" ng-click="inventorys()">库存记录</li>
+        <li style="font-size:16px;" ng-click="historys()">历史记录</li>
+    </ul>
+
+    <div style="padding: 1em">
+        <div style="font-size:18px;margin:auto;text-align:center;">
+            <kendo-grid class="inboundGrid" id="inventoryRecordsGrid" options="inventoryRecordsGridOptions"></kendo-grid>
+        </div>
+    </div>
+    <div style="padding: 1em">
+        <ul class="searchOpation">
+            <li><span class="label" style="background: #00b0f0; ">开始时间：</span><input kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="createdDate"></li>
+            <li><span class="label" style="background: #00b0f0; ">操作代码：</span><input kendo-masked-text-box type="text" ng-model="recordCode" /></li>
+            <li><span class="label" style="background: #00b0f0; ">SKU ID：</span><input kendo-masked-text-box type="text" ng-model="itemNo"/></li>
+            <li><span class="label" style="background: #00b0f0; ">用户：</span><input kendo-masked-text-box type="text" ng-model="username"/></li>
+            <li><span class="label" style="background: #00b0f0; ">原始容器：</span><input kendo-masked-text-box type="text" ng-model="fromStorageLocation" /></li>
+            <li><span class="label" style="background: #00b0f0; ">目的容器：</span><input kendo-masked-text-box type="text" ng-model="toStorageLocation" /></li>
+            <li><span class="label" style="background: #00b0f0; ">使用工具：</span><input kendo-masked-text-box type="text" ng-model="recordTool" /></li>
+            <li><span class="label" style="background: #00b0f0; ">操作:</span><input kendo-masked-text-box type="text" ng-model="recordType" /></li>
+            <li><kendo-button class="k-primary" ng-click="search()"><span class="k-font-icon k-i-search"  ></span>{{'SEARCH'| translate }}</kendo-button></li>
+        </ul>
+        <div style="margin:auto;text-align:center;">
+            <kendo-grid class="inboundGrid" id="historyRecordsGrid" options="historyRecordsGridOptions"></kendo-grid>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+
+    .k-tabstrip:focus{
+        box-shadow: none;
+    }
+     .k-header{
+        background-color: #e3e3e3;
+    }
+    .searchOpation{
+        width: 100%;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: auto;
+        display: inline-block;
+    }
+    .searchOpation li{
+        float: left;
+        margin-bottom: 10px;
+        height: 35px;
+        margin-right: 10px;
+    }
+    .label{
+        display: inline-block;
+        text-align: right;
+    }
+    .k-tabstrip .k-tabstrip-items .k-link {
+         padding: 0.5em;
+    }
+
+</style>

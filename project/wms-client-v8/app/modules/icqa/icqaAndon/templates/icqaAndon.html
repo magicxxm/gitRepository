@@ -1,0 +1,71 @@
+<div ng-show="page == 'main'">
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;color:white;">暗灯处理</div>
+<div style="margin-left:10px;padding-top:10px;">
+<span style="font-size:18px;">开始时间</span>&nbsp;&nbsp;<input  kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="startDate" >
+<span style="font-size:18px;">结束时间</span>&nbsp;&nbsp;<input  kendo-date-picker k-format="'yyyy-MM-dd'" ng-model="endDate">
+<kendo-button class="k-primary"  style="font-size:18px;"  ng-click="icqaAndonAllSearch()" id="allContentId">搜索</kendo-button>
+<kendo-button class="k-primary"  style="font-size:18px;"  ng-click="icqaAndonNoRemarksSearch()"  id="noRemarksId">搜索未备注项</kendo-button>
+</div>
+<div style="text-align:center;margin-top:5px;">
+    <input type="checkbox" id="flag" class="k-checkbox" ng-model="select_all"  ng-click="selectAll()" style="float:left;margin-left:20px;margin-top:3px;" >
+    <label class="k-checkbox-label" for="flag" style="font-size:16px;float:left;margin-left:10px;margin-top:3px;">全选</label>
+    <input type="text" class="k-textbox" style="width:300px; margin-left: 18%;" ng-keydown="icqaAndonKeyDown($event)" ng-model="seekContent" >
+    <kendo-button class="k-primary" style="font-size:18px;" ng-click="icqaAndonSearch()" >{{'SEARCH'| translate }}</kendo-button>
+    <kendo-button  class="k-primary" style="font-size:16px;float:right;margin-right:10px" ng-click="exitAndon()" disabled="disabled" id="exitAndonId">&nbsp;&nbsp;退出&nbsp;&nbsp;</kendo-button>
+    <kendo-button  class="k-primary" style="font-size:16px;float:right;margin-right:10px" id="loginId"  ng-click="loginWorkStation()">&nbsp;&nbsp;{{andonlogin}}&nbsp;&nbsp;</kendo-button>
+    <kendo-button  class="k-primary" style="font-size:16px;float:right;margin-right:10px" id="releasePodId" disabled="disabled" ng-click="releasePodGrid()">释放POD</kendo-button>
+    <kendo-button id="receiving-releasepod" disabled="disabled" ng-click="refreshPod()" class="k-primary" style="font-size:16px;float:right;margin-right:10px">{{'刷新POD'|translate}}</kendo-button>
+
+    <kendo-button  class="k-primary" style="font-size:16px;float:right;margin-right:10px;" id="stopAllocationPod" disabled="disabled" ng-click="stopAllocationPodGrid()">{{stopcallPOD}}</kendo-button>
+</div>
+<div style="margin-top:5px;margin-left:10px;margin-right:10px;">
+    <kendo-grid class="inboundGrid" id="icqaAndonGrid"  k-selectable="'row'"  k-on-change="myGridChange()"></kendo-grid>
+</div>
+</div>
+
+<!--用户不存在-->
+<div kendo-window="remarksWindow" id="remarksId" k-title="'用户不存在'" k-visible="false" k-modal="true">
+    <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">用户不存在</div>
+    <div style="text-align:center;width:100%;margin-top:20px;">
+        <kendo-button class="k-primary ReceiptBut" ng-click="remarksWindowSure()">{{'CANCEL' | translate }}</kendo-button>
+    </div>
+</div>
+
+<!--<div ng-show="page == 'workStationPage'" class="inbound-scanstation" style="background-color: white;">-->
+    <!--<div class="outCenter">-->
+        <!--<div class="titleContent"><span>请扫描工作站条码</span></div>-->
+        <!--<div style="text-align:center;padding-top:80px;">-->
+            <!--<input id="andon_station" type="text" class="inputHeight k-textbox" ng-keyup="workStation($event)" ng-model="workstation"/><br>-->
+            <!--<img src="../../../../image/20161123145423.png" style="margin:auto;position: absolute;top:0;bottom:0;right:0;left:0;width:45%;height:23%;float: left;" /><br>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div ng-show='workingStation' class="errorFooter">条码{{workstation}}不是一个有效工作站，请重新扫描</div>-->
+<!--</div>-->
+
+<div ng-show="page == 'workStationPage'" class="inbound-scanstation" style="background-color: white;">
+    <div class="inbound-scan-topbar"><span style="font-weight:500;line-height: 2;font-size:28px;text-align: center;color: white" class="inboundFont">请扫描工作站条码</span></div>
+    <input type="text" id="andonStation"  ng-keydown="workStation($event)" style="width: 50%;font-size:16px;margin-top: 25px;border-style: none;" ng-model="workstation"/><br>
+    <img src="../../../../image/20161123145423.png" style="margin:auto;position: absolute;top:0;bottom:0;right:0;left:0;width:45%;height:23%;float: left;" /><br>
+</div>
+<div ng-show='workingStation' class="errorFooter">条码{{workstation}}{{errorMessage}}，请重新扫描</div>
+
+<!--呼叫pod---->
+<div kendo-window="inventoryTaskWindow" id="inventoryTaskId" k-title="'温馨提示:'" k-visible="false" k-modal="true">
+    <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">请选择相应信息</div>
+    <div style="text-align:center;width:100%;margin-top:20px;">
+        <kendo-button class="k-primary ReceiptBut" ng-click="inventoryTaskWindow.close()">{{'SURE' | translate }}</kendo-button>
+    </div>
+</div>
+
+
+<!--退出工作站，带确定以及取消的一般提示框-->
+<div kendo-window="scanSerialNoWindow" id="window_general_ok_cancel" k-title="'提示:'" k-visible="false" k-modal="true">
+    <div style="text-align:center;width:100%;font-size:20px;margin-top:20px;">还有未到的POD,不能退出工作站</div>
+    <div style="text-align:center;width:100%;margin-top:20px;">
+        <kendo-button class="k-primary ReceiptBut" ng-click="scanSerialNoWindow.close()">{{'SURE' | translate }}</kendo-button>
+    </div>
+</div>
+
+
+
+

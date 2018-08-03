@@ -1,0 +1,96 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'transfer' | translate }}&nbsp;/&nbsp;{{'transferStockIn' | translate }}</span>
+  </div>
+
+
+  <div class="transfer" >
+
+    <div class="toolbar">
+      <div class="transferSearchCondition">
+        <table>
+
+
+          <tr>
+
+            <td >调拨单号</td><td><input type="text" class="form-control" ng-model="transferInOrderNo"></td><td>发货库房</td><td><input type="text" class="form-control" ng-model="deliveryWarehouse"></td>
+
+          </tr>
+          <tr>
+
+            <td>发货时间</td><td><input type="text" class="form-control" ng-model="deliverGoodsTime"></td><td>预计到货时间</td><td><input type="text" class="form-control" ng-model="expectedTime"></td>
+
+          </tr>
+          <tr>
+
+            <td>接收时间</td><td><input type="text" class="form-control" ng-model="reveiceTime"></td><td>状态</td><td><input type="text" class="form-control" ng-model="transferInState"></td>
+
+          </tr>
+
+        </table>
+
+
+
+
+      </div>
+      <div>
+      <kendo-button class="k-primary gridButton" ng-click="saveTransferRequest()">
+        <span class="k-font-icon k-i-pencil"></span>保存
+      </kendo-button>
+      <kendo-button class="k-primary " ng-click="deleteTransferRequest()">
+        <span class="k-font-icon k-i-trash"></span>删除
+      </kendo-button>
+       </div>
+<!--    <script type="text/x-kendo-template" id="template">
+
+    </script>-->
+
+
+      <div id="grid"></div>
+
+  </div>
+</div>
+<style>
+.transferSearchCondition td{
+  padding-left: 18px;
+  padding-right: 18px;
+
+}
+.gridButton{
+
+  margin-left: 32%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+
+}
+
+
+
+.k-header{
+  background-color: #fafafa;
+  line-height:15px;
+  font-weight: bold;
+  font-size: 14px;
+  color:#000000;
+  font-family:宋体;
+}
+
+.toolbar
+
+{
+  margin-bottom:40px;
+  margin-top:20px
+
+}
+  .form-control {
+
+    width: 200px;
+    height:15px
+
+   }
+
+
+
+</style>

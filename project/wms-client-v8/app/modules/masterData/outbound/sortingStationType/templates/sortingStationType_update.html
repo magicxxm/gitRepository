@@ -1,0 +1,29 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_INBOUND' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.sorting_station_type">{{'SORTING_STATION_TYPE' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator">
+      <ul class="ulCls">
+        <li>
+          <div class="formLeft"><label for="name" class="required" style="float:right">{{'NAME' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="name" name="name" class="k-textbox" required validationMessage="{{'WARNING_NAME' | translate }}" ng-model="name"/></div>
+        </li>
+        <li style="margin-bottom:10px;">
+          <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="description" name="description" class="k-textbox" ng-model="description"/></div>
+        </li>
+      </ul>
+    </form>
+    <hr>
+    <div class="gridToolbar">
+      <kendo-button class="k-primary gridButton" ng-click="createDetail('stationTypePositionGrid')"><span class="k-font-icon k-i-plus"></span>{{'CREATE' | translate }}</kendo-button>
+      <kendo-button class="k-primary gridButton" ng-click="deleteDetail('stationTypePositionGrid')"><span class="k-font-icon k-i-trash"></span>{{'DELETE' | translate }}</kendo-button>
+    </div>
+    <kendo-grid id="stationTypePositionGrid" options="stationTypePositionGridOptions"></kendo-grid>
+    <div class="mushiny_btnBox" style="margin-top:10px;text-align:center;margin-left:-23%;">
+      <kendo-button class="k-button k-primary mushiny_btn" style="width:220px;" ng-click="validate($event)" translate="UPDATE"></kendo-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>
+    <span>&nbsp;/&nbsp;{{'OUTBOUND' | translate }}&nbsp;/&nbsp;{{'CUSTOMER_SHIPMENT' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;">
+    <!-- search -->
+    <span>{{'ORDER_NO' | translate }}：<input kendo-masked-text-box type="text" ng-model="customerOrder.orderNo" style="width:120px;"/></span>
+    <span>{{'ENTITY_LOCK' | translate }}：<select kendo-combo-box k-ng-model="entityLock" k-data-text-field="'resourceKey'" k-data-value-field="'resourceValue'" k-filter="'contains'" k-data-source="entityLockSource"></select></span>
+    <kendo-button class="k-primary" ng-click="searchGrid()">
+      <span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}
+    </kendo-button>
+    <!-- grid -->
+    <div class="gridToolbar" ng-controller="outboundCtl">
+      <kendo-button class="k-primary gridButton" ng-click="import()"><span class="k-font-icon  k-i-lock"></span>{{'IMPORT' | translate }}</kendo-button>
+      <kendo-button class="k-primary gridButton" ng-click="export()"><span class="k-font-icon k-i-unlock"></span>{{'EXPORT' | translate }}</kendo-button>
+    </div>
+    <kendo-grid id="customerShipmentGRID" options="customerShipmentGridOptions"></kendo-grid>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<!-- 确认多货 -->
+<div style="margin-top:10px;"><span>{{'GOODS' | translate }}:</span><span style="margin-left:10px;">{{itemData.name}}</span></div>
+<div style="float:left;width:100%">
+  <div style="margin-top:10px;"><span>{{'DN_TOTAL' | translate }}:</span><span style="margin-left:10px;">{{amount}} {{'PIECE' | translate }}</span></div>
+  <div style="margin-top:10px;"><span>{{'RECEIPT_NUMBER' | translate }}:</span><span style="margin-left:10px;">{{receiveAmount}} {{'PIECE' | translate }}</span></div>
+  <div style="margin-top:10px;"><span>{{'INPUT_NUMBER' | translate }}:</span><span style="margin-left:10px;">{{number}} {{'PIECE' | translate }}</span></div>
+  <div style="margin-top:10px;"><span>{{'OVERFLOW_DN_NUMBER' | translate }}:</span><span style="margin-left:10px;">{{more}} {{'PIECE' | translate }}，{{'AGAIN_CONFIRM_NUMBER' | translate }}</span></div>
+</div>
+<!--<div style="float:left;width:30%;"><img style="float:right;width:160px;height:170px;" src="image/20161022134004.png" /></div><br>-->
+<div style="text-align:center;width:100%;height:30px;">
+  <kendo-button class="k-primary ReceiptBut" ng-click="moreGoodsSure()">1 {{'SURE' | translate }}</kendo-button>
+  <kendo-button class="k-primary ReceiptBut" ng-click="moreGoodsCancel()">2 {{'CANCEL' | translate }}</kendo-button>
+</div>

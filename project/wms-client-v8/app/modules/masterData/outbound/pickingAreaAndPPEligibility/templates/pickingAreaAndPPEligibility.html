@@ -1,0 +1,63 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;
+        <span>{{'MASTER_OUTBOUND' | translate }}&nbsp;/&nbsp;{{'PICKING_AREA_AND_PP_ELIGIBILITY' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+        <!--serch-->
+        <!--<span>{{'NAME' | translate }}：<input kendo-masked-text-box type="text" ng-model="name" style="width:120px;"/></span>-->
+        <!--<kendo-button class="k-primary" ng-click="searchGrid()">-->
+            <!--<span class="k-font-icon k-i-search"></span>{{'SEARCH'| translate }}-->
+        <!--</kendo-button>-->
+        <!-- pp权限-->
+        <div class="mushiny_selectBox">
+            <span class="mushiny_selectLabel" style="margin-left:-14px;" translate="USERGROUP"></span>
+            <input kendo-combo-box class="mushiny_listInput" k-options="selectUseGroupOptions" k-ng-model="selectUseGroup"/>
+            <span class="mushiny_selectLabel" style="margin-left:52px;" translate="EMPLOYEE"></span>
+            <select id="selectEmployee" kendo-combo-box class="mushiny_listInput" k-ng-model="selectEmployee"
+                    k-options="selectEmployeeOptions"></select>
+        </div>
+        <!-- pp权限未分配的PP -->
+        <div class="mushiny_filterLabel">未分配的PP</div>
+        <div class="mushiny_listBox">
+            <input class="k-textbox mushiny_listInput" type="text" ng-model="unassignPP"
+                   ng-keyup="filterInput($event, 'listUnassignPP', unassignPP)"/>
+            <div id="listUnassignPP" kendo-list-view k-options="listUnassignPP" class="mushiny_list"></div>
+        </div>
+        <div class="mushiny_listBtn" ng-include="'modules/masterData/base/templates/listBtn_horizontal.html'"></div>
+        <!-- pp权限已分配的PP -->
+        <div class="mushiny_filterLabel" style="margin-left:-60px;">已分配的PP</div>
+        <div class="mushiny_listBox">
+            <input class="k-textbox mushiny_listInput" type="text" ng-model="assignPP"
+                   ng-keyup="filterInput($event, 'listAssignPP', assignPP)"/>
+            <div id="listAssignPP" kendo-list-view k-options="listAssignPP" class="mushiny_list"></div>
+        </div>
+        <div style="height: 30px"></div>
+        <!--拣货区域权限-->
+        <div class="mushiny_selectBox">
+            <span class="mushiny_selectLabel" style="margin-left:-4px;" translate="CLIENT"></span>
+            <input kendo-combo-box id="selectClient" class="mushiny_listInput" k-options="selectClientOptions" k-ng-model="selectClient" />
+        </div>
+        <!-- down-left -->
+        <div class="mushiny_filterLabel">未分配区域</div>
+        <div class="mushiny_listBox">
+            <input class="k-textbox mushiny_listInput" type="text" ng-model="unassignArea"
+                   ng-keyup="filterInput($event, 'listUnassignArea', unassignArea)"/>
+            <div id="listUnassignArea" kendo-list-view k-options="listUnassignArea" class="mushiny_list"></div>
+        </div>
+        <div class="mushiny_listBtn" ng-include="'modules/masterData/base/templates/listBtn_horizontal1.html'"></div>
+        <!-- down-right -->
+        <div class="mushiny_filterLabel" style="margin-left:-60px;">已分配区域</div>
+        <div class="mushiny_listBox">
+            <input class="k-textbox mushiny_listInput" type="text" ng-model="assignArea"
+                   ng-keyup="filterInput($event, 'listAssignArea', assignArea)"/>
+            <div id="listAssignArea" kendo-list-view k-options="listAssignArea" class="mushiny_list"></div>
+        </div>
+        <div style="height: 20px"></div>
+        <div class="mushiny_btnBox">
+            <kendo-button class="k-button k-primary mushiny_btn"
+                          ng-click="save(selectEmployee)"
+                          translate="SAVE"></kendo-button>
+        </div>
+    </div>
+</div>

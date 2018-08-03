@@ -1,0 +1,14 @@
+<div class="mushiny-container">
+    <div class="mushiny-nav">
+        <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'MASTER_ROBOT' | translate }}&nbsp;/&nbsp;<a
+            ui-sref="main.trip_manager">{{'TRIP_MANAGER' | translate }}</a>&nbsp;/&nbsp;{{'EXPORT' | translate }}</span>
+    </div>
+    <div style="margin-top:10px;">
+        <div class="gridToolbar">
+            <kendo-button class="k-primary gridButton" ng-click="OKExport()"><span
+                    class="k-font-icon k-i-unlock"></span>{{'OK_EXPORT' | translate }}
+            </kendo-button>
+        </div>
+        <kendo-grid id="tripExportGrid" options="tripExportGridOptions"></kendo-grid>
+    </div>
+</div>

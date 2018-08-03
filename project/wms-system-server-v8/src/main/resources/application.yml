@@ -1,0 +1,51 @@
+server:
+  port: 11001
+
+spring:
+  application:
+    name: wms-systemservice-v8
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: wms-v8-configservice
+#      profile: test
+#      label: wms-v8-systemservice/src/main/resources
+  datasource:
+    url: jdbc:mysql://mysqlservice:3306/wms_v8_staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+
+  jpa:
+    database: MYSQL
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+    generate-ddl: false
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+
+  jackson:
+    serialization.write-dates-as-timestamps: false
+    serialization.indent_output: true
+security:
+  oauth2:
+    client:
+      client-id: wms-system-service-v8
+      client-secret: wms-system-service-v8
+      access-token-uri: http://authservice:9998/uaa/oauth/token
+      user-authorization-uri:
+      clientAuthenticationScheme: form
+      grant-type: client_credentials
+      scope: server
+    resource:
+      token-info-uri: http://authservice:9998/uaa/oauth/check_token
+      prefer-token-info: false
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://erukaservice1:8761/eureka/,http://erukaservice2:8762/eureka/

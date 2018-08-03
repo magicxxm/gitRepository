@@ -1,0 +1,28 @@
+<div class="mushiny-container">
+  <div class="mushiny-nav">
+    <a ui-sref="main.mainMenu" href="#">{{'HOME' | translate }}</a>&nbsp;/&nbsp;<span>{{'SYSTEM_MANAGE' | translate }}&nbsp;/&nbsp;<a
+    ui-sref="main.system_property">{{'SYSTEM_PROPERTY' | translate }}</a>&nbsp;/&nbsp;{{'UPDATE' | translate }}</span>
+  </div>
+  <div style="margin-top:10px;height:{{ mainHeight+36 }}px;overflow:auto;">
+    <form kendo-validator="validator" ng-submit="validate($event)" style="width:100%;">
+      <ul class="ulCls">
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label for="systemKey" class="required" style="float:right">{{'SYSTEM_KEY' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="systemKey" name="systemKey" class="k-textbox" readonly ng-model="systemKey"/></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label for="systemValue" class="required" style="float:right">{{'SYSTEM_VALUE' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="systemValue" name="systemValue" class="k-textbox" required validationMessage="{{'WARNING_SYSTEM_VALUE' | translate}}" ng-model="systemValue"/></div>
+        </li>
+        <li style="margin-top:10px;">
+          <div class="formLeft"><label for="description" class="required" style="float:right">{{'DESCRIPTION' | translate}}</label></div>
+          <div class="formRight"><input type="text" id="description" name="description" class="k-textbox" ng-model="description"/></div>
+        </li>
+        <li>
+          <div class="formLeft"><label class="required" style="float:right">&nbsp;</label></div>
+          <div class="formRight"><button class="k-button k-primary" type="submit">{{'UPDATE' | translate}}</button></div>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>

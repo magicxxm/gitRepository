@@ -1,0 +1,57 @@
+<div style="height:100%;overflow: hidden;">
+  <div style="height:100%;overflow: hidden;">
+    <div ng-show="scanhead==='0'" class="inbound-scanstation" style="background-color: white;">
+      <div class="inbound-scan-topbar"><span style="font-weight:500;line-height: 2;font-size: 28px;text-align: center;color: white" class="inboundFont">{{'SCANRECEIVESTATION'|translate}}</span></div>
+      <input type="text" id="receiving_station" ng-keydown="scanStation($event)" style="width: 50%;font-size:16px;margin-top: 20px;border-style: none;" ng-model="station"/><br>
+      <img src="../../../../image/20161123145423.png" style="margin:auto;position: absolute;top:0;bottom:0;right:0;left:0;width:45%;height:23%;float: left;" /><br>
+
+    </div>
+    <!-- normal -->
+    <div ng-show="status==='normal'">
+      <div class="workingStation">
+        <span ng-show="maxAmount===0">{{'RECEIVING_WORKSTATION_NOT_EXIST' | translate }}{{'RECEIVE_DESTINATION' | translate }}，</span>
+        <span ng-show="maxAmount>0">{{'RECEIVING_WORKSTATION_HAVE' | translate }}{{maxAmount}}{{'PERSONAL' | translate}}{{'RECEIVE_DESTINATION' | translate }}，</span>
+        <span>{{'SCAN_BINDING' | translate }}</span>
+      </div>
+      <div style="margin-top:20px;font-weight:600;">
+        <div style="margin-left:20px;">
+          <span class="inboundFont">{{'RECEIVE_DESTINATION' | translate }}</span>
+          <input id="receiving_destination" type="text" class="k-textbox inputCls" ng-model="destination" ng-keydown="scanDestination($event)"/>
+          <span id="warnDestination" class="inboundFont" style="color:red;margin-left:24px;"></span>
+        </div>
+        <div style="margin-top:10px;">
+          <span class="inboundFont">{{'STORAGELOCATION_BINDING' | translate }}</span>
+          <input id="receiving_container" type="text" class="k-textbox inputCls" ng-model="container" ng-keydown="scanContainer($event)"/>
+          <span id="warnContainer" class="inboundFont" style="color:red;margin-left:24px;"></span>
+        </div>
+      </div>
+      <div class="inboundGrid" style="width:75%;margin-top:20px;">
+        <kendo-grid id="receivingGRID" options="receivingGridOptions"></kendo-grid>
+      </div>
+    </div>
+    <!-- 绑定已达最大值 -->
+    <div ng-show="status==='max'" class="inbound-inboundmode">
+      <div class="box_shadow" style="height:15%;background:#EF7421;color:white;font-size:24px;font-weight:600;line-height: 3">{{ 'RECEIVING_MODE' | translate}}</div>
+      <div ng-show="receivingMode!='confirm'" style="margin-top:10px;text-align: center;font-size:18px;">
+        {{ 'RECEIVING_STATION_HAVE_BINDING' | translate}}{{maxAmount}}{{'RECEIVING_DESTINATION_AND_CONTAINER' | translate}}
+      </div>
+      <div ng-show="receivingMode==='confirm'" style="margin-top:10px;text-align: center;margin-left:3%;font-size:18px;">{{ 'RECEIVING_FORCE_FULL_REBINDING' | translate}}</div>
+      <div class="inboundGrid" style="margin-top:25px;margin-bottom:25px;margin-left: 7%;margin-right: 7%;">
+        <kendo-grid id="receivedGRID" options="receivedGridOptions"></kendo-grid>
+      </div>
+      <div ng-show="receivingButton!='confirm'" style="font-size:14px;margin-bottom:20px;">
+        <kendo-button class="k-primary k-button" ng-click="toReceiving()" style="width:35%;font-size: 16px;height: 40px">{{ 'CONUTINUE_USE_RECEIVE_NOW' | translate}}</kendo-button>
+        <kendo-button class="k-primary k-button" ng-click="receivingMode='confirm';receivingButton='confirm'" style="width:35%;font-size: 16px;height: 40px;margin-left: 3%">{{ 'FULL_RE_PICKPACK' | translate}}</kendo-button>
+      </div>
+      <div ng-show="receivingButton==='confirm'" style="font-size:14px;margin-bottom:20px;">
+        <kendo-button class="k-primary k-button" ng-click="deleteReceivingContainer($event)" style="width:35%;font-size: 16px;height: 40px">{{ 'SURE' | translate}}</kendo-button>
+        <kendo-button class="k-primary k-button" ng-click="status='init';receivingMode='init';receivingButton='init';" style="width:35%;font-size: 16px;height: 40px;margin-left: 3%">{{ 'CANCEL' | translate}}</kendo-button>
+      </div>
+    </div>
+    <div style="width: 100%;height: 60px;float: left;bottom: 0px;position: fixed;">
+      <span  id="tipDiv" style="text-align: center;font-size: 20px;line-height:3;color: white;background-color: #FF0000;display: block;width: 100%;height: 100%">{{LOGINSTATE}}</span>
+    </div>
+</div>
+
+</div>
+

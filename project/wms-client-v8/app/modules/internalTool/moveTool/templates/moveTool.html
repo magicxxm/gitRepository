@@ -1,0 +1,86 @@
+<div style="line-height:40px;background:#3f70ca;font-size:20px;font-weight:600;padding-left:10px;color:white;">{{'INTERNAL_TOOL'| translate }}—{{'MOVE_TOOL'| translate }}</div>
+<div style="width:100%;">
+  <div style="width:70%;margin:0px auto;">
+    <div style="float:left;margin-top:20px;width:55%;">
+      <div style="font-size:18px;margin-top:20px;">
+        请选择移货模式:&nbsp;&nbsp;
+        <input style="width:60px" type="text" ng-model="moveModel"  class="k-textbox" readonly ng-keyup="moveModelClick($event)">
+      </div>
+      <div style="font-size:18px;margin-top:20px;">
+        
+        <kendo-button class="k-primary" ng-style="{background:  (moveModel=='1') ?  '#3f51b5':  '#585858'}" ng-click="moveModelclick(1)" style="width:200px;">1原始容器固定</kendo-button>
+        <kendo-button class="k-primary" ng-style="{background:  (moveModel=='2') ?  '#3f51b5':  '#585858'}" ng-click="moveModelclick(2)" style="width:200px;">2目的容器固定</kendo-button>
+
+      </div>
+      <div style="font-size:18px;margin-top:20px;">
+        <kendo-button class="k-primary" ng-style="{background:  (moveModel=='3') ?  '#3f51b5':  '#585858'}" ng-click="moveModelclick(3)"  style="width:200px;">3原始&目的容器固定</kendo-button>
+        <kendo-button class="k-primary" ng-style="{background:  (moveModel=='4') ?  '#3f51b5':  '#585858'}" ng-click="moveModelclick(4)" style="width:200px;">4逐一移货</kendo-button>
+      </div>
+      <div style="font-size:18px;margin-top:20px;display: flex">
+        <div>  原始容器&nbsp;&nbsp;<input id="orgContainer" type="text" ng-model="orgContainerName" class="k-textbox" ng-keyup="orgContainer($event)"></div>
+        <div class="internalToolCenter" ng-show="scanningGoodsShow"> <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{orgContainerCount}}件</div>
+      </div>
+      <div style="font-size:18px;margin-top:20px;display: flex">
+        <div>扫描商品&nbsp;&nbsp;<input id="scanningGoods" type="text"  ng-model="scanningGoodsName" class="k-textbox" ng-keyup="scanningGoods($event)"> </div>
+        <div class="internalToolCenter" ng-show="destinationContainerShow"> <img height="30px" width="30px" src="image/checkSuccess.png">原始容器此商品总计{{scanningGoodsCount}}件</div>
+      </div>
+      <div style="font-size:18px;margin-top:20px;display: flex">
+        <div><span>目的容器&nbsp;&nbsp;</span><input id="destinationContainer" ng-model="destinationContainerName" type="text" class="k-textbox" ng-keyup="destinationContainer($event)"></div>
+        <div class="internalToolCenter" ng-show="goodsCountShow"> <img height="30px" width="30px" src="image/checkSuccess.png">此容器目前总计{{destinationContainerCount}}件</div>
+      </div>
+      <div style="font-size:18px;margin-top:20px;display: flex">
+       <div> 商品数量&nbsp;&nbsp;<input id="goodsCount" type="text" ng-model="goodCounts" class="k-textbox" ng-keyup="goodsCount($event)"></div>
+      </div>
+      <div style="font-size:20px;margin-top:20px;" ng-show="goodsMoveCarts">
+          <kendo-button class="k-primary" style="height:60px;width:100%;border:1px solid #76b44e;background:#76b44e;">{{successName}}</kendo-button>
+      </div>
+       <div style="  width: 100%;height: auto;background: red;margin-top: 30px;font-size: 30px;text-align: center;color: white;">{{errMessage}} </div>
+    </div>
+    <div style="float:left;width:45%;">
+      <div style="margin-top:20px;margin-left:10px;border:1px solid blue;height:{{(mainHeight-100)}}px;width:90%;">
+        <div ng-show="_goodsContent" style="height:100%;">
+          <div style="text-align:center;height:180px;margin-top:30px;">
+            <img height="150px" width="150px" src="image/20161022134004.png">
+          </div>
+               <div style="padding-top:10px;font-size:16px;border-top:1px solid blue;width:100%;">
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+              <div style="font-weight:600;float:left;width:20%;">SKU ID</div>
+              <div style="float:left;width:70%">{{skuId}}</div>
+            </div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+              <div style="font-weight:600;float:left;width:20%;">商品名称</div>
+              <div style="float:left;width:70%">{{commodityName}}</div>
+            </div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+              <div style="font-weight:600;float:left;width:20%;">长*宽*高</div>
+              <div style="float:left;width:70%">{{volume}}</div>
+            </div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+              <div style="font-weight:600;float:left;width:20%;">{{'WEIGHT'| translate }}</div>
+              <div style="float:left;width:70%">{{weight}}</div>
+            </div>
+            <div style="margin-top:5px;margin-left:10px;float:left;width:100%;">
+              <div style="font-weight:600;float:left;width:20%;">客户</div>
+              <div style="float:left;width:70%">{{clientName}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:18px;margin-top:20px;text-align:center">
+        <kendo-button class="k-primary" style="width:180px;" ng-click="selectTransferRecords()">S查看移货记录</kendo-button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div kendo-window="moveToolWindow" id="moveToolId" k-title="'移货记录'" k-visible="false" k-modal="true">
+  <div style="font-weight: 600;font-size:16px;margin:20px auto;width:98%;">
+  </div>
+  <div style="margin:20px auto;width:100%;">
+    <kendo-grid class="inboundGrid" id="moveGoodsSelectGrid" ></kendo-grid>
+  </div>
+  <div style="text-align:center;width:100%;float:left;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="moveToolWindow.close();">2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>

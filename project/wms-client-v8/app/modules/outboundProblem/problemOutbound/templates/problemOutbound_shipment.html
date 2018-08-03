@@ -1,0 +1,157 @@
+<div style="height:40px;background:#517bca;">
+  <div class="titleRebin" style="width:300px;float:left;">OB问题站台---{{ obpStationName }}</div>
+</div>
+<div style="font-size:14px;position:absolute;margin-left:20px;margin-top:10px;">当前需要进行的操作</div>
+<div style="font-size:20px;font-weight:600;text-align:center;margin-top:10px;">请扫描需要进行问题处理的Shipment ID</div>
+<div style="margin:10px auto;width:98%">
+  <div style="float:left;font-size:18px;width:25%">
+    <kendo-button style="height:45px;font-weight:600;" class="k-primary" ng-click="processProblemMethod()" id="processProblemId">待处理问题（{{ unScanLength }}）</kendo-button>
+    <kendo-button style="height:45px;font-weight:600;" class="k-primary" ng-click="closeProblemMethod()" id="closeProblemId">已处理完成（{{ scanLength }}）</kendo-button>
+  </div>
+  <div style="float:left;text-align:right;font-size:18px;height:45px;width:38%">
+    <input id="obp_shipment" type="text" class="inputHeight k-textbox" ng-keydown="questionOrder($event)" ng-model="shipmentNo" style="width:300px;margin-top:12px;"/>
+    <kendo-button class="k-primary" ng-click="refresh('search')" style="margin-top:15px;">{{'SEARCH'| translate }}</kendo-button>
+  </div>
+  <div style="float:right;font-size:18px;width:35%;text-align:right;">
+    <kendo-button style="height:45px;font-weight: 600;" class="k-primary" ng-click="readProblemCell()">查看问题格</kendo-button>
+    <kendo-button style="height:45px;font-weight: 600;" class="k-primary" ng-click="problemPicker()">问题拣货商品分配</kendo-button>
+    <kendo-button style="height:45px;background:#f57d2f;border:1px solid #f57d2f;font-weight: 600;" class="k-primary" ui-sref="main.problemOutboundForced">强制删单</kendo-button>
+    <kendo-button style="height:45px;font-weight: 600;" class="k-primary" ng-click="exitShipment()">退出</kendo-button>
+  </div>
+  <div style="margin:10px auto;width:100%;background:#f2f2f2;float:left;height:{{(mainHeight)}}px;">
+    <div style="width:98%;margin:10px auto;">
+      <div ng-show="processProblem">
+        <kendo-grid class="outboundGrid" id="problemOutboundUNScanedGrid" options="problemSolvingOrderNumberGridOptions"></kendo-grid>
+      </div>
+      <div ng-show="closeProblem">
+        <kendo-grid class="outboundGrid" id="problemOutboundScanedGrid" options="completedProcessingGridOptions"></kendo-grid>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 请选择分配商品类型 -->
+<div kendo-window="assignGoodsTypeWindow" id="assignGoodsTypeId" k-title="'请选择分配商品类型'" k-visible="false" k-modal="true">
+  <div style="text-align:center;width:100%;margin-bottom:10px;float:left;padding-top:50px;">
+    <kendo-button class="k-primary ReceiptBut" ng-click="accordingPickingTruckDistribution()">生成拣货任务，按照拣货车分配</kendo-button>&nbsp;&nbsp;
+    <kendo-button class="k-primary ReceiptBut" ng-click="accordingPickingGoodsDistribution()">分配到货位，按照拣货商品分配</kendo-button>
+  </div>
+</div>
+
+<!-- 订单已被删除 -->
+<div kendo-window="orderHasDeletedWindow" id="orderHasDeletedId" k-title="'订单已被删除'" k-visible="false" k-modal="true">
+  <div ng-show="deleteOrders=='shelvesPlate'">
+    <div style="font-size:24px;margin-top:40px;">此订单已经被客户删除，请扫描上架车牌，将订单内其他商品放置到车牌中由专职人员安排上架。</div>
+    <div style="text-align:center;">
+      <input id="obp_deleteOrder" style="width:180px;" type="text" class="k-textbox" ng-keydown="clientDeleteOrder($event, deleteOrder)" ng-model="deleteOrder">
+    </div>
+    <div style="text-align:center;margin-top:20px;"><img width="280px" height="100px" src="image/20161205150214.png"></div>
+  </div>
+  <div ng-show="deleteOrders=='deleteGoodGrid'">
+    <kendo-grid class="deleteList" id="orderDeletedGrid" options="orderDeletedGridGidOptions"></kendo-grid>
+    <span style="text-align:left;" ng-show="lpNumber=='one'">
+     <span style="font-size:18px">请扫描商品条码&nbsp;</span><input id="obp_deleteOrderGrid" style="width:180px;" type="text" class="k-textbox" ng-keydown="orderDeleteGrid($event)" ng-model="deleteOrderGrid"/>
+    </span>
+    <span style="text-align:left;" ng-show="lpNumber=='two'">
+      <span style="font-size:18px;font-weight:800">扫描车牌内存在相同名称不同客户商品，请重新扫描上架车牌</span><br><br>
+      <input id="obp_deleteOrder2" style="width:180px;" type="text" class="k-textbox" ng-keydown="clientDeleteOrder($event,deleteOrder)" ng-model="deleteOrder"/>
+    </span>
+    <span style="text-align:left;" ng-show="lpNumber=='three'">
+      <span style="font-size:18px;font-weight:800">扫描车牌内存在相同名称不同有效期商品，请重新扫描上架车牌</span><br><br>
+      <input id="obp_deleteOrder3" style="width:180px;" type="text" class="k-textbox" ng-keydown="clientDeleteOrder($event,deleteOrder)" ng-model="deleteOrder"/>
+    </span>
+  </div>
+  <div ng-show="goodMore" style="text-align:center;width:100%;padding-top:10px;">
+    <kendo-button style="height:45px;background:#6fb242;border:1px solid #6fb242;font-weight: 600;font-size:18px;" class="k-primary" ng-click="goMainProblem()">商品已转移至上架车牌，请扫描下一订单继续处理</kendo-button>
+  </div>
+</div>
+
+<!-- 请输入商品有效期 -->
+<div kendo-window="commodityValidWindow" id="commodityValidId" k-title="'请输入商品有效期'" k-visible="false" k-modal="true">
+  <div style="float:left;width:40%;margin-top:20px;">
+    <img width="160px" width="160px" src="image/20161022134004.png">
+    <div><span style="font-weight:600;font-size:18px;">{{ goodsDetail.itemName }}</span></div>
+  </div>
+  <div style="float:left;width:60%;margin-top:10px;">
+    <div style="font-size:18px;font-weight:600;" ng-show="goodDate=='produce'">
+      <div style="float:left;width:100%;margin-top:5px;">
+        生产年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="produce_year" ng-model="produce_year" ng-keydown="confirmTime($event,'produce_year')" ng-focus="inputPosition('year')" style="width:150px;" type="number" class="k-textbox">
+      </div>
+      <div style="float:left;width:100%;margin-top:5px;">
+        生产月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="produce_month" ng-model="produce_month" ng-keydown="confirmTime($event,'produce_month')" ng-focus="inputPosition('month')" style="width:150px;" type="number" class="k-textbox">
+      </div>
+      <div style="float:left;width:100%;margin-top:5px;">
+        生产日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="produce_day" ng-model="produce_day" ng-keydown="confirmTime($event,'produce_day')" ng-focus="inputPosition('day')" style="width:150px;" type="number" class="k-textbox">
+      </div>
+      <div style="float:left;width:100%;margin-top:5px;">
+        有效期({{lotUnit}})&nbsp;<input id="obp_months" ng-model="obp_months" ng-focus="inputPosition('months')" style="width:150px;" type="number" class="k-textbox" >
+      </div>
+    </div>
+    <div style="float:left;width:60%;margin-top:10px;" ng-show="goodDate=='maturity'">
+      <div style="font-size:18px;font-weight: 600;">
+        <div style="float:left;width:100%;margin-top:5px;">
+          到期年&nbsp;&nbsp;&nbsp;&nbsp;<input id="maturity_year" ng-model="maturity_year" ng-keydown="confirmTime($event,'maturity_year')" ng-focus="inputPosition('year')" style="width:150px;" type="number" class="k-textbox">
+        </div>
+        <div style="float:left;width:100%;margin-top:5px;">
+          到期月&nbsp;&nbsp;&nbsp;&nbsp;<input id="maturity_month" ng-model="maturity_month" ng-keydown="confirmTime($event,'maturity_month')" ng-focus="inputPosition('month')" style="width:150px;" type="number" class="k-textbox">
+        </div>
+        <div style="float:left;width:100%;margin-top:5px;">
+          到期日&nbsp;&nbsp;&nbsp;&nbsp;<input id="maturity_day" ng-model="maturity_day" ng-focus="inputPosition('day')" style="width:150px;" type="number" class="k-textbox" >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;width:100%;margin-bottom:10px;float:left">
+    <kendo-button class="k-primary ReceiptBut" ng-click="commodityValidSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+    <kendo-button class="k-primary ReceiptBut" ng-click="emptyContentData()" >2 {{'UPDATE' | translate }}</kendo-button>
+    <!--<kendo-button class="k-primary ReceiptBut" ng-click="commodityValidWindow.close();">2 {{'CANCEL' | translate }}</kendo-button>-->
+  </div>
+  <ul style="width:100%;list-style:none;">
+    <li ng-click="numberValue(1)" style="float:left;margin-left:6px;margin-top:10px;width:130px;line-height:70px;font-size:25px;font-weight: 800;background:#d9d9d9;cursor:pointer;text-align:center;" >1</li>
+    <li ng-click="numberValue(2)" style="float:left;margin-left:6px;margin-top:10px;width:130px;line-height:70px;font-size:25px;font-weight: 800;background:#d9d9d9;cursor:pointer;text-align:center;" >2</li>
+    <li ng-click="numberValue(3)" style="float:left;margin-left:6px;margin-top:10px;width:130px;line-height:70px;font-size:25px;font-weight: 800;background:#d9d9d9;cursor:pointer;text-align:center;" >3</li>
+    <li ng-click="numberValue(4)" style="float:left;margin-left:6px;margin-top:10px;width:130px;line-height:70px;font-size:25px;font-weight: 800;background:#d9d9d9;cursor:pointer;text-align:center;" >4</li>
+    <li ng-click="numberValue(5)" style="float:left;margin-left:6px;margin-top:10px;width:130px;line-height:70px;font-size:25px;font-weight: 800;background:#d9d9d9;cursor:pointer;text-align:center;" >5</li>
+    <li ng-click="numberValue(6)" style="float:left;margin-left:6px;margin-top:10px;width:130px;line-height:70px;font-size:25px;font-weight: 800;background:#d9d9d9;cursor:pointer;text-align:center;" >6</li>
+    <li ng-click="numberValue(7)" style="float:left;margin-left:6px;margin-top:10px;width:130px;line-height:70px;font-size:25px;font-weight: 800;background:#d9d9d9;cursor:pointer;text-align:center;" >7</li>
+    <li ng-click="numberValue(8)" style="float:left;margin-left:6px;margin-top:10px;width:130px;line-height:70px;font-size:25px;font-weight: 800;background:#d9d9d9;cursor:pointer;text-align:center;" >8</li>
+    <li ng-click="numberValue(9)" style="float:left;margin-left:6px;margin-top:10px;width:130px;line-height:70px;font-size:25px;font-weight: 800;background:#d9d9d9;cursor:pointer;text-align:center;" >9</li>
+    <li ng-click="numberValue(0)" style="float:left;margin-left:6px;margin-top:10px;width:130px;line-height:70px;font-size:25px;font-weight: 800;background:#d9d9d9;cursor:pointer;text-align:center;" >0</li>
+  </ul>
+</div>
+
+<!-- 请扫描商品序列号 -->
+<div kendo-window="goodsNumberWindow" id="goodsNumberId" k-title="'请扫描商品序列号'" k-visible="false" k-modal="true">
+  <div style="float:left;width:70%;margin-top:20px;">
+    <div style="text-align:left;"><span style="font-size:18px;font-weight: 600">{{ goodsDetail.itemName }}</span></div>
+    <div style="text-align: center;margin-top:30px;">
+      <!--<img style="width:240px;height:66px;" src="image/20161123145423.png">-->
+      <input id="serialNumberId" type="text" class="k-textbox" style="margin-top:20px;" ng-keydown="serialNumbers($event, goodsDetail)" ng-model="serialNumber" />
+    </div>
+  </div>
+  <div style="float:left;width:30%;text-align: center;"><img width="160px" height="160px" src="image/20161022134004.png"></div>
+</div>
+
+<!-- 送去包装提示扫描正品车牌 -->
+<div kendo-window="gotoPackWindow" id="gotoPackId" k-title="'请扫描正品车牌'" k-visible="false" k-modal="true">
+  <div style="float:left;width:60%;margin-top:50px;">
+    <div style="text-align: center;margin-top:10px;">
+      <div id="errorDiv" style="text-align:center;font-size:20px;">{{message}}</div>
+      <input  id="packStorageLocationId" type="text" class="k-textbox" style="margin-top:20px;" ng-keydown="relieveObpCell($event)" ng-model="locationContainer" />
+    </div>
+  </div>
+  <div style="float:left;width:40%;text-align: center;"><img width="160px" height="160px" src="image/20161022134004.png"></div>
+</div>
+
+<!-- 请确认是否要进行问题处理 -->
+<div kendo-window="dealWithProblemWindow" id="dealWithProblemId" k-title="'请确认是否要进行问题处理'" k-visible="false" k-modal="true">
+  <div style="float:left;width:70%;margin-top:20px;"><span style="font-weight:600;font-size:16px;">Shipment ID：{{ shipment.shipmentNo }}</span></div>
+  <div style="float:left;width:70%;margin-top:20px;"><span style="font-weight:600;font-size:16px;">状态：{{ shipment.shipmentState }}</span></div>
+  <div style="float:left;width:70%;margin-top:20px;">
+    <span style="font-weight:600;font-size:18px;">请确认是否要进行问题处理，点击确认商品转为问题状态，进行问题处理，点击取消重新扫描Shipment ID</span>
+  </div>
+  <div style="text-align:center;width:100%;margin-bottom:10px;float:left">
+    <kendo-button class="k-primary ReceiptBut" ng-click="dealWithProblemSure()">1 {{'SURE' | translate }}</kendo-button>&nbsp;&nbsp;
+    <kendo-button class="k-primary ReceiptBut" ng-click="dealWithProblemWindow.close();">2 {{'CANCEL' | translate }}</kendo-button>
+  </div>
+</div>

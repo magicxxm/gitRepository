@@ -1,0 +1,86 @@
+<div style="height: 100%" ng-click="selectStation()">
+<div ng-show="rebatchPage==1">
+  <div class="comPage">欢迎{{name}}进入Rebatch系统</div>
+  <div style="margin-left:10px;">
+    <div class="outboundFont" style="margin-top:30px;font-weight: 600;">请选择Rebach模式：</div>
+    <div class="outboundFont" ><kendo-button class="outboundButton k-primary " ng-click="batchOperation()" >1按批次操作</kendo-button></div>
+    <div class="outboundFont" ><kendo-button class="outboundButton k-primary"  ng-click="PPOperation()">2按PP操作</kendo-button></div>
+    <div class="outboundFont" ><kendo-button class="outboundButton k-primary"  ng-click="shippingPointOperation()">3按期望发货点操作</kendo-button></div>
+  </div>
+</div>
+
+<div ng-show="rebatchPage==2" >
+  <div style="height:60px;background:lightsteelblue;"></div>
+    <div class="outCenter" >
+      <div class="titleContent">
+        <span>请扫描工作站条码</span>
+        <!--<span ng-show="title==2">请扫描传送带出口条码</span>-->
+      </div>
+      <div style="text-align:center;padding-top:80px;">
+        <input id="workstationId" type="text" class="inputHeight k-textbox"  ng-keydown="workStation($event)"  ng-model="workstation"/>
+      </div>
+  </div>
+</div>
+
+
+<div ng-show="rebatchPage==3">
+  <div style="height:50px;background:#517bca;">
+    <div style="float:left;font-size:20px;color:white;line-height:50px;margin-left:10px;">{{reBachStationName}}</div>
+    <div style="float:right;font-size:20px;line-height:43px;margin-right: 10px"><kendo-button class='k-primary' ng-click='exitClick()' style='background: linear-gradient(#ffff01,#f5f511);border: 0;color: #000000;'>E退出</kendo-button></div>
+  </div>
+
+  <div style="width:100%;height:{{(mainHeight-60)/2}}px;" ng-show="rebatchChildPage==1">
+    <input type="text" class="k-textbox" style="position:absolute;opacity: 1" ng-keydown="inputImformation($event)" ng-model="imformation" id="mainInput"/>
+    <!--<div style="font-size:14px;position:absolute;">当前需要进行的操作</div>-->
+    <div style="text-align:center;font-size:20px;padding-top:10px;font-weight:600;" ng-model="tittle">{{tittle}}</div>
+    <div ng-show="mainContent==1" style="border:1px solid #E3782F;width:40%;margin:10px auto;text-align:center;height:{{((mainHeight-180)/2)}}px;">
+        <div class="informationTitle">请重新扫描容器号码</div>
+        <div style="font-size:18px;line-height:{{(mainHeight-200)/10}}px;">
+           <span><span style="font-weight: 600;">{{container}}</span> 不是一个有效的车牌号码，请重新扫描</span>
+        </div>
+        <div style="margin-top:10px;"><img src="image/20161123145423.png" style="height: {{(mainHeight/2-230)}}px"></div>
+    </div>
+      <div style="width:100%;height:{{(mainHeight-60)/2}}px;" ng-show="mainContent==2">
+          <div style="width:100%;" ng-show="soltContent">
+              <table  width="50%" style="margin:0px auto;">
+                  <tr>
+                      <td style="width: 50%">
+                          <div style="margin:0px auto;">
+                              <div style="background:black;line-height:30px;font-size:16px;text-align:center;color:white;" ng-model="container">{{container}}</div>
+                              <div style="background:{{slotColor}};font-size:100px;text-align:center;color:black;line-height:{{(mainHeight/2-150)}}px;font-weight: 600;font-family: calibri;" ng-model="slotNumber">{{slotNumber}}</div>
+                              <div style="background: {{exsdColor}};line-height:30px;font-size:16px;text-align:center;border:1px solid #2c59a8;color: {{exsdFontColor}}" ng-model="Exsd">ExSD：{{Exsd}}</div>
+                          </div>
+                      </td>
+                      <td style="width:50%" ng-show="errorSlot">
+                          <div style="border:1px solid #E3782F;" >
+                              <div class="informationTitle">请重新扫描Slot号码</div>
+                              <div style="text-align:center;font-size:16px;height:{{(mainHeight/2-180)}}px;">
+                                  <div style="margin-top:20px;"><span>Slot号码扫描错误，请重新扫描</span></div>
+                                  <div style="margin-top:10px;"><img src="image/20161123145423.png" style="height: {{(mainHeight/2-230)}}px; padding: 10px"></div>
+                              </div>
+                          </div>
+                      </td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+
+      <div style="width:100%;height:{{(mainHeight-60)/2}}px;"  ng-show="mainContent==3">
+          <div  style="border:1px solid #6caf3f;width:40%;margin:10px auto;height:{{((mainHeight-180)/2)}}px;">
+              <div style="background:#6caf3f;font-size:20px;text-align:center;color:white;line-height:50px;font-weight:600">{{slotNumber}}已经扫描完成</div>
+              <div style="text-align:center;font-size:18px;margin-top:20px;line-height:50px;">
+                  <div>{{slotNumber}}已经扫描完成，请在{{slotNumber}}上放置完成标识,</div>
+                  <div >并放置空车至{{slotNumber}}空车放置完成后，请点击换车完成</div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+    <div>
+        <kendo-grid class="outboundGrid" id="rebatchGRID" options="rebatchGridOptions" style="text-align: center"></kendo-grid>
+    </div>
+</div>
+</div>
+
+<!--扫描报错弹出横条-->
+<div class="message" ng-show="messageOperate==='show'">{{message}}</div>
