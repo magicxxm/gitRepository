@@ -1,0 +1,17 @@
+# SERVER PROFILES
+server:
+  port: 11002
+
+logging:
+  level:
+    jdbc.sqltming: INFO  #记录sql执行语句及时间 INFO
+    jdbc.sqlonly: OFF
+    jdbc.audit: OFF
+    jdbc.resultset: OFF
+    jdbc.resultsettable: OFF
+    jdbc.connection: OFF
+
+# SPRING PROFILES
+spring:
+  profiles:
+    active: 249

@@ -1,0 +1,13 @@
+package com.mushiny.wms.masterdata.obbasics.service;
+
+import com.mushiny.wms.common.service.BaseService;
+import com.mushiny.wms.masterdata.obbasics.crud.dto.PackingStationDTO;
+
+import java.util.List;
+
+public interface PackingStationService extends BaseService<PackingStationDTO> {
+
+    void createMore(PackingStationDTO dto);
+
+    List<PackingStationDTO> getAll();
+}

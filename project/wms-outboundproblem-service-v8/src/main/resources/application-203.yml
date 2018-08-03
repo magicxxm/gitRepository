@@ -1,0 +1,42 @@
+# SERVER PROFILES
+server:
+  port: 11010
+
+# SPRING PROFILES
+spring:
+
+  #DATASOURCE
+  datasource:
+    url: jdbc:log4jdbc:mysql://192.168.1.203:3306/wms_v8_staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    driverClassName: net.sf.log4jdbc.DriverSpy
+    type: com.zaxxer.hikari.HikariDataSource
+
+  # JPA
+  jpa:
+    database: MYSQL
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+    generate-ddl: false
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+
+  # JACKSON
+  jackson:
+    serialization.write-dates-as-timestamps: false
+    serialization.indent_output: true
+security:
+  oauth2:
+    client:
+      client-id: wms-outboundproblem-service-v8
+      client-secret: wms-outboundproblem-service-v8
+      access-token-uri: http://192.168.1.203:9998/uaa/oauth/token
+      user-authorization-uri:
+      clientAuthenticationScheme: form
+      grant-type: client_credentials
+      scope: server
+    resource:
+      token-info-uri: http://192.168.1.203:9998/uaa/oauth/check_token
+      prefer-token-info: false
