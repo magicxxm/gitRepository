@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <springProfile name="201">
+        <property name="LOG_HOME" value="/home"/>
+    </springProfile>
+    <springProfile name="202">
+        <property name="LOG_HOME" value="/home"/>
+    </springProfile>
+    <springProfile name="249">
+        <property name="LOG_HOME" value="/home"/>
+    </springProfile>
+    <!--牧星日志输出-->
+    <logger name="com.mushiny" level="DEBUG"/>
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(-%5p) %magenta(${PID:-}) [%15.15t] %cyan(%-40.40logger{39}) : %m%n</pattern>
+        </encoder>
+    </appender>
+    <!-- 日志文件:按照每天生成 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(-%5p) %magenta(${PID:-}) [%15.15t] %cyan(%-40.40logger{39}) : %m%n
+            </pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/log/report/report_%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大100MB 超过最大值，会重新建一个文件-->
+                <maxFileSize>100 MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>365</MaxHistory>
+        </rollingPolicy>
+    </appender>
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <!--只选一个-->
+         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

@@ -1,0 +1,40 @@
+# SPRING PROFILES
+spring:
+
+  application:
+      name: wms-report-service-v8
+
+  #DATASOURCE
+  datasource:
+    url: jdbc:mysql://192.168.1.12:3306/wms-suning-v8?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+
+  # JPA
+  jpa:
+    database: MYSQL
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+    generate-ddl: false
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+
+  # JACKSON
+  jackson:
+    serialization.write-dates-as-timestamps: false
+    serialization.indent_output: true
+security:
+  oauth2:
+    client:
+      client-id: wms-report-service-v8
+      client-secret: wms-report-service-v8
+      access-token-uri: http://192.168.1.12:9998/uaa/oauth/token
+      user-authorization-uri:
+      clientAuthenticationScheme: form
+      grant-type: client_credentials
+      scope: server
+    resource:
+      token-info-uri: http://192.168.1.12:9998/uaa/oauth/check_token
+      prefer-token-info: false

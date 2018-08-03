@@ -1,0 +1,10 @@
+# SERVER PROFILES
+server:
+  port: 11006
+
+# SPRING PROFILES
+spring:
+
+  profiles:
+    active: 249
+
