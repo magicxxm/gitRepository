@@ -1,0 +1,74 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://192.168.1.201:8762/eureka/
+
+spring:
+  #profiles:
+    #active: 249
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: false
+  jackson:
+    serialization.indent_output: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+#    url: jdbc:mysql://192.168.1.201:3306/wms_v8_staging?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
+    url: jdbc:mysql://192.168.1.201:3306/wms-suning-v8?useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true
+    username: root
+    password: 123456
+#    password: root
+     #验证连接的有效性
+    test-while-idle: true
+    #获取连接时候验证，会影响性能
+    validation-query: SELECT 1 FROM DUAL
+    #空闲连接回收的时间间隔，与test-while-idle一起使用，设置5分钟
+    time-between-eviction-runs-millis: 300000
+    #连接池空闲连接的有效时间 ，设置30分钟
+    min-evictable-idle-time-millis: 1800000
+    hikari:
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+    jpa:
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      database: MYSQL
+      show-sql: false
+#      properties:
+#        hibernate.id.new_generator_mappings: true
+#        hibernate.cache.use_second_level_cache: true
+#        hibernate.cache.use_query_cache: false
+#        hibernate.generate_statistics: true
+#        hibernate.cache.region.factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
+#        hibernate.cache.hazelcast.instance_name: uaa-service
+#        hibernate.cache.use_minimal_puts: true
+#        hibernate.cache.hazelcast.use_lite_member: true
+  rabbitmq:
+    host: 192.168.1.201
+    port: 5672
+    username: mushiny
+    password: mushiny
+    virtualhost: /
+
+server:
+  port: 10104
+
+  #log配置
+# logging.level.root=ERROR
+# logging.level.org.springframework=ERROR
+# logging.level.com.mushiny=ERROR
+
+# 优先级改变时间设置
+wms:
+  priority:
+    jiaji: 加急 # 1小时
+    jinji: 紧急 # 30分钟
+  warehouseCtrl: default
+  update:
+   itemSize: http://192.168.1.101:11002/masterdata/item-data-globals/setSize
