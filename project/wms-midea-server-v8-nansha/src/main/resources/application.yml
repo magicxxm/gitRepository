@@ -1,0 +1,21 @@
+# SERVER PROFILES server:
+# port: 12008  port: 12003
+server:
+  port: 12003
+logging:
+  level:
+    root: INFO
+    com.mushiny.wcs: DEBUG
+    jdbc.sqltiming: INFO
+    jdbc.sqlonly: OFF
+    jdbc.audit: OFF
+    jdbc.resultset: OFF
+    jdbc.resultsettable: OFF
+    jdbc.connection: OFF
+  config: classpath:logback-spring.xml
+# SPRING PROFILES
+
+spring:
+  profiles.active: 9989
+
+

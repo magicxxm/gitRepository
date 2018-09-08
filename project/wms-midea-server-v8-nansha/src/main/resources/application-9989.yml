@@ -1,0 +1,57 @@
+ip: 127.0.0.1
+spring:
+  #DATASOURCE
+  datasource:
+    url: jdbc:log4jdbc:mysql://${ip}:3308/wms_v8_staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+    #url: jdbc:log4jdbc:mysql://192.168.10.211:3306/wms_v8_staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    driverClassName: net.sf.log4jdbc.DriverSpy
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    database: MYSQL
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+    generate-ddl: false
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+
+  # JACKSON
+  jackson:
+    serialization.write-dates-as-timestamps: false
+    serialization.indent_output: true
+  rabbitmq:
+    host: ${ip}
+    #host: 192.168.10.211
+    port: 5672
+    #port: 5674
+    username: mushiny
+    password: mushiny
+    virtualhost: /
+
+  redis.database: 0
+  redis.host: ${ip}
+  #redis.host: 192.168.10.211
+  redis.password:
+  redis.pool.max-active: 8
+  redis.pool.max-wait: -1
+  redis.pool.max-idle: 8
+  redis.pool.min-idle: 0
+  redis.timeout: 0
+  redis.port: 16379
+midea.webApi.ip: 10.133.85.67
+midea.webApi.INV_ORG_ID: 200124
+midea.webApi.INV_CODE: MS1221P
+midea.webApi.instructIn.callBack: http://${midea.webApi.ip}:9989/api/AnntoStockInApi/GetStockInCmdPassBack?ID={ID}&INV_ORG_ID={INV_ORG_ID}&BILL_TYPE={BILL_TYPE}&LABEL_NO={LABEL_NO}&BILL_NO={BILL_NO}&CAR_NO={CAR_NO}&DATETIME_STOCK={DATETIME_STOCK}&STATUS={STATUS}&LOC_CODE={LOC_CODE}&INV_CODE={INV_CODE}
+
+midea.webApi.instructOut.callBack: http://${midea.webApi.ip}:9989/api/AnntoStockOutApi/GetStockOutCmdPassBack?ID={ID}&INV_ORG_ID={INV_ORG_ID}&BILL_TYPE={BILL_TYPE}&LABEL_NO={LABEL_NO}&INV_CODE={INV_CODE}&BILL_NO={BILL_NO}&CAR_NO={CAR_NO}&STOCK_QTY={STOCK_QTY}&DATETIME_STOCK={DATETIME_STOCK}&STATUS={STATUS}&STORAGE_NO_L={STORAGE_NO_L}&LOC_CODE={LOC_CODE}
+midea.webApi.RFID.callBack: http://${midea.webApi.ip}:9989/api/AnntoRfidApi/GetRfidCmdPassBack?INV_ORG_ID={INV_ORG_ID}&WORKCENTER_CODE={WORKCENTER_CODE}&STORAGE_NO_L={STORAGE_NO_L}&STORAGE_NO_R={STORAGE_NO_R}&DATETIME_UPDATED={DATETIME_UPDATED}
+wms.sectionId:
+midea.webApi.sfcMitemSyn: http://${midea.webApi.ip}:9989/api/AnntoApi/GetSyncMitemInfo?INV_ORG_ID={INV_ORG_ID}&LAST_UPDATE_DATE={LAST_UPDATE_DATE}
+midea.webApi.invMitemLabelSyn: http://${midea.webApi.ip}:9989/api/anntoapi/getsyncmoinfo?INV_ORG_ID={INV_ORG_ID}&LAST_UPDATE_DATE={LAST_UPDATE_DATE}
+mushiny:
+  robot3.begain.index: 50
+  emptyRun.endAddress.enable: true
+  debug: false
+  test: false

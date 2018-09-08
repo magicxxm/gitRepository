@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+    <springProfile name="201">
+        <property name="LOG_HOME" value="/home/mushiny/logs"/>
+    </springProfile>
+    <springProfile name="test">
+        <property name="LOG_HOME" value="/home/mushiny/logs/test"/>
+    </springProfile>
+    <springProfile name="9989">
+        <property name="LOG_HOME" value="/home/mushiny/logs"/>
+    </springProfile>
+    <springProfile name="7071">
+        <property name="LOG_HOME" value="/home/mushiny/logs"/>
+    </springProfile>
+    <springProfile name="7070">
+        <property name="LOG_HOME" value="/home/mushiny/logs"/>
+    </springProfile>
+    <springProfile name="7072">
+        <property name="LOG_HOME" value="/home/mushiny/logs"/>
+    </springProfile>
+    <!--牧星日志输出-->
+    <logger name="com.mushiny" level="DEBUG"/>
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!--<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>-->
+        <encoder>
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- 日志文件:按照每天生成 -->
+    <appender name="wms" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/wms/midea/wms_%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大1MB 超过最大值，会重新建一个文件-->
+                <maxFileSize>500 MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>2</MaxHistory>
+        </rollingPolicy>
+
+    </appender>
+
+    <appender name="main" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/wms/midea/main_%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大1MB 超过最大值，会重新建一个文件-->
+                <maxFileSize>500 MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>2</MaxHistory>
+        </rollingPolicy>
+
+    </appender>
+
+
+    <appender name="path" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/wms/midea/path_%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大1MB 超过最大值，会重新建一个文件-->
+                <maxFileSize>500 MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>2</MaxHistory>
+        </rollingPolicy>
+
+    </appender>
+
+    <appender name="bigData" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 此处设置字符集，防止中文乱码 -->
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件地址和名称-->
+            <FileNamePattern>${LOG_HOME}/wms/midea/bigData%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 最大1MB 超过最大值，会重新建一个文件-->
+                <maxFileSize>500 MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>2</MaxHistory>
+        </rollingPolicy>
+
+    </appender>
+
+   <!-- &lt;!&ndash; 日志输出级别 -->
+    <root level="DEBUG">
+        <!-- 日志输出地点,输出一个就行 -->
+      <appender-ref ref="STDOUT"/>
+        <appender-ref ref="main" />
+    </root>
+
+    <logger name="com.mushiny.wms.bigData" level="DEBUG">
+        <appender-ref ref="bigData" />
+    </logger>
+    <logger name="com.mushiny.wms.pathPlanning" level="DEBUG">
+        <appender-ref ref="path" />
+    </logger>
+    <logger name="com.mushiny.wms.application" level="DEBUG">
+        <appender-ref ref="wms" />
+    </logger>
+
+    <!--<logger name="com.mushiny" level="INFO">
+        <appender-ref ref="main" />
+    </logger>-->
+
+
+
+</configuration>
