@@ -21,7 +21,7 @@
         <inject.version>1</inject.version>
         <rssql-jpa.version>2.0.1</rssql-jpa.version>
         <spring-cloud.version>Camden.SR6</spring-cloud.version>
-        <spring-security-oauth2.version>2.0.12.RELEASE</spring-security-oauth2.version>
+        <!-- <spring-security-oauth2.version>2.0.12.RELEASE</spring-security-oauth2.version> -->
         <logstash-logback-encoder.version>4.11</logstash-logback-encoder.version>
     </properties>
 
