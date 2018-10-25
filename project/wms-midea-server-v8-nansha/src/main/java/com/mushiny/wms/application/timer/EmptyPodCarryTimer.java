@@ -20,7 +20,7 @@ public class EmptyPodCarryTimer {
         this.emptyPodCarryServiceImpl = emptyPodCarryServiceImpl;
     }
 
-   @Scheduled(fixedDelay=4000,initialDelay = 10000)
+   @Scheduled(fixedDelay=20000,initialDelay = 10000)
 
     public void runDriveAllocation() {
         try {

@@ -105,7 +105,7 @@ public class InboundTripServiceImpl implements InboundTripService {
             podName=is.getSTORAGE_NO_R();
         }else{
             LOGGER.error("接受到入库指令STORAGE_NO_L STORAGE_NO_R 货架为空,停止调度{}",JSONUtil.toJSon(is));
-            redisUtil.put("InboundInstruct",is.getId(),value.put("error","InboundInstruct ID "+is.getId() +"STORAGE_NO_L " +is.getSTORAGE_NO_L()+"STORAGE_NO_R"+ is.getSTORAGE_NO_R()+" 同时存在,不允许"));
+          //  redisUtil.put("InboundInstruct",is.getId(),value.put("error","InboundInstruct ID "+is.getId() +"STORAGE_NO_L " +is.getSTORAGE_NO_L()+"STORAGE_NO_R"+ is.getSTORAGE_NO_R()+" 同时存在,不允许"));
             return;
         }
 
@@ -144,7 +144,7 @@ public class InboundTripServiceImpl implements InboundTripService {
         {
 
             LOGGER.error("无货架{}",podName);
-            redisUtil.put("InboundInstruct",is.getId(),value.put("error"," 无货架"+podName));
+           // redisUtil.put("InboundInstruct",is.getId(),value.put("error"," 无货架"+podName));
 
             return;
         }
@@ -154,7 +154,7 @@ public class InboundTripServiceImpl implements InboundTripService {
         if(CollectionUtils.isEmpty(stations))
         {
             LOGGER.error("处理入库指令 {}出错, 货架{} 地址{} 不在工作站{}位置",is.getId(),pod.getPodIndex(),pod.getPlaceMark(),stationName);
-            redisUtil.put("InboundInstruct",is.getId(),value.put("error"," 货架"+pod.getPodIndex() +"货架地址"+pod.getPlaceMark()+"不在工作站"+stationName+"位置"));
+           // redisUtil.put("InboundInstruct",is.getId(),value.put("error"," 货架"+pod.getPodIndex() +"货架地址"+pod.getPlaceMark()+"不在工作站"+stationName+"位置"));
 
             return;
         }
@@ -204,11 +204,11 @@ public class InboundTripServiceImpl implements InboundTripService {
                     wmsInvStockunitRepository.saveAndFlush(skunit);
                 }else{
                     LOGGER.error("保存入库指令 {} 库存失败,已经存在对应的库存unitLoad{}",is.getId(),invLoad.getId());
-                    redisUtil.put("InboundInstruct","info","已经存在对应的库存unitLoad"+invLoad.getId());
+                   // redisUtil.put("InboundInstruct","info","已经存在对应的库存unitLoad"+invLoad.getId());
                     return;
                 }
                 podReserveUtil.reservePod(pod);
-                Trip trip=buildEntityBusiness.buildTrip(pod,stations.get(0),is, TripType.parserTripType(is.getBILL_TYPE()));
+                Trip trip=buildEntityBusiness.buildTrip(pod,null,is, TripType.parserTripType(is.getBILL_TYPE()));
 
 
 
@@ -232,13 +232,14 @@ public class InboundTripServiceImpl implements InboundTripService {
                     LOGGER.debug("保存入库指令CREATE状态成功\n{}",JSONUtil.toJSon(iip));
                 }
 
-                value.put("tripId",trip.getId());
-                value.put("message","success");
-                value.put("ack",ack);
-                value.put("instructPosition",iip);
-                redisUtil.put("InboundInstruct",is.getId(),value);
+//                value.put("tripId",trip.getId());
+//                value.put("message","success");
+//                value.put("ack",ack);
+//                value.put("instructPosition",iip);
+//                redisUtil.put("InboundInstruct",is.getId(),value);
             }else{
-                redisUtil.put("InboundInstruct",is.getId(),value.put("error"," 指令id "+is.getId()+"被取消"));
+                //redisUtil.put("InboundInstruct",is.getId(),value.put("error"," 指令id "+is.getId()+"被取消"));
+                LOGGER.debug(" 指令id "+is.getId()+"被取消");
 
             }
 
@@ -286,7 +287,8 @@ public class InboundTripServiceImpl implements InboundTripService {
 
 
         }else{
-            redisUtil.put("InboundInstruct","info","没有需要调度的入库指令");
+            //redisUtil.put("InboundInstruct","info","没有需要调度的入库指令");
+            LOGGER.debug("没有需要调度的入库指令");
         }
 
 

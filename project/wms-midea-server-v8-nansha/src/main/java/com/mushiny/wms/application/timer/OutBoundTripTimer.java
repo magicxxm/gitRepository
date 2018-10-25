@@ -19,7 +19,7 @@ public class OutBoundTripTimer {
     public OutBoundTripTimer(OutboundTripService outboundTripService) {
         this.outboundTripService = outboundTripService;
     }
-    @Scheduled(fixedDelay=4000,initialDelay = 10000)
+    @Scheduled(fixedDelay=20000,initialDelay = 10000)
    // @Async
     public void build() {
         try {

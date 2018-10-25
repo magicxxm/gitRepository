@@ -112,7 +112,7 @@
    <!-- &lt;!&ndash; 日志输出级别 -->
     <root level="DEBUG">
         <!-- 日志输出地点,输出一个就行 -->
-      <appender-ref ref="STDOUT"/>
+     <!-- <appender-ref ref="STDOUT"/>-->
         <appender-ref ref="main" />
     </root>
 

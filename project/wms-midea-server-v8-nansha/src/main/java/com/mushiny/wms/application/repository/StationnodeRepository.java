@@ -60,5 +60,6 @@ public interface StationnodeRepository extends JpaRepository<Stationnode, String
     )
     Integer workstationCall(@Param("stationName") String stationName, @Param("isCall") Integer isCall, @Param("sectionId") String sectionId) ;
 
-
+    @Query("select s from Stationnode s where s.type=2 and s.name like 'PZZ1XT%'")
+    List<Stationnode> getAllOutStation();
 }

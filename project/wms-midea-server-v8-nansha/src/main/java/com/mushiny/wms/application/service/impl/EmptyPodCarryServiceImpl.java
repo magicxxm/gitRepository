@@ -106,7 +106,6 @@ public class EmptyPodCarryServiceImpl implements EmptyPodCarryService {
             return;
         }
 */
-
         String sql="SELECT MD_POD.ID  " +
                 " FROM MD_POD " +
                 "INNER JOIN WD_NODE ON WD_NODE.ADDRESSCODEID=MD_POD.PLACEMARK AND WD_NODE.TYPE=1" +" INNER JOIN WD_MAP on WD_NODE.MAP_ID=WD_MAP.ID and WD_MAP.ACTIVE=1 "+
@@ -122,10 +121,6 @@ public class EmptyPodCarryServiceImpl implements EmptyPodCarryService {
         {
             tt.add(""+t.get("ID"));
         }
-
-
-
-
         if(CollectionUtils.isEmpty(pods))
         {
             if(LOGGER.isDebugEnabled())
@@ -140,9 +135,5 @@ public class EmptyPodCarryServiceImpl implements EmptyPodCarryService {
 
         podReserveUtil.reservePod(podScore.get(0).getPod());
         buildEntityBusiness.buildTrip(podScore.get(0).getPod(),podScore.get(0).getStationnodeposition(),null, TripType.CARRY_POD);
-
-
     }
-
-
 }

@@ -34,9 +34,6 @@ public class BuildEntityBusiness {
             stationId=workStation.getStationnode().getId();
             stationNodePositionId=workStation.getId();
         }
-
-
-
         if(!ObjectUtils.isEmpty(instruct)&&instruct instanceof InboundInstruct)
         {
             instructDefault=(((InboundInstruct) instruct)).getId();

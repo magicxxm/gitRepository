@@ -19,7 +19,7 @@ public class PutBackPodTimer {
         this.putBackService = putBackService;
     }
 
-    @Scheduled(fixedDelay=4000,initialDelay = 10000)
+    @Scheduled(fixedDelay=30000,initialDelay = 10000)
 
     public void runDriveAllocation() {
         try {

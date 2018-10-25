@@ -22,8 +22,8 @@ spring:
     serialization.write-dates-as-timestamps: false
     serialization.indent_output: true
   rabbitmq:
-    host: ${ip}
-    #host: 192.168.10.211
+    #host: ${ip}
+    host: 192.168.10.212
     port: 5672
     #port: 5674
     username: mushiny

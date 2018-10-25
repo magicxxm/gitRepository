@@ -46,8 +46,9 @@ public interface OutboundInstructRepository extends JpaRepository<OutboundInstru
     @Query("select ii from  OutboundInstruct ii where ii.id=:instrsuctId and  ii.id in (select distinct ip.outboundInstruct.id from WmsInstructOutPosition ip where ip.STATUS   in :instrsuctStatus )")
     List<OutboundInstruct> getInstru(@Param("instrsuctStatus") List<String> instrsuctStatus ,@Param("instrsuctId") String instrsuctId);
 
-    @Query("select ii from  OutboundInstruct ii where  ii.id not in (select distinct  rr.outboundInstruct.id from WmsInstructOutPosition rr where rr.STATUS  in :instrsuctStatus  ) and ii.id not in (select  coalesce(t.instruct,'')   from Trip t where t.tripState<>'Finish') order by  ii.DATE_REQ ASC ")
-    List<OutboundInstruct> getAllNotCreateTripInstru(@Param("instrsuctStatus") List<String> instrsuctStatus);
+    @Query("select ii from  OutboundInstruct ii where  ii.id not in (select distinct  rr.outboundInstruct.id from WmsInstructOutPosition rr where rr.STATUS  in :instrsuctStatus  ) and ii.id not in (select  coalesce(t.instruct,'')  " +
+            " from Trip t where t.tripState<>'Finish') and (ii.LINE_CODE=:station or ii.WORKCENTER_CODE=:station) order by  ii.DATE_REQ ASC ")
+    List<OutboundInstruct> getAllNotCreateTripInstru(@Param("instrsuctStatus") List<String> instrsuctStatus,@Param("station") String station);
 
     @Query("select ii from  OutboundInstruct ii where ii.id  in (select  t.instruct  from Trip t where t.id=:tripId) ")
     OutboundInstruct getInstruByTripId(@Param("tripId") String tripId);

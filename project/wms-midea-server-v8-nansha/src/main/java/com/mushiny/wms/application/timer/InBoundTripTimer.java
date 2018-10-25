@@ -19,7 +19,7 @@ public class InBoundTripTimer {
         this.inboundTripService = inboundTripService;
     }
 
-    @Scheduled(fixedDelay=4000,initialDelay = 10000)
+    @Scheduled(fixedDelay=8000,initialDelay = 10000)
     public void build() {
         try {
             if(LOG.isDebugEnabled())

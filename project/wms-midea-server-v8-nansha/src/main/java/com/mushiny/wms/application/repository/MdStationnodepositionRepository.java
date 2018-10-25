@@ -31,7 +31,7 @@ public interface MdStationnodepositionRepository extends JpaRepository<MdStation
     @Query(" select distinct n from MdStationnodeposition n " +
             " left join n.stationnode sn  " +
             " left join n.node nod " +
-            " where sn.type =:stationType and nod.type=8 and sn.isCallPod=true and n.nodeType=1 and n.id not in (select distinct coalesce(t.mdNodePosition,'')from Trip t where t.tripState not in:tripState) and nod.addressCodeId not in (select distinct p.placeMark from Pod p  ) ")
+            " where sn.type =:stationType and nod.type=8 and sn.isCallPod=true and n.nodeType=1 and n.id not in (select distinct coalesce(t.mdNodePosition,'') from Trip t where t.tripState not in:tripState) and nod.addressCodeId not in (select distinct p.placeMark from Pod p  ) ")
     List<MdStationnodeposition> getCallPodStationPosition(@Param("stationType") Integer stationType ,@Param("tripState") List tripState);
 
 

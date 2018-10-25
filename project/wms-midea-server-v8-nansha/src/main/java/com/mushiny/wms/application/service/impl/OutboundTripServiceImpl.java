@@ -59,6 +59,7 @@ public class OutboundTripServiceImpl implements OutboundTripService {
     private final EntityManagerUtil entityManagerUtil;
     private final  MdStationnodepositionRepository mdStationnodepositionRepository;
     private  Map value=null;
+    private StationnodeRepository stationnodeRepository;
     @Autowired
     private RestTempConfig restTempConfig;
     @Autowired
@@ -70,7 +71,11 @@ public class OutboundTripServiceImpl implements OutboundTripService {
     private transient Map hasGenTrip=new HashMap();
     private transient Map cancelInstrue=new ConcurrentHashMap();
     @Autowired
-    public OutboundTripServiceImpl(SectionRepository sectionRepository, WorkStationRepository workStationRepository, OutboundInstructRepository outboundInstructRepository, SystemPropertyBusiness systemPropertyBusiness, TripRepository tripRepository, PodRepository podRepository,EntityManagerUtil entityManagerUtil, PodReserveUtil podReserveUtil, BuildEntityBusiness buildEntityBusiness, MdStationnodepositionRepository mdStationnodepositionRepository,RedisUtil redisUtil)   {
+    public OutboundTripServiceImpl(SectionRepository sectionRepository, WorkStationRepository workStationRepository,
+                                   OutboundInstructRepository outboundInstructRepository, SystemPropertyBusiness systemPropertyBusiness,
+                                   TripRepository tripRepository, PodRepository podRepository,EntityManagerUtil entityManagerUtil,
+                                   PodReserveUtil podReserveUtil, BuildEntityBusiness buildEntityBusiness,
+                                   MdStationnodepositionRepository mdStationnodepositionRepository,RedisUtil redisUtil,StationnodeRepository stationnodeRepository)   {
         this.sectionRepository = sectionRepository;
         this.workStationRepository=workStationRepository;
         this.outboundInstructRepository=outboundInstructRepository;
@@ -82,6 +87,7 @@ public class OutboundTripServiceImpl implements OutboundTripService {
         this.entityManagerUtil=entityManagerUtil;
         this.mdStationnodepositionRepository=mdStationnodepositionRepository;
         this.redisUtil=redisUtil;
+        this.stationnodeRepository=stationnodeRepository;
     }
 
     @Transactional
@@ -134,10 +140,10 @@ public class OutboundTripServiceImpl implements OutboundTripService {
         if(CollectionUtils.isEmpty(stations))
         {
             LOGGER.error("未出库指令产线LINE_CODE{}对应的工作站 {} {}",lineCode,JSONUtil.toJSon(outboundInstruct));
-            redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value.put("error","未找到出库指令产线LINE_CODE"+lineCode+" 对应的工作站"));
+           // redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value.put("error","未找到出库指令产线LINE_CODE"+lineCode+" 对应的工作站"));
 
-            return;
-        }
+          //  return;
+        }else{
         List<String> tripState=new ArrayList<>();
         tripState.add(TripState.FINISHED.getName());
         String sql= "SELECT MD_POD.ID FROM WMS_INBOUND_INSTRUCT \n" +
@@ -158,16 +164,17 @@ public class OutboundTripServiceImpl implements OutboundTripService {
         {
 
             LOGGER.error("出库指令{} 工单号{} 没有库存纪录",outboundInstruct.getId(),outboundInstruct.getMO_NAME());
-            redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value.put("error","出库指令"+" 工单号 "+outboundInstruct.getMO_NAME() +" 配送卡号"+outboundInstruct.getLABEL_NO()+"没有库存纪录"));
+          //  redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value.put("error","出库指令"+" 工单号 "+outboundInstruct.getMO_NAME() +" 配送卡号"+outboundInstruct.getLABEL_NO()+"没有库存纪录"));
 
-            return;
+          //  return;
         }else if(pods.size()>1) {
             LOGGER.error("出库指令{} 配送卡号{}工单号{} 查找到了多个库存纪录\n{}",outboundInstruct.getId(),outboundInstruct.getLABEL_NO(),outboundInstruct.getMO_NAME(), JSONUtil.toJSon(pods));
-            value.put("error","出库指令"+" 工单号 "+outboundInstruct.getMO_NAME() +" 配送卡号"+outboundInstruct.getLABEL_NO()+"有多个库存");
-            value.put("pods",pods);
-            redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value);
-            return;
-        }
+          //  value.put("error","出库指令"+" 工单号 "+outboundInstruct.getMO_NAME() +" 配送卡号"+outboundInstruct.getLABEL_NO()+"有多个库存");
+          //  value.put("pods",pods);
+          //  redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value);
+           // return;
+        }else {
+        LOGGER.debug("出库指令{} 配送卡号{}满足出库条件",outboundInstruct.getId(),outboundInstruct.getLABEL_NO());
         Pod savePod=podRepository.findOne((String)pods.get(0).get("ID"));
         List<StationPodScore> stationScore=commonBusiness.getStationPodScore(stations,savePod);
 
@@ -196,10 +203,10 @@ public class OutboundTripServiceImpl implements OutboundTripService {
             {
                 LOGGER.error("Stationnode id{} 出库工作站{} 地址{} pod {} 有未完成的调度单 \n{},\n未分配指令{} ",sn.getId(),sn.getName(),sps.getStationnodeposition().getNode().getAddressCodeId(),JSONUtil.toJSon(pod),JSONUtil.toJSon(trips),JSONUtil.toJSon(pod));
 
-                value.put("error","Stationnode id "+ sn.getId()+"出库工作站"+sn.getName()+"地址"+sps.getStationnodeposition().getNode().getAddressCodeId()+"有pod "+pod.getPodIndex()+"有未完成的调度单 "+JSONUtil.toJSon(trips));
-                value.put("pod",pod);
-                value.put("trip",trips);
-                redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value);
+              //  value.put("error","Stationnode id "+ sn.getId()+"出库工作站"+sn.getName()+"地址"+sps.getStationnodeposition().getNode().getAddressCodeId()+"有pod "+pod.getPodIndex()+"有未完成的调度单 "+JSONUtil.toJSon(trips));
+             //   value.put("pod",pod);
+             //   value.put("trip",trips);
+              //  redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value);
             }else{
                 List<OutboundInstruct> iis=outboundInstructRepository.getInstru(Arrays.asList(new String[]{InstructStatus.CANCEL.getStatus()}),outboundInstruct.getId());
                 boolean cancel=!CollectionUtils.isEmpty(iis);
@@ -238,28 +245,33 @@ public class OutboundTripServiceImpl implements OutboundTripService {
                     if (LOGGER.isDebugEnabled()) {
                         LOGGER.debug("接收到出库指令,修改状态为ACCEPT\n 指令{},\n取消后信息{}", outboundInstruct.getId(), JSONUtil.toJSon(iop));
                     }
-                    value.put("tripId",trip.getId());
-                    value.put("message","success");
-                    value.put("ack",ack);
-                    value.put("outstructPosition",iop);
-                    redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value);
+//                    value.put("tripId",trip.getId());
+//                    value.put("message","success");
+//                    value.put("ack",ack);
+//                    value.put("outstructPosition",iop);
+//                    redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value);
                 }else{
-                    value.clear();
-                    value.put("error","出库指令已经取消");
-                    redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value);
+//                    value.clear();
+//                    value.put("error","出库指令已经取消");
+//                    redisUtil.put("OutboundInstruct",outboundInstruct.getId(),value);
+                    LOGGER.debug("出库指令已经取消");
                 }
-
-
             }
-
+        }
+        }
         }
     }
 
 
     @Override
     public void buildTrip() {
-//需要考虑已经生成
-        List<OutboundInstruct> iis=outboundInstructRepository.getAllNotCreateTripInstru(Arrays.asList(new String[]{InstructStatus.ACCEPT.getStatus(),InstructStatus.RUNNING.getStatus(),InstructStatus.CANCEL.getStatus(),InstructStatus.STOCKOUT.getStatus()}));
+//需要考虑已经生成i
+        //获取所有的出库工作站
+        List<Stationnode> stationnodes = stationnodeRepository.getAllOutStation();
+        LOGGER.debug("总共产线出库工作站"+stationnodes.size()+"个");
+        for(Stationnode stationnode:stationnodes){
+        LOGGER.debug("当前操作的出库工作站是----->"+stationnode.getName());
+        List<OutboundInstruct> iis=outboundInstructRepository.getAllNotCreateTripInstru(Arrays.asList(new String[]{InstructStatus.ACCEPT.getStatus(),InstructStatus.RUNNING.getStatus(),InstructStatus.CANCEL.getStatus(),InstructStatus.STOCKOUT.getStatus()}),stationnode.getName());
         if(LOGGER.isDebugEnabled())
         {
             LOGGER.debug("查询到需要调度的出库指令\n{}",JSONUtil.toJSon(iis));
@@ -289,9 +301,10 @@ public class OutboundTripServiceImpl implements OutboundTripService {
 
             }
         }else{
-            redisUtil.put("OutboundInstruct","info","没有需要调度的出库指令");
+          //  redisUtil.put("OutboundInstruct","info","没有需要调度的出库指令");
+            LOGGER.debug("没有需要调度的出库指令");
         }
-
+        }
     }
     @Override
     public  boolean cancelInstruct(OutboundInstruct instruct,String status){
