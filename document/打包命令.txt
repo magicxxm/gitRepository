@@ -1,0 +1,25 @@
+cd wms_v8/wms-masterdata-service-v8
+
+docker rm -f wms-masterdata-service-v8
+
+docker build -t wms-masterdata-service-v8 .
+
+docker run -idt -p 11002:11002 -e "TZ=Asia/Shanghai" --name wms-masterdata-service-v8 --volume /home/mushiny/wms_v8/logs:/logs wms-masterdata-service-v8
+
+docker run -idt -p 11002:11002 -e "TZ=Asia/Shanghai" --name wms-masterdata-service-v8 -v /home/mslab/wms_v8/image:/home/mslab/wms_v8/image --volume /home/mushiny/wms_v8/logs:/logs wms-masterdata-service-v8
+
+
+docker rm -f wms-outboundproblem-service-v8
+
+docker build -t wms-outboundproblem-service-v8 .  
+
+docker run -idt -p 11010:11010 -e "TZ=Asia/Shanghai" --name wms-outboundproblem-service-v8 --volume /home/mushiny/wms_v8/logs:/logs wms-outboundproblem-service-v8
+
+docker run -idt -p 11010:11010 -e "TZ=Asia/Shanghai" --restart=always --name wms-outboundproblem-service-v8 --volume /home/mushiny/wms_v8/logs:/logs wms-outboundproblem-service-v8
+
+
+nohup /home/mushiny/software/jdk1.8.0_171/bin/java -jar wms-masterdata-service-v8.jar >wms-masterdata-service-v8.out &   
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            

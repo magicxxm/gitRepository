@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mushiny>
+    <name>牧星wms</name>
+    <version>20171214</version>
+    <modules>
+        <module>
+            <!-- 项目名字-->
+            <name>wcs-driveallocation-server-v8</name>
+            <!-- 运行端口-->
+            <port>12004</port>
+            <path>/home/mslab/wms_v8/wcs-driveallocation-server-v8/</path>
+            <logDir>/home/mslab/logs:/home/log</logDir>
+            <version>1.0.0</version>
+        </module>
+        <module>
+            <!-- 项目名字-->
+            <name>wcs-stowpodselection-server-v8</name>
+            <!-- 运行端口-->
+            <port>12004</port>
+            <path>/home/mslab/wms_v8/wcs-stowpodselection-server-v8/</path>
+            <logDir>/home/mslab/logs:/home/log</logDir>
+            <version>1.0.0</version>
+        </module>
+
+    </modules>
+</mushiny>

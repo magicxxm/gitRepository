@@ -1,0 +1,78 @@
+# SERVER PROFILES
+server:
+  port: 11025
+
+# SPRING PROFILES
+spring:
+
+  application:
+      name: wms-annto-interface-v8
+
+  #DATASOURCE
+  datasource:
+    url: jdbc:mysql://192.168.1.249:3306/wms-annto-v8?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+
+  # JPA
+  jpa:
+    database: MYSQL
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+    generate-ddl: false
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+
+  # JACKSON
+  jackson:
+    serialization.write-dates-as-timestamps: false
+    serialization.indent_output: true
+
+#security
+
+# 固定参数
+wms:
+  url:
+    appkey: annto
+    appSecret: midea
+    api_url: http://58.252.101.195:9002/api/wms/sync/robot
+
+    path_item_sync: wms.robot.item.update #商品同步
+    path_item_get: wms.robot.item.get # 商品查询
+
+    path_receipt_sync: wms.robot.receipt.update # 入库单同步
+    path_receipt_url: wms.robot.receipt.confirm # 入库单确认
+
+    path_shipment_sync: wms.robot.shipment.update # 出库单同步
+    path_shipment_url: wms.robot.shipment.confirm # 出库单确认
+    path_shipment_cancel: wms.robot.shipment.cancel #订单取消
+
+    path_check_sync: wms.robot.check.update # 盘点单同步
+    path_check_url: wms.robot.check.confirm # 盘点单确认
+
+    path_inventory_get: wms.robot.inventory.get # 库存查询
+
+    # 装复核接口
+    path_trigger_url: wms.robot.packStation.trigger # 复核触发
+    path_pack_check: wms.robot.packStation.get # 复核查询
+    path_pack_confirm: wms.robot.packStation.confirm # 复核确认
+
+    path_box_sync: wms.robot.containerInfo.update # 箱型同步
+    path_waybill_get: wms.robot.waybill.get # 运货单号获取
+
+    path_adjustverify_url: wms.robot.adjust.verify #待调整审核
+    path_adjustconfirm_url: wms.robot.adjust.confirm #待调整确认
+
+    #包装站台接口
+    path_station_login: wms.robot.station.login #包装工作站登录
+    path_digital_closeDigital: wms.robot.digital.closeDigital # 拍灯
+    path_digital_get: wms.robot.digital.get #获取灯未亮的订单
+    path_problem_checkStorage: wms.robot.problem.checkStorage #订单报问题确认时调用
+    path_problem_handle: wms.robot.problem.handle #调用问题处理
+    path_station_loginOut: wms.robot.station.loginOut #退出工作站
+
+
+
+

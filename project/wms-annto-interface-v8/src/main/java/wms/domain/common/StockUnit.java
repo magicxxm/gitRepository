@@ -1,0 +1,137 @@
+package wms.domain.common;
+
+import wms.common.entity.BaseClientAssignedEntity;
+import wms.domain.ItemData;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "INV_STOCKUNIT")
+public class StockUnit extends BaseClientAssignedEntity {
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "AMOUNT", nullable = false)
+    private BigDecimal amount;
+
+    @Column(name = "RESERVED_AMOUNT")
+    private BigDecimal reservedAmount;
+
+    @Column(name = "STATE", nullable = false)
+    private String state;
+
+    @Column(name="SERIAL_NO")
+    private String serialNo;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "ITEMDATA_ID")
+    private ItemData itemData;
+
+//    @ManyToOne
+//    @JoinColumn(name = "LOT_ID")
+//    private Lot lot;
+
+    @Column(name = "LOT_ID")
+    private String  lotId;
+
+//    @ManyToOne
+//    @JoinColumn(name = "STORAGELOCATION_ID")
+//    private StorageLocation storageLocation;
+
+//    @ManyToOne
+//    @JoinColumn(name = "CONTAINER_ID")
+//    private Container container;
+
+    @ManyToOne
+    @JoinColumn(name = "UNITLOAD_ID")
+    private UnitLoad unitLoad;
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public BigDecimal getReservedAmount() {
+        return reservedAmount;
+    }
+
+    public void setReservedAmount(BigDecimal reservedAmount) {
+        this.reservedAmount = reservedAmount;
+    }
+
+    public String getSerialNo() {
+        return serialNo;
+    }
+
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
+    }
+
+    //    public LocalDate getStrategyDate() {
+//        return strategyDate;
+//    }
+//
+//    public void setStrategyDate(LocalDate strategyDate) {
+//        this.strategyDate = strategyDate;
+//    }
+//
+//    public Lot getLot() {
+//        return lot;
+//    }
+//
+//    public void setLot(Lot lot) {
+//        this.lot = lot;
+//    }
+
+    public String getLotId() {
+        return lotId;
+    }
+
+    public void setLotId(String lotId) {
+        this.lotId = lotId;
+    }
+
+
+//    public StorageLocation getStorageLocation() {
+//        return storageLocation;
+//    }
+//
+//    public void setStorageLocation(StorageLocation storageLocation) {
+//        this.storageLocation = storageLocation;
+//    }
+
+//    public Container getContainer() {
+//        return container;
+//    }
+//
+//    public void setContainer(Container container) {
+//        this.container = container;
+//    }
+
+    public ItemData getItemData() {
+        return itemData;
+    }
+
+    public void setItemData(ItemData itemData) {
+        this.itemData = itemData;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public UnitLoad getUnitLoad() {
+        return unitLoad;
+    }
+
+    public void setUnitLoad(UnitLoad unitLoad) {
+        this.unitLoad = unitLoad;
+    }
+}

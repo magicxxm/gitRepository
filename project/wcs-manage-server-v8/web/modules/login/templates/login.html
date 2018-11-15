@@ -1,0 +1,8 @@
+<div id="login">
+  <form kendo-validator="validator"  ng-submit="validate($event)" style="width:430px;">
+    <input class="k-textbox" type="text" name="username" required validationMessage="{{ 'WARNING_USERNAME' | translate}}" placeholder="{{ 'USERNAME' | translate }}" ng-model="username" style="width:250px;">
+    <input class="k-textbox" type="password" name="password" required validationMessage="{{ 'WARNING_PASSWORD' | translate}}" placeholder="{{ 'PASSWORD' | translate }}" ng-model="password" style="width:250px;margin-top:10px;vertical-align:bottom;">
+    <kendo-button class="k-primary" type="submit" ng-disabled="false" style="width:250px;margin-top:10px;height:30px;" translate="LOGIN"></kendo-button>
+  </form>
+</div>
+<div kendo-window="window" k-visible="false" k-modal="true"></div>

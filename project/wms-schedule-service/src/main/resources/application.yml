@@ -1,0 +1,77 @@
+# SERVER PROFILES
+server:
+  port: 12010
+
+# SPRING PROFILES
+spring:
+
+  #DATASOURCE
+  datasource:
+    url: jdbc:mysql://192.168.1.249:3306/wms-v8-test?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+
+  # JPA
+  jpa:
+    database: MYSQL
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+    generate-ddl: false
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+
+  # JACKSON
+  jackson:
+    serialization.write-dates-as-timestamps: false
+    serialization.indent_output: true
+security:
+  oauth2:
+    client:
+      client-id: wms-outboundproblem-service-v8
+      client-secret: wms-outboundproblem-service-v8
+      access-token-uri: http://192.168.1.249:9998/uaa/oauth/token
+      user-authorization-uri:
+      clientAuthenticationScheme: form
+      grant-type: client_credentials
+      scope: server
+    resource:
+      token-info-uri: http://192.168.1.249:9998/uaa/oauth/check_token
+      prefer-token-info: false
+
+wms:
+    url:
+        url_releasePod: http://192.168.1.249:12007/wcs/podRelease? #释放POD
+        url_refreshPod: http://192.168.1.249:12007/wcs/callNewPod? #刷新POD
+        #拣货
+        url_pickOrderPosition:  http://192.168.1.249:14004/outbound/pick/pickOrderPosition/find? #获取拣货单信息
+        url_scanItemNo: http://192.168.1.249:14004/outbound/pick/pickToPack/scan? #扫描商品条码
+        url_pickConfirm: http://192.168.1.249:14004/outbound/pick/pickToPack/confirm? #pickToPack确认拣货
+        #包装
+        url_pick_pack_cell: http://192.168.1.249:14004/outbound/pack/pickpackcell/find? #取pick pack cell所有商品信息
+        url_shipment_position: http://192.168.1.249:14004/outbound/pack/shipment/getStockUnit? #根据订单获取商品
+        url_shipment_weight: http://192.168.1.249:14004/outbound/pack/shipment/weight? #称重
+        url_item_scanData: http://192.168.1.249:14004/outbound/pack/item/scanData? #扫描商品
+        url_item_confirm: http://192.168.1.249:14004/outbound/pack/item/confirm? #确认扫描商品
+        url_SN_scan: http://192.168.1.249:14004/outbound/pack/SN/scan? #扫描序列号
+        url_scanBox_finished: http://192.168.1.249:14004/outbound/pack/scanBox/finished? #扫描箱子，完成包装
+
+    parameter:
+        stowWorkStation: S011
+        stowLogicStation: SSTO001
+        userName: xiaofanyang
+        warehouse: DEFAULT
+        client: SYSTEM
+        time: 10000
+        amount: 9999999 #上架数量
+        eachStowAmount: 2 #单次上架数量
+        pickWorkStation: S012
+        pickLogicStation: SPTP002
+        packWorkStation: S52
+        packLogicStation: SPPV001
+
+
+
+
+

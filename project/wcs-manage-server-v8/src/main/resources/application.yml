@@ -1,0 +1,32 @@
+# SERVER PROFILES
+server:
+  port: 12004
+logging:
+  level:
+    root: INFO
+    com.mushiny.wcs: DEBUG
+  config: classpath:logback-spring.xml
+# SPRING PROFILES
+spring:
+  profiles.active: pro
+  #DATASOURCE
+  datasource:
+    #url: jdbc:mysql://localhost:3306/wms_v8_staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://192.168.1.249:3306/wms_project_manage?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+
+  # JPA
+  jpa:
+    database: MYSQL
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+    generate-ddl: false
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+  # JACKSON
+  jackson:
+    serialization.write-dates-as-timestamps: false
+    serialization.indent_output: true
