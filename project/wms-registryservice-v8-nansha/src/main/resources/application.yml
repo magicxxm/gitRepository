@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: wms-registryservice-v8
+
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: wms-registryservice-v8                           # 指定当profile=erukaservice1时，主机名是erukaservice1
+  client:
+   registerWithEureka: false
+   fetchRegistry: false
+   healthcheck:
+   enabled: true
+   serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: wms-gatewayservice-v8
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: wms-v8-configservice
+#      profile: test
+#      label: wms-v8-gatewayservice/src/main/resources
+
+server:
+  port: 8001
+management:
+  security:
+    enabled: false
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://10.133.105.101:8761/eureka

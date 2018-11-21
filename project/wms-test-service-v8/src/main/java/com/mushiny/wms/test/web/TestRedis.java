@@ -14,7 +14,7 @@ public class TestRedis {
         //连接redis服务器(在这里是连接本地的)
         jedis = new Jedis("127.0.0.1", 6379);
         //权限认证
-        jedis.auth("123456");
+        //jedis.auth("123456");
         System.out.println("连接服务成功");
     }
     /**
@@ -23,7 +23,7 @@ public class TestRedis {
     @org.junit.Test
     public void testString() {
         //添加数据
-        jedis.set("name", "jsk"); //key为name放入value值为chx
+        jedis.set("name", "小学生"); //key为name放入value值为chx
         System.out.println("name:" + jedis.get("name"));//读取key为name的值
     }
 }

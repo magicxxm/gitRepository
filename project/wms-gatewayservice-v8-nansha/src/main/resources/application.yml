@@ -1,0 +1,150 @@
+endpoints:
+  restart:
+    enabled: false
+  shutdown:
+    enabled: false
+  health:
+    sensitive: false
+
+ribbon:
+  eureka:
+    enabled: true
+  readTimeout: 20000
+  connectTimeout: 20000
+
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 20000
+  routes:
+#    wms-v8-andonservice:
+#      path: /andon-masters/**
+#      serviceId: wms-v8-andonservice
+#      stripPrefix: false
+#      sensitiveHeaders:
+    wms-authservice-v8:
+      path: /uaa/**
+      stripPrefix: false
+      serviceId: wms-authservice-v8
+      sensitiveHeaders:
+    wms-systemservice-v8:
+      path: /system/**
+      serviceId: wms-systemservice-v8
+      stripPrefix: false
+      sensitiveHeaders:
+  #  wms-v8-hardwareservice:
+   #   path: /andon-masters/**
+   #   serviceId: wms-v8-hardwareservice
+    #  stripPrefix: false
+    #  sensitiveHeaders:
+#    wms-v8-icqaservice:
+#      path: /icqa/**
+#      serviceId: wms-v8-icqaservice
+#      stripPrefix: false
+#      sensitiveHeaders:
+#    wms-v8-inboundservice:
+#      path: /inbound/**
+#      serviceId: wms-v8-inboundservice
+#      stripPrefix: false
+#      sensitiveHeaders:
+#    wms-v8-inboundproblemservice:
+#      path: /inboundproblem/**
+#      serviceId: wms-v8-inboundproblemservice
+#      stripPrefix: false
+#      sensitiveHeaders:
+#    wms-v8-internaltoolservice:
+#      path: /internal-tool/**
+#      serviceId: wms-v8-internaltoolservice
+#      stripPrefix: false
+#      sensitiveHeaders:
+#    wms-v8-masterdataservice:
+#      path: /masterdata/**
+#      serviceId: wms-v8-masterdataservice
+#      stripPrefix: false
+#      sensitiveHeaders:
+#    wms-v8-outboundservice:
+#      path: /outbound/**
+#      serviceId: wms-v8-outboundservice
+#      stripPrefix: false
+#      sensitiveHeaders:
+#    wms-v8-outboundproblemservice:
+#      path: /outboundproblem/**
+#      serviceId: wms-v8-outboundproblemservice
+#      stripPrefix: false
+#      sensitiveHeaders:
+#    wms-v8-reportservice:
+#      path: /report/**
+#      serviceId: wms-v8-reportservice
+#      stripPrefix: false
+#      sensitiveHeaders:
+
+#    wms-v8-totservice:
+#      path: /tot/**
+#      serviceId: wms-v8-totservice
+#      stripPrefix: false
+#      sensitiveHeaders:
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+spring:
+  application:
+    name: wms-gatewayservice-v8
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+  jackson:
+    serialization.write_dates_as_timestamps: false
+    serialization.indent_output: true
+
+server:
+  port: 8001
+  compression:
+    enabled: true
+    mime-types: text/html, text/xml, text/plain, text/css, application/javascript, application/json
+    min-response-size: 1024
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka
+
+management:
+  context-path: /admin
+
+# ===================================================================
+# Gateway specific properties
+# ===================================================================
+
+gateway:
+  async:
+    corePoolSize: 2
+    maxPoolSize: 50
+    queueCapacity: 10000
+  cache: # Hibernate 2nd level cache, used by CacheConfiguration
+    hazelcast:
+      timeToLiveSeconds: 3600
+      backupCount: 1
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET, PUT, POST, DELETE, OPTIONS
+    allowed-headers: "*"
+    exposed-headers:
+    allow-credentials: true
+    max-age: 1800
+  logging:
+    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+      enabled: false
+      host: localhost
+      port: 5000
+      queueSize: 512

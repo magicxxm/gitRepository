@@ -1,0 +1,105 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka
+spring:
+  application:
+    name: wms-authservice-v8
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: wms-v8-configservice
+#      profile: test
+#      label: wms-v8-authservice/src/main/resources
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: false
+  jackson:
+    serialization.write_dates_as_timestamps: false
+    serialization.indent_output: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://127.0.0.1:3308/wms_v8_staging?useUnicode=true&characterEncoding=utf8&useSSL=false
+    name:
+    username: root
+    password: 123456
+    hikari:
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    show-sql: true
+#    properties:
+#      hibernate.cache.use_second_level_cache: true
+#      hibernate.cache.use_query_cache: false
+#      hibernate.generate_statistics: true
+#      hibernate.cache.region.factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
+#      hibernate.cache.hazelcast.instance_name: wms
+#      hibernate.cache.use_minimal_puts: true
+#      hibernate.cache.hazelcast.use_lite_member: true
+  redis:
+    database: 1 # Redis数据库索引（默认为0）
+    host: 127.0.0.1 # Redis服务器地址
+    port: 16379 # Redis服务器连接端口
+    password: # Redis服务器连接密码（默认为空）
+    pool:
+      max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+      max-wait: -1 # 连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-idle: 8 # 连接池中的最大空闲连接
+      min-idle: 0 # 连接池中的最小空闲连接
+    timeout: 0 # 连接超时时间（毫秒）
+
+
+
+server:
+  context-path: /uaa
+  port: 9998
+
+management:
+  context-path: /admin
+
+# ===================================================================
+# Auth specific properties
+# ===================================================================
+
+auth:
+  async:
+    corePoolSize: 2
+    maxPoolSize: 50
+    queueCapacity: 10000
+  cache: # Hibernate 2nd level cache, used by CacheConfiguration
+    hazelcast:
+      timeToLiveSeconds: 3600
+      backupCount: 1
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET, PUT, POST, DELETE, OPTIONS
+    allowed-headers: "*"
+    exposed-headers:
+    allow-credentials: true
+    max-age: 1800
+  security:
+    client-authorization:
+      clientId: internal
+      clientSecret: internal
+  logging:
+    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+      enabled: false
+      host: localhost
+      port: 5000
+      queueSize: 512

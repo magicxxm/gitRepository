@@ -19,9 +19,12 @@ public class ThreadPoolTest {
     private static ThreadPoolExecutor threadPoolExecutor = null;
 
     static {
+        // 声明一个容量为5的缓存队列 不指定则最大存储容量将是Integer.MAX_VALUE
         workQueue = new LinkedBlockingQueue<Runnable>(5);
         threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveTime, TimeUnit.SECONDS,
                 workQueue);
+//        threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveTime, TimeUnit.SECONDS,
+//                workQueue,new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -29,6 +32,13 @@ public class ThreadPoolTest {
             for (int i = 0; i < 16; i++) {
                 System.out.println("第" + i + "次");
                 threadPoolExecutor.execute(new MyTask(i));
+             //   TimeUnit.MINUTES.sleep(1);
+//                threadPoolExecutor.execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                    }
+//                });
                 System.out.println("线程池中正在执行的线程数量：" + threadPoolExecutor.getPoolSize());
                 System.out.println("线程池缓存的任务队列数量：" + threadPoolExecutor.getQueue().size());
                 System.out.println("已执行完别的任务数目："+threadPoolExecutor.getCompletedTaskCount());

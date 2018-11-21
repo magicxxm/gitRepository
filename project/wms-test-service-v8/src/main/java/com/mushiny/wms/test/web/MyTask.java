@@ -19,5 +19,6 @@ public class MyTask implements Runnable{
             e.printStackTrace();
         }
         System.out.println("task "+taskNum+"执行完毕");
+        System.out.println("线程名称"+Thread.currentThread().getName());
     }
 }
