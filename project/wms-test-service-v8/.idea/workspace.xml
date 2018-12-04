@@ -87,7 +87,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../wms-midea-server-v8-nansha" />
+    <property name="last_opened_file_path" value="D:/mushiny-git/wms-ui" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -595,7 +595,7 @@
       <workItem from="1542618507352" duration="97000" />
       <workItem from="1542676124566" duration="5901000" />
       <workItem from="1542697225350" duration="1669000" />
-      <workItem from="1542763170397" duration="2699000" />
+      <workItem from="1542763170397" duration="2876000" />
     </task>
     <servers />
   </component>
@@ -620,7 +620,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10366000" />
+    <option name="totallyTimeSpent" value="10543000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1612" height="867" extended-state="0" />
