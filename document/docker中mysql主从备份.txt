@@ -1,0 +1,54 @@
+﻿在docker+mysql5.6.34测试通过
+
+首先 docker pull mysql:5.6.34
+
+然后启动一个实例
+
+sudo docker cp c3f9fbe268a2:/etc/mysql/my.cnf my.cnf
+把文件拷出
+
+1、首先创建两个文件my-m.cnf（主库配置） 、my-s.cnf（从库配置） 
+my-m.cnf 内容如下
+# Copyright (c) 2014, Oracle and/or its affiliates. All rights reserved. # # This program is free software; you can redistribute it and/or modify # it under the terms of the GNU General Public License as published by # the Free Software Foundation; version 2 of the License. # # This program is distributed in the hope that it will be useful, # but WITHOUT ANY WARRANTY; without even the implied warranty of # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the # GNU General Public License for more details. # # You should have received a copy of the GNU General Public License # along with this program; if not, write to the Free Software # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA # # The MySQL Community Server configuration file. # # For explanations see # http://dev.mysql.com/doc/mysql/en/server-system-variables.html [client] port = 3306 socket = /var/run/mysqld/mysqld.sock [mysqld_safe] pid-file = /var/run/mysqld/mysqld.pid socket = /var/run/mysqld/mysqld.sock nice = 0 [mysqld] user = mysql pid-file = /var/run/mysqld/mysqld.pid socket = /var/run/mysqld/mysqld.sock port = 3306 basedir = /usr datadir = /var/lib/mysql tmpdir = /tmp lc-messages-dir = /usr/share/mysql explicit_defaults_for_timestamp log-bin = mysql-bin server-id = 1 # Instead of skip-networking the default is now to listen only on # localhost which is more compatible and is not less secure. #bind-address = 127.0.0.1 #log-error = /var/log/mysql/error.log # Recommended in standard MySQL setup sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES # Disabling symbolic-links is recommended to prevent assorted security risks symbolic-links=0 # * IMPORTANT: Additional settings that can override those from this file! # The files must end with '.cnf', otherwise they'll be ignored. # !includedir /etc/mysql/conf.d/ 
+
+主要是这两行，只需要在原来的配置里面加上就行
+log-bin = mysql-bin server-id = 1 
+
+my-s.cnf 内容如下
+# Copyright (c) 2014, Oracle and/or its affiliates. All rights reserved. # # This program is free software; you can redistribute it and/or modify # it under the terms of the GNU General Public License as published by # the Free Software Foundation; version 2 of the License. # # This program is distributed in the hope that it will be useful, # but WITHOUT ANY WARRANTY; without even the implied warranty of # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the # GNU General Public License for more details. # # You should have received a copy of the GNU General Public License # along with this program; if not, write to the Free Software # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA # # The MySQL Community Server configuration file. # # For explanations see # http://dev.mysql.com/doc/mysql/en/server-system-variables.html [client] port = 3306 socket = /var/run/mysqld/mysqld.sock [mysqld_safe] pid-file = /var/run/mysqld/mysqld.pid socket = /var/run/mysqld/mysqld.sock nice = 0 [mysqld] user = mysql pid-file = /var/run/mysqld/mysqld.pid socket = /var/run/mysqld/mysqld.sock port = 3306 basedir = /usr datadir = /var/lib/mysql tmpdir = /tmp lc-messages-dir = /usr/share/mysql explicit_defaults_for_timestamp log-bin = mysql-bin server-id = 2 # Instead of skip-networking the default is now to listen only on # localhost which is more compatible and is not less secure. #bind-address = 127.0.0.1 #log-error = /var/log/mysql/error.log # Recommended in standard MySQL setup sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES # Disabling symbolic-links is recommended to prevent assorted security risks symbolic-links=0 # * IMPORTANT: Additional settings that can override those from this file! # The files must end with '.cnf', otherwise they'll be ignored. # !includedir /etc/mysql/conf.d/ 
+
+同样，主要的是这两行
+log-bin = mysql-bin server-id = 2
+
+
+2、OK，有了配置文件，就可以启动mysql了，先启动主库
+$ sudo docker run -d -e MYSQL_ROOT_PASSWORD=admin --name mysql-master -v /home/lisi/mysql/my-m.cnf:/etc/mysql/my.cnf -p 3307:3306 mysql:5.6.34
+
+3、启动从库
+$sudo docker run -d -e MYSQL_ROOT_PASSWORD=admin --name mysql-slave -v /home/lisi/mysql/my-s.cnf:/etc/mysql/my.cnf -p 3308:3306 mysql:5.6.34
+
+以下操作可以直接通过SQLYOG连上Mysql后操作
+
+4、连接主库，并运行以下命令，创建一个用户用来同步数据
+$ GRANT REPLICATION SLAVE ON *.* to 'backup'@'%' identified by '123456';
+
+5、查看主库状态
+$ show master status;
+
+记住File、Position的值，如果没查到数据，请检查第一、第二步，配置问题。 
+我查出来的是mysql-bin.000004、312
+6、连接到从库，运行以下命令，设置主库链接
+$ change master to master_host='121.32.32.54',master_user='backup',master_password='123456', master_log_file='mysql-bin.000004',master_log_pos=312,master_port=3307;
+
+
+7、启动同步
+$ start slave;
+
+8、查看同步状态
+$ show slave status
+
+如果看到Waiting for master send event.. 什么的就成功了，你现在在主库上的修改，都会同步到从库上
+
+stop slave 停止slave
+
+同理可以配置多个slave 注意 如果新建的slave最好是在数据库没有操作的时候进行，然后把master_log_pos=312的值改成初始化的那个，新建的slave库就会把主库都同步过来
