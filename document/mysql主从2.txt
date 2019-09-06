@@ -1,0 +1,62 @@
+准备两台服务器
+192.168.1.201 主       3306
+192.168.1.202 从    端口3307
+
+mysql :5.6.34 版本
+
+1.安装主的mysql
+2.启动一个实例
+sudo docker run -idt --restart=always --name mysql3306 -p 3306:3306 -v /home/mushiny/docker/mysql3306:/var/lib/mysql  -e MYSQL\_ROOT\_PASSWORD=123456 -d mysql:5.6.34 --max-connections=1000 --wait-timeout=100
+3.拷贝出该文件 
+   sudo docker cp 9e8a3e8b1c60:/etc/mysql/my.cnf /home/mushiny/docker/mysql3306/my.cnf
+4.在该文件下加上
+  server-id = 1 
+  log_bin = mysql-bin
+  备注：server-id 服务器唯一标识，log_bin 启动MySQL二进制日志
+5.重新启动mysql主
+   sudo docker run -idt --restart=always --name mysql3306 -p 3306:3306 -v /home/mushiny/docker/mysql3306:/var/lib/mysql -v /home/mushiny/docker/my.cnf:/etc/mysql/my.cnf -e MYSQL\_ROOT\_PASSWORD=123456 -d mysql:5.6.34 --max-connections=1000 --wait-timeout=100
+
+从服务器
+6.安装从的mysql
+7.启动从的实例
+sudo docker run -idt --restart=always --name mysql3307 -p 3307:3306 -v /home/mushiny/docker/mysql3307:/var/lib/mysql  -e MYSQL\_ROOT\_PASSWORD=123456 -d mysql:5.6.34 --max-connections=1000 --wait-timeout=100
+8.拷贝出该文件 
+   sudo docker cp 9e8a3e8b1c60:/etc/mysql/my.cnf /home/mushiny/docker/mysql3307/my.cnf
+9.在该文件下加上
+  server-id = 2 
+  log_bin = mysql-bin
+  备注：server-id 服务器唯一标识，log_bin 启动MySQL二进制日志
+10.重新启动mysql主
+   sudo docker run -idt --restart=always --name mysql3307 -p 3307:3306 -v /home/mushiny/docker/mysql3307:/var/lib/mysql -v /home/mushiny/docker/my.cnf:/etc/mysql/my.cnf -e MYSQL\_ROOT\_PASSWORD=123456 -d mysql:5.6.34 --max-connections=1000 --wait-timeout=100
+
+
+11.登录主服务器MySQL创建从服务器用到的账户和权限：
+  docker exec -it mysql容器id  /bin/bash
+  登录mysql  :  mysql -h192.168.1.201 -P3306 -uroot -p123456
+
+  grant replication slave on *.* to 'root' @'192.168.1.240'   identified by '123456';
+
+
+
+12.show master status; 查看主服务器的状态（记住里面的 mysql-bin 和 file）
+  
+13.登录从服务器mysql 
+  change master to master_host='192.168.1.201',master_port=3307,master_user='root',master_password='123456',master_log_file='mysql-bin.000027',master_log_pos=193046334
+ 备注：master_host对应主服务器的IP地址，master_port对应主服务器的端口，master_log_file对应show master status显示的File列：
+ master-bin.000031，master_log_pos对应Position列：2403，否则有可能出现同步失败。
+
+14.启动Slave数据同步。start slave;
+15.登录MySQL状态下，查看Slave信息：show slave status\G;
+16.备注：Slave_IO_Running和Slave_SQL_Running都为yes才表示同步成功
+
+如果关机或者断电导致主从异常执行下面操作（从服务器）前提主服务器数据库停止写，更新
+
+第一步
+STOP SLAVE;
+
+第二步
+SET GLOBAL SQL_SLAVE_SKIP_COUNTER=1; 
+
+第三步
+START SLAVE;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
